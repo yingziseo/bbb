@@ -11,6 +11,6 @@ const layoutName = computed(() => {
 
 <template>
   <NuxtLayout :name="layoutName">
-    <NuxtPage />
+    <NuxtPage :transition="{ name: 'page', mode: 'out-in' }" />
   </NuxtLayout>
 </template>

@@ -380,7 +380,7 @@
 
 提交：
 
-- commit: `未提交`
+- commit: `cf0565d`
 
 ## 2026-06-30 - 修复首页询盘 CTA 对齐和悬浮联系折叠
 
@@ -506,6 +506,46 @@
 提交：
 
 - commit: `未提交`
+
+## 2026-06-30 - 重做前台导航交互和全局进入动效
+
+背景：
+
+- 前台导航 hover、active 和移动端展开缺少明确交互反馈。
+- 品牌文字在不同屏幕下需要更合理的显示方式，避免挤压导航和按钮。
+- 前台页面缺少进入和渐进式加载效果。
+
+改动：
+
+- 重做前台导航品牌区，桌面显示完整 `YIYUAN NEW MATERIALS` 和副标题，手机显示 `YIYUAN` 与短副标题。
+- 桌面导航新增 hover 底色、位移、下划线动画和 active 状态。
+- `Products` 导航新增紧凑型产品分类下拉。
+- 移动端菜单按钮支持打开/关闭状态切换，菜单增加 slide/fade 过渡。
+- 新增 Nuxt 页面切换动画。
+- 新增前台视口渐显 client 插件，自动处理 section/card 进入视口效果，并排除后台路由。
+- 全局按钮增加轻量 hover 反馈，并支持 `prefers-reduced-motion`。
+
+涉及文件：
+
+- `app/components/SiteHeader.vue`
+- `app/app.vue`
+- `app/assets/css/main.css`
+- `app/plugins/reveal.client.ts`
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- `pnpm build` 通过。
+- 已重启公网 3005 服务。
+- `http://43.134.105.149:3005/` 返回 200。
+- `http://43.134.105.149:3005/products` 返回 200。
+- `http://43.134.105.149:3005/admin` 未登录时返回 302 到登录页。
+- 首页 SSR 输出包含 `site-brand`、`site-nav-link`、`site-nav-dropdown`、`site-mobile-toggle`、`YIYUAN NEW MATERIALS`、`Export Factory`。
+- 当前环境没有 Chromium/Playwright，未做浏览器截图验证。
+
+提交：
+
+- commit: `99b9ddb`
 
 ## 记录模板
 
