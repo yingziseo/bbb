@@ -36,16 +36,20 @@ const rules: FormRules = {
 }
 
 const submit = async (el?: FormInstance) => {
-  if (!el) return
-  await el.validate((valid) => {
-    if (!valid) return
-    submitting.value = true
-    setTimeout(() => {
-      submitting.value = false
-      ElMessage.success('Inquiry received.')
-      el.resetFields()
-    }, 700)
-  })
+  if (!el || submitting.value) return
+
+  try {
+    await el.validate()
+  } catch {
+    return
+  }
+
+  submitting.value = true
+  setTimeout(() => {
+    submitting.value = false
+    ElMessage.success('Inquiry received.')
+    el.resetFields()
+  }, 700)
 }
 </script>
 
@@ -92,10 +96,10 @@ const submit = async (el?: FormInstance) => {
     </el-form-item>
 
     <div class="flex flex-wrap gap-3 pt-1">
-      <el-button color="#c1121f" size="large" :loading="submitting" @click="submit(formRef)">
+      <el-button color="#c1121f" size="large" native-type="button" :loading="submitting" @click="submit(formRef)">
         Send Inquiry
       </el-button>
-      <el-button size="large" plain @click="formRef?.resetFields()">Reset</el-button>
+      <el-button size="large" native-type="button" plain @click="formRef?.resetFields()">Reset</el-button>
     </div>
   </el-form>
 </template>
