@@ -58,7 +58,9 @@ const year = new Date().getFullYear()
         <div class="grid gap-10 lg:grid-cols-[1.2fr_0.85fr_0.85fr_1fr]">
           <div class="border-r border-white/10 pr-8">
             <div class="flex items-center gap-3 mb-4">
-              <span class="flex h-9 w-9 items-center justify-center bg-white text-[var(--color-navy)] font-extrabold text-lg">Y</span>
+              <span class="flex h-9 w-9 items-center justify-center border border-white/12 bg-white p-1">
+                <img :src="company.logoPath || '/site-logo.png'" :alt="company.displayName" class="h-full w-full object-contain" />
+              </span>
               <div class="min-w-0">
                 <div class="font-extrabold text-[18px] text-white">{{ company.displayName }}</div>
                 <div class="mt-1 text-[11px] uppercase tracking-[0.14em] text-white/46">{{ company.tagline }}</div>
@@ -109,7 +111,9 @@ const year = new Date().getFullYear()
     <div class="md:hidden">
       <div class="container-x py-8">
         <div class="border border-white/10 px-5 py-6 text-center">
-          <div class="mx-auto mb-4 flex h-10 w-10 items-center justify-center bg-white text-[var(--color-navy)] font-extrabold text-lg">Y</div>
+          <div class="mx-auto mb-4 flex h-10 w-10 items-center justify-center border border-white/12 bg-white p-1">
+            <img :src="company.logoPath || '/site-logo.png'" :alt="company.displayName" class="h-full w-full object-contain" />
+          </div>
           <div class="text-[17px] font-extrabold text-white">{{ company.displayName }}</div>
           <div class="mt-1 text-[11px] uppercase tracking-[0.12em] text-white/46">{{ company.tagline }}</div>
           <div class="mt-4 space-y-1.5 text-[13px] text-white/62">

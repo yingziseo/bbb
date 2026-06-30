@@ -31,6 +31,29 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+* {
+  scrollbar-color: rgba(15, 42, 74, 0.34) transparent;
+  scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background-color: rgba(15, 42, 74, 0.3);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(15, 42, 74, 0.48);
+}
+
 /* Industrial / squared-off Element Plus overrides */
 :root {
   --el-color-primary: #0f2a4a;

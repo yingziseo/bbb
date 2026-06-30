@@ -52,7 +52,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <header class="site-header sticky top-0 z-50 bg-white" :class="{ 'site-header--scrolled': isScrolled }">
+  <header class="site-header bg-white" :class="{ 'site-header--scrolled': isScrolled }">
     <!-- Top utility bar -->
     <div class="site-header__utility bg-[var(--color-navy-dark)] text-white text-[13px]">
       <div class="container-x flex justify-end py-2">
@@ -72,148 +72,154 @@ onBeforeUnmount(() => {
 
     <InfoMarquee :items="headerMarqueeItems" direction="ltr" tone="dark" />
 
-    <!-- Main nav -->
-    <div class="site-header__main border-b border-[var(--color-line)]">
-      <div class="container-x flex h-[68px] items-center justify-between gap-4">
-        <NuxtLink to="/" class="site-brand group">
-          <span class="site-brand__mark">
-            <img :src="company.logoPath || '/site-logo.png'" :alt="company.displayName" class="site-brand__logo" />
-          </span>
-          <span class="site-brand__copy">
-            <span class="site-brand__name site-brand__name--full">{{ company.displayName }}</span>
-            <span class="site-brand__name site-brand__name--short">YIYUAN</span>
-            <span class="site-brand__tagline site-brand__tagline--full">{{ company.tagline }}</span>
-            <span class="site-brand__tagline site-brand__tagline--short">Export Factory</span>
-          </span>
-        </NuxtLink>
+    <div class="site-header__sticky">
+      <!-- Main nav -->
+      <div class="site-header__main border-b border-[var(--color-line)]">
+        <div class="container-x flex h-[68px] items-center justify-between gap-4">
+          <NuxtLink to="/" class="site-brand group">
+            <span class="site-brand__mark">
+              <img :src="company.logoPath || '/site-logo.png'" :alt="company.displayName" class="site-brand__logo" />
+            </span>
+            <span class="site-brand__copy">
+              <span class="site-brand__name site-brand__name--full">{{ company.displayName }}</span>
+              <span class="site-brand__name site-brand__name--short">YIYUAN</span>
+              <span class="site-brand__tagline site-brand__tagline--full">{{ company.tagline }}</span>
+              <span class="site-brand__tagline site-brand__tagline--short">Export Factory</span>
+            </span>
+          </NuxtLink>
 
-        <nav class="hidden min-w-0 flex-1 items-center justify-center gap-1 lg:flex" aria-label="Primary navigation">
-          <div
-            v-for="item in nav"
-            :key="item.to"
-            class="site-nav-node"
-            :class="{ 'site-nav-node--products': item.to === '/products' }"
+          <nav class="hidden min-w-0 flex-1 items-center justify-center gap-1 lg:flex" aria-label="Primary navigation">
+            <div
+              v-for="item in nav"
+              :key="item.to"
+              class="site-nav-node"
+              :class="{ 'site-nav-node--products': item.to === '/products' }"
+            >
+              <NuxtLink
+                :to="item.to"
+                class="site-nav-link"
+                :class="{ 'is-active': isActive(item.to) }"
+              >
+                <span>{{ item.label }}</span>
+                <el-icon v-if="item.to === '/products' && productCategories.length" class="site-nav-link__icon" :size="12">
+                  <ArrowDown />
+                </el-icon>
+              </NuxtLink>
+
+              <div
+                v-if="item.to === '/products' && productCategories.length"
+                class="site-nav-dropdown"
+                aria-label="Product categories"
+              >
+                <NuxtLink
+                  v-for="category in productCategories"
+                  :key="category.slug"
+                  :to="`/products?category=${category.slug}`"
+                  class="site-nav-dropdown__item"
+                >
+                  <span class="site-nav-dropdown__name">{{ category.name }}</span>
+                  <span class="site-nav-dropdown__meta">{{ category.productCount }} products</span>
+                </NuxtLink>
+              </div>
+            </div>
+          </nav>
+
+          <div class="hidden lg:flex items-center gap-3">
+            <LanguageSwitcher />
+            <el-button
+              tag="a"
+              :href="company.whatsappLink"
+              target="_blank"
+              color="#1b3c63"
+              >WhatsApp</el-button
+            >
+            <NuxtLink to="/contact">
+              <el-button color="#c1121f">Get a Quote</el-button>
+            </NuxtLink>
+          </div>
+
+          <button
+            class="site-mobile-toggle lg:hidden"
+            :aria-label="mobileOpen ? 'Close menu' : 'Open menu'"
+            :aria-expanded="mobileOpen"
+            @click="mobileOpen = !mobileOpen"
           >
+            <el-icon :size="20">
+              <Close v-if="mobileOpen" />
+              <MenuIcon v-else />
+            </el-icon>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile menu -->
+      <Transition name="mobile-nav-panel">
+        <div v-if="mobileOpen" class="site-mobile-menu lg:hidden">
+          <div class="container-x flex flex-col py-3">
             <NuxtLink
+              v-for="item in nav"
+              :key="item.to"
               :to="item.to"
-              class="site-nav-link"
+              class="site-mobile-link"
               :class="{ 'is-active': isActive(item.to) }"
             >
               <span>{{ item.label }}</span>
-              <el-icon v-if="item.to === '/products' && productCategories.length" class="site-nav-link__icon" :size="12">
-                <ArrowDown />
-              </el-icon>
+              <span class="site-mobile-link__line" />
             </NuxtLink>
 
-            <div
-              v-if="item.to === '/products' && productCategories.length"
-              class="site-nav-dropdown"
-              aria-label="Product categories"
-            >
+            <div v-if="productCategories.length" class="site-mobile-categories">
               <NuxtLink
                 v-for="category in productCategories"
                 :key="category.slug"
                 :to="`/products?category=${category.slug}`"
-                class="site-nav-dropdown__item"
+                class="site-mobile-category"
               >
-                <span class="site-nav-dropdown__name">{{ category.name }}</span>
-                <span class="site-nav-dropdown__meta">{{ category.productCount }} products</span>
+                {{ category.name }}
+              </NuxtLink>
+            </div>
+
+            <div class="flex items-center justify-between border-b border-[var(--color-line)] py-3">
+              <span class="text-[12px] font-semibold uppercase tracking-[0.12em] text-[var(--color-slate-muted)]">Language</span>
+              <LanguageSwitcher />
+            </div>
+            <div class="grid grid-cols-2 gap-3 pt-4">
+              <el-button tag="a" :href="company.whatsappLink" target="_blank" color="#1b3c63" class="w-full">WhatsApp</el-button>
+              <NuxtLink to="/contact">
+                <el-button color="#c1121f" class="w-full">Get a Quote</el-button>
               </NuxtLink>
             </div>
           </div>
-        </nav>
-
-        <div class="hidden lg:flex items-center gap-3">
-          <LanguageSwitcher />
-          <el-button
-            tag="a"
-            :href="company.whatsappLink"
-            target="_blank"
-            color="#1b3c63"
-            >WhatsApp</el-button
-          >
-          <NuxtLink to="/contact">
-            <el-button color="#c1121f">Get a Quote</el-button>
-          </NuxtLink>
         </div>
-
-        <button
-          class="site-mobile-toggle lg:hidden"
-          :aria-label="mobileOpen ? 'Close menu' : 'Open menu'"
-          :aria-expanded="mobileOpen"
-          @click="mobileOpen = !mobileOpen"
-        >
-          <el-icon :size="20">
-            <Close v-if="mobileOpen" />
-            <MenuIcon v-else />
-          </el-icon>
-        </button>
-      </div>
+      </Transition>
     </div>
-
-    <!-- Mobile menu -->
-    <Transition name="mobile-nav-panel">
-      <div v-if="mobileOpen" class="site-mobile-menu lg:hidden">
-        <div class="container-x flex flex-col py-3">
-          <NuxtLink
-            v-for="item in nav"
-            :key="item.to"
-            :to="item.to"
-            class="site-mobile-link"
-            :class="{ 'is-active': isActive(item.to) }"
-          >
-            <span>{{ item.label }}</span>
-            <span class="site-mobile-link__line" />
-          </NuxtLink>
-
-          <div v-if="productCategories.length" class="site-mobile-categories">
-            <NuxtLink
-              v-for="category in productCategories"
-              :key="category.slug"
-              :to="`/products?category=${category.slug}`"
-              class="site-mobile-category"
-            >
-              {{ category.name }}
-            </NuxtLink>
-          </div>
-
-          <div class="flex items-center justify-between border-b border-[var(--color-line)] py-3">
-            <span class="text-[12px] font-semibold uppercase tracking-[0.12em] text-[var(--color-slate-muted)]">Language</span>
-            <LanguageSwitcher />
-          </div>
-          <div class="grid grid-cols-2 gap-3 pt-4">
-            <el-button tag="a" :href="company.whatsappLink" target="_blank" color="#1b3c63" class="w-full">WhatsApp</el-button>
-            <NuxtLink to="/contact">
-              <el-button color="#c1121f" class="w-full">Get a Quote</el-button>
-            </NuxtLink>
-          </div>
-        </div>
-      </div>
-    </Transition>
   </header>
 </template>
 
 <style>
 .site-header {
+  background: #fff;
+}
+
+.site-header__sticky {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.96);
   transition:
     box-shadow 220ms ease,
     background-color 220ms ease,
     backdrop-filter 220ms ease;
 }
 
-.site-header--scrolled {
-  background: rgba(255, 255, 255, 0.94);
-  box-shadow: 0 10px 30px rgba(15, 42, 74, 0.11);
+.site-header--scrolled .site-header__sticky {
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 10px 28px rgba(15, 42, 74, 0.1);
   backdrop-filter: blur(12px);
 }
 
 .site-header__main {
-  background: rgba(255, 255, 255, 0.96);
+  background: transparent;
   transition: background-color 220ms ease;
-}
-
-.site-header--scrolled .site-header__main {
-  background: rgba(255, 255, 255, 0.92);
 }
 
 .site-brand {

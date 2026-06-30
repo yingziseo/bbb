@@ -635,6 +635,41 @@
 
 - commit: `未提交`
 
+## 2026-06-30 - 修复导航吸顶范围、全局滚动条和底部 Logo
+
+背景：
+
+- 页面下滑时不应让顶部工具栏和滚动信息条一起固定，只需要主导航置顶悬浮。
+- 网站底部仍显示旧的 `Y` 标识，没有使用全局 Logo。
+- 默认滚动条视觉过重，需要改成更极简、极窄的样式。
+
+改动：
+
+- 将 `SiteHeader` 的吸顶范围从整个 header 调整为主导航和移动端菜单区域。
+- 顶部工具栏和信息滚动条恢复为普通文档流，下滑后会自然离开视口。
+- 底部桌面端和移动端品牌标识统一读取 `company.logoPath`，默认回退 `/site-logo.png`。
+- 全局 CSS 增加窄滚动条样式，Firefox 和 WebKit 浏览器均覆盖。
+
+涉及文件：
+
+- `app/components/SiteHeader.vue`
+- `app/components/SiteFooter.vue`
+- `app/assets/css/main.css`
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- `pnpm build` 通过。
+- 已重启公网 3005 服务。
+- `http://43.134.105.149:3005/` 返回 200。
+- `http://43.134.105.149:3005/site-logo.png` 返回 200，Content-Type 为 `image/png`。
+- `http://43.134.105.149:3005/favicon.ico` 返回 200，Content-Type 为 `image/vnd.microsoft.icon`。
+- 首页 SSR 输出包含 `/site-logo.png`、`favicon.ico`、`site-header__sticky`、`site-header__utility` 和 `info-marquee`。
+
+提交：
+
+- commit: `未提交`
+
 ## 记录模板
 
 ```markdown
