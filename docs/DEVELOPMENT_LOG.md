@@ -505,7 +505,7 @@
 
 提交：
 
-- commit: `未提交`
+- commit: `cf0565d`
 
 ## 2026-06-30 - 重做前台导航交互和全局进入动效
 
@@ -546,6 +546,47 @@
 提交：
 
 - commit: `9e26c1a`
+
+## 2026-06-30 - 修复前台导航和联系页对齐回归
+
+背景：
+
+- 全局视口渐显插件会让前台内容先变透明，浏览器未触发时导致页面内容不可见。
+- 桌面端不应显示手机端菜单按钮。
+- Logo hover 不需要变色。
+- 联系页 `Quick Contact` 模块两个按钮受 Element Plus 默认按钮间距影响，出现不对齐。
+
+改动：
+
+- 移除 Nuxt 页面 transition 和 `reveal.client.ts`，正文内容恢复直接显示。
+- 删除 `.reveal-item`、页面 transition 相关全局 CSS。
+- 桌面断点下强制隐藏 `.site-mobile-toggle`。
+- 移除 Logo hover 变色、上浮和阴影。
+- 导航 active 状态改为明确深蓝底白字，hover 保持浅底和红色下划线。
+- 联系页 `Quick Contact` 按钮改为 `grid gap` 布局，并清除按钮默认左边距，允许 WhatsApp 长文本自动高度居中。
+
+涉及文件：
+
+- `app/components/SiteHeader.vue`
+- `app/pages/contact.vue`
+- `app/app.vue`
+- `app/assets/css/main.css`
+- `app/plugins/reveal.client.ts`
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- `pnpm build` 通过。
+- 已重启公网 3005 服务。
+- `http://43.134.105.149:3005/` 返回 200。
+- `http://43.134.105.149:3005/products` 返回 200。
+- `http://43.134.105.149:3005/contact` 返回 200。
+- 联系页 SSR 输出包含 `Quick Contact`、`WhatsApp +86 131 0382 3508`、`Send Email` 和按钮修正类。
+- 首页 SSR 输出不再包含 `reveal-item` 或 `page-enter`。
+
+提交：
+
+- commit: `未提交`
 
 ## 记录模板
 

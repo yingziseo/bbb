@@ -42,12 +42,30 @@ const defaultProduct = computed(() => (route.query.product as string) || '')
           <div class="bg-[var(--color-navy)] p-6 text-white">
             <h3 class="text-[17px] font-bold">Quick Contact</h3>
             <p class="mt-2 text-[13.5px] text-white/75 leading-relaxed">Use WhatsApp for fast contact, or email detailed specifications and order requirements.</p>
-            <el-button tag="a" :href="company.whatsappLink" target="_blank" color="#c1121f" size="large" class="mt-4 w-full">
-              WhatsApp {{ company.phone }}
-            </el-button>
-            <el-button tag="a" :href="company.contactLink" plain size="large" class="mt-3 w-full !border-white/20 !bg-transparent !text-white hover:!bg-white/6">
-              <el-icon class="mr-1"><Message /></el-icon>Send Email
-            </el-button>
+            <div class="mt-5 grid gap-3">
+              <el-button
+                tag="a"
+                :href="company.whatsappLink"
+                target="_blank"
+                color="#c1121f"
+                size="large"
+                class="!ml-0 !h-auto !min-h-12 !w-full !whitespace-normal !px-4 !py-3"
+              >
+                <span class="text-center leading-snug">WhatsApp {{ company.phone }}</span>
+              </el-button>
+              <el-button
+                tag="a"
+                :href="company.contactLink"
+                plain
+                size="large"
+                class="!ml-0 !h-auto !min-h-12 !w-full !border-white/20 !bg-transparent !px-4 !py-3 !text-white hover:!bg-white/6"
+              >
+                <span class="inline-flex items-center justify-center gap-1.5">
+                  <el-icon><Message /></el-icon>
+                  <span>Send Email</span>
+                </span>
+              </el-button>
+            </div>
           </div>
 
           <ul class="divide-y divide-[var(--color-line)] border border-[var(--color-line)]">
