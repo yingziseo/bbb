@@ -316,14 +316,16 @@ const featured = products.slice(0, 4)
           </div>
         </div>
 
-        <div class="border border-white/10 bg-white/4 p-8">
-          <div class="text-[12px] font-bold uppercase tracking-[0.14em] text-white/60">Get a Quote</div>
-          <h3 class="mt-4 text-[28px] font-extrabold leading-tight">OEM and export orders</h3>
-          <p class="mt-4 text-[15px] leading-relaxed text-white/74">
-            For fast handling, send product name, size, quantity, and custom requirements.
-          </p>
-          <div class="mt-8 flex flex-col gap-3">
-            <NuxtLink to="/contact">
+        <div class="flex h-full flex-col border border-white/10 bg-white/4 p-8">
+          <div class="min-h-[156px]">
+            <div class="text-[12px] font-bold uppercase tracking-[0.14em] text-white/60">Get a Quote</div>
+            <h3 class="mt-4 max-w-[12ch] text-[28px] font-extrabold leading-tight">OEM and export orders</h3>
+            <p class="mt-4 max-w-[34ch] text-[15px] leading-relaxed text-white/74">
+              For fast handling, send product name, size, quantity, and custom requirements.
+            </p>
+          </div>
+          <div class="mt-8 grid gap-3">
+            <NuxtLink to="/contact" class="block w-full">
               <el-button color="#c1121f" size="large" class="w-full">Open Inquiry Form</el-button>
             </NuxtLink>
             <el-button tag="a" :href="company.whatsappLink" target="_blank" size="large" color="#1b3c63" class="w-full">
