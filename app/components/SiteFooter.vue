@@ -57,19 +57,31 @@ const year = new Date().getFullYear()
       <div class="container-x py-12">
         <div class="grid gap-10 lg:grid-cols-[1.2fr_0.85fr_0.85fr_1fr]">
           <div class="border-r border-white/10 pr-8">
-            <div class="flex items-center gap-3 mb-4">
-              <span class="flex h-9 w-9 items-center justify-center border border-white/12 bg-white p-1">
-                <img :src="company.logoPath || '/site-logo.png'" :alt="company.displayName" class="h-full w-full object-contain" />
-              </span>
-              <div class="min-w-0">
-                <div class="font-extrabold text-[18px] text-white">{{ company.displayName }}</div>
-                <div class="mt-1 text-[11px] uppercase tracking-[0.14em] text-white/46">{{ company.tagline }}</div>
+            <div class="site-footer-brand">
+              <div class="site-footer-brand__identity">
+                <span class="site-footer-logo site-footer-logo--desktop">
+                  <img :src="company.logoPath || '/site-logo.png'" :alt="company.displayName" class="site-footer-logo__image" />
+                </span>
+                <div class="min-w-0">
+                  <div class="site-footer-brand__name">{{ company.displayName }}</div>
+                  <div class="site-footer-brand__legal">{{ company.name }}</div>
+                </div>
               </div>
-            </div>
-            <div class="space-y-2 text-[14px] text-white/64">
-              <div>{{ company.location }}</div>
-              <div>Founded {{ company.founded }}</div>
-              <div>{{ company.registeredCapital }}</div>
+              <div class="site-footer-brand__tagline">{{ company.tagline }}</div>
+              <div class="site-footer-brand__facts">
+                <div class="site-footer-brand__fact">
+                  <span>Location</span>
+                  <strong>{{ company.location }}</strong>
+                </div>
+                <div class="site-footer-brand__fact">
+                  <span>Founded</span>
+                  <strong>{{ company.founded }}</strong>
+                </div>
+                <div class="site-footer-brand__fact">
+                  <span>Capital</span>
+                  <strong>{{ company.registeredCapital }}</strong>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -110,16 +122,29 @@ const year = new Date().getFullYear()
 
     <div class="md:hidden">
       <div class="container-x py-8">
-        <div class="border border-white/10 px-5 py-6 text-center">
-          <div class="mx-auto mb-4 flex h-10 w-10 items-center justify-center border border-white/12 bg-white p-1">
-            <img :src="company.logoPath || '/site-logo.png'" :alt="company.displayName" class="h-full w-full object-contain" />
+        <div class="site-footer-mobile-brand border border-white/10 px-5 py-6">
+          <div class="flex items-center justify-center gap-3">
+            <div class="site-footer-logo site-footer-logo--mobile">
+              <img :src="company.logoPath || '/site-logo.png'" :alt="company.displayName" class="site-footer-logo__image" />
+            </div>
+            <div class="min-w-0 text-left">
+              <div class="site-footer-mobile-brand__name">{{ company.displayName }}</div>
+              <div class="site-footer-mobile-brand__tagline">{{ company.tagline }}</div>
+            </div>
           </div>
-          <div class="text-[17px] font-extrabold text-white">{{ company.displayName }}</div>
-          <div class="mt-1 text-[11px] uppercase tracking-[0.12em] text-white/46">{{ company.tagline }}</div>
-          <div class="mt-4 space-y-1.5 text-[13px] text-white/62">
-            <div>{{ company.location }}</div>
-            <div>Founded {{ company.founded }}</div>
-            <div>{{ company.registeredCapital }}</div>
+          <div class="site-footer-mobile-brand__facts">
+            <div>
+              <span>Location</span>
+              <strong>{{ company.location }}</strong>
+            </div>
+            <div>
+              <span>Founded</span>
+              <strong>{{ company.founded }}</strong>
+            </div>
+            <div>
+              <span>Capital</span>
+              <strong>{{ company.registeredCapital }}</strong>
+            </div>
           </div>
         </div>
 
@@ -214,3 +239,154 @@ const year = new Date().getFullYear()
     </div>
   </footer>
 </template>
+
+<style>
+.site-footer-logo {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+  background: #fff;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+.site-footer-logo--desktop {
+  height: 52px;
+  width: 52px;
+}
+
+.site-footer-logo--mobile {
+  height: 50px;
+  width: 50px;
+}
+
+.site-footer-logo__image {
+  height: 108%;
+  width: 108%;
+  object-fit: contain;
+}
+
+.site-footer-brand__identity {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 14px;
+}
+
+.site-footer-brand__name {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.05;
+}
+
+.site-footer-brand__legal {
+  margin-top: 5px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.site-footer-brand__tagline {
+  margin-top: 16px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.site-footer-brand__facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.site-footer-brand__fact {
+  min-width: 0;
+  padding: 12px 10px;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.site-footer-brand__fact:last-child {
+  border-right: 0;
+}
+
+.site-footer-brand__fact span,
+.site-footer-mobile-brand__facts span {
+  display: block;
+  color: rgba(255, 255, 255, 0.42);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.site-footer-brand__fact strong,
+.site-footer-mobile-brand__facts strong {
+  display: block;
+  margin-top: 7px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.site-footer-mobile-brand {
+  text-align: left;
+}
+
+.site-footer-mobile-brand__name {
+  color: #fff;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.08;
+}
+
+.site-footer-mobile-brand__tagline {
+  margin-top: 5px;
+  color: rgba(255, 255, 255, 0.52);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.site-footer-mobile-brand__facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.site-footer-mobile-brand__facts > div {
+  min-width: 0;
+  padding: 11px 8px;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.site-footer-mobile-brand__facts > div:last-child {
+  border-right: 0;
+}
+
+@media (max-width: 420px) {
+  .site-footer-mobile-brand__facts {
+    grid-template-columns: 1fr;
+  }
+
+  .site-footer-mobile-brand__facts > div {
+    border-right: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .site-footer-mobile-brand__facts > div:last-child {
+    border-bottom: 0;
+  }
+}
+</style>

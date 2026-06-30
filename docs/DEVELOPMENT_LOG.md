@@ -670,6 +670,39 @@
 
 - commit: `0e66ed3`
 
+## 2026-06-30 - 调整全局 Logo 显示尺寸和底部品牌布局
+
+背景：
+
+- 导航和网站底部的 Logo 视觉尺寸偏小。
+- 底部 Logo 需要和导航 Logo 保持一致的白底细边框样式。
+- 底部品牌信息堆叠过密，需要避免公司名重复感并重新梳理信息层级。
+
+改动：
+
+- 导航 Logo 容器从 `36px` 调整为 `42px`，图片显示比例提升到 `108%`。
+- 底部桌面端 Logo 调整为 `52px`，移动端调整为 `50px`。
+- 底部新增 `site-footer-logo` 样式，统一白底、细边框、方形裁切和轻外描边。
+- 重新设计底部品牌区，公司名、法定名称、标语和工厂信息分层展示。
+- 地址、成立时间、注册资本改成紧凑信息块，移动端小屏自动改为纵向排列。
+
+涉及文件：
+
+- `app/components/SiteHeader.vue`
+- `app/components/SiteFooter.vue`
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- `pnpm build` 通过。
+- 已重启公网 3005 服务。
+- `http://43.134.105.149:3005/` 返回 200。
+- 首页 SSR 输出包含 `/site-logo.png`、`site-brand__mark`、`site-footer-logo`、`site-footer-brand__facts` 和 `site-footer-mobile-brand__facts`。
+
+提交：
+
+- commit: `未提交`
+
 ## 记录模板
 
 ```markdown

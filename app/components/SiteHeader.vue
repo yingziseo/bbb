@@ -232,18 +232,19 @@ onBeforeUnmount(() => {
 
 .site-brand__mark {
   display: flex;
-  height: 36px;
-  width: 36px;
+  height: 42px;
+  width: 42px;
   flex: 0 0 auto;
   align-items: center;
   justify-content: center;
   border: 1px solid var(--color-line);
   background: #fff;
+  overflow: hidden;
 }
 
 .site-brand__logo {
-  height: 100%;
-  width: 100%;
+  height: 108%;
+  width: 108%;
   object-fit: contain;
 }
 
