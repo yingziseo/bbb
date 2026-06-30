@@ -701,6 +701,38 @@
 
 提交：
 
+- commit: `ea138d8`
+
+## 2026-06-30 - 替换站点 Logo 和 ICO
+
+背景：
+
+- 使用用户提供的新 `logo.png` 替换原站点 Logo。
+- 新图主体更满，四周留白更少，更适合导航、底部和 favicon 展示。
+
+改动：
+
+- 基于 `logo.png` 自动识别主体边界，裁掉多余边距。
+- 将浅色棋盘格背景透明化，避免显示在白底 Logo 容器内。
+- 重新生成 `public/site-logo.png`，尺寸为 `100x100` RGBA PNG。
+- 重新生成 `public/favicon.ico`，尺寸为 `60x60` ICO。
+
+涉及文件：
+
+- `public/site-logo.png`
+- `public/favicon.ico`
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- `pnpm build` 通过。
+- 已重启公网 3005 服务。
+- `http://43.134.105.149:3005/` 返回 200。
+- `http://43.134.105.149:3005/site-logo.png` 返回 200，Content-Type 为 `image/png`，Content-Length 为 `10193`。
+- `http://43.134.105.149:3005/favicon.ico` 返回 200，Content-Type 为 `image/vnd.microsoft.icon`，Content-Length 为 `4941`。
+
+提交：
+
 - commit: `未提交`
 
 ## 记录模板
