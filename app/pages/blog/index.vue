@@ -1,13 +1,21 @@
 <script setup lang="ts">
-import { posts, company } from '~/data/site'
+const company = await useSiteSettings()
 
-useHead({ title: `Blog | ${company.name}` })
+await useManagedSeo('page:blog', {
+  title: `Blog | ${company.name}`,
+  description: 'Packaging sourcing guides, material comparisons, and food packaging purchasing insights.',
+  keywords: 'packaging sourcing guide, food packaging blog',
+  image: '/images/blog-supplier.png',
+})
+
+const { data } = await useFetch('/api/public/posts')
 
 const formatDate = (d: string) =>
   new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
 
-const featured = posts[0]
-const rest = posts.slice(1)
+const posts = computed(() => data.value?.items || [])
+const featured = computed(() => posts.value[0])
+const rest = computed(() => posts.value.slice(1))
 </script>
 
 <template>
@@ -34,12 +42,12 @@ const rest = posts.slice(1)
           class="group mb-12 grid gap-0 overflow-hidden border border-[var(--color-line)] md:grid-cols-2"
         >
           <div class="aspect-[16/10] md:aspect-auto overflow-hidden bg-[var(--color-panel)]">
-            <img :src="featured.cover" :alt="featured.title" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]" />
+            <img :src="featured.coverImage" :alt="featured.title" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]" />
           </div>
           <div class="p-7 sm:p-9 flex flex-col justify-center">
             <div class="flex items-center gap-3 text-[12.5px]">
-              <span class="bg-[var(--color-navy)] px-2.5 py-1 font-bold uppercase tracking-wide text-white">{{ featured.category }}</span>
-              <span class="text-[var(--color-slate-muted)]">{{ formatDate(featured.date) }} · {{ featured.readTime }}</span>
+              <span class="bg-[var(--color-navy)] px-2.5 py-1 font-bold uppercase tracking-wide text-white">Article</span>
+              <span class="text-[var(--color-slate-muted)]">{{ formatDate(featured.publishedAt || featured.createdAt) }}</span>
             </div>
             <h2 class="mt-4 text-[24px] font-extrabold text-[var(--color-navy)] leading-snug group-hover:text-[var(--color-accent)] transition-colors text-balance">
               {{ featured.title }}
@@ -58,17 +66,17 @@ const rest = posts.slice(1)
             class="group flex flex-col overflow-hidden border border-[var(--color-line)] bg-white"
           >
             <div class="aspect-[16/10] overflow-hidden bg-[var(--color-panel)]">
-              <img :src="p.cover" :alt="p.title" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.04]" />
+              <img :src="p.coverImage" :alt="p.title" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.04]" />
             </div>
             <div class="p-5 flex flex-col flex-1">
               <div class="flex items-center gap-2 text-[12px] text-[var(--color-slate-muted)]">
-                <span class="font-bold text-[var(--color-accent)] uppercase tracking-wide">{{ p.category }}</span>
+                <span class="font-bold text-[var(--color-accent)] uppercase tracking-wide">Article</span>
                 <span>·</span>
-                <span>{{ formatDate(p.date) }}</span>
+                <span>{{ formatDate(p.publishedAt || p.createdAt) }}</span>
               </div>
               <h3 class="mt-2 text-[17px] font-bold text-[var(--color-navy)] leading-snug group-hover:text-[var(--color-accent)] transition-colors">{{ p.title }}</h3>
               <p class="mt-2 text-[13.5px] leading-relaxed text-[var(--color-slate-muted)] flex-1">{{ p.excerpt }}</p>
-              <span class="mt-4 text-[13px] text-[var(--color-slate-muted)]">{{ p.readTime }}</span>
+              <span class="mt-4 text-[13px] text-[var(--color-slate-muted)]">Read article</span>
             </div>
           </NuxtLink>
         </div>

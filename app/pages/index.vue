@@ -7,34 +7,28 @@ import {
   Phone,
   Location,
 } from '@element-plus/icons-vue'
-import { products, company } from '~/data/site'
+import type { Product } from '~/data/site'
 
-const categoryCards = [
-  {
-    name: 'Disposable Containers',
-    desc: 'Meal boxes, bento containers, and takeaway packaging.',
-    image: '/images/cat-containers.png',
-    slug: 'disposable-containers',
-  },
-  {
-    name: 'Cling Film & Fresh Wrap',
-    desc: 'PE and PVC film for food wrapping and export supply.',
-    image: '/images/cat-film.png',
-    slug: 'cling-film',
-  },
-  {
-    name: 'Food Packaging Containers',
-    desc: 'PET, PP, and bagasse containers for food service use.',
-    image: '/images/cat-food.png',
-    slug: 'food-containers',
-  },
-  {
-    name: 'Custom Packaging',
-    desc: 'Printed boxes, cups, and custom packaging orders.',
-    image: '/images/cat-custom.png',
-    slug: 'custom-packaging',
-  },
-]
+const company = await useSiteSettings()
+
+type ProductCategory = {
+  id: number
+  slug: string
+  name: string
+  description: string
+  image: string
+  productCount: number
+}
+
+const { data: catalogData } = await useFetch<{ categories: ProductCategory[]; items: Product[] }>('/api/public/products')
+const categoryCards = computed(() =>
+  (catalogData.value?.categories || []).map((category) => ({
+    name: category.name,
+    desc: category.description,
+    image: category.image || '/images/cat-containers.png',
+    slug: category.slug,
+  })),
+)
 
 const stats = [
   { value: '2023', suffix: '', label: 'Established' },
@@ -56,7 +50,14 @@ const quality = [
   'Third-party lab testing available on request',
 ]
 
-const featured = products.slice(0, 4)
+const featured = computed(() => (catalogData.value?.items || []).slice(0, 4))
+
+await useManagedSeo('page:home', {
+  title: 'YIYUAN NEW MATERIALS | Cling Film and Food Packaging Factory',
+  description: 'China factory for cling film, fresh wrap, food packaging containers, and OEM packaging orders.',
+  keywords: 'cling film factory, food packaging, OEM packaging, fresh wrap',
+  image: '/images/hero-factory.png',
+})
 </script>
 
 <template>
@@ -316,22 +317,22 @@ const featured = products.slice(0, 4)
           </div>
         </div>
 
-        <div class="flex h-full flex-col border border-white/10 bg-white/4 p-8">
-          <div class="min-h-[156px]">
+        <div class="flex h-full flex-col justify-between border border-white/10 bg-white/4 p-6 sm:p-8 lg:p-10">
+          <div>
             <div class="text-[12px] font-bold uppercase tracking-[0.14em] text-white/60">Get a Quote</div>
-            <h3 class="mt-4 max-w-[12ch] text-[28px] font-extrabold leading-tight">Start Your Inquiry</h3>
-            <p class="mt-4 max-w-[34ch] text-[15px] leading-relaxed text-white/74">
+            <h3 class="mt-4 max-w-[11ch] text-[clamp(28px,3vw,34px)] font-extrabold leading-tight">Start Your Inquiry</h3>
+            <p class="mt-4 max-w-[36ch] text-[15px] leading-relaxed text-white/74">
               For fast handling, send product name, size, quantity, and custom requirements.
             </p>
           </div>
-          <div class="mt-8 grid gap-3">
+          <div class="mt-8 grid gap-3 [&_.el-button]:!ml-0 [&_.el-button]:!w-full">
             <NuxtLink to="/contact" class="block w-full">
-              <el-button color="#c1121f" size="large" class="w-full">Open Inquiry Form</el-button>
+              <el-button color="#c1121f" size="large">Open Inquiry Form</el-button>
             </NuxtLink>
-            <el-button tag="a" :href="company.whatsappLink" target="_blank" size="large" color="#1b3c63" class="w-full">
+            <el-button tag="a" :href="company.whatsappLink" target="_blank" size="large" color="#1b3c63">
               Contact on WhatsApp
             </el-button>
-            <el-button tag="a" :href="company.contactLink" size="large" plain class="w-full !border-white/16 !bg-transparent !text-white hover:!bg-white/6">
+            <el-button tag="a" :href="company.contactLink" size="large" plain class="!border-white/16 !bg-transparent !text-white hover:!bg-white/6">
               Send Email
             </el-button>
           </div>

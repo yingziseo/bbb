@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { FormInstance, FormRules } from 'element-plus'
 import { ElMessage } from 'element-plus'
-import { categories } from '~/data/site'
 
 const props = defineProps<{ defaultProduct?: string }>()
 
@@ -16,6 +15,7 @@ const form = reactive({
   product: props.defaultProduct || '',
   quantity: '',
   message: '',
+  website: '',
 })
 
 watch(
@@ -31,7 +31,6 @@ const rules: FormRules = {
     { required: true, message: 'Please enter your email', trigger: 'blur' },
     { type: 'email', message: 'Please enter a valid email', trigger: 'blur' },
   ],
-  product: [{ required: true, message: 'Please select a product category', trigger: 'change' }],
   message: [{ required: true, message: 'Please describe your requirement', trigger: 'blur' }],
 }
 
@@ -45,11 +44,18 @@ const submit = async (el?: FormInstance) => {
   }
 
   submitting.value = true
-  setTimeout(() => {
-    submitting.value = false
+  try {
+    await $fetch('/api/inquiries', {
+      method: 'POST',
+      body: form,
+    })
     ElMessage.success('Inquiry received.')
     el.resetFields()
-  }, 700)
+  } catch (error: any) {
+    ElMessage.error(error?.data?.message || error?.statusMessage || 'Submission failed. Please try email or WhatsApp.')
+  } finally {
+    submitting.value = false
+  }
 }
 </script>
 
@@ -76,10 +82,7 @@ const submit = async (el?: FormInstance) => {
         <el-input v-model="form.country" size="large" placeholder="e.g. United States" />
       </el-form-item>
       <el-form-item label="Product" prop="product">
-        <el-select v-model="form.product" size="large" placeholder="Select product" class="w-full">
-          <el-option v-for="c in categories" :key="c.slug" :label="c.name" :value="c.name" />
-          <el-option label="Other / Custom" value="Other / Custom" />
-        </el-select>
+        <el-input v-model="form.product" size="large" placeholder="Product name or category" />
       </el-form-item>
       <el-form-item label="Estimated Quantity">
         <el-input v-model="form.quantity" size="large" placeholder="e.g. 50,000 pcs / 1 x 40HQ" />
@@ -94,6 +97,8 @@ const submit = async (el?: FormInstance) => {
         placeholder="Sizes, material, quantity, printing, or other requirements."
       />
     </el-form-item>
+
+    <input v-model="form.website" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
     <div class="flex flex-wrap gap-3 pt-1">
       <el-button color="#c1121f" size="large" native-type="button" :loading="submitting" @click="submit(formRef)">

@@ -1,10 +1,16 @@
+<script setup lang="ts">
+const route = useRoute()
+const isAdminRoute = computed(() => route.path === '/admin' || route.path.startsWith('/admin/'))
+const isAdminLogin = computed(() => route.path === '/admin/login')
+const layoutName = computed(() => {
+  if (isAdminLogin.value) return 'blank'
+  if (isAdminRoute.value) return 'admin'
+  return 'default'
+})
+</script>
+
 <template>
-  <div class="min-h-screen flex flex-col bg-white">
-    <SiteHeader />
-    <main class="flex-1">
-      <NuxtPage />
-    </main>
-    <SiteFooter />
-    <WhatsAppFab />
-  </div>
+  <NuxtLayout :name="layoutName">
+    <NuxtPage />
+  </NuxtLayout>
 </template>

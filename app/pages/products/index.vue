@@ -1,18 +1,30 @@
 <script setup lang="ts">
-import { products, categories, company } from '~/data/site'
+import type { Product } from '~/data/site'
 
-useHead({ title: `Products | ${company.name}` })
+const company = await useSiteSettings()
+
+await useManagedSeo('page:products', {
+  title: `Products | ${company.name}`,
+  description: 'Browse cling film, food containers, disposable packaging, and custom food packaging products.',
+  keywords: 'food packaging products, cling film, disposable containers',
+  image: '/images/product-cling-film.png',
+})
 
 const route = useRoute()
 const router = useRouter()
 
-const categoryNameBySlug: Record<string, string> = {
-  'disposable-containers': 'Disposable Containers',
-  'cling-film': 'Cling Film & Fresh Wrap',
-  'food-containers': 'Food Packaging Containers',
-  'custom-packaging': 'Custom Packaging',
+type ProductCategory = {
+  id: number
+  slug: string
+  name: string
+  description: string
+  image: string
+  productCount: number
 }
 
+const { data: catalogData } = await useFetch<{ categories: ProductCategory[]; items: Product[] }>('/api/public/products')
+const categories = computed(() => catalogData.value?.categories || [])
+const products = computed(() => catalogData.value?.items || [])
 const active = ref<string>((route.query.category as string) || 'all')
 
 watch(
@@ -28,9 +40,8 @@ const setFilter = (slug: string) => {
 }
 
 const filtered = computed(() => {
-  if (active.value === 'all') return products
-  const name = categoryNameBySlug[active.value]
-  return products.filter((p) => p.category === name)
+  if (active.value === 'all') return products.value
+  return products.value.filter((p) => p.categorySlug === active.value)
 })
 </script>
 

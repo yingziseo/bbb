@@ -13,9 +13,13 @@ __v0_jsx-dev-runtime.ts
 node_modules
 .nuxt
 .output
+--host/
 node-compile-cache
 .next/
 .DS_Store
+data/*.db
+data/*.db-*
+public/uploads/
 to-b.zip
 hero.png
 home.png

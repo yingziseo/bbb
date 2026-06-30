@@ -1,14 +1,28 @@
 <script setup lang="ts">
 import { OfficeBuilding, Setting, Box, Histogram, Check } from '@element-plus/icons-vue'
-import { company } from '~/data/site'
 
-useHead({ title: `About | ${company.name}` })
+const company = await useSiteSettings()
+
+await useManagedSeo('page:about', {
+  title: `About | ${company.name}`,
+  description: 'Factory overview and company information for Shangqiu Yiyuan New Materials Co., Ltd.',
+  keywords: 'Yiyuan New Materials, Shangqiu packaging factory',
+  image: '/images/about-factory.png',
+})
 
 const capabilities = [
-  { icon: OfficeBuilding, title: 'Registered Company', desc: 'Shangqiu, Henan, China.' },
+  { icon: OfficeBuilding, title: 'Registered Company', desc: company.location },
   { icon: Setting, title: 'Material Focus', desc: 'Cling film, wrap, and packaging materials.' },
   { icon: Box, title: 'OEM Orders', desc: 'Custom orders and export contact.' },
   { icon: Histogram, title: 'PVC Phase I', desc: 'Public notice references 5,000 tons annual output.' },
+]
+
+const registeredFacts = [
+  `Established in ${company.founded}`,
+  `Registered capital: ${company.registeredCapital}`,
+  `Legal representative: ${company.legalRepresentative}`,
+  'Address translated from the public registration record',
+  'PVC Phase I public notice references 5,000 tons annual output',
 ]
 </script>
 
@@ -113,7 +127,7 @@ const capabilities = [
         <div class="border border-[var(--color-line)] bg-[var(--color-panel)] p-8">
           <h3 class="text-[20px] font-extrabold text-[var(--color-navy)]">Registered Information</h3>
           <ul class="mt-5 space-y-3.5">
-            <li v-for="t in ['Established in 2023', 'Registered capital: RMB 1 million', 'Legal representative: Liu Ke', 'Address translated from the public registration record', 'PVC Phase I public notice references 5,000 tons annual output']" :key="t" class="flex items-start gap-3">
+            <li v-for="t in registeredFacts" :key="t" class="flex items-start gap-3">
               <el-icon :size="20" class="text-[var(--color-accent)] mt-0.5"><Check /></el-icon>
               <span class="text-[15px] text-[var(--color-graphite)] leading-relaxed">{{ t }}</span>
             </li>

@@ -46,6 +46,9 @@ export const complianceMarqueeItems = [
 ]
 
 export interface Product {
+  id?: number
+  categoryId?: number
+  categorySlug?: string
   slug: string
   name: string
   category: string
@@ -55,8 +58,11 @@ export interface Product {
   moq: string
   custom: boolean
   specs: { label: string; value: string }[]
+  sizeOptions?: { label: string; value: string; packaging?: string }[]
   applications: string[]
   packaging: string
+  sortOrder?: number
+  status?: string
 }
 
 export const categories = [

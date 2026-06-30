@@ -1,8 +1,14 @@
 <script setup lang="ts">
 import { Message, Location, OfficeBuilding, Clock } from '@element-plus/icons-vue'
-import { company } from '~/data/site'
 
-useHead({ title: `Contact | ${company.name}` })
+const company = await useSiteSettings()
+
+await useManagedSeo('page:contact', {
+  title: `Contact | ${company.name}`,
+  description: 'Send food packaging specifications, quantity, and custom requirements for quotation.',
+  keywords: 'food packaging quotation, packaging supplier contact',
+  image: '/images/hero-factory.png',
+})
 
 const route = useRoute()
 const defaultProduct = computed(() => (route.query.product as string) || '')

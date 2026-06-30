@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ArrowDown, ArrowUp, Document, Message } from '@element-plus/icons-vue'
-import { company } from '~/data/site'
+import { ArrowDown, ArrowUp, ChatDotRound, Document, Message } from '@element-plus/icons-vue'
 
-const expanded = ref(true)
+const company = await useSiteSettings()
+
+const expanded = ref(false)
 
 const contactOptions = [
   {
@@ -30,11 +31,30 @@ const contactOptions = [
 </script>
 
 <template>
-  <div class="fixed right-4 bottom-4 z-50 w-[min(calc(100vw-24px),300px)] md:right-5 md:bottom-5 md:w-[280px]">
-    <div class="border border-[var(--color-accent-dark)] bg-white shadow-[0_12px_28px_rgba(193,18,31,0.18)]">
+  <div class="fixed right-4 bottom-4 z-50 md:right-5 md:bottom-5">
+    <button
+      v-if="!expanded"
+      type="button"
+      class="flex h-12 min-w-12 items-center justify-center gap-2 border border-[var(--color-accent-dark)] bg-[var(--color-accent)] px-4 text-white shadow-[0_12px_28px_rgba(193,18,31,0.22)] transition-colors hover:bg-[var(--color-accent-dark)]"
+      aria-label="Open contact options"
+      :aria-expanded="expanded"
+      @click="expanded = true"
+    >
+      <el-icon :size="19">
+        <ChatDotRound />
+      </el-icon>
+      <span class="hidden text-[14px] font-semibold sm:inline">Contact</span>
+    </button>
+
+    <div
+      v-else
+      class="w-[min(calc(100vw-24px),300px)] border border-[var(--color-accent-dark)] bg-white shadow-[0_12px_28px_rgba(193,18,31,0.18)] md:w-[280px]"
+    >
       <button
         type="button"
         class="flex w-full items-center justify-between border-b border-[var(--color-accent-dark)] bg-[var(--color-accent)] px-4 py-3 text-left text-white"
+        aria-label="Collapse contact options"
+        :aria-expanded="expanded"
         @click="expanded = !expanded"
       >
         <span>
@@ -47,7 +67,7 @@ const contactOptions = [
         </el-icon>
       </button>
 
-      <div v-show="expanded" class="bg-white">
+      <div class="bg-white">
         <template v-for="(item, index) in contactOptions" :key="item.key">
           <a
             v-if="item.external"

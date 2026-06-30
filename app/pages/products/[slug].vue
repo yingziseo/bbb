@@ -1,18 +1,29 @@
 <script setup lang="ts">
 import { Check, Close, ChatDotRound } from '@element-plus/icons-vue'
-import { products, company } from '~/data/site'
+import type { Product } from '~/data/site'
+
+const company = await useSiteSettings()
 
 const route = useRoute()
-const product = computed(() => products.find((p) => p.slug === route.params.slug))
+const { data } = await useFetch<{ item: Product }>(`/api/public/products/${route.params.slug}`)
+const product = computed(() => data.value?.item)
 
 if (!product.value) {
   throw createError({ statusCode: 404, statusMessage: 'Product not found', fatal: true })
 }
 
-useHead({ title: () => `${product.value?.name} | ${company.name}` })
+await useManagedSeo(`product:${route.params.slug}`, {
+  title: `${product.value.name} | ${company.name}`,
+  description: product.value.shortDesc,
+  keywords: `${product.value.name}, ${product.value.category}, ${product.value.material}`,
+  image: product.value.image,
+})
 
+const { data: catalogData } = await useFetch<{ items: Product[] }>('/api/public/products')
 const related = computed(() =>
-  products.filter((p) => p.category === product.value?.category && p.slug !== product.value?.slug).slice(0, 3),
+  (catalogData.value?.items || [])
+    .filter((p) => p.categorySlug === product.value?.categorySlug && p.slug !== product.value?.slug)
+    .slice(0, 3),
 )
 </script>
 
@@ -92,6 +103,15 @@ const related = computed(() =>
             </el-table-column>
             <el-table-column prop="value" label="Specification" />
           </el-table>
+
+          <div v-if="product.sizeOptions?.length" class="mt-8">
+            <h2 class="text-[20px] font-extrabold text-[var(--color-navy)] mb-4">Size Options</h2>
+            <el-table :data="product.sizeOptions" border stripe class="overflow-hidden">
+              <el-table-column prop="label" label="Size / Capacity" min-width="160" />
+              <el-table-column prop="value" label="Dimension / Thickness" min-width="180" />
+              <el-table-column prop="packaging" label="Packing" min-width="160" />
+            </el-table>
+          </div>
         </div>
 
         <div>

@@ -3,20 +3,25 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "nuxt dev",
+    "dev": "nuxt dev --host 0.0.0.0 --port 3005",
     "build": "nuxt build",
-    "preview": "nuxt preview",
+    "preview": "HOST=0.0.0.0 PORT=3005 node .output/server/index.mjs",
+    "start": "HOST=0.0.0.0 PORT=3005 node .output/server/index.mjs",
     "prepare": "nuxt prepare"
   },
   "dependencies": {
-    "nuxt": "^4.0.0",
-    "vue": "^3.5.0",
-    "vue-router": "^4.4.0",
-    "element-plus": "^2.8.8",
-    "@element-plus/nuxt": "^1.1.1",
     "@element-plus/icons-vue": "^2.3.1",
+    "@element-plus/nuxt": "^1.1.1",
     "@nuxt/image": "^1.8.0",
+    "@tailwindcss/vite": "^4.0.0",
+    "element-plus": "^2.8.8",
+    "nuxt": "^4.0.0",
+    "sanitize-html": "^2.17.5",
     "tailwindcss": "^4.0.0",
-    "@tailwindcss/vite": "^4.0.0"
+    "vue": "^3.5.0",
+    "vue-router": "^4.4.0"
+  },
+  "devDependencies": {
+    "@types/sanitize-html": "^2.16.1"
   }
 }

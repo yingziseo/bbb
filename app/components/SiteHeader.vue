@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { Phone, Message, Menu as MenuIcon } from '@element-plus/icons-vue'
-import { company, headerMarqueeItems } from '~/data/site'
+import { headerMarqueeItems } from '~/data/site'
+
+const company = await useSiteSettings()
 
 const nav = [
   { label: 'Home', to: '/' },
