@@ -4,6 +4,8 @@ export type PublicSiteSettings = Omit<typeof fallbackCompany, 'founded'> & {
   founded: string
   siteUrl: string
   contactLink: string
+  logoPath: string
+  faviconPath: string
 }
 
 const createFallbackSettings = (): PublicSiteSettings => ({
@@ -11,6 +13,8 @@ const createFallbackSettings = (): PublicSiteSettings => ({
   siteUrl: '',
   founded: String(fallbackCompany.founded),
   contactLink: fallbackCompany.contactLink,
+  logoPath: '/site-logo.png',
+  faviconPath: '/favicon.ico',
 })
 
 export const useSiteSettings = async () => {

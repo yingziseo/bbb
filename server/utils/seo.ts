@@ -15,7 +15,7 @@ export const getSeoByKey = (key: string) => {
 export const buildStructuredData = (seo: ReturnType<typeof mapSeo>, event?: H3Event) => {
   const settings = getSiteSettings()
   const url = absoluteUrl(seo.canonical || seo.path, event)
-  const logo = absoluteUrl('/placeholder-logo.png', event)
+  const logo = absoluteUrl(settings.logoPath || '/site-logo.png', event)
 
   if (seo.pageType === 'product' && seo.entitySlug) {
     const product = getDb()

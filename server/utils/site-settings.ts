@@ -18,6 +18,8 @@ export const siteSettingKeys = [
   'founded',
   'registeredCapital',
   'legalRepresentative',
+  'logoPath',
+  'faviconPath',
 ] as const
 
 type SiteSettingKey = (typeof siteSettingKeys)[number]
@@ -40,6 +42,8 @@ const defaultSettings = (): Record<SiteSettingKey, string> => ({
   founded: String(company.founded),
   registeredCapital: company.registeredCapital,
   legalRepresentative: company.legalRepresentative,
+  logoPath: '/site-logo.png',
+  faviconPath: '/favicon.ico',
 })
 
 const normalizeBaseUrl = (value: string) => value.trim().replace(/\/+$/, '')

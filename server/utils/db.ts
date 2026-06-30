@@ -526,6 +526,8 @@ const seedSiteSettings = (database: DatabaseSync) => {
     founded: String(company.founded),
     registeredCapital: company.registeredCapital,
     legalRepresentative: company.legalRepresentative,
+    logoPath: '/site-logo.png',
+    faviconPath: '/favicon.ico',
   }
 
   const statement = database.prepare(`

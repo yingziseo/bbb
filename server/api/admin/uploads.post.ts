@@ -5,7 +5,7 @@ import { createError, readMultipartFormData } from 'h3'
 import { requireAdmin } from '../../utils/auth'
 import { getDb, touchNow } from '../../utils/db'
 
-const allowedTypes = new Set(['image/png', 'image/jpeg', 'image/webp', 'image/gif'])
+const allowedTypes = new Set(['image/png', 'image/jpeg', 'image/webp', 'image/gif', 'image/x-icon', 'image/vnd.microsoft.icon'])
 const maxSize = 5 * 1024 * 1024
 
 export default defineEventHandler(async (event) => {
@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
   }
 
   if (!allowedTypes.has(file.type)) {
-    throw createError({ statusCode: 400, statusMessage: '只支持 png、jpg、webp、gif 图片' })
+    throw createError({ statusCode: 400, statusMessage: '只支持 png、jpg、webp、gif、ico 图片' })
   }
 
   if (file.data.length > maxSize) {

@@ -76,7 +76,9 @@ onBeforeUnmount(() => {
     <div class="site-header__main border-b border-[var(--color-line)]">
       <div class="container-x flex h-[68px] items-center justify-between gap-4">
         <NuxtLink to="/" class="site-brand group">
-          <span class="site-brand__mark">Y</span>
+          <span class="site-brand__mark">
+            <img :src="company.logoPath || '/site-logo.png'" :alt="company.displayName" class="site-brand__logo" />
+          </span>
           <span class="site-brand__copy">
             <span class="site-brand__name site-brand__name--full">{{ company.displayName }}</span>
             <span class="site-brand__name site-brand__name--short">YIYUAN</span>
@@ -229,10 +231,14 @@ onBeforeUnmount(() => {
   flex: 0 0 auto;
   align-items: center;
   justify-content: center;
-  background: var(--color-navy);
-  color: #fff;
-  font-size: 18px;
-  font-weight: 900;
+  border: 1px solid var(--color-line);
+  background: #fff;
+}
+
+.site-brand__logo {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
 }
 
 .site-brand__copy {

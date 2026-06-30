@@ -18,6 +18,8 @@ type SettingsForm = {
   founded: string
   registeredCapital: string
   legalRepresentative: string
+  logoPath: string
+  faviconPath: string
 }
 
 type SettingsResponse = {
@@ -38,10 +40,13 @@ const createEmptyForm = (): SettingsForm => ({
   founded: '',
   registeredCapital: '',
   legalRepresentative: '',
+  logoPath: '/site-logo.png',
+  faviconPath: '/favicon.ico',
 })
 
 const { data, pending, refresh } = await useFetch<SettingsResponse>('/api/admin/settings')
 const saving = ref(false)
+const uploadLoading = ref('')
 const form = reactive<SettingsForm>(createEmptyForm())
 
 const applySettings = (settings?: Partial<SettingsForm>) => {
@@ -69,6 +74,24 @@ const save = async () => {
     ElMessage.error(error?.data?.message || error?.statusMessage || '保存失败')
   } finally {
     saving.value = false
+  }
+}
+
+const uploadAsset = async (option: any, target: 'logoPath' | 'faviconPath') => {
+  uploadLoading.value = target
+  try {
+    const body = new FormData()
+    body.append('file', option.file)
+    const result = await $fetch<{ path: string }>('/api/admin/uploads', {
+      method: 'POST',
+      body,
+    })
+    form[target] = result.path
+    ElMessage.success(target === 'logoPath' ? 'Logo 已上传' : 'ICO 图标已上传')
+  } catch (error: any) {
+    ElMessage.error(error?.data?.message || error?.statusMessage || '上传失败')
+  } finally {
+    uploadLoading.value = ''
   }
 }
 </script>
@@ -99,6 +122,46 @@ const save = async () => {
             </el-form-item>
             <el-form-item label="品牌标语" class="md:col-span-2">
               <el-input v-model="form.tagline" placeholder="China Export Quality Factory" />
+            </el-form-item>
+            <el-form-item label="网站 Logo 图标" class="md:col-span-2">
+              <div class="grid w-full gap-3 sm:grid-cols-[96px_1fr]">
+                <div class="flex h-24 w-24 items-center justify-center border border-[var(--color-line)] bg-[var(--color-panel)] p-2">
+                  <img :src="form.logoPath || '/site-logo.png'" alt="Logo 预览" class="max-h-full max-w-full object-contain" />
+                </div>
+                <div class="min-w-0">
+                  <el-input v-model="form.logoPath" placeholder="/site-logo.png 或 /uploads/logo.png" />
+                  <div class="mt-2 flex flex-wrap items-center gap-3">
+                    <el-upload
+                      :show-file-list="false"
+                      :http-request="(option: any) => uploadAsset(option, 'logoPath')"
+                      accept="image/png,image/jpeg,image/webp,image/gif"
+                    >
+                      <el-button :loading="uploadLoading === 'logoPath'">上传替换 Logo</el-button>
+                    </el-upload>
+                    <span class="text-[12px] text-[var(--color-slate-muted)]">建议 100x100 PNG，前台导航会自动读取。</span>
+                  </div>
+                </div>
+              </div>
+            </el-form-item>
+            <el-form-item label="网页 ICO 图标" class="md:col-span-2">
+              <div class="grid w-full gap-3 sm:grid-cols-[72px_1fr]">
+                <div class="flex h-[72px] w-[72px] items-center justify-center border border-[var(--color-line)] bg-[var(--color-panel)] p-2">
+                  <img :src="form.faviconPath || '/favicon.ico'" alt="ICO 预览" class="max-h-full max-w-full object-contain" />
+                </div>
+                <div class="min-w-0">
+                  <el-input v-model="form.faviconPath" placeholder="/favicon.ico 或 /uploads/favicon.ico" />
+                  <div class="mt-2 flex flex-wrap items-center gap-3">
+                    <el-upload
+                      :show-file-list="false"
+                      :http-request="(option: any) => uploadAsset(option, 'faviconPath')"
+                      accept="image/png,image/x-icon,image/vnd.microsoft.icon,.ico"
+                    >
+                      <el-button :loading="uploadLoading === 'faviconPath'">上传替换 ICO</el-button>
+                    </el-upload>
+                    <span class="text-[12px] text-[var(--color-slate-muted)]">当前默认使用 60x60 的 favicon.ico。</span>
+                  </div>
+                </div>
+              </div>
             </el-form-item>
             <el-form-item label="成立年份">
               <el-input v-model="form.founded" placeholder="2023" />

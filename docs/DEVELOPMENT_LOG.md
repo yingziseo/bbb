@@ -586,6 +586,53 @@
 
 提交：
 
+- commit: `212bc7e`
+
+## 2026-06-30 - 增加站点 Logo 和 Favicon 设置
+
+背景：
+
+- 使用用户提供的 GPT 生成图片作为网站 logo 和网页 ico 图标。
+- 后台网站设置需要支持图标上传替换，便于后续维护。
+
+改动：
+
+- 将源图等比例处理为 `100x100` PNG：`public/site-logo.png`。
+- 生成 `60x60` ICO：`public/favicon.ico`。
+- 增加站点设置字段 `logoPath` 和 `faviconPath`，默认指向上述静态资源。
+- 前台导航 logo 改为读取 `logoPath` 图片。
+- 默认布局和 Nuxt head 增加 favicon/apple-touch-icon。
+- 结构化数据中的 Organization logo 改为读取后台设置。
+- 后台网站设置页增加 Logo 和 ICO 预览、路径编辑和上传替换控件。
+- 上传接口支持 `image/x-icon` 和 `image/vnd.microsoft.icon`。
+
+涉及文件：
+
+- `public/site-logo.png`
+- `public/favicon.ico`
+- `app/components/SiteHeader.vue`
+- `app/layouts/default.vue`
+- `app/pages/admin/settings.vue`
+- `app/composables/useSiteSettings.ts`
+- `nuxt.config.ts`
+- `server/utils/site-settings.ts`
+- `server/utils/db.ts`
+- `server/utils/seo.ts`
+- `server/api/admin/uploads.post.ts`
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- `pnpm build` 通过。
+- 已重启公网 3005 服务。
+- `http://43.134.105.149:3005/site-logo.png` 返回 200，Content-Type 为 `image/png`。
+- `http://43.134.105.149:3005/favicon.ico` 返回 200，Content-Type 为 `image/vnd.microsoft.icon`。
+- `/api/public/settings` 返回 `logoPath` 和 `faviconPath`。
+- 首页 SSR 输出包含 `/site-logo.png`、`/favicon.ico`、`site-brand__logo`。
+- 登录后台后 `/admin/settings` 输出包含 `网站 Logo 图标`、`网页 ICO 图标`、`上传替换 Logo`、`上传替换 ICO`。
+
+提交：
+
 - commit: `未提交`
 
 ## 记录模板
