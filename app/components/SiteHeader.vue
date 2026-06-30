@@ -47,8 +47,10 @@ watch(
         <NuxtLink to="/" class="flex items-center gap-3">
           <span class="flex h-9 w-9 items-center justify-center bg-[var(--color-navy)] text-white font-extrabold text-lg">Y</span>
           <span class="leading-tight">
-            <span class="block font-extrabold text-[18px] tracking-tight text-[var(--color-navy)]">{{ company.displayName }}</span>
-            <span class="block text-[11px] uppercase tracking-[0.16em] text-[var(--color-slate-muted)]">{{ company.tagline }}</span>
+            <span class="block sm:hidden font-extrabold text-[15px] tracking-tight text-[var(--color-navy)]">YIYUAN</span>
+            <span class="block hidden sm:block font-extrabold text-[18px] tracking-tight text-[var(--color-navy)]">{{ company.displayName }}</span>
+            <span class="block sm:hidden text-[10px] uppercase tracking-[0.1em] text-[var(--color-slate-muted)]">China Export Factory</span>
+            <span class="hidden sm:block text-[11px] uppercase tracking-[0.16em] text-[var(--color-slate-muted)]">{{ company.tagline }}</span>
           </span>
         </NuxtLink>
 
