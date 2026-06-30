@@ -61,7 +61,7 @@ const contactOptions = [
           >
             <span
               class="flex h-10 w-10 shrink-0 items-center justify-center border border-[#e9bcc0] bg-[#fff3f4] text-[var(--color-accent)]"
-              :class="item.key === 'whatsapp' ? '!text-[#25D366]' : ''"
+              :class="item.key === 'whatsapp' ? '!border-[var(--color-accent-dark)] !bg-[var(--color-accent)] !text-white' : ''"
             >
               <svg
                 v-if="item.key === 'whatsapp'"
