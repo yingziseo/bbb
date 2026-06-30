@@ -13,7 +13,7 @@ const socialPlatforms = [
 ]
 
 const companyLinks = [
-  { label: 'Company Profile', to: '/about' },
+  { label: 'Factory Overview', to: '/about' },
   { label: 'All Products', to: '/products' },
   { label: 'Blog', to: '/blog' },
   { label: 'Contact', to: '/contact' },

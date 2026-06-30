@@ -23,7 +23,7 @@ const capabilities = [
             <el-breadcrumb-item>Company</el-breadcrumb-item>
           </el-breadcrumb>
           <h1 class="text-[clamp(28px,4vw,42px)] font-extrabold leading-tight text-balance">
-            Company Profile
+            Factory Overview
           </h1>
           <p class="mt-5 text-[16px] leading-relaxed text-white/80 max-w-xl">
             {{ company.name }} is a Shangqiu-based company focused on cling film, fresh wrap, and related packaging materials.
@@ -50,7 +50,7 @@ const capabilities = [
       <div class="container-x">
         <SectionHeading
           eyebrow="Company Facts"
-          title="Basic Information"
+          title="Factory Information"
           subtitle="Company facts and contact details."
         />
         <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -111,7 +111,7 @@ const capabilities = [
         </div>
 
         <div class="border border-[var(--color-line)] bg-[var(--color-panel)] p-8">
-          <h3 class="text-[20px] font-extrabold text-[var(--color-navy)]">Company Record</h3>
+          <h3 class="text-[20px] font-extrabold text-[var(--color-navy)]">Registered Information</h3>
           <ul class="mt-5 space-y-3.5">
             <li v-for="t in ['Established in 2023', 'Registered capital: RMB 1 million', 'Legal representative: Liu Ke', 'Address translated from the public registration record', 'PVC Phase I public notice references 5,000 tons annual output']" :key="t" class="flex items-start gap-3">
               <el-icon :size="20" class="text-[var(--color-accent)] mt-0.5"><Check /></el-icon>
@@ -128,7 +128,7 @@ const capabilities = [
     <!-- CTA -->
     <section class="bg-[var(--color-navy-dark)] text-white">
       <div class="container-x py-14 text-center">
-        <h2 class="text-[clamp(24px,3.4vw,34px)] font-extrabold">Contact YIYUAN</h2>
+        <h2 class="text-[clamp(24px,3.4vw,34px)] font-extrabold">Send Your Inquiry</h2>
         <p class="mt-3 text-white/75 max-w-xl mx-auto">Send product details by email or WhatsApp.</p>
         <div class="mt-7 flex flex-wrap justify-center gap-3">
           <NuxtLink to="/contact"><el-button color="#c1121f" size="large">Get a Quote</el-button></NuxtLink>

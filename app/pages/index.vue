@@ -69,10 +69,10 @@ const featured = products.slice(0, 4)
             Shangqiu, Henan, China
           </span>
           <h1 class="mt-5 text-[clamp(30px,4.4vw,46px)] font-extrabold leading-[1.12] tracking-tight text-balance">
-            China New Materials Export Factory
+            Cling Film and Food Packaging for OEM Orders
           </h1>
           <p class="mt-5 text-[17px] leading-relaxed text-white/80 max-w-xl">
-            Cling film, fresh wrap, and packaging materials for OEM and export supply.
+            Custom cling film, fresh wrap, and food packaging for wholesale and OEM supply.
           </p>
           <div class="mt-8 flex flex-wrap gap-3">
             <NuxtLink to="/contact">
@@ -119,7 +119,7 @@ const featured = products.slice(0, 4)
       <div class="container-x">
         <SectionHeading
           eyebrow="Product Range"
-          title="Main Categories"
+          title="Product Categories"
           subtitle="Main packaging lines."
         />
         <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -149,8 +149,8 @@ const featured = products.slice(0, 4)
       <div class="container-x grid lg:grid-cols-2 gap-12 items-center">
         <div>
         <SectionHeading
-          eyebrow="Company Profile"
-          title="Basic Facts"
+          eyebrow="Factory Overview"
+          title="Factory Overview"
           subtitle="Registered facts and basic company information."
         />
           <div class="mt-8 grid grid-cols-3 gap-px overflow-hidden border border-[var(--color-line)] bg-[var(--color-line)]">
@@ -176,7 +176,7 @@ const featured = products.slice(0, 4)
       <div class="container-x">
         <SectionHeading
           eyebrow="Factory"
-          title="Production Floor & Warehouse"
+          title="Workshop and Warehouse"
           subtitle="Extrusion, converting, and finished goods ready for shipment."
         />
         <div class="mt-10 grid gap-4 md:grid-cols-3">
@@ -265,7 +265,7 @@ const featured = products.slice(0, 4)
         <div>
           <SectionHeading
             eyebrow="Quality"
-            title="Quality and Compliance"
+            title="Quality Control"
             subtitle="Main quality points."
           />
           <ul class="mt-8 space-y-4">
@@ -319,7 +319,7 @@ const featured = products.slice(0, 4)
         <div class="flex h-full flex-col border border-white/10 bg-white/4 p-8">
           <div class="min-h-[156px]">
             <div class="text-[12px] font-bold uppercase tracking-[0.14em] text-white/60">Get a Quote</div>
-            <h3 class="mt-4 max-w-[12ch] text-[28px] font-extrabold leading-tight">OEM and export orders</h3>
+            <h3 class="mt-4 max-w-[12ch] text-[28px] font-extrabold leading-tight">Start Your Inquiry</h3>
             <p class="mt-4 max-w-[34ch] text-[15px] leading-relaxed text-white/74">
               For fast handling, send product name, size, quantity, and custom requirements.
             </p>

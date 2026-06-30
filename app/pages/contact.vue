@@ -18,7 +18,7 @@ const defaultProduct = computed(() => (route.query.product as string) || '')
         </el-breadcrumb>
         <h1 class="text-[clamp(28px,4vw,40px)] font-extrabold leading-tight">Request a Quote</h1>
         <p class="mt-3 text-[16px] text-white/80 max-w-2xl leading-relaxed">
-          Send your product details by form, email, or WhatsApp.
+          Send size, quantity, material, and packaging requirements for quotation.
         </p>
       </div>
     </section>
@@ -34,8 +34,8 @@ const defaultProduct = computed(() => (route.query.product as string) || '')
         <!-- Contact info -->
         <div class="space-y-5">
           <div class="bg-[var(--color-navy)] p-6 text-white">
-            <h3 class="text-[17px] font-bold">WhatsApp / Email</h3>
-            <p class="mt-2 text-[13.5px] text-white/75 leading-relaxed">Use WhatsApp for quick contact. Use email for detailed requirements.</p>
+            <h3 class="text-[17px] font-bold">Quick Contact</h3>
+            <p class="mt-2 text-[13.5px] text-white/75 leading-relaxed">Use WhatsApp for fast contact, or email detailed specifications and order requirements.</p>
             <el-button tag="a" :href="company.whatsappLink" target="_blank" color="#c1121f" size="large" class="mt-4 w-full">
               WhatsApp {{ company.phone }}
             </el-button>
@@ -69,7 +69,7 @@ const defaultProduct = computed(() => (route.query.product as string) || '')
             <li class="flex items-start gap-3 p-5">
               <el-icon :size="20" class="text-[var(--color-accent)] mt-0.5"><Clock /></el-icon>
               <div>
-                <div class="text-[12px] uppercase tracking-wide text-[var(--color-slate-muted)]">Company Record</div>
+                <div class="text-[12px] uppercase tracking-wide text-[var(--color-slate-muted)]">Registered Information</div>
                 <div class="text-[15px] font-semibold text-[var(--color-navy)]">Established {{ company.founded }} · {{ company.registeredCapital }}</div>
               </div>
             </li>

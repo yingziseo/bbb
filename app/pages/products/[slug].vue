@@ -58,7 +58,7 @@ const related = computed(() =>
               <div class="text-[12px] uppercase tracking-wide text-[var(--color-slate-muted)]">Customization</div>
               <div class="mt-1 text-[14.5px] font-semibold flex items-center gap-1.5" :class="product.custom ? 'text-[var(--color-navy)]' : 'text-[var(--color-slate-muted)]'">
                 <el-icon :class="product.custom ? 'text-[var(--color-accent)]' : ''"><component :is="product.custom ? Check : Close" /></el-icon>
-                {{ product.custom ? 'OEM / ODM Supported' : 'Standard Only' }}
+                {{ product.custom ? 'Custom Production Available' : 'Standard Only' }}
               </div>
             </div>
             <div class="bg-white p-4">
@@ -95,7 +95,7 @@ const related = computed(() =>
         </div>
 
         <div>
-          <h2 class="text-[20px] font-extrabold text-[var(--color-navy)] mb-4">Applications</h2>
+          <h2 class="text-[20px] font-extrabold text-[var(--color-navy)] mb-4">Typical Uses</h2>
           <div class="flex flex-wrap gap-2">
             <el-tag v-for="a in product.applications" :key="a" type="info" effect="plain" size="large" class="!rounded-none">
               {{ a }}
@@ -103,7 +103,7 @@ const related = computed(() =>
           </div>
 
           <div class="mt-8 bg-[var(--color-navy)] p-6 text-white">
-            <h3 class="text-[16px] font-bold">Request a Quote</h3>
+            <h3 class="text-[16px] font-bold">Request Pricing</h3>
             <p class="mt-2 text-[13.5px] text-white/75 leading-relaxed">Send quantity and specifications for quotation.</p>
             <NuxtLink :to="`/contact?product=${encodeURIComponent(product.name)}`" class="inline-block mt-4">
               <el-button color="#c1121f">Get Pricing</el-button>

@@ -43,9 +43,9 @@ const filtered = computed(() => {
           <el-breadcrumb-item :to="{ path: '/' }">Home</el-breadcrumb-item>
           <el-breadcrumb-item>Products</el-breadcrumb-item>
         </el-breadcrumb>
-        <h1 class="text-[clamp(28px,4vw,40px)] font-extrabold leading-tight">Food Packaging Products</h1>
+        <h1 class="text-[clamp(28px,4vw,40px)] font-extrabold leading-tight">Cling Film and Food Packaging</h1>
         <p class="mt-3 text-[16px] text-white/80 max-w-2xl leading-relaxed">
-          Cling film, containers, and custom packaging for OEM and export orders.
+          Cling film, containers, and custom packaging for wholesale and OEM supply.
         </p>
       </div>
     </section>
@@ -90,8 +90,8 @@ const filtered = computed(() => {
     <section class="bg-[var(--color-panel)] border-t border-[var(--color-line)]">
       <div class="container-x py-12 flex flex-col md:flex-row items-center justify-between gap-6">
         <div>
-          <h2 class="text-[22px] font-extrabold text-[var(--color-navy)]">Need a custom specification or bulk pricing?</h2>
-          <p class="mt-2 text-[15px] text-[var(--color-slate-muted)]">Send quantity, size, and product details.</p>
+          <h2 class="text-[22px] font-extrabold text-[var(--color-navy)]">Need OEM Specs or Bulk Pricing?</h2>
+          <p class="mt-2 text-[15px] text-[var(--color-slate-muted)]">Send size, quantity, and packaging requirements for quotation.</p>
         </div>
         <div class="flex gap-3">
           <NuxtLink to="/contact"><el-button color="#c1121f" size="large">Get a Quote</el-button></NuxtLink>
