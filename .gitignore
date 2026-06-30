@@ -1,0 +1,23 @@
+# v0 sandbox internal files
+__v0_runtime_loader.js
+__v0_devtools.tsx
+__v0_jsx-dev-runtime.ts
+.snowflake/
+.v0-trash/
+.vercel/
+
+# Environment variables
+.env*.local
+
+# Common ignores
+node_modules
+.nuxt
+.output
+node-compile-cache
+.next/
+.DS_Store
+to-b.zip
+hero.png
+home.png
+home2.png
+product.png
