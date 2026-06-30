@@ -441,6 +441,40 @@
 
 - commit: `未提交`
 
+## 2026-06-30 - 增加导航语言切换预留组件
+
+背景：
+
+- 导航需要预留多语言切换入口，覆盖东南亚和其他主要语言。
+- 当前网站尚未上线真正的多语言内容，用户切换时需要明确提示功能未上线。
+
+改动：
+
+- 新增 `LanguageSwitcher` 组件，使用 `flag-icons` 的国旗 SVG 素材。
+- 桌面端导航右侧和移动端菜单都接入语言切换入口。
+- 语言列表包含英文、印尼语、马来语、泰语、越南语、菲律宾语、缅甸语、高棉语、中文、日语、韩语、阿拉伯语、西班牙语、法语。
+- 点击任意语言时显示英文提示：`Multilingual feature is not online yet.`
+- 只按需导入使用到的国旗 SVG，避免引入完整国旗 CSS 造成构建资源过大。
+
+涉及文件：
+
+- `app/components/LanguageSwitcher.vue`
+- `app/components/SiteHeader.vue`
+- `package.json`
+- `pnpm-lock.yaml`
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- `pnpm build` 通过。
+- 已重启公网 3005 服务。
+- `http://43.134.105.149:3005/` 返回 200。
+- 首页 SSR 输出包含 `Select language`、`English`、`Bahasa Indonesia`、`Bahasa Melayu`、`Thai`、`Vietnamese` 等语言选项。
+
+提交：
+
+- commit: `未提交`
+
 ## 记录模板
 
 ```markdown

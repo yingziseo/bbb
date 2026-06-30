@@ -69,6 +69,7 @@ watch(
         </nav>
 
         <div class="hidden lg:flex items-center gap-3">
+          <LanguageSwitcher />
           <el-button
             tag="a"
             :href="company.whatsappLink"
@@ -103,6 +104,10 @@ watch(
         >
           {{ item.label }}
         </NuxtLink>
+        <div class="flex items-center justify-between border-b border-[var(--color-line)] py-3">
+          <span class="text-[13px] font-semibold uppercase tracking-[0.12em] text-[var(--color-slate-muted)]">Language</span>
+          <LanguageSwitcher />
+        </div>
         <div class="flex gap-3 pt-4">
           <el-button tag="a" :href="company.whatsappLink" target="_blank" color="#1b3c63" class="flex-1">WhatsApp</el-button>
           <NuxtLink to="/contact" class="flex-1">
