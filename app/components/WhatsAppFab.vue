@@ -31,14 +31,14 @@ const contactOptions = [
 
 <template>
   <div class="fixed right-4 bottom-4 z-50 w-[min(calc(100vw-24px),300px)] md:right-5 md:bottom-5 md:w-[280px]">
-    <div class="border border-[var(--color-line-strong)] bg-white shadow-[0_10px_24px_rgba(15,42,74,0.12)]">
+    <div class="border border-[var(--color-accent-dark)] bg-white shadow-[0_12px_28px_rgba(193,18,31,0.18)]">
       <button
         type="button"
-        class="flex w-full items-center justify-between border-b border-[var(--color-line)] bg-[var(--color-navy)] px-4 py-3 text-left text-white"
+        class="flex w-full items-center justify-between border-b border-[var(--color-accent-dark)] bg-[var(--color-accent)] px-4 py-3 text-left text-white"
         @click="expanded = !expanded"
       >
         <span>
-          <span class="block text-[12px] font-bold uppercase tracking-[0.12em] text-white/62">Contact</span>
+          <span class="block text-[12px] font-bold uppercase tracking-[0.12em] text-white/68">Contact</span>
           <span class="mt-1 block text-[14px] font-semibold">WhatsApp, email, or form</span>
         </span>
         <el-icon :size="18" class="text-white/78">
@@ -48,16 +48,19 @@ const contactOptions = [
       </button>
 
       <div v-show="expanded" class="bg-white">
-        <template v-for="item in contactOptions" :key="item.key">
+        <template v-for="(item, index) in contactOptions" :key="item.key">
           <a
             v-if="item.external"
             :href="item.href"
             target="_blank"
             rel="noopener"
-            class="flex items-center gap-3 border-b border-[var(--color-line)] px-4 py-3 last:border-b-0 hover:bg-[var(--color-panel)] transition-colors"
+            :class="[
+              'flex items-center gap-3 px-4 py-3 transition-colors hover:bg-[#fff5f6]',
+              index !== contactOptions.length - 1 ? 'border-b border-[var(--color-line)]' : '',
+            ]"
           >
             <span
-              class="flex h-10 w-10 shrink-0 items-center justify-center border border-[var(--color-line-strong)] bg-[var(--color-panel)] text-[var(--color-navy)]"
+              class="flex h-10 w-10 shrink-0 items-center justify-center border border-[#e9bcc0] bg-[#fff3f4] text-[var(--color-accent)]"
             >
               <svg
                 v-if="item.key === 'whatsapp'"
@@ -84,10 +87,13 @@ const contactOptions = [
           <NuxtLink
             v-else
             :to="item.href"
-            class="flex items-center gap-3 border-b border-[var(--color-line)] px-4 py-3 last:border-b-0 hover:bg-[var(--color-panel)] transition-colors"
+            :class="[
+              'flex items-center gap-3 px-4 py-3 transition-colors hover:bg-[#fff5f6]',
+              index !== contactOptions.length - 1 ? 'border-b border-[var(--color-line)]' : '',
+            ]"
           >
             <span
-              class="flex h-10 w-10 shrink-0 items-center justify-center border border-[var(--color-line-strong)] bg-[var(--color-panel)] text-[var(--color-navy)]"
+              class="flex h-10 w-10 shrink-0 items-center justify-center border border-[#e9bcc0] bg-[#fff3f4] text-[var(--color-accent)]"
             >
               <el-icon :size="18">
                 <Document />
