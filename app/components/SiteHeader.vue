@@ -26,28 +26,42 @@ const nav = [
 
 const mobileOpen = ref(false)
 const isScrolled = ref(false)
+const isNavFixed = ref(false)
+const stickySpacerHeight = ref(0)
+const stickyAnchorRef = ref<HTMLElement | null>(null)
+const stickyMainRef = ref<HTMLElement | null>(null)
 const route = useRoute()
 
 const productCategories = computed(() => (headerCatalog.value?.categories || []).slice(0, 4))
 const isActive = (to: string) => (to === '/' ? route.path === '/' : route.path === to || route.path.startsWith(`${to}/`))
 const updateScrolled = () => {
-  isScrolled.value = window.scrollY > 10
+  stickySpacerHeight.value = stickyMainRef.value?.offsetHeight || 68
+
+  const stickyAnchorTop = stickyAnchorRef.value
+    ? stickyAnchorRef.value.getBoundingClientRect().top + window.scrollY
+    : 0
+
+  isNavFixed.value = window.scrollY >= Math.max(0, Math.floor(stickyAnchorTop))
+  isScrolled.value = isNavFixed.value || window.scrollY > 10
 }
 
 watch(
   () => route.fullPath,
   () => {
     mobileOpen.value = false
+    nextTick(updateScrolled)
   },
 )
 
 onMounted(() => {
-  updateScrolled()
+  nextTick(updateScrolled)
   window.addEventListener('scroll', updateScrolled, { passive: true })
+  window.addEventListener('resize', updateScrolled, { passive: true })
 })
 
 onBeforeUnmount(() => {
   window.removeEventListener('scroll', updateScrolled)
+  window.removeEventListener('resize', updateScrolled)
 })
 </script>
 
@@ -57,12 +71,22 @@ onBeforeUnmount(() => {
     <div class="site-header__utility bg-[var(--color-navy-dark)] text-white text-[13px]">
       <div class="container-x flex justify-end py-2">
         <div class="flex flex-wrap items-center justify-end gap-x-5 gap-y-1 text-right">
-          <span class="flex items-center gap-1.5 text-white/88">
+          <a
+            :href="company.whatsappLink"
+            target="_blank"
+            rel="noopener"
+            class="site-header__utility-link"
+            :aria-label="`Contact on WhatsApp ${company.phone}`"
+          >
             <el-icon><Phone /></el-icon>{{ company.phone }}
-          </span>
-          <span class="flex items-center gap-1.5 text-white/88">
+          </a>
+          <a
+            :href="company.contactLink"
+            class="site-header__utility-link"
+            :aria-label="`Send email to ${company.email}`"
+          >
             <el-icon><Message /></el-icon>{{ company.email }}
-          </span>
+          </a>
           <span class="hidden lg:block text-white/64">
             Export Sourcing | Private Label OEM | Custom Converting
           </span>
@@ -72,9 +96,16 @@ onBeforeUnmount(() => {
 
     <InfoMarquee :items="headerMarqueeItems" direction="ltr" tone="dark" />
 
-    <div class="site-header__sticky">
+    <div
+      ref="stickyAnchorRef"
+      class="site-header__sticky-anchor"
+      :style="{ height: isNavFixed ? `${stickySpacerHeight}px` : '0px' }"
+      aria-hidden="true"
+    />
+
+    <div class="site-header__sticky" :class="{ 'is-fixed': isNavFixed }">
       <!-- Main nav -->
-      <div class="site-header__main border-b border-[var(--color-line)]">
+      <div ref="stickyMainRef" class="site-header__main border-b border-[var(--color-line)]">
         <div class="container-x flex h-[68px] items-center justify-between gap-4">
           <NuxtLink to="/" class="site-brand group">
             <span class="site-brand__mark">
@@ -200,9 +231,12 @@ onBeforeUnmount(() => {
   background: #fff;
 }
 
+.site-header__sticky-anchor {
+  height: 0;
+}
+
 .site-header__sticky {
-  position: sticky;
-  top: 0;
+  position: relative;
   z-index: 50;
   background: rgba(255, 255, 255, 0.96);
   transition:
@@ -211,10 +245,40 @@ onBeforeUnmount(() => {
     backdrop-filter 220ms ease;
 }
 
+.site-header__sticky.is-fixed {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 80;
+}
+
 .site-header--scrolled .site-header__sticky {
   background: rgba(255, 255, 255, 0.92);
   box-shadow: 0 10px 28px rgba(15, 42, 74, 0.1);
   backdrop-filter: blur(12px);
+}
+
+.site-header__utility-link {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.88);
+  text-decoration: none;
+  transition:
+    color 180ms ease,
+    opacity 180ms ease;
+}
+
+.site-header__utility-link:active {
+  opacity: 0.72;
+}
+
+@media (hover: hover) {
+  .site-header__utility-link:hover {
+    color: #fff;
+  }
 }
 
 .site-header__main {
