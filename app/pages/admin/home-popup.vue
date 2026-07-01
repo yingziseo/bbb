@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ChatDotRound, Message, Present, VideoPlay } from '@element-plus/icons-vue'
+import { ChatDotRound, FullScreen, Message, Mute, Present, VideoCamera, VideoPlay } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 
 definePageMeta({ layout: 'admin' })
@@ -179,14 +179,40 @@ watch(
               </div>
             </div>
 
-            <div class="relative min-h-[260px] border-t border-[var(--color-line)] bg-[var(--color-navy-dark)] md:border-l md:border-t-0">
-              <div class="absolute inset-0 bg-[url('/images/workshop-main.png')] bg-cover bg-center opacity-28" />
-              <div class="absolute inset-0 flex flex-col items-center justify-center gap-3 text-white">
-                <span class="flex h-[66px] w-[66px] items-center justify-center border border-white/40 bg-[var(--color-accent)]">
-                  <el-icon :size="28"><VideoPlay /></el-icon>
-                </span>
-                <strong class="text-[16px]">Factory Video</strong>
-                <span class="text-[12px] font-semibold uppercase text-white/65">External player</span>
+            <div class="flex min-h-[260px] items-center border-t border-[var(--color-line)] bg-[var(--color-navy-dark)] p-5 md:border-l md:border-t-0">
+              <div class="w-full overflow-hidden border border-white/15 bg-black/45 shadow-[0_18px_44px_rgba(0,0,0,0.22)]">
+                <div class="flex h-10 items-center justify-between gap-3 border-b border-white/15 px-3 text-white">
+                  <span class="flex min-w-0 items-center gap-2 text-[13px] font-extrabold">
+                    <el-icon><VideoCamera /></el-icon>
+                    Factory Video
+                  </span>
+                  <span class="text-[11px] font-extrabold uppercase text-white/60">External source</span>
+                </div>
+                <div class="relative aspect-video overflow-hidden">
+                  <div class="absolute inset-0 bg-[url('/images/workshop-main.png')] bg-cover bg-center opacity-40" />
+                  <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,31,56,0.1),rgba(10,31,56,0.72))]" />
+                  <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(180deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[length:42px_42px] opacity-30" />
+                  <div class="absolute inset-0 flex flex-col items-center justify-center gap-3 text-white">
+                    <span class="flex h-[66px] w-[66px] items-center justify-center border border-white/40 bg-[var(--color-accent)] shadow-[0_16px_34px_rgba(0,0,0,0.24)]">
+                      <el-icon :size="28"><VideoPlay /></el-icon>
+                    </span>
+                    <strong class="text-[16px]">Watch factory overview</strong>
+                    <span class="text-[12px] font-semibold uppercase text-white/65">External video player</span>
+                  </div>
+                </div>
+                <div class="grid h-11 grid-cols-[auto_minmax(60px,1fr)_auto_auto_auto] items-center gap-2 border-t border-white/15 px-3 text-white/72">
+                  <span class="text-[11px] font-extrabold tabular-nums">00:00</span>
+                  <span class="h-1 overflow-hidden bg-white/18">
+                    <span class="block h-full w-[28%] bg-[var(--color-accent)]" />
+                  </span>
+                  <span class="text-[11px] font-extrabold tabular-nums">01:28</span>
+                  <span class="flex h-6 w-6 items-center justify-center border border-white/15">
+                    <el-icon><Mute /></el-icon>
+                  </span>
+                  <span class="flex h-6 w-6 items-center justify-center border border-white/15">
+                    <el-icon><FullScreen /></el-icon>
+                  </span>
+                </div>
               </div>
             </div>
           </div>
