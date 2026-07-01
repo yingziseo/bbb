@@ -9,6 +9,44 @@
 - 如果只是文档或内容改动，也要记录。
 - 如果没有跑测试或构建，需要明确写出来。
 
+## 2026-07-01 - 博客文章页新增自动目录
+
+背景：
+
+- 用户希望博客文章页有可折叠、可展开的悬浮目录，提高长文章阅读体验。
+- 项目有开发权限，目录应由代码层自动解析文章 H2/H3 生成，不应写入每篇文章 HTML。
+
+改动：
+
+- 新增 `ArticleToc.client.vue`，客户端自动扫描 `.article-body h2, .article-body h3`，生成文章目录。
+- 自动为缺少 `id` 的 H2/H3 生成锚点。
+- 桌面端显示右侧 sticky 可折叠目录，并高亮当前阅读章节。
+- 手机端显示左下角 `Outline` 按钮，展开底部目录面板，避免和右下角 WhatsApp 组件冲突。
+- 博客详情页改为正文 + 右侧目录的响应式布局。
+- 文章标题增加 `scroll-margin-top`，避免点击目录后被顶部导航遮挡。
+- 补充正文 figure、figcaption、table 基础样式，适配后续工作流文章。
+- 更新 `工作流/博客文章工作流.md`，明确自动目录已由代码层实现，文章 HTML 只写干净 H2/H3。
+
+涉及文件：
+
+- `app/components/ArticleToc.client.vue`
+- `app/pages/blog/[slug].vue`
+- `app/assets/css/main.css`
+- `工作流/博客文章工作流.md`
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- `pnpm build` 通过。
+- 构建产物包含 `ArticleToc` 组件和目录样式。
+- 已重启公网 3005 服务，当前进程监听 `0.0.0.0:3005`。
+- `http://127.0.0.1:3005/blog/choosing-food-packaging-supplier` 返回 200。
+- `http://43.134.105.149:3005/blog/choosing-food-packaging-supplier` 返回 200。
+
+提交：
+
+- commit: `当前提交`
+
 ## 2026-07-01 - 调整博客文章工作流目录
 
 背景：

@@ -37,27 +37,33 @@ const more = computed(() => (moreData.value?.items || []).filter((p) => p.slug !
     </section>
 
     <article class="section bg-white !pt-12">
-      <div class="container-x max-w-3xl">
-        <div class="flex items-center gap-3 text-[13px]">
-          <span class="bg-[var(--color-navy)] px-2.5 py-1 font-bold uppercase tracking-wide text-white">Article</span>
-          <span class="text-[var(--color-slate-muted)]">{{ formatDate(post.publishedAt || post.createdAt) }}</span>
-        </div>
-        <h1 class="mt-4 text-[clamp(26px,3.6vw,38px)] font-extrabold text-[var(--color-navy)] leading-tight text-balance">{{ post.title }}</h1>
+      <div class="container-x">
+        <div class="grid gap-10 lg:grid-cols-[minmax(0,768px)_260px] lg:items-start lg:justify-center">
+          <div class="min-w-0">
+            <div class="flex items-center gap-3 text-[13px]">
+              <span class="bg-[var(--color-navy)] px-2.5 py-1 font-bold uppercase tracking-wide text-white">Article</span>
+              <span class="text-[var(--color-slate-muted)]">{{ formatDate(post.publishedAt || post.createdAt) }}</span>
+            </div>
+            <h1 class="mt-4 text-[clamp(26px,3.6vw,38px)] font-extrabold text-[var(--color-navy)] leading-tight text-balance">{{ post.title }}</h1>
 
-        <div v-if="post.coverImage" class="mt-7 overflow-hidden border border-[var(--color-line)]">
-          <img :src="post.coverImage" :alt="post.title" class="w-full aspect-[16/9] object-cover" />
-        </div>
+            <div v-if="post.coverImage" class="mt-7 overflow-hidden border border-[var(--color-line)]">
+              <img :src="post.coverImage" :alt="post.title" class="w-full aspect-[16/9] object-cover" />
+            </div>
 
-        <div class="article-body mt-8" v-html="post.contentHtml" />
+            <div class="article-body mt-8" v-html="post.contentHtml" />
 
-        <!-- Inline CTA -->
-        <div class="mt-10 bg-[var(--color-navy)] p-7 text-white">
-          <h3 class="text-[19px] font-extrabold">Need product details?</h3>
-          <p class="mt-2 text-[14.5px] text-white/75 leading-relaxed">Contact us for product information and quotation.</p>
-          <div class="mt-5 flex flex-wrap gap-3">
-            <NuxtLink to="/contact"><el-button color="#c1121f">Get a Quote</el-button></NuxtLink>
-            <el-button tag="a" :href="company.whatsappLink" target="_blank" color="#1b3c63">WhatsApp</el-button>
+            <!-- Inline CTA -->
+            <div class="mt-10 bg-[var(--color-navy)] p-7 text-white">
+              <h3 class="text-[19px] font-extrabold">Need product details?</h3>
+              <p class="mt-2 text-[14.5px] text-white/75 leading-relaxed">Contact us for product information and quotation.</p>
+              <div class="mt-5 flex flex-wrap gap-3">
+                <NuxtLink to="/contact"><el-button color="#c1121f">Get a Quote</el-button></NuxtLink>
+                <el-button tag="a" :href="company.whatsappLink" target="_blank" color="#1b3c63">WhatsApp</el-button>
+              </div>
+            </div>
           </div>
+
+          <ArticleToc :content-key="post.slug" target-selector=".article-body" />
         </div>
       </div>
     </article>
