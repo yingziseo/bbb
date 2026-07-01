@@ -1,8 +1,8 @@
 <script setup lang="ts">
 await useManagedSeo('page:blog', {
   title: 'Food Packaging Sourcing Guides & Material Insights | YIYUAN',
-  description: 'Read food packaging sourcing guides, material comparisons and wholesale purchasing tips for cling film, containers and custom packaging.',
-  keywords: 'food packaging sourcing guide, packaging material comparison, wholesale packaging tips',
+  description: 'Read YIYUAN guides on cling film, food wrap, disposable containers, material selection, OEM/ODM packaging, wholesale sourcing, and export packaging trends.',
+  keywords: 'food packaging blog, cling film guide, food wrap sourcing, disposable container guide, packaging material insights, OEM ODM packaging guide, wholesale packaging tips, export packaging trends',
   image: '/images/blog-supplier.webp',
 })
 

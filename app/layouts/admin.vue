@@ -19,17 +19,17 @@ const route = useRoute()
 const mobileNavOpen = ref(false)
 
 const nav = [
-  { label: '概览', to: '/admin', icon: HomeFilled },
-  { label: '页面 TDK', to: '/admin/seo', icon: Operation },
-  { label: '产品管理', to: '/admin/products', icon: Box },
-  { label: '首页弹窗', to: '/admin/home-popup', icon: VideoCamera },
-  { label: '博客文章', to: '/admin/posts', icon: Document },
-  { label: '询盘记录', to: '/admin/inquiries', icon: MessageBox },
-  { label: '网站设置', to: '/admin/settings', icon: SettingIcon },
-  { label: '社交链接', to: '/admin/social-links', icon: Link },
+  { label: '概览', to: '/like', icon: HomeFilled },
+  { label: '页面 TDK', to: '/like/seo', icon: Operation },
+  { label: '产品管理', to: '/like/products', icon: Box },
+  { label: '首页弹窗', to: '/like/home-popup', icon: VideoCamera },
+  { label: '博客文章', to: '/like/posts', icon: Document },
+  { label: '询盘记录', to: '/like/inquiries', icon: MessageBox },
+  { label: '网站设置', to: '/like/settings', icon: SettingIcon },
+  { label: '社交链接', to: '/like/social-links', icon: Link },
 ]
 
-const isActiveNav = (to: string) => route.path === to || (to !== '/admin' && route.path.startsWith(to))
+const isActiveNav = (to: string) => route.path === to || (to !== '/like' && route.path.startsWith(to))
 const currentNav = computed(() => nav.find((item) => isActiveNav(item.to)) || nav[0])
 
 watch(
@@ -43,7 +43,7 @@ const logout = async () => {
   await $fetch('/api/admin/auth/logout', { method: 'POST' })
   ElMessage.success('已退出登录')
   mobileNavOpen.value = false
-  await navigateTo('/admin/login')
+  await navigateTo('/like/login')
 }
 </script>
 

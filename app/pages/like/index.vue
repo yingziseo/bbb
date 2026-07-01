@@ -35,19 +35,19 @@ const cards = computed(() => [
     </div>
 
     <div class="mt-4 grid gap-3 lg:grid-cols-2">
-      <NuxtLink to="/admin/products" class="border border-[var(--color-line)] bg-white px-4 py-3 transition-colors hover:border-[var(--color-navy)]">
+      <NuxtLink to="/like/products" class="border border-[var(--color-line)] bg-white px-4 py-3 transition-colors hover:border-[var(--color-navy)]">
         <h2 class="text-[15px] font-bold text-[var(--color-navy)]">管理产品分类和产品</h2>
         <p class="mt-1 text-[13px] leading-relaxed text-[var(--color-slate-muted)]">维护保鲜膜、一次性餐盒分类，以及产品图片、材料、MOQ、规格尺寸和包装。</p>
       </NuxtLink>
-      <NuxtLink to="/admin/seo" class="border border-[var(--color-line)] bg-white px-4 py-3 transition-colors hover:border-[var(--color-navy)]">
+      <NuxtLink to="/like/seo" class="border border-[var(--color-line)] bg-white px-4 py-3 transition-colors hover:border-[var(--color-navy)]">
         <h2 class="text-[15px] font-bold text-[var(--color-navy)]">管理页面 TDK</h2>
         <p class="mt-1 text-[13px] leading-relaxed text-[var(--color-slate-muted)]">首页、产品页、博客页、联系页和详情页 SEO 集中管理。</p>
       </NuxtLink>
-      <NuxtLink to="/admin/inquiries" class="border border-[var(--color-line)] bg-white px-4 py-3 transition-colors hover:border-[var(--color-navy)]">
+      <NuxtLink to="/like/inquiries" class="border border-[var(--color-line)] bg-white px-4 py-3 transition-colors hover:border-[var(--color-navy)]">
         <h2 class="text-[15px] font-bold text-[var(--color-navy)]">查看询盘记录</h2>
         <p class="mt-1 text-[13px] leading-relaxed text-[var(--color-slate-muted)]">表单提交会入库，并自动尝试转发到网站邮箱。</p>
       </NuxtLink>
-      <NuxtLink to="/admin/settings" class="border border-[var(--color-line)] bg-white px-4 py-3 transition-colors hover:border-[var(--color-navy)]">
+      <NuxtLink to="/like/settings" class="border border-[var(--color-line)] bg-white px-4 py-3 transition-colors hover:border-[var(--color-navy)]">
         <h2 class="text-[15px] font-bold text-[var(--color-navy)]">修改网站联系方式</h2>
         <p class="mt-1 text-[13px] leading-relaxed text-[var(--color-slate-muted)]">统一维护前台电话、邮箱、WhatsApp、公司信息和 sitemap 域名。</p>
       </NuxtLink>

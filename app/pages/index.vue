@@ -53,9 +53,9 @@ const quality = [
 const featured = computed(() => (catalogData.value?.items || []).slice(0, 4))
 
 await useManagedSeo('page:home', {
-  title: 'Cling Film & Disposable Food Packaging Factory in China | YIYUAN',
-  description: 'YIYUAN supplies cling film, fresh wrap, disposable food containers and OEM food packaging for wholesale and export orders from China.',
-  keywords: 'cling film factory, disposable food packaging, food container manufacturer, OEM packaging China',
+  title: 'Cling Film & Food Packaging Factory in China | YIYUAN',
+  description: 'YIYUAN supplies PE/PVC cling film, fresh wrap, jumbo rolls, cutter box film, and disposable food packaging for importers, wholesalers, OEM/ODM brands, and private label orders.',
+  keywords: 'cling film manufacturer, food packaging factory, PE cling film, PVC cling film, fresh wrap, jumbo roll film, cutter box film, disposable food packaging, OEM ODM food packaging, China packaging supplier, packaging supplier for importers',
   image: '/images/hero-factory.webp',
 })
 </script>

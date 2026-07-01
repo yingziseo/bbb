@@ -12,15 +12,15 @@ const form = reactive({
   password: '',
 })
 
-const adminHome = '/admin'
+const adminHome = '/like'
 
 const redirectTarget = () => {
   const value = route.query.redirect
   const target = Array.isArray(value) ? value[0] : value
   if (!target || typeof target !== 'string') return adminHome
-  if (target === '/admin/index.html' || target.startsWith('/admin/login')) return adminHome
+  if (target === '/like/index.html' || target.startsWith('/like/login')) return adminHome
   if (target.startsWith('//') || target.includes('://') || target.includes('\\')) return adminHome
-  if (target !== '/admin' && !target.startsWith('/admin/')) return adminHome
+  if (target !== '/like' && !target.startsWith('/like/')) return adminHome
   return target
 }
 
@@ -55,7 +55,7 @@ const login = async () => {
 
         <el-form label-position="top" @submit.prevent="login">
           <el-form-item label="管理员账号">
-            <el-input v-model="form.username" size="large" placeholder="admin" @keyup.enter="login">
+            <el-input v-model="form.username" size="large" placeholder="请输入管理员账号" @keyup.enter="login">
               <template #prefix><el-icon><User /></el-icon></template>
             </el-input>
           </el-form-item>
@@ -70,7 +70,7 @@ const login = async () => {
         </el-form>
 
         <p class="mt-5 text-[12px] leading-relaxed text-[var(--color-slate-muted)]">
-          默认管理员账号为 `admin`，默认密码为 `admin123`。
+          请使用已配置的管理员账号和密码登录。
         </p>
       </div>
     </div>

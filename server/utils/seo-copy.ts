@@ -68,11 +68,11 @@ export const makeCategorySeoTitle = (category: {
   const haystack = `${name} ${category.slug || ''}`.toLowerCase()
 
   if (/(cling|wrap|film)/.test(haystack)) {
-    return `Cling Film Manufacturer in China | Wholesale Food Wrap | ${seoBrand}`
+    return `Cling Film Manufacturer in China | Food Wrap OEM | ${seoBrand}`
   }
 
   if (/(meal|box|container|disposable)/.test(haystack)) {
-    return `Disposable Food Containers Factory | Meal Boxes & OEM | ${seoBrand}`
+    return `Disposable Food Containers Factory in China | ${seoBrand}`
   }
 
   return `${name} Manufacturer in China | Wholesale & OEM | ${seoBrand}`
@@ -84,7 +84,7 @@ export const makeCategorySeoDescription = (category: {
 }) => {
   const name = cleanText(category.name)
   const description = cleanText(category.description || '')
-  const suffix = 'Wholesale orders, OEM sizes, private-label packaging and export quotes available.'
+  const suffix = 'Importers, wholesale, OEM/ODM, private-label packaging and export quotes available.'
   return description ? `${description} ${suffix}` : `Shop ${name} from ${seoBrand}, a China food packaging factory. ${suffix}`
 }
 
@@ -95,9 +95,9 @@ export const makeCategorySeoKeywords = (category: {
   const haystack = `${category.name} ${category.slug || ''}`.toLowerCase()
   const base = /(cling|wrap|film)/.test(haystack)
     ? ['cling film manufacturer', 'food wrap wholesale', 'fresh wrap supplier']
-    : ['disposable food containers', 'meal box factory', 'takeaway packaging supplier']
+    : ['disposable food containers', 'food container factory', 'meal box manufacturer']
 
-  return [category.name, ...base, 'OEM food packaging', 'China packaging factory']
+  return [category.name, ...base, 'OEM ODM food packaging', 'China packaging factory']
     .map((item) => cleanText(item))
     .filter(Boolean)
     .join(', ')

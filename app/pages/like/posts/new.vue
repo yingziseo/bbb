@@ -2,32 +2,23 @@
 import { ElMessage } from 'element-plus'
 
 definePageMeta({ layout: 'admin' })
+useHead({ title: '新建文章 | YIYUAN' })
 
-const route = useRoute()
-const id = route.params.id as string
 const loading = ref(false)
 const uploadLoading = ref(false)
 
-const { data } = await useFetch(`/api/admin/posts/${id}`)
-if (!data.value?.item) {
-  throw createError({ statusCode: 404, statusMessage: 'Article not found' })
-}
-
-useHead({ title: `编辑文章 | ${data.value.item.title}` })
-
-const item = data.value.item
 const form = reactive({
-  title: item.title,
-  slug: item.slug,
-  excerpt: item.excerpt,
-  coverImage: item.coverImage,
-  contentHtml: item.contentHtml,
-  status: item.status,
-  publishedAt: item.publishedAt,
-  seoTitle: item.seoTitle,
-  seoDescription: item.seoDescription,
-  seoKeywords: item.seoKeywords,
-  canonical: item.canonical,
+  title: '',
+  slug: '',
+  excerpt: '',
+  coverImage: '',
+  contentHtml: '<p></p>',
+  status: 'draft',
+  publishedAt: '',
+  seoTitle: '',
+  seoDescription: '',
+  seoKeywords: '',
+  canonical: '',
 })
 
 const uploadCover = async (option: any) => {
@@ -48,11 +39,12 @@ const uploadCover = async (option: any) => {
 const save = async () => {
   loading.value = true
   try {
-    await $fetch(`/api/admin/posts/${id}`, {
-      method: 'PUT',
+    const result = await $fetch<{ item: { id: number } }>('/api/admin/posts', {
+      method: 'POST',
       body: form,
     })
-    ElMessage.success('文章已保存')
+    ElMessage.success('文章已创建')
+    await navigateTo(`/like/posts/${result.item.id}`)
   } catch (error: any) {
     ElMessage.error(error?.data?.message || error?.statusMessage || '保存失败')
   } finally {
@@ -65,13 +57,10 @@ const save = async () => {
   <div>
     <div class="mb-6 flex flex-wrap items-end justify-between gap-4">
       <div>
-        <h1 class="text-[26px] font-extrabold text-[var(--color-navy)]">编辑文章</h1>
-        <p class="mt-2 text-[14px] text-[var(--color-slate-muted)]">/blog/{{ form.slug }}</p>
+        <h1 class="text-[26px] font-extrabold text-[var(--color-navy)]">新建文章</h1>
+        <p class="mt-2 text-[14px] text-[var(--color-slate-muted)]">发布博客文章，支持富文本和 HTML 源码。</p>
       </div>
-      <div class="flex gap-3">
-        <NuxtLink :to="`/blog/${form.slug}`" target="_blank"><el-button plain>预览前台</el-button></NuxtLink>
-        <NuxtLink to="/admin/posts"><el-button plain>返回列表</el-button></NuxtLink>
-      </div>
+      <NuxtLink to="/like/posts"><el-button plain>返回列表</el-button></NuxtLink>
     </div>
 
     <div class="grid gap-6 xl:grid-cols-[1fr_360px]">
@@ -81,7 +70,7 @@ const save = async () => {
             <el-input v-model="form.title" />
           </el-form-item>
           <el-form-item label="Slug">
-            <el-input v-model="form.slug" />
+            <el-input v-model="form.slug" placeholder="留空则根据标题自动生成" />
           </el-form-item>
           <el-form-item label="摘要">
             <el-input v-model="form.excerpt" type="textarea" :rows="3" maxlength="220" show-word-limit />

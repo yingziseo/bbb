@@ -4,9 +4,9 @@ import { Message, Location, OfficeBuilding, Clock } from '@element-plus/icons-vu
 const company = await useSiteSettings()
 
 await useManagedSeo('page:contact', {
-  title: 'Contact YIYUAN | Get Food Packaging Samples & Quotes',
-  description: 'Send a quick inquiry for cling film, disposable containers, custom packaging, samples, MOQ, pricing and export order support.',
-  keywords: 'food packaging quotation, packaging samples, OEM packaging inquiry, contact packaging supplier',
+  title: 'Contact YIYUAN | Get Food Packaging Quotes & Samples',
+  description: 'Contact YIYUAN for cling film, fresh wrap, food containers, OEM/ODM packaging, samples, pricing, MOQ, lead time, and export order inquiries.',
+  keywords: 'contact YIYUAN, food packaging quote, cling film quote, food wrap samples, packaging samples, OEM ODM packaging inquiry, wholesale packaging supplier, export packaging inquiry',
   image: '/images/hero-factory.webp',
 })
 

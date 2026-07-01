@@ -31,7 +31,7 @@ const save = async () => {
       body: form,
     })
     ElMessage.success('SEO 已保存')
-    await navigateTo('/admin/seo')
+    await navigateTo('/like/seo')
   } catch (error: any) {
     ElMessage.error(error?.data?.message || error?.statusMessage || '保存失败')
   } finally {
@@ -47,7 +47,7 @@ const save = async () => {
         <h1 class="text-[26px] font-extrabold text-[var(--color-navy)]">编辑页面 TDK</h1>
         <p class="mt-2 text-[14px] text-[var(--color-slate-muted)]">{{ data?.item.name }} · {{ data?.item.path }}</p>
       </div>
-      <NuxtLink to="/admin/seo">
+      <NuxtLink to="/like/seo">
         <el-button plain>返回列表</el-button>
       </NuxtLink>
     </div>
@@ -77,7 +77,7 @@ const save = async () => {
 
         <div class="mt-6 flex gap-3">
           <el-button color="#c1121f" :loading="loading" @click="save">保存</el-button>
-          <NuxtLink to="/admin/seo"><el-button plain>取消</el-button></NuxtLink>
+          <NuxtLink to="/like/seo"><el-button plain>取消</el-button></NuxtLink>
         </div>
       </el-form>
     </div>

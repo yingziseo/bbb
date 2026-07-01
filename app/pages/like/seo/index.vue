@@ -28,7 +28,7 @@ const { data, pending, refresh } = await useFetch('/api/admin/seo')
         </el-table-column>
         <el-table-column label="操作" width="120" fixed="right">
           <template #default="{ row }">
-            <NuxtLink :to="`/admin/seo/${row.id}`">
+            <NuxtLink :to="`/like/seo/${row.id}`">
               <el-button size="small" color="#0f2a4a">编辑</el-button>
             </NuxtLink>
           </template>

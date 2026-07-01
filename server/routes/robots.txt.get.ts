@@ -7,6 +7,7 @@ export default defineEventHandler((event) => {
   return [
     'User-agent: *',
     'Allow: /',
+    'Disallow: /like',
     'Disallow: /admin',
     base ? `Sitemap: ${base}/sitemap.xml` : '',
   ]

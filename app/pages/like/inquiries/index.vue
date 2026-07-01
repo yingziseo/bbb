@@ -87,7 +87,7 @@ const resend = async (id: number) => {
         <el-table-column label="操作" width="240" fixed="right">
           <template #default="{ row }">
             <div class="flex gap-2">
-              <NuxtLink :to="`/admin/inquiries/${row.id}`">
+              <NuxtLink :to="`/like/inquiries/${row.id}`">
                 <el-button size="small" color="#0f2a4a">
                   <el-icon><Message /></el-icon>
                 </el-button>

@@ -31,13 +31,13 @@ if (!category.value) {
 }
 
 const fallbackCategorySeoTitle = () => {
-  if (slug === 'cling-film') return 'Cling Film Manufacturer in China | Wholesale Food Wrap | YIYUAN'
-  if (slug === 'disposable-meal-boxes') return 'Disposable Food Containers Factory | Meal Boxes & OEM | YIYUAN'
+  if (slug === 'cling-film') return 'Cling Film Manufacturer in China | Food Wrap OEM | YIYUAN'
+  if (slug === 'disposable-meal-boxes') return 'Disposable Food Containers Factory in China | YIYUAN'
   return `${category.value?.name} Manufacturer in China | Wholesale & OEM | YIYUAN`
 }
 
 const fallbackCategorySeoDescription = () =>
-  `${category.value?.description || `Shop ${category.value?.name} from YIYUAN.`} Wholesale orders, OEM sizes, private-label packaging and export quotes available.`
+  `${category.value?.description || `Shop ${category.value?.name} from YIYUAN.`} Importers, wholesale, OEM/ODM, private-label packaging and export quotes available.`
 
 await useManagedSeo(`category:${slug}`, {
   title: category.value.seoTitle || fallbackCategorySeoTitle(),

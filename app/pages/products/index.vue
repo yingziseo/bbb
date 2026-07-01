@@ -4,9 +4,9 @@ import type { Product } from '~/data/site'
 const company = await useSiteSettings()
 
 await useManagedSeo('page:products', {
-  title: 'Food Packaging Products | Cling Film & Meal Boxes | YIYUAN',
-  description: 'Browse PE/PVC cling film, kraft meal boxes, PP/PET containers, bagasse clamshells and custom printed food packaging for bulk orders.',
-  keywords: 'food packaging products, cling film, meal boxes, disposable containers, custom packaging',
+  title: 'Food Packaging Products | Cling Film & Containers | YIYUAN',
+  description: 'Explore YIYUAN food packaging products, including PE/PVC cling film, jumbo rolls, cutter box film, meal boxes, cups, and containers for wholesale, OEM/ODM, and import supply.',
+  keywords: 'food packaging products, cling film products, food wrap supplier, disposable food containers, meal boxes, cups, jumbo roll film, cutter box film, wholesale packaging, OEM ODM packaging',
   image: '/images/product-cling-film.webp',
 })
 

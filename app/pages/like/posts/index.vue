@@ -40,7 +40,7 @@ const formatDate = (value: string) => (value ? new Date(value).toLocaleString('z
         <h1 class="text-[26px] font-extrabold text-[var(--color-navy)]">博客文章</h1>
         <p class="mt-2 text-[14px] text-[var(--color-slate-muted)]">管理文章发布、封面图、HTML 内容和单篇文章 SEO。</p>
       </div>
-      <NuxtLink to="/admin/posts/new">
+      <NuxtLink to="/like/posts/new">
         <el-button color="#c1121f">
           <el-icon class="mr-1"><Plus /></el-icon>
           新建文章
@@ -80,7 +80,7 @@ const formatDate = (value: string) => (value ? new Date(value).toLocaleString('z
         <el-table-column label="操作" width="190" fixed="right">
           <template #default="{ row }">
             <div class="flex gap-2">
-              <NuxtLink :to="`/admin/posts/${row.id}`">
+              <NuxtLink :to="`/like/posts/${row.id}`">
                 <el-button size="small" color="#0f2a4a">
                   <el-icon><Edit /></el-icon>
                 </el-button>

@@ -5,8 +5,8 @@ const company = await useSiteSettings()
 
 await useManagedSeo('page:about', {
   title: 'About YIYUAN | China Cling Film & Food Packaging Factory',
-  description: 'Learn about YIYUAN NEW MATERIALS in Shangqiu, Henan, focused on cling film, fresh wrap and food packaging materials for export supply.',
-  keywords: 'YIYUAN NEW MATERIALS, Shangqiu packaging factory, cling film factory China',
+  description: 'Learn about YIYUAN, a China food packaging supplier serving importers, wholesalers, OEM/ODM brands, and private label buyers with cling film, fresh wrap, and disposable packaging.',
+  keywords: 'about YIYUAN, China food packaging factory, cling film factory, food wrap supplier, disposable packaging supplier, OEM ODM packaging factory, packaging supplier for importers, export packaging supplier',
   image: '/images/about-factory.webp',
 })
 
