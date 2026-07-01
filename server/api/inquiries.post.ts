@@ -15,10 +15,11 @@ export default defineEventHandler(async (event) => {
 
   const name = asString(body?.name)
   const email = asString(body?.email).toLowerCase()
+  const country = asString(body?.country)
   const message = asString(body?.message)
 
-  if (!name || !email || !message) {
-    throw createError({ statusCode: 400, statusMessage: 'Name, email, and requirement details are required' })
+  if (!name || !email || !country || !message) {
+    throw createError({ statusCode: 400, statusMessage: 'Name, email, country, and requirement details are required' })
   }
 
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -30,18 +31,15 @@ export default defineEventHandler(async (event) => {
   const result = db
     .prepare(`
       INSERT INTO inquiries (
-        name, company, email, country, product, quantity, message,
+        name, email, country, message,
         mail_status, created_at, updated_at
       )
-      VALUES (?, ?, ?, ?, ?, ?, ?, 'pending', ?, ?)
+      VALUES (?, ?, ?, ?, 'pending', ?, ?)
     `)
     .run(
       name,
-      asString(body?.company),
       email,
-      asString(body?.country),
-      asString(body?.product),
-      asString(body?.quantity),
+      country,
       message,
       timestamp,
       timestamp,

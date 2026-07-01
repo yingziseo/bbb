@@ -63,20 +63,8 @@ const resend = async () => {
             <a :href="`mailto:${item.email}`" class="mt-1 block font-semibold text-[var(--color-navy)] hover:text-[var(--color-accent)]">{{ item.email }}</a>
           </div>
           <div class="bg-white p-4">
-            <div class="text-[12px] uppercase tracking-wide text-[var(--color-slate-muted)]">公司</div>
-            <div class="mt-1 font-semibold text-[var(--color-navy)]">{{ item.company || '-' }}</div>
-          </div>
-          <div class="bg-white p-4">
             <div class="text-[12px] uppercase tracking-wide text-[var(--color-slate-muted)]">国家/地区</div>
             <div class="mt-1 font-semibold text-[var(--color-navy)]">{{ item.country || '-' }}</div>
-          </div>
-          <div class="bg-white p-4">
-            <div class="text-[12px] uppercase tracking-wide text-[var(--color-slate-muted)]">产品</div>
-            <div class="mt-1 font-semibold text-[var(--color-navy)]">{{ item.product || '-' }}</div>
-          </div>
-          <div class="bg-white p-4">
-            <div class="text-[12px] uppercase tracking-wide text-[var(--color-slate-muted)]">预计数量</div>
-            <div class="mt-1 font-semibold text-[var(--color-navy)]">{{ item.quantity || '-' }}</div>
           </div>
         </div>
 

@@ -7,21 +7,49 @@ const props = defineProps<{ defaultProduct?: string }>()
 const formRef = ref<FormInstance>()
 const submitting = ref(false)
 
+const countryOptions = [
+  'United States',
+  'Canada',
+  'United Kingdom',
+  'Australia',
+  'Singapore',
+  'Malaysia',
+  'Thailand',
+  'Vietnam',
+  'Indonesia',
+  'Philippines',
+  'United Arab Emirates',
+  'Saudi Arabia',
+  'Germany',
+  'France',
+  'Netherlands',
+  'Spain',
+  'Italy',
+  'Mexico',
+  'Brazil',
+  'South Africa',
+]
+
+const messagePlaceholder = computed(() =>
+  props.defaultProduct
+    ? `Interested in ${props.defaultProduct}. Briefly tell us what you need.`
+    : 'Briefly tell us what you need.',
+)
+
 const form = reactive({
   name: '',
-  company: '',
   email: '',
   country: '',
-  product: props.defaultProduct || '',
-  quantity: '',
-  message: '',
+  message: props.defaultProduct ? `I am interested in ${props.defaultProduct}.\n` : '',
   website: '',
 })
 
 watch(
   () => props.defaultProduct,
   (v) => {
-    if (v) form.product = v
+    if (v && !form.message.trim()) {
+      form.message = `I am interested in ${v}.\n`
+    }
   },
 )
 
@@ -31,6 +59,7 @@ const rules: FormRules = {
     { required: true, message: 'Please enter your email', trigger: 'blur' },
     { type: 'email', message: 'Please enter a valid email', trigger: 'blur' },
   ],
+  country: [{ required: true, message: 'Please choose your country or region', trigger: 'change' }],
   message: [{ required: true, message: 'Please describe your requirement', trigger: 'blur' }],
 }
 
@@ -49,8 +78,9 @@ const submit = async (el?: FormInstance) => {
       method: 'POST',
       body: form,
     })
-    ElMessage.success('Inquiry received.')
+    ElMessage.success('Inquiry submitted.')
     el.resetFields()
+    form.message = props.defaultProduct ? `I am interested in ${props.defaultProduct}.\n` : ''
   } catch (error: any) {
     ElMessage.error(error?.data?.message || error?.statusMessage || 'Submission failed. Please try email or WhatsApp.')
   } finally {
@@ -72,20 +102,21 @@ const submit = async (el?: FormInstance) => {
       <el-form-item label="Full Name" prop="name">
         <el-input v-model="form.name" size="large" placeholder="Your name" />
       </el-form-item>
-      <el-form-item label="Company">
-        <el-input v-model="form.company" size="large" placeholder="Company name" />
-      </el-form-item>
       <el-form-item label="Email" prop="email">
-        <el-input v-model="form.email" size="large" placeholder="you@company.com" />
+        <el-input v-model="form.email" size="large" placeholder="you@example.com" />
       </el-form-item>
-      <el-form-item label="Country / Region">
-        <el-input v-model="form.country" size="large" placeholder="e.g. United States" />
-      </el-form-item>
-      <el-form-item label="Product" prop="product">
-        <el-input v-model="form.product" size="large" placeholder="Product name or category" />
-      </el-form-item>
-      <el-form-item label="Estimated Quantity">
-        <el-input v-model="form.quantity" size="large" placeholder="e.g. 50,000 pcs / 1 x 40HQ" />
+      <el-form-item label="Country / Region" prop="country" class="sm:col-span-2">
+        <el-select
+          v-model="form.country"
+          size="large"
+          filterable
+          allow-create
+          default-first-option
+          placeholder="Select or type your country"
+          class="w-full"
+        >
+          <el-option v-for="country in countryOptions" :key="country" :label="country" :value="country" />
+        </el-select>
       </el-form-item>
     </div>
 
@@ -93,18 +124,17 @@ const submit = async (el?: FormInstance) => {
       <el-input
         v-model="form.message"
         type="textarea"
-        :rows="4"
-        placeholder="Sizes, material, quantity, printing, or other requirements."
+        :rows="3"
+        :placeholder="messagePlaceholder"
       />
     </el-form-item>
 
     <input v-model="form.website" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
-    <div class="flex flex-wrap gap-3 pt-1">
-      <el-button color="#c1121f" size="large" native-type="button" :loading="submitting" @click="submit(formRef)">
-        Send Inquiry
+    <div class="pt-1">
+      <el-button color="#c1121f" size="large" native-type="button" class="w-full sm:!w-auto" :loading="submitting" @click="submit(formRef)">
+        Submit Inquiry
       </el-button>
-      <el-button size="large" native-type="button" plain @click="formRef?.resetFields()">Reset</el-button>
     </div>
   </el-form>
 </template>

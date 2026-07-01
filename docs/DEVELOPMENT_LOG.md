@@ -9,6 +9,50 @@
 - 如果只是文档或内容改动，也要记录。
 - 如果没有跑测试或构建，需要明确写出来。
 
+## 2026-07-01 - 精简询盘表单和后台字段
+
+背景：
+
+- 询盘表单字段过多，客户需要填写公司、产品、数量等信息，提交成本偏高。
+- 前台表单、提交接口、数据库字段、邮件转发和后台管理需要保持一致。
+
+改动：
+
+- 前台询盘表单精简为姓名、邮箱、国家/地区、需求详情四项。
+- 国家/地区改为可搜索、可手输的选择框，并设为必填。
+- 去掉公司、产品、预计数量和 Reset 按钮。
+- 提交按钮改为 `Submit Inquiry`。
+- 提交 API 只接收核心字段，并要求国家/地区。
+- `inquiries` 表迁移为简化结构，删除 `company`、`product`、`quantity` 字段。
+- 后台询盘列表用国家/地区替代产品列，详情页去掉公司、产品、数量。
+- 邮件转发模板同步去掉公司、产品、数量。
+- 联系页文案和默认联系页 SEO 描述改成快速询盘导向。
+
+涉及文件：
+
+- `app/components/InquiryForm.vue`
+- `app/pages/contact.vue`
+- `app/pages/admin/inquiries/index.vue`
+- `app/pages/admin/inquiries/[id].vue`
+- `server/api/inquiries.post.ts`
+- `server/utils/db.ts`
+- `server/utils/mail.ts`
+- `server/utils/serializers.ts`
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- `pnpm build` 通过。
+- 重启公网 3005 服务，`http://43.134.105.149:3005/contact` 返回 200。
+- 已备份线上 SQLite 数据库到 `/root/yiyuan-db-backups/`。
+- 线上 `inquiries` 表已无 `company`、`product`、`quantity` 字段。
+- 联系页 SEO 描述已迁移为快速询盘文案。
+- 提交接口缺少国家/地区时返回 400。
+
+提交：
+
+- commit: `未提交`
+
 ## 2026-07-01 - 顶部联系方式和导航悬浮优化
 
 背景：

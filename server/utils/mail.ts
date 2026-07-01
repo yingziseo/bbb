@@ -3,11 +3,8 @@ import { escapeHtml } from './content'
 type InquiryForMail = {
   id: number
   name: string
-  company?: string
   email: string
   country?: string
-  product?: string
-  quantity?: string
   message: string
   created_at: string
 }
@@ -38,10 +35,7 @@ export const sendInquiryMail = async (inquiry: InquiryForMail): Promise<MailResu
         ${row('Inquiry ID', String(inquiry.id))}
         ${row('Name', inquiry.name)}
         ${row('Email', inquiry.email)}
-        ${row('Company', inquiry.company)}
         ${row('Country / Region', inquiry.country)}
-        ${row('Product', inquiry.product)}
-        ${row('Quantity', inquiry.quantity)}
         ${row('Submitted At', inquiry.created_at)}
       </table>
       <h3>Requirement Details</h3>

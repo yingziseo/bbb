@@ -75,7 +75,7 @@ const resend = async (id: number) => {
         </el-table-column>
         <el-table-column prop="name" label="姓名" min-width="120" />
         <el-table-column prop="email" label="邮箱" min-width="200" show-overflow-tooltip />
-        <el-table-column prop="product" label="产品" min-width="160" show-overflow-tooltip />
+        <el-table-column prop="country" label="国家/地区" min-width="150" show-overflow-tooltip />
         <el-table-column label="邮件" width="120">
           <template #default="{ row }">
             <el-tag :type="statusType(row.mailStatus)" effect="plain" class="!rounded-none">{{ row.mailStatus }}</el-tag>

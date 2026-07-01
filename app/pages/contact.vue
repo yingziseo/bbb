@@ -5,7 +5,7 @@ const company = await useSiteSettings()
 
 await useManagedSeo('page:contact', {
   title: `Contact | ${company.name}`,
-  description: 'Send food packaging specifications, quantity, and custom requirements for quotation.',
+  description: 'Submit a quick food packaging inquiry and our team will follow up by email or WhatsApp.',
   keywords: 'food packaging quotation, packaging supplier contact',
   image: '/images/hero-factory.webp',
 })
@@ -24,7 +24,7 @@ const defaultProduct = computed(() => (route.query.product as string) || '')
         </el-breadcrumb>
         <h1 class="text-[clamp(28px,4vw,40px)] font-extrabold leading-tight">Request a Quote</h1>
         <p class="mt-3 text-[16px] text-white/80 max-w-2xl leading-relaxed">
-          Send size, quantity, material, and packaging requirements for quotation.
+          Submit a quick inquiry. We will follow up for details after receiving your message.
         </p>
       </div>
     </section>
@@ -33,7 +33,7 @@ const defaultProduct = computed(() => (route.query.product as string) || '')
       <div class="container-x grid lg:grid-cols-3 gap-10">
         <!-- Form -->
         <div class="border border-[var(--color-line)] p-6 sm:p-8 lg:col-span-2">
-          <h2 class="text-[20px] font-extrabold text-[var(--color-navy)] mb-6">Inquiry Form</h2>
+          <h2 class="text-[20px] font-extrabold text-[var(--color-navy)] mb-6">Submit Inquiry</h2>
           <InquiryForm :default-product="defaultProduct" />
         </div>
 
@@ -41,7 +41,7 @@ const defaultProduct = computed(() => (route.query.product as string) || '')
         <div class="space-y-5">
           <div class="bg-[var(--color-navy)] p-6 text-white">
             <h3 class="text-[17px] font-bold">Quick Contact</h3>
-            <p class="mt-2 text-[13.5px] text-white/75 leading-relaxed">Use WhatsApp for fast contact, or email detailed specifications and order requirements.</p>
+            <p class="mt-2 text-[13.5px] text-white/75 leading-relaxed">Use WhatsApp for fast contact, or send a short email inquiry.</p>
             <div class="mt-5 grid gap-3">
               <el-button
                 tag="a"

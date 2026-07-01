@@ -120,11 +120,8 @@ const execSchema = (database: DatabaseSync) => {
     CREATE TABLE IF NOT EXISTS inquiries (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
-      company TEXT,
       email TEXT NOT NULL,
-      country TEXT,
-      product TEXT,
-      quantity TEXT,
+      country TEXT NOT NULL DEFAULT '',
       message TEXT NOT NULL,
       mail_status TEXT NOT NULL DEFAULT 'pending',
       mail_error TEXT,
@@ -223,6 +220,70 @@ const migrateStaticImagePathsToWebp = (database: DatabaseSync) => {
       `)
       .run(timestamp)
   })
+}
+
+const migrateInquiriesSchema = (database: DatabaseSync) => {
+  const columns = tableColumnNames(database, 'inquiries')
+  const legacyColumns = ['company', 'product', 'quantity']
+  const shouldRebuild = legacyColumns.some((column) => columns.has(column)) || !columns.has('country')
+
+  if (!shouldRebuild) return
+
+  const countrySelect = columns.has('country') ? "COALESCE(country, '')" : "''"
+
+  database.exec(`
+    CREATE TABLE inquiries_next (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      email TEXT NOT NULL,
+      country TEXT NOT NULL DEFAULT '',
+      message TEXT NOT NULL,
+      mail_status TEXT NOT NULL DEFAULT 'pending',
+      mail_error TEXT,
+      forwarded_at TEXT,
+      read_at TEXT,
+      handled_at TEXT,
+      created_at TEXT NOT NULL,
+      updated_at TEXT NOT NULL
+    );
+
+    INSERT INTO inquiries_next (
+      id, name, email, country, message, mail_status, mail_error,
+      forwarded_at, read_at, handled_at, created_at, updated_at
+    )
+    SELECT
+      id,
+      name,
+      email,
+      ${countrySelect},
+      message,
+      mail_status,
+      mail_error,
+      forwarded_at,
+      read_at,
+      handled_at,
+      created_at,
+      updated_at
+    FROM inquiries;
+
+    DROP TABLE inquiries;
+    ALTER TABLE inquiries_next RENAME TO inquiries;
+  `)
+}
+
+const migrateInquirySeoCopy = (database: DatabaseSync) => {
+  database
+    .prepare(`
+      UPDATE seo_entries
+      SET description = ?, updated_at = ?
+      WHERE entry_key = 'page:contact'
+        AND description = ?
+    `)
+    .run(
+      'Submit a quick food packaging inquiry and our team will follow up by email or WhatsApp.',
+      now(),
+      'Send food packaging specifications, quantity, and custom requirements for quotation.',
+    )
 }
 
 const insertSeo = (
@@ -348,7 +409,7 @@ const seedSeo = (database: DatabaseSync) => {
       name: '联系页',
       path: '/contact',
       title: `Contact | ${company.name}`,
-      description: 'Send food packaging specifications, quantity, and custom requirements for quotation.',
+      description: 'Submit a quick food packaging inquiry and our team will follow up by email or WhatsApp.',
       keywords: 'food packaging quotation, packaging supplier contact',
       ogImage: '/images/hero-factory.webp',
     },
@@ -664,6 +725,8 @@ export const getDb = () => {
   migrateAdminUsers(db)
   migrateProductCatalog(db)
   migrateStaticImagePathsToWebp(db)
+  migrateInquiriesSchema(db)
+  migrateInquirySeoCopy(db)
   seedDatabase(db)
 
   return db

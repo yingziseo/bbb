@@ -39,11 +39,8 @@ export const mapPost = (row: any) => ({
 export const mapInquiry = (row: any) => ({
   id: row.id,
   name: row.name,
-  company: row.company || '',
   email: row.email,
   country: row.country || '',
-  product: row.product || '',
-  quantity: row.quantity || '',
   message: row.message,
   mailStatus: row.mail_status,
   mailError: row.mail_error || '',
