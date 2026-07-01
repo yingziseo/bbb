@@ -20,6 +20,9 @@ export const siteSettingKeys = [
   'legalRepresentative',
   'logoPath',
   'faviconPath',
+  'homePopupEnabled',
+  'homePopupCooldownHours',
+  'homePopupVideoUrl',
 ] as const
 
 type SiteSettingKey = (typeof siteSettingKeys)[number]
@@ -44,6 +47,9 @@ const defaultSettings = (): Record<SiteSettingKey, string> => ({
   legalRepresentative: company.legalRepresentative,
   logoPath: '/site-logo.png',
   faviconPath: '/favicon.ico',
+  homePopupEnabled: 'true',
+  homePopupCooldownHours: '12',
+  homePopupVideoUrl: '',
 })
 
 const normalizeBaseUrl = (value: string) => value.trim().replace(/\/+$/, '')
@@ -51,6 +57,22 @@ const normalizeBaseUrl = (value: string) => value.trim().replace(/\/+$/, '')
 const whatsappHref = (value: string) => {
   const digits = value.replace(/[^\d]/g, '')
   return digits ? `https://wa.me/${digits}` : ''
+}
+
+const normalizeBooleanFlag = (value: string) => {
+  const normalized = value.trim().toLowerCase()
+  return ['1', 'true', 'yes', 'on'].includes(normalized) ? 'true' : 'false'
+}
+
+const normalizeCooldownHours = (value: string) => {
+  const hours = Number(value)
+  if (!Number.isFinite(hours)) return '12'
+  return String(Math.max(1, Math.min(720, Math.trunc(hours))))
+}
+
+const normalizeExternalUrl = (value: string) => {
+  const trimmed = value.trim()
+  return /^https?:\/\//i.test(trimmed) ? trimmed : ''
 }
 
 export const normalizeSiteSettings = (input: Partial<Record<SiteSettingKey, string>> = {}): SiteSettings => {
@@ -63,6 +85,9 @@ export const normalizeSiteSettings = (input: Partial<Record<SiteSettingKey, stri
   settings.siteUrl = normalizeBaseUrl(settings.siteUrl)
   settings.whatsapp = settings.whatsapp || settings.phone
   settings.whatsappLink = normalizeBaseUrl(settings.whatsappLink) || whatsappHref(settings.whatsapp)
+  settings.homePopupEnabled = normalizeBooleanFlag(settings.homePopupEnabled)
+  settings.homePopupCooldownHours = normalizeCooldownHours(settings.homePopupCooldownHours)
+  settings.homePopupVideoUrl = normalizeExternalUrl(settings.homePopupVideoUrl)
 
   return {
     ...settings,

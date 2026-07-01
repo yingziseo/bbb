@@ -607,6 +607,9 @@ const seedSiteSettings = (database: DatabaseSync) => {
     legalRepresentative: company.legalRepresentative,
     logoPath: '/site-logo.png',
     faviconPath: '/favicon.ico',
+    homePopupEnabled: 'true',
+    homePopupCooldownHours: '12',
+    homePopupVideoUrl: '',
   }
 
   const statement = database.prepare(`

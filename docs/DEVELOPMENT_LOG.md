@@ -9,6 +9,34 @@
 - 如果只是文档或内容改动，也要记录。
 - 如果没有跑测试或构建，需要明确写出来。
 
+## 2026-07-01 - 新增首页业务弹窗和后台弹窗管理
+
+背景：
+
+- 用户要求首页增加电脑和手机自适应弹窗，用于简洁介绍业务、引导联络和免费获取样品。
+- 弹窗需要预留视频播放器位置，支持 YouTube 等外部视频地址，避免占用服务器带宽。
+- 后台需要增加首页弹窗管理，可控制是否展示、视频地址和访客点击关闭后的缓存小时数，默认 12 小时。
+
+改动：
+
+- 新增 `HomeLeadPopup` 首页弹窗组件，采用项目统一的深蓝、红色 CTA、直角边框视觉。
+- 首页挂载业务弹窗，电脑端左右布局，手机端上下布局。
+- 弹窗关闭按钮写入同设备 `localStorage` 冷却时间；只有点击关闭才缓存，未关闭则下次仍会弹出。
+- 视频播放使用外部 iframe，YouTube / youtu.be 地址会自动转换为 `youtube-nocookie.com/embed`。
+- `site_settings` 增加 `homePopupEnabled`、`homePopupCooldownHours`、`homePopupVideoUrl` 配置项。
+- 新增后台 `/admin/home-popup` 页面，支持开关、冷却小时数、外部视频地址和弹窗预览。
+- 后台侧边栏增加“首页弹窗”入口。
+
+验证：
+
+- `pnpm build` 通过。
+- 已重启 `3005` 生产服务。
+- `http://43.134.105.149:3005/` 返回 200。
+- `/api/public/settings` 返回 `homePopupEnabled=true`、`homePopupCooldownHours=12`。
+- `admin` / `admin123` 登录 API 返回 200。
+- `/admin/home-popup` 登录后返回 200。
+- `/api/admin/settings` 保存首页弹窗配置成功。
+
 ## 2026-06-30 - 新增产品分类和产品管理 CRUD
 
 背景：

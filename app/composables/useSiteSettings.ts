@@ -6,6 +6,9 @@ export type PublicSiteSettings = Omit<typeof fallbackCompany, 'founded'> & {
   contactLink: string
   logoPath: string
   faviconPath: string
+  homePopupEnabled: string
+  homePopupCooldownHours: string
+  homePopupVideoUrl: string
 }
 
 const createFallbackSettings = (): PublicSiteSettings => ({
@@ -15,6 +18,9 @@ const createFallbackSettings = (): PublicSiteSettings => ({
   contactLink: fallbackCompany.contactLink,
   logoPath: '/site-logo.png',
   faviconPath: '/favicon.ico',
+  homePopupEnabled: 'true',
+  homePopupCooldownHours: '12',
+  homePopupVideoUrl: '',
 })
 
 export const useSiteSettings = async () => {

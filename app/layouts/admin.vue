@@ -10,6 +10,7 @@ import {
   Operation,
   Setting as SettingIcon,
   SwitchButton,
+  VideoCamera,
   Close,
 } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
@@ -21,6 +22,7 @@ const nav = [
   { label: '概览', to: '/admin', icon: HomeFilled },
   { label: '页面 TDK', to: '/admin/seo', icon: Operation },
   { label: '产品管理', to: '/admin/products', icon: Box },
+  { label: '首页弹窗', to: '/admin/home-popup', icon: VideoCamera },
   { label: '博客文章', to: '/admin/posts', icon: Document },
   { label: '询盘记录', to: '/admin/inquiries', icon: MessageBox },
   { label: '网站设置', to: '/admin/settings', icon: SettingIcon },

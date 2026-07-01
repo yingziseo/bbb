@@ -62,6 +62,8 @@ await useManagedSeo('page:home', {
 
 <template>
   <div>
+    <HomeLeadPopup :settings="company" />
+
     <!-- HERO -->
     <section class="bg-[var(--color-navy)] text-white">
       <div class="container-x grid lg:grid-cols-2 gap-10 lg:gap-12 py-14 lg:py-20 items-center">
