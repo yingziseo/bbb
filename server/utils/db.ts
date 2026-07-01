@@ -3,6 +3,15 @@ import { dirname, join } from 'node:path'
 import { DatabaseSync } from 'node:sqlite'
 import { randomBytes, scryptSync } from 'node:crypto'
 import { company, defaultHomePopupVideoUrl, posts as seedPosts, products as seedProducts } from '../../app/data/site'
+import {
+  makeCategorySeoDescription,
+  makeCategorySeoKeywords,
+  makeCategorySeoTitle,
+  makeProductSeoDescription,
+  makeProductSeoKeywords,
+  makeProductSeoTitle,
+  seoBrand,
+} from './seo-copy'
 
 let db: DatabaseSync | null = null
 
@@ -368,9 +377,9 @@ const seedSeo = (database: DatabaseSync) => {
       pageType: 'page',
       name: '首页',
       path: '/',
-      title: 'YIYUAN NEW MATERIALS | Cling Film and Food Packaging Factory',
-      description: 'China factory for cling film, fresh wrap, food packaging containers, and OEM packaging orders.',
-      keywords: 'cling film factory, food packaging, OEM packaging, fresh wrap',
+      title: 'Cling Film & Disposable Food Packaging Factory in China | YIYUAN',
+      description: 'YIYUAN supplies cling film, fresh wrap, disposable food containers and OEM food packaging for wholesale and export orders from China.',
+      keywords: 'cling film factory, disposable food packaging, food container manufacturer, OEM packaging China',
       ogImage: '/images/hero-factory.webp',
     },
     {
@@ -378,9 +387,9 @@ const seedSeo = (database: DatabaseSync) => {
       pageType: 'page',
       name: '产品列表页',
       path: '/products',
-      title: `Products | ${company.name}`,
-      description: 'Browse cling film, food containers, disposable packaging, and custom food packaging products.',
-      keywords: 'food packaging products, cling film, disposable containers',
+      title: 'Food Packaging Products | Cling Film & Meal Boxes | YIYUAN',
+      description: 'Browse PE/PVC cling film, kraft meal boxes, PP/PET containers, bagasse clamshells and custom printed food packaging for bulk orders.',
+      keywords: 'food packaging products, cling film, meal boxes, disposable containers, custom packaging',
       ogImage: '/images/product-cling-film.webp',
     },
     {
@@ -388,9 +397,9 @@ const seedSeo = (database: DatabaseSync) => {
       pageType: 'page',
       name: '公司页',
       path: '/about',
-      title: `About | ${company.name}`,
-      description: 'Factory overview and company information for Shangqiu Yiyuan New Materials Co., Ltd.',
-      keywords: 'Yiyuan New Materials, Shangqiu packaging factory',
+      title: 'About YIYUAN | China Cling Film & Food Packaging Factory',
+      description: 'Learn about YIYUAN NEW MATERIALS in Shangqiu, Henan, focused on cling film, fresh wrap and food packaging materials for export supply.',
+      keywords: 'YIYUAN NEW MATERIALS, Shangqiu packaging factory, cling film factory China',
       ogImage: '/images/about-factory.webp',
     },
     {
@@ -398,9 +407,9 @@ const seedSeo = (database: DatabaseSync) => {
       pageType: 'page',
       name: '博客列表页',
       path: '/blog',
-      title: `Blog | ${company.name}`,
-      description: 'Packaging sourcing guides, material comparisons, and food packaging purchasing insights.',
-      keywords: 'packaging sourcing guide, food packaging blog',
+      title: 'Food Packaging Sourcing Guides & Material Insights | YIYUAN',
+      description: 'Read food packaging sourcing guides, material comparisons and wholesale purchasing tips for cling film, containers and custom packaging.',
+      keywords: 'food packaging sourcing guide, packaging material comparison, wholesale packaging tips',
       ogImage: '/images/blog-supplier.webp',
     },
     {
@@ -408,9 +417,9 @@ const seedSeo = (database: DatabaseSync) => {
       pageType: 'page',
       name: '联系页',
       path: '/contact',
-      title: `Contact | ${company.name}`,
-      description: 'Submit a quick food packaging inquiry and our team will follow up by email or WhatsApp.',
-      keywords: 'food packaging quotation, packaging supplier contact',
+      title: 'Contact YIYUAN | Get Food Packaging Samples & Quotes',
+      description: 'Send a quick inquiry for cling film, disposable containers, custom packaging, samples, MOQ, pricing and export order support.',
+      keywords: 'food packaging quotation, packaging samples, OEM packaging inquiry, contact packaging supplier',
       ogImage: '/images/hero-factory.webp',
     },
   ]
@@ -541,9 +550,11 @@ const seedProductSeo = (database: DatabaseSync) => {
     }>
 
   for (const product of rows) {
-    const title = product.seo_title || `${product.name} | ${company.name}`
-    const description = product.seo_description || product.short_desc
-    const keywords = product.seo_keywords || `${product.name}, ${product.category_name}, ${product.material}`
+    const title = product.seo_title || makeProductSeoTitle({ name: product.name, categoryName: product.category_name })
+    const description = product.seo_description || makeProductSeoDescription({ name: product.name, shortDesc: product.short_desc })
+    const keywords =
+      product.seo_keywords ||
+      makeProductSeoKeywords({ name: product.name, categoryName: product.category_name, material: product.material })
     insertSeo(database, {
       key: `product:${product.slug}`,
       pageType: 'product',
@@ -578,9 +589,10 @@ const seedCategorySeo = (database: DatabaseSync) => {
     }>
 
   for (const category of rows) {
-    const title = category.seo_title || `${category.name} | Products | ${company.name}`
-    const description = category.seo_description || category.description || `Browse ${category.name} products from ${company.name}.`
-    const keywords = category.seo_keywords || `${category.name}, food packaging products`
+    const title = category.seo_title || makeCategorySeoTitle({ name: category.name, slug: category.slug })
+    const description =
+      category.seo_description || makeCategorySeoDescription({ name: category.name, description: category.description })
+    const keywords = category.seo_keywords || makeCategorySeoKeywords({ name: category.name, slug: category.slug })
     insertSeo(database, {
       key: `category:${category.slug}`,
       pageType: 'category',
@@ -638,9 +650,9 @@ const seedPostSeo = (database: DatabaseSync) => {
       entitySlug: post.slug,
       name: `博客文章：${post.title}`,
       path: `/blog/${post.slug}`,
-      title: `${post.title} | ${company.name}`,
+      title: `${post.title} | ${seoBrand}`,
       description: post.excerpt,
-      keywords: 'food packaging, sourcing guide',
+      keywords: 'food packaging sourcing guide, wholesale packaging, material comparison',
       ogImage: post.cover_image,
     })
   }
@@ -703,6 +715,159 @@ const seedSiteSettings = (database: DatabaseSync) => {
   })
 }
 
+const migrateDefaultSeoCopy = (database: DatabaseSync) => {
+  const timestamp = now()
+  const seoRow = database.prepare('SELECT title, description FROM seo_entries WHERE entry_key = ?')
+  const updateSeo = database.prepare(`
+    UPDATE seo_entries
+    SET title = ?, description = ?, keywords = ?, og_title = ?, og_description = ?, updated_at = ?
+    WHERE entry_key = ?
+  `)
+
+  const updateSeoIfLegacy = (
+    key: string,
+    next: { title: string; description: string; keywords: string },
+    legacyTitles: string[],
+  ) => {
+    const current = seoRow.get(key) as { title: string; description: string } | undefined
+    if (!current || !legacyTitles.includes(current.title)) return
+    updateSeo.run(next.title, next.description, next.keywords, next.title, next.description, timestamp, key)
+  }
+
+  const pageEntries = [
+    {
+      key: 'page:home',
+      next: {
+        title: 'Cling Film & Disposable Food Packaging Factory in China | YIYUAN',
+        description: 'YIYUAN supplies cling film, fresh wrap, disposable food containers and OEM food packaging for wholesale and export orders from China.',
+        keywords: 'cling film factory, disposable food packaging, food container manufacturer, OEM packaging China',
+      },
+      legacyTitles: ['YIYUAN NEW MATERIALS | Cling Film and Food Packaging Factory'],
+    },
+    {
+      key: 'page:products',
+      next: {
+        title: 'Food Packaging Products | Cling Film & Meal Boxes | YIYUAN',
+        description: 'Browse PE/PVC cling film, kraft meal boxes, PP/PET containers, bagasse clamshells and custom printed food packaging for bulk orders.',
+        keywords: 'food packaging products, cling film, meal boxes, disposable containers, custom packaging',
+      },
+      legacyTitles: [`Products | ${company.name}`],
+    },
+    {
+      key: 'page:about',
+      next: {
+        title: 'About YIYUAN | China Cling Film & Food Packaging Factory',
+        description: 'Learn about YIYUAN NEW MATERIALS in Shangqiu, Henan, focused on cling film, fresh wrap and food packaging materials for export supply.',
+        keywords: 'YIYUAN NEW MATERIALS, Shangqiu packaging factory, cling film factory China',
+      },
+      legacyTitles: [`About | ${company.name}`],
+    },
+    {
+      key: 'page:blog',
+      next: {
+        title: 'Food Packaging Sourcing Guides & Material Insights | YIYUAN',
+        description: 'Read food packaging sourcing guides, material comparisons and wholesale purchasing tips for cling film, containers and custom packaging.',
+        keywords: 'food packaging sourcing guide, packaging material comparison, wholesale packaging tips',
+      },
+      legacyTitles: [`Blog | ${company.name}`],
+    },
+    {
+      key: 'page:contact',
+      next: {
+        title: 'Contact YIYUAN | Get Food Packaging Samples & Quotes',
+        description: 'Send a quick inquiry for cling film, disposable containers, custom packaging, samples, MOQ, pricing and export order support.',
+        keywords: 'food packaging quotation, packaging samples, OEM packaging inquiry, contact packaging supplier',
+      },
+      legacyTitles: [`Contact | ${company.name}`],
+    },
+  ]
+
+  pageEntries.forEach((entry) => updateSeoIfLegacy(entry.key, entry.next, entry.legacyTitles))
+
+  const updateCategorySeoFields = database.prepare(`
+    UPDATE product_categories
+    SET seo_title = ?, seo_description = ?, seo_keywords = ?, updated_at = ?
+    WHERE slug = ?
+  `)
+  const categories = database
+    .prepare('SELECT slug, name, description, seo_title FROM product_categories')
+    .all() as Array<{ slug: string; name: string; description: string; seo_title: string | null }>
+
+  categories.forEach((category) => {
+    const next = {
+      title: makeCategorySeoTitle(category),
+      description: makeCategorySeoDescription(category),
+      keywords: makeCategorySeoKeywords(category),
+    }
+    const legacyTitle = `${category.name} | Products | ${company.name}`
+    if (!category.seo_title || category.seo_title === legacyTitle) {
+      updateCategorySeoFields.run(next.title, next.description, next.keywords, timestamp, category.slug)
+    }
+    updateSeoIfLegacy(`category:${category.slug}`, next, [legacyTitle])
+  })
+
+  const updateProductSeoFields = database.prepare(`
+    UPDATE products
+    SET seo_title = ?, seo_description = ?, seo_keywords = ?, updated_at = ?
+    WHERE slug = ?
+  `)
+  const products = database
+    .prepare(`
+      SELECT p.slug, p.name, p.short_desc, p.material, p.seo_title, c.name AS category_name
+      FROM products p
+      JOIN product_categories c ON c.id = p.category_id
+    `)
+    .all() as Array<{
+      slug: string
+      name: string
+      short_desc: string
+      material: string
+      seo_title: string | null
+      category_name: string
+    }>
+
+  products.forEach((product) => {
+    const input = {
+      name: product.name,
+      shortDesc: product.short_desc,
+      material: product.material,
+      categoryName: product.category_name,
+    }
+    const next = {
+      title: makeProductSeoTitle(input),
+      description: makeProductSeoDescription(input),
+      keywords: makeProductSeoKeywords(input),
+    }
+    const legacyTitle = `${product.name} | ${company.name}`
+    if (!product.seo_title || product.seo_title === legacyTitle) {
+      updateProductSeoFields.run(next.title, next.description, next.keywords, timestamp, product.slug)
+    }
+    updateSeoIfLegacy(`product:${product.slug}`, next, [legacyTitle])
+  })
+
+  const updatePostSeoFields = database.prepare(`
+    UPDATE posts
+    SET seo_title = ?, seo_description = ?, seo_keywords = ?, updated_at = ?
+    WHERE slug = ?
+  `)
+  const posts = database
+    .prepare('SELECT slug, title, excerpt, seo_title FROM posts')
+    .all() as Array<{ slug: string; title: string; excerpt: string; seo_title: string | null }>
+
+  posts.forEach((post) => {
+    const next = {
+      title: post.seo_title && post.seo_title !== post.title ? post.seo_title : `${post.title} | ${seoBrand}`,
+      description: post.excerpt,
+      keywords: 'food packaging sourcing guide, wholesale packaging, material comparison',
+    }
+    const legacyTitle = `${post.title} | ${company.name}`
+    if (!post.seo_title || post.seo_title === post.title || post.seo_title === legacyTitle) {
+      updatePostSeoFields.run(next.title, next.description, next.keywords, timestamp, post.slug)
+    }
+    updateSeoIfLegacy(`post:${post.slug}`, next, [legacyTitle])
+  })
+}
+
 const seedDatabase = (database: DatabaseSync) => {
   seedAdmin(database)
   seedProductCatalog(database)
@@ -713,6 +878,7 @@ const seedDatabase = (database: DatabaseSync) => {
   seedPostSeo(database)
   seedSocialLinks(database)
   seedSiteSettings(database)
+  migrateDefaultSeoCopy(database)
 }
 
 export const getDb = () => {

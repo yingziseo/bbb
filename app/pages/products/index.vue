@@ -4,9 +4,9 @@ import type { Product } from '~/data/site'
 const company = await useSiteSettings()
 
 await useManagedSeo('page:products', {
-  title: `Products | ${company.name}`,
-  description: 'Browse cling film, food containers, disposable packaging, and custom food packaging products.',
-  keywords: 'food packaging products, cling film, disposable containers',
+  title: 'Food Packaging Products | Cling Film & Meal Boxes | YIYUAN',
+  description: 'Browse PE/PVC cling film, kraft meal boxes, PP/PET containers, bagasse clamshells and custom printed food packaging for bulk orders.',
+  keywords: 'food packaging products, cling film, meal boxes, disposable containers, custom packaging',
   image: '/images/product-cling-film.webp',
 })
 

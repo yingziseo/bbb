@@ -63,6 +63,10 @@ export interface Product {
   sizeOptions?: { label: string; value: string; packaging?: string }[]
   applications: string[]
   packaging: string
+  seoTitle?: string
+  seoDescription?: string
+  seoKeywords?: string
+  canonical?: string
   sortOrder?: number
   status?: string
 }

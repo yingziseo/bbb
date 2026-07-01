@@ -1,10 +1,8 @@
 <script setup lang="ts">
-const company = await useSiteSettings()
-
 await useManagedSeo('page:blog', {
-  title: `Blog | ${company.name}`,
-  description: 'Packaging sourcing guides, material comparisons, and food packaging purchasing insights.',
-  keywords: 'packaging sourcing guide, food packaging blog',
+  title: 'Food Packaging Sourcing Guides & Material Insights | YIYUAN',
+  description: 'Read food packaging sourcing guides, material comparisons and wholesale purchasing tips for cling film, containers and custom packaging.',
+  keywords: 'food packaging sourcing guide, packaging material comparison, wholesale packaging tips',
   image: '/images/blog-supplier.webp',
 })
 

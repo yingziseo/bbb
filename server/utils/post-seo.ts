@@ -1,5 +1,5 @@
-import { company } from '../../app/data/site'
 import { getDb, touchNow } from './db'
+import { seoBrand } from './seo-copy'
 
 export const upsertPostSeo = (post: {
   slug: string
@@ -15,8 +15,9 @@ export const upsertPostSeo = (post: {
   const timestamp = touchNow()
   const key = `post:${post.slug}`
   const existing = db.prepare('SELECT id FROM seo_entries WHERE entry_key = ?').get(key) as { id: number } | undefined
-  const title = post.seoTitle || `${post.title} | ${company.name}`
+  const title = post.seoTitle || `${post.title} | ${seoBrand}`
   const description = post.seoDescription || post.excerpt
+  const keywords = post.seoKeywords || 'food packaging sourcing guide, wholesale packaging, material comparison'
 
   if (existing) {
     db.prepare(`
@@ -29,7 +30,7 @@ export const upsertPostSeo = (post: {
       `/blog/${post.slug}`,
       title,
       description,
-      post.seoKeywords || '',
+      keywords,
       post.canonical || '',
       title,
       description,
@@ -53,7 +54,7 @@ export const upsertPostSeo = (post: {
     `/blog/${post.slug}`,
     title,
     description,
-    post.seoKeywords || '',
+    keywords,
     post.canonical || '',
     title,
     description,

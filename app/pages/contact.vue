@@ -4,9 +4,9 @@ import { Message, Location, OfficeBuilding, Clock } from '@element-plus/icons-vu
 const company = await useSiteSettings()
 
 await useManagedSeo('page:contact', {
-  title: `Contact | ${company.name}`,
-  description: 'Submit a quick food packaging inquiry and our team will follow up by email or WhatsApp.',
-  keywords: 'food packaging quotation, packaging supplier contact',
+  title: 'Contact YIYUAN | Get Food Packaging Samples & Quotes',
+  description: 'Send a quick inquiry for cling film, disposable containers, custom packaging, samples, MOQ, pricing and export order support.',
+  keywords: 'food packaging quotation, packaging samples, OEM packaging inquiry, contact packaging supplier',
   image: '/images/hero-factory.webp',
 })
 

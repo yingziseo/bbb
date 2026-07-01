@@ -11,8 +11,8 @@ if (!data.value?.item) {
 const post = computed(() => data.value?.item)
 
 await useManagedSeo(`post:${route.params.slug}`, {
-  title: `${data.value.item.title} | ${company.name}`,
-  description: data.value.item.excerpt,
+  title: data.value.item.seoTitle || `${data.value.item.title} | YIYUAN`,
+  description: data.value.item.seoDescription || data.value.item.excerpt,
   keywords: data.value.item.seoKeywords,
   image: data.value.item.coverImage,
 })

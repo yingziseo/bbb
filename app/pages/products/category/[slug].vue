@@ -30,10 +30,19 @@ if (!category.value) {
   throw createError({ statusCode: 404, statusMessage: 'Product category not found', fatal: true })
 }
 
+const fallbackCategorySeoTitle = () => {
+  if (slug === 'cling-film') return 'Cling Film Manufacturer in China | Wholesale Food Wrap | YIYUAN'
+  if (slug === 'disposable-meal-boxes') return 'Disposable Food Containers Factory | Meal Boxes & OEM | YIYUAN'
+  return `${category.value?.name} Manufacturer in China | Wholesale & OEM | YIYUAN`
+}
+
+const fallbackCategorySeoDescription = () =>
+  `${category.value?.description || `Shop ${category.value?.name} from YIYUAN.`} Wholesale orders, OEM sizes, private-label packaging and export quotes available.`
+
 await useManagedSeo(`category:${slug}`, {
-  title: category.value.seoTitle || `${category.value.name} | Products | ${company.name}`,
-  description: category.value.seoDescription || category.value.description,
-  keywords: category.value.seoKeywords || `${category.value.name}, food packaging products`,
+  title: category.value.seoTitle || fallbackCategorySeoTitle(),
+  description: category.value.seoDescription || fallbackCategorySeoDescription(),
+  keywords: category.value.seoKeywords || `${category.value.name}, OEM food packaging, China packaging factory`,
   image: category.value.image,
 })
 </script>

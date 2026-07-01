@@ -4,9 +4,9 @@ import { OfficeBuilding, Setting, Box, Histogram, Check } from '@element-plus/ic
 const company = await useSiteSettings()
 
 await useManagedSeo('page:about', {
-  title: `About | ${company.name}`,
-  description: 'Factory overview and company information for Shangqiu Yiyuan New Materials Co., Ltd.',
-  keywords: 'Yiyuan New Materials, Shangqiu packaging factory',
+  title: 'About YIYUAN | China Cling Film & Food Packaging Factory',
+  description: 'Learn about YIYUAN NEW MATERIALS in Shangqiu, Henan, focused on cling film, fresh wrap and food packaging materials for export supply.',
+  keywords: 'YIYUAN NEW MATERIALS, Shangqiu packaging factory, cling film factory China',
   image: '/images/about-factory.webp',
 })
 

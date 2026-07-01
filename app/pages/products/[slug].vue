@@ -13,9 +13,9 @@ if (!product.value) {
 }
 
 await useManagedSeo(`product:${route.params.slug}`, {
-  title: `${product.value.name} | ${company.name}`,
-  description: product.value.shortDesc,
-  keywords: `${product.value.name}, ${product.value.category}, ${product.value.material}`,
+  title: product.value.seoTitle || `${product.value.name} Manufacturer in China | ${company.displayName}`,
+  description: product.value.seoDescription || product.value.shortDesc,
+  keywords: product.value.seoKeywords || `${product.value.name}, ${product.value.category}, ${product.value.material}`,
   image: product.value.image,
 })
 

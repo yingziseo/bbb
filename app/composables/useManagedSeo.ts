@@ -7,6 +7,7 @@ type ManagedSeoFallback = {
 
 type SeoPayload = {
   seo: null | {
+    path: string
     title: string
     description: string
     keywords: string
@@ -19,7 +20,16 @@ type SeoPayload = {
   jsonLd: unknown
 }
 
+const absoluteUrl = (value: string, origin: string) => {
+  if (!value) return ''
+  if (/^https?:\/\//i.test(value)) return value
+  const path = value.startsWith('/') ? value : `/${value}`
+  return origin ? `${origin.replace(/\/+$/, '')}${path}` : path
+}
+
 export const useManagedSeo = (key: string, fallback: ManagedSeoFallback) => {
+  const route = useRoute()
+  const requestUrl = useRequestURL()
   const { data } = useFetch<SeoPayload>('/api/public/seo', {
     query: { key },
   })
@@ -31,7 +41,9 @@ export const useManagedSeo = (key: string, fallback: ManagedSeoFallback) => {
     const keywords = seo?.keywords || fallback.keywords || ''
     const ogTitle = seo?.ogTitle || title
     const ogDescription = seo?.ogDescription || description
-    const ogImage = seo?.ogImage || fallback.image || ''
+    const canonical = absoluteUrl(seo?.canonical || seo?.path || route.path, requestUrl.origin)
+    const ogImage = absoluteUrl(seo?.ogImage || fallback.image || '', requestUrl.origin)
+    const ogType = key.startsWith('post:') ? 'article' : key.startsWith('product:') ? 'product' : 'website'
 
     return {
       title,
@@ -42,9 +54,14 @@ export const useManagedSeo = (key: string, fallback: ManagedSeoFallback) => {
         { property: 'og:title', content: ogTitle },
         ogDescription ? { property: 'og:description', content: ogDescription } : null,
         ogImage ? { property: 'og:image', content: ogImage } : null,
-        { property: 'og:type', content: key.startsWith('post:') ? 'article' : 'website' },
+        canonical ? { property: 'og:url', content: canonical } : null,
+        { property: 'og:type', content: ogType },
+        { name: 'twitter:card', content: ogImage ? 'summary_large_image' : 'summary' },
+        { name: 'twitter:title', content: ogTitle },
+        ogDescription ? { name: 'twitter:description', content: ogDescription } : null,
+        ogImage ? { name: 'twitter:image', content: ogImage } : null,
       ].filter(Boolean) as Array<Record<string, string>>,
-      link: seo?.canonical ? [{ rel: 'canonical', href: seo.canonical }] : [],
+      link: canonical ? [{ rel: 'canonical', href: canonical }] : [],
       script: data.value?.jsonLd
         ? [
             {

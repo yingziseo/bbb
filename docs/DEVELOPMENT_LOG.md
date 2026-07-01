@@ -1093,6 +1093,52 @@
 
 - commit: `当前提交`
 
+## 2026-07-01 - 优化全站 SEO TDK
+
+背景：
+
+- 现有主要页面、产品分类和产品详情 TDK 可用但偏模板化，标题区分度和采购搜索词覆盖不足。
+
+改动：
+
+- 更新首页、产品页、关于页、博客页、联系页的 Title、Description 和 Keywords。
+- 更新 2 个产品分类、8 个产品、3 篇博客文章的 SEO 字段和 `seo_entries`。
+- 新增 SEO 文案生成工具，用于后续新增产品和分类时生成更偏 B2B 采购搜索词的默认 TDK。
+- `useManagedSeo` 增加默认自引用 canonical、绝对 OG 图片 URL、`og:url` 和 Twitter Card 标签。
+- 产品详情页、分类页、博客详情页 fallback 优先使用实体自身 SEO 字段。
+- 数据库初始化增加旧默认 TDK 迁移逻辑，只更新空值或旧模板值，避免覆盖手写自定义 SEO。
+
+涉及文件：
+
+- `app/composables/useManagedSeo.ts`
+- `app/data/site.ts`
+- `app/pages/index.vue`
+- `app/pages/products/index.vue`
+- `app/pages/products/category/[slug].vue`
+- `app/pages/products/[slug].vue`
+- `app/pages/about.vue`
+- `app/pages/blog/index.vue`
+- `app/pages/blog/[slug].vue`
+- `app/pages/contact.vue`
+- `server/utils/seo-copy.ts`
+- `server/utils/db.ts`
+- `server/utils/product-seo.ts`
+- `server/utils/post-seo.ts`
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- 已备份数据库：`/root/yiyuan-db-backups/yiyuan-20260701-140243-before-seo-tdk.db`。
+- 当前 SQLite 已更新 5 个主页面、2 个分类、8 个产品、3 篇博客文章 TDK。
+- `pnpm build` 通过。
+- 已重启公网 3005 服务。
+- 首页、产品详情页、产品分类页 HTML 抽查均输出新 title、description 和 canonical。
+- `/api/public/seo?key=product:kraft-meal-box` 返回新产品 TDK 和 Product JSON-LD。
+
+提交：
+
+- commit: `当前提交`
+
 ## 记录模板
 
 ```markdown

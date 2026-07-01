@@ -1,5 +1,12 @@
-import { company } from '../../app/data/site'
 import { getDb, touchNow } from './db'
+import {
+  makeCategorySeoDescription,
+  makeCategorySeoKeywords,
+  makeCategorySeoTitle,
+  makeProductSeoDescription,
+  makeProductSeoKeywords,
+  makeProductSeoTitle,
+} from './seo-copy'
 
 export const upsertProductSeo = (product: {
   slug: string
@@ -17,9 +24,9 @@ export const upsertProductSeo = (product: {
   const timestamp = touchNow()
   const key = `product:${product.slug}`
   const existing = db.prepare('SELECT id FROM seo_entries WHERE entry_key = ?').get(key) as { id: number } | undefined
-  const title = product.seoTitle || `${product.name} | ${company.name}`
-  const description = product.seoDescription || product.shortDesc
-  const keywords = product.seoKeywords || [product.name, product.categoryName, product.material].filter(Boolean).join(', ')
+  const title = product.seoTitle || makeProductSeoTitle(product)
+  const description = product.seoDescription || makeProductSeoDescription(product)
+  const keywords = product.seoKeywords || makeProductSeoKeywords(product)
   const canonical = product.canonical || ''
 
   if (existing) {
@@ -88,9 +95,9 @@ export const upsertCategorySeo = (category: {
   const timestamp = touchNow()
   const key = `category:${category.slug}`
   const existing = db.prepare('SELECT id FROM seo_entries WHERE entry_key = ?').get(key) as { id: number } | undefined
-  const title = category.seoTitle || `${category.name} | Products | ${company.name}`
-  const description = category.seoDescription || category.description || `Browse ${category.name} products from ${company.name}.`
-  const keywords = category.seoKeywords || `${category.name}, food packaging products`
+  const title = category.seoTitle || makeCategorySeoTitle(category)
+  const description = category.seoDescription || makeCategorySeoDescription(category)
+  const keywords = category.seoKeywords || makeCategorySeoKeywords(category)
   const canonical = category.canonical || ''
 
   if (existing) {

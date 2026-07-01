@@ -53,9 +53,9 @@ const quality = [
 const featured = computed(() => (catalogData.value?.items || []).slice(0, 4))
 
 await useManagedSeo('page:home', {
-  title: 'YIYUAN NEW MATERIALS | Cling Film and Food Packaging Factory',
-  description: 'China factory for cling film, fresh wrap, food packaging containers, and OEM packaging orders.',
-  keywords: 'cling film factory, food packaging, OEM packaging, fresh wrap',
+  title: 'Cling Film & Disposable Food Packaging Factory in China | YIYUAN',
+  description: 'YIYUAN supplies cling film, fresh wrap, disposable food containers and OEM food packaging for wholesale and export orders from China.',
+  keywords: 'cling film factory, disposable food packaging, food container manufacturer, OEM packaging China',
   image: '/images/hero-factory.webp',
 })
 </script>
