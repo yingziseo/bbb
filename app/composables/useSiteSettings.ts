@@ -1,4 +1,4 @@
-import { company as fallbackCompany } from '~/data/site'
+import { company as fallbackCompany, defaultHomePopupVideoUrl } from '~/data/site'
 
 export type PublicSiteSettings = Omit<typeof fallbackCompany, 'founded'> & {
   founded: string
@@ -20,7 +20,7 @@ const createFallbackSettings = (): PublicSiteSettings => ({
   faviconPath: '/favicon.ico',
   homePopupEnabled: 'true',
   homePopupCooldownHours: '12',
-  homePopupVideoUrl: '',
+  homePopupVideoUrl: defaultHomePopupVideoUrl,
 })
 
 export const useSiteSettings = async () => {

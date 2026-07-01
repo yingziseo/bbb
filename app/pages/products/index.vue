@@ -7,7 +7,7 @@ await useManagedSeo('page:products', {
   title: `Products | ${company.name}`,
   description: 'Browse cling film, food containers, disposable packaging, and custom food packaging products.',
   keywords: 'food packaging products, cling film, disposable containers',
-  image: '/images/product-cling-film.png',
+  image: '/images/product-cling-film.webp',
 })
 
 type ProductCategory = {

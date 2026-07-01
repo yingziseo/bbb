@@ -7,7 +7,7 @@ await useManagedSeo('page:contact', {
   title: `Contact | ${company.name}`,
   description: 'Send food packaging specifications, quantity, and custom requirements for quotation.',
   keywords: 'food packaging quotation, packaging supplier contact',
-  image: '/images/hero-factory.png',
+  image: '/images/hero-factory.webp',
 })
 
 const route = useRoute()

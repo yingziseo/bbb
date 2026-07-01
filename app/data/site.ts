@@ -14,6 +14,8 @@ export const company = {
   legalRepresentative: 'Liu Ke',
 }
 
+export const defaultHomePopupVideoUrl = 'https://www.youtube.com/watch?v=M7lc1UVf-VE'
+
 export const headerMarqueeItems = [
   'Shangqiu, Henan, China',
   'Cling Film',
@@ -78,7 +80,7 @@ export const products: Product[] = [
     name: 'Kraft Paper Meal Box',
     category: 'Disposable Containers',
     shortDesc: 'Grease-resistant kraft lunch boxes for takeaway and food delivery, leak-proof design.',
-    image: '/images/product-meal-box.png',
+    image: '/images/product-meal-box.webp',
     material: 'Food-grade Kraft paper + PE coating',
     moq: '10,000 pcs',
     custom: true,
@@ -97,7 +99,7 @@ export const products: Product[] = [
     name: 'PP Injection Bento Container',
     category: 'Disposable Containers',
     shortDesc: 'Multi-compartment injection-molded bento boxes, microwave and freezer safe.',
-    image: '/images/product-bento.png',
+    image: '/images/product-bento.webp',
     material: 'Virgin PP (polypropylene)',
     moq: '20,000 pcs',
     custom: true,
@@ -116,7 +118,7 @@ export const products: Product[] = [
     name: 'PE Cling Film Jumbo Roll',
     category: 'Cling Film & Fresh Wrap',
     shortDesc: 'Industrial PE stretch cling film for food wrapping, jumbo rolls for wholesale.',
-    image: '/images/product-cling-film.png',
+    image: '/images/product-cling-film.webp',
     material: 'Food-grade PE (polyethylene)',
     moq: '5,000 kg',
     custom: true,
@@ -135,7 +137,7 @@ export const products: Product[] = [
     name: 'PVC Fresh Wrap Film',
     category: 'Cling Film & Fresh Wrap',
     shortDesc: 'High-cling PVC fresh wrap with cutter box, ideal for fresh produce and deli.',
-    image: '/images/product-fresh-wrap.png',
+    image: '/images/product-fresh-wrap.webp',
     material: 'Food-grade PVC',
     moq: '8,000 rolls',
     custom: true,
@@ -154,7 +156,7 @@ export const products: Product[] = [
     name: 'PET Clear Deli Container',
     category: 'Food Packaging Containers',
     shortDesc: 'Crystal-clear PET round containers with tamper-evident lids for cold foods.',
-    image: '/images/product-deli.png',
+    image: '/images/product-deli.webp',
     material: 'Food-grade PET',
     moq: '15,000 pcs',
     custom: true,
@@ -173,7 +175,7 @@ export const products: Product[] = [
     name: 'Bagasse Clamshell Box',
     category: 'Food Packaging Containers',
     shortDesc: 'Compostable sugarcane bagasse clamshell, sturdy and oil-resistant.',
-    image: '/images/product-clamshell.png',
+    image: '/images/product-clamshell.webp',
     material: 'Sugarcane bagasse pulp',
     moq: '12,000 pcs',
     custom: true,
@@ -192,7 +194,7 @@ export const products: Product[] = [
     name: 'Custom Printed Food Box',
     category: 'Custom Packaging',
     shortDesc: 'Branded food boxes with your logo, full-color print and custom sizing.',
-    image: '/images/product-custom-box.png',
+    image: '/images/product-custom-box.webp',
     material: 'Kraft / White cardboard',
     moq: '5,000 pcs',
     custom: true,
@@ -211,7 +213,7 @@ export const products: Product[] = [
     name: 'Custom Paper Cup',
     category: 'Custom Packaging',
     shortDesc: 'Double-wall paper cups with custom branding for hot and cold beverages.',
-    image: '/images/product-cup.png',
+    image: '/images/product-cup.webp',
     material: 'Food-grade paper + PE/PLA',
     moq: '50,000 pcs',
     custom: true,
@@ -246,7 +248,7 @@ export const posts: Post[] = [
     category: 'Sourcing Guide',
     excerpt:
       'Key factors overseas buyers should evaluate when selecting a food packaging factory, from certifications to production capacity.',
-    cover: '/images/blog-supplier.png',
+    cover: '/images/blog-supplier.webp',
     readTime: '6 min read',
     body: [
       'Sourcing food packaging from overseas requires more than comparing unit prices. Buyers need to verify that a supplier is a genuine source factory rather than a trading company, since this directly affects pricing, lead time and quality consistency.',
@@ -262,7 +264,7 @@ export const posts: Post[] = [
     category: 'Material Guide',
     excerpt:
       'A practical comparison of the three most common food container materials and which use cases each one fits best.',
-    cover: '/images/blog-materials.png',
+    cover: '/images/blog-materials.webp',
     readTime: '5 min read',
     body: [
       'Selecting the correct material is one of the most important decisions when ordering food containers. Each material has distinct advantages in heat resistance, clarity, cost and sustainability.',
@@ -278,7 +280,7 @@ export const posts: Post[] = [
     category: 'Cost Optimization',
     excerpt:
       'Practical strategies importers use to lower landed cost per unit without sacrificing packaging quality.',
-    cover: '/images/blog-cost.png',
+    cover: '/images/blog-cost.webp',
     readTime: '4 min read',
     body: [
       'Packaging is a recurring cost across every order. Standardized specifications and efficient purchasing can lower landed cost per unit.',

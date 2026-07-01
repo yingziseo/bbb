@@ -5,7 +5,7 @@ await useManagedSeo('page:blog', {
   title: `Blog | ${company.name}`,
   description: 'Packaging sourcing guides, material comparisons, and food packaging purchasing insights.',
   keywords: 'packaging sourcing guide, food packaging blog',
-  image: '/images/blog-supplier.png',
+  image: '/images/blog-supplier.webp',
 })
 
 const { data } = await useFetch('/api/public/posts')

@@ -1,6 +1,6 @@
 import type { H3Event } from 'h3'
 import { getRequestHeader } from 'h3'
-import { company } from '../../app/data/site'
+import { company, defaultHomePopupVideoUrl } from '../../app/data/site'
 import { asString } from './content'
 import { getDb, touchNow } from './db'
 
@@ -49,7 +49,7 @@ const defaultSettings = (): Record<SiteSettingKey, string> => ({
   faviconPath: '/favicon.ico',
   homePopupEnabled: 'true',
   homePopupCooldownHours: '12',
-  homePopupVideoUrl: '',
+  homePopupVideoUrl: defaultHomePopupVideoUrl,
 })
 
 const normalizeBaseUrl = (value: string) => value.trim().replace(/\/+$/, '')

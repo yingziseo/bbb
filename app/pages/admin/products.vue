@@ -377,7 +377,7 @@ const refreshAll = async () => {
           </el-form-item>
           <el-form-item label="分类图片">
             <div class="flex w-full flex-col gap-3">
-              <el-input v-model="categoryForm.image" placeholder="/images/cat-film.png" />
+              <el-input v-model="categoryForm.image" placeholder="/images/cat-film.webp" />
               <img v-if="categoryForm.image" :src="categoryForm.image" alt="" class="h-32 w-full border border-[var(--color-line)] object-cover" />
               <el-upload :show-file-list="false" :http-request="(option: any) => uploadImage(option, 'category')" accept="image/*">
                 <el-button :loading="uploadLoading === 'category'">上传图片</el-button>

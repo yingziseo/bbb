@@ -25,7 +25,7 @@ const categoryCards = computed(() =>
   (catalogData.value?.categories || []).map((category) => ({
     name: category.name,
     desc: category.description,
-    image: category.image || '/images/cat-containers.png',
+    image: category.image || '/images/cat-containers.webp',
     slug: category.slug,
   })),
 )
@@ -56,7 +56,7 @@ await useManagedSeo('page:home', {
   title: 'YIYUAN NEW MATERIALS | Cling Film and Food Packaging Factory',
   description: 'China factory for cling film, fresh wrap, food packaging containers, and OEM packaging orders.',
   keywords: 'cling film factory, food packaging, OEM packaging, fresh wrap',
-  image: '/images/hero-factory.png',
+  image: '/images/hero-factory.webp',
 })
 </script>
 
@@ -97,7 +97,7 @@ await useManagedSeo('page:home', {
 
         <div class="relative">
           <div class="aspect-[4/3] overflow-hidden border border-white/10">
-            <img :src="`/images/hero-factory.png`" alt="Food packaging production line inside our factory" class="h-full w-full object-cover" />
+            <img :src="`/images/hero-factory.webp`" alt="Food packaging production line inside our factory" class="h-full w-full object-cover" />
           </div>
           <div class="absolute -bottom-5 left-5 right-5 grid grid-cols-3 overflow-hidden border border-[var(--color-line)] bg-white text-[var(--color-navy)]">
             <div class="p-4 text-center border-r border-[var(--color-line)]">
@@ -184,13 +184,13 @@ await useManagedSeo('page:home', {
         />
         <div class="mt-10 grid gap-4 md:grid-cols-3">
           <div class="overflow-hidden border border-[var(--color-line)] md:row-span-2 md:col-span-2">
-            <img :src="`/images/workshop-main.png`" alt="Main production workshop with injection molding lines" class="h-full w-full object-cover" />
+            <img :src="`/images/workshop-main.webp`" alt="Main production workshop with injection molding lines" class="h-full w-full object-cover" />
           </div>
           <div class="aspect-[4/3] overflow-hidden border border-[var(--color-line)]">
-            <img :src="`/images/workshop-equipment.png`" alt="Automated film extrusion equipment" class="h-full w-full object-cover" />
+            <img :src="`/images/workshop-equipment.webp`" alt="Automated film extrusion equipment" class="h-full w-full object-cover" />
           </div>
           <div class="aspect-[4/3] overflow-hidden border border-[var(--color-line)]">
-            <img :src="`/images/workshop-warehouse.png`" alt="Finished goods warehouse ready for export" class="h-full w-full object-cover" />
+            <img :src="`/images/workshop-warehouse.webp`" alt="Finished goods warehouse ready for export" class="h-full w-full object-cover" />
           </div>
         </div>
       </div>
@@ -200,7 +200,7 @@ await useManagedSeo('page:home', {
     <section class="section bg-[var(--color-navy)] text-white border-y border-white/10">
       <div class="container-x grid lg:grid-cols-2 gap-12 items-center">
         <div class="overflow-hidden border border-white/10 order-2 lg:order-1">
-          <img :src="`/images/custom-oem.png`" alt="Custom printed packaging and OEM production samples" class="h-full w-full object-cover" />
+          <img :src="`/images/custom-oem.webp`" alt="Custom printed packaging and OEM production samples" class="h-full w-full object-cover" />
         </div>
         <div class="order-1 lg:order-2">
           <SectionHeading
@@ -279,7 +279,7 @@ await useManagedSeo('page:home', {
           </ul>
         </div>
         <div class="overflow-hidden border border-[var(--color-line)]">
-          <img :src="`/images/quality-control.png`" alt="Quality control inspection of food containers" class="h-full w-full object-cover" />
+          <img :src="`/images/quality-control.webp`" alt="Quality control inspection of food containers" class="h-full w-full object-cover" />
         </div>
       </div>
     </section>

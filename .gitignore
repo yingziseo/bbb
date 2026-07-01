@@ -20,6 +20,7 @@ node-compile-cache
 data/*.db
 data/*.db-*
 public/uploads/
+image-originals/
 to-b.zip
 hero.png
 home.png

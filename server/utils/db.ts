@@ -2,7 +2,7 @@ import { mkdirSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { DatabaseSync } from 'node:sqlite'
 import { randomBytes, scryptSync } from 'node:crypto'
-import { company, posts as seedPosts, products as seedProducts } from '../../app/data/site'
+import { company, defaultHomePopupVideoUrl, posts as seedPosts, products as seedProducts } from '../../app/data/site'
 
 let db: DatabaseSync | null = null
 
@@ -205,6 +205,26 @@ const migrateProductCatalog = (database: DatabaseSync) => {
   })
 }
 
+const migrateStaticImagePathsToWebp = (database: DatabaseSync) => {
+  const timestamp = now()
+  const updates = [
+    ['seo_entries', 'og_image'],
+    ['product_categories', 'image'],
+    ['products', 'image'],
+    ['posts', 'cover_image'],
+  ]
+
+  updates.forEach(([table, column]) => {
+    database
+      .prepare(`
+        UPDATE ${table}
+        SET ${column} = REPLACE(${column}, '.png', '.webp'), updated_at = ?
+        WHERE ${column} LIKE '/images/%.png'
+      `)
+      .run(timestamp)
+  })
+}
+
 const insertSeo = (
   database: DatabaseSync,
   entry: {
@@ -290,7 +310,7 @@ const seedSeo = (database: DatabaseSync) => {
       title: 'YIYUAN NEW MATERIALS | Cling Film and Food Packaging Factory',
       description: 'China factory for cling film, fresh wrap, food packaging containers, and OEM packaging orders.',
       keywords: 'cling film factory, food packaging, OEM packaging, fresh wrap',
-      ogImage: '/images/hero-factory.png',
+      ogImage: '/images/hero-factory.webp',
     },
     {
       key: 'page:products',
@@ -300,7 +320,7 @@ const seedSeo = (database: DatabaseSync) => {
       title: `Products | ${company.name}`,
       description: 'Browse cling film, food containers, disposable packaging, and custom food packaging products.',
       keywords: 'food packaging products, cling film, disposable containers',
-      ogImage: '/images/product-cling-film.png',
+      ogImage: '/images/product-cling-film.webp',
     },
     {
       key: 'page:about',
@@ -310,7 +330,7 @@ const seedSeo = (database: DatabaseSync) => {
       title: `About | ${company.name}`,
       description: 'Factory overview and company information for Shangqiu Yiyuan New Materials Co., Ltd.',
       keywords: 'Yiyuan New Materials, Shangqiu packaging factory',
-      ogImage: '/images/about-factory.png',
+      ogImage: '/images/about-factory.webp',
     },
     {
       key: 'page:blog',
@@ -320,7 +340,7 @@ const seedSeo = (database: DatabaseSync) => {
       title: `Blog | ${company.name}`,
       description: 'Packaging sourcing guides, material comparisons, and food packaging purchasing insights.',
       keywords: 'packaging sourcing guide, food packaging blog',
-      ogImage: '/images/blog-supplier.png',
+      ogImage: '/images/blog-supplier.webp',
     },
     {
       key: 'page:contact',
@@ -330,7 +350,7 @@ const seedSeo = (database: DatabaseSync) => {
       title: `Contact | ${company.name}`,
       description: 'Send food packaging specifications, quantity, and custom requirements for quotation.',
       keywords: 'food packaging quotation, packaging supplier contact',
-      ogImage: '/images/hero-factory.png',
+      ogImage: '/images/hero-factory.webp',
     },
   ]
 
@@ -343,14 +363,14 @@ const defaultProductCategories = [
     slug: 'cling-film',
     name: '保鲜膜',
     description: 'PE/PVC food wrap film, jumbo rolls, cutter box rolls, and private-label fresh wrap.',
-    image: '/images/cat-film.png',
+    image: '/images/cat-film.webp',
     sortOrder: 1,
   },
   {
     slug: 'disposable-meal-boxes',
     name: '一次性餐盒',
     description: 'Kraft paper meal boxes, PP/PET containers, bagasse clamshells, cups, and custom food boxes.',
-    image: '/images/cat-containers.png',
+    image: '/images/cat-containers.webp',
     sortOrder: 2,
   },
 ]
@@ -609,7 +629,7 @@ const seedSiteSettings = (database: DatabaseSync) => {
     faviconPath: '/favicon.ico',
     homePopupEnabled: 'true',
     homePopupCooldownHours: '12',
-    homePopupVideoUrl: '',
+    homePopupVideoUrl: defaultHomePopupVideoUrl,
   }
 
   const statement = database.prepare(`
@@ -643,6 +663,7 @@ export const getDb = () => {
   execSchema(db)
   migrateAdminUsers(db)
   migrateProductCatalog(db)
+  migrateStaticImagePathsToWebp(db)
   seedDatabase(db)
 
   return db

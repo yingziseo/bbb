@@ -7,7 +7,7 @@ await useManagedSeo('page:about', {
   title: `About | ${company.name}`,
   description: 'Factory overview and company information for Shangqiu Yiyuan New Materials Co., Ltd.',
   keywords: 'Yiyuan New Materials, Shangqiu packaging factory',
-  image: '/images/about-factory.png',
+  image: '/images/about-factory.webp',
 })
 
 const capabilities = [
@@ -44,7 +44,7 @@ const registeredFacts = [
           </p>
         </div>
         <div class="overflow-hidden border border-white/10">
-          <img :src="`/images/about-factory.png`" alt="Aerial view of the manufacturing facility" class="w-full aspect-[4/3] object-cover" />
+          <img :src="`/images/about-factory.webp`" alt="Aerial view of the manufacturing facility" class="w-full aspect-[4/3] object-cover" />
         </div>
       </div>
     </section>
@@ -83,22 +83,22 @@ const registeredFacts = [
         <SectionHeading eyebrow="Factory" title="Workshop, Equipment & Storage" subtitle="Production floor, converting equipment, warehouse, and product samples." />
         <div class="mt-10 grid gap-4 md:grid-cols-3">
           <div class="aspect-[4/3] overflow-hidden border border-[var(--color-line)]">
-            <img :src="`/images/workshop-main.png`" alt="Injection molding workshop" class="h-full w-full object-cover" />
+            <img :src="`/images/workshop-main.webp`" alt="Injection molding workshop" class="h-full w-full object-cover" />
           </div>
           <div class="aspect-[4/3] overflow-hidden border border-[var(--color-line)]">
-            <img :src="`/images/workshop-equipment.png`" alt="Film extrusion equipment" class="h-full w-full object-cover" />
+            <img :src="`/images/workshop-equipment.webp`" alt="Film extrusion equipment" class="h-full w-full object-cover" />
           </div>
           <div class="aspect-[4/3] overflow-hidden border border-[var(--color-line)]">
-            <img :src="`/images/workshop-warehouse.png`" alt="Finished goods warehouse" class="h-full w-full object-cover" />
+            <img :src="`/images/workshop-warehouse.webp`" alt="Finished goods warehouse" class="h-full w-full object-cover" />
           </div>
           <div class="aspect-[4/3] overflow-hidden border border-[var(--color-line)]">
-            <img :src="`/images/quality-control.png`" alt="Quality inspection station" class="h-full w-full object-cover" />
+            <img :src="`/images/quality-control.webp`" alt="Quality inspection station" class="h-full w-full object-cover" />
           </div>
           <div class="aspect-[4/3] overflow-hidden border border-[var(--color-line)]">
-            <img :src="`/images/custom-oem.png`" alt="Custom printed packaging samples" class="h-full w-full object-cover" />
+            <img :src="`/images/custom-oem.webp`" alt="Custom printed packaging samples" class="h-full w-full object-cover" />
           </div>
           <div class="aspect-[4/3] overflow-hidden border border-[var(--color-line)]">
-            <img :src="`/images/hero-factory.png`" alt="Production line overview" class="h-full w-full object-cover" />
+            <img :src="`/images/hero-factory.webp`" alt="Production line overview" class="h-full w-full object-cover" />
           </div>
         </div>
       </div>

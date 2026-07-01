@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { ChatDotRound, Close, FullScreen, Message, Mute, Present, VideoCamera, VideoPlay } from '@element-plus/icons-vue'
+import { ChatDotRound, Close, FullScreen, Message, Mute, Present, VideoCamera } from '@element-plus/icons-vue'
 import type { PublicSiteSettings } from '~/composables/useSiteSettings'
 
 const props = defineProps<{
   settings: PublicSiteSettings
 }>()
 
-const storageKey = 'yiyuan:home-popup-player-dismissed-until'
+const storageKey = 'yiyuan:home-popup-video-modal-dismissed-until'
 const visible = ref(false)
-const playing = ref(false)
+const videoOpen = ref(false)
 
 const popupEnabled = computed(() => props.settings.homePopupEnabled === 'true')
 const cooldownMs = computed(() => {
@@ -37,12 +37,32 @@ const shouldShowPopup = () => {
 const closePopup = () => {
   window.localStorage.setItem(storageKey, String(Date.now() + cooldownMs.value))
   visible.value = false
-  playing.value = false
+  videoOpen.value = false
+}
+
+const skipPopup = () => {
+  visible.value = false
+  videoOpen.value = false
 }
 
 const startVideo = () => {
   if (!hasVideo.value) return
-  playing.value = true
+  videoOpen.value = true
+}
+
+const closeVideo = () => {
+  videoOpen.value = false
+}
+
+const handleKeydown = (event: KeyboardEvent) => {
+  if (event.key !== 'Escape' || !visible.value) return
+
+  if (videoOpen.value) {
+    closeVideo()
+    return
+  }
+
+  skipPopup()
 }
 
 function toEmbedVideoUrl(rawUrl: string) {
@@ -77,12 +97,17 @@ function toEmbedVideoUrl(rawUrl: string) {
 
 onMounted(() => {
   visible.value = shouldShowPopup()
+  window.addEventListener('keydown', handleKeydown)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', handleKeydown)
 })
 
 watch(popupEnabled, (enabled) => {
   if (!enabled) {
     visible.value = false
-    playing.value = false
+    videoOpen.value = false
   }
 })
 </script>
@@ -97,7 +122,7 @@ watch(popupEnabled, (enabled) => {
         aria-modal="true"
         aria-labelledby="home-lead-popup-title"
       >
-        <div class="home-lead-popup__shade" aria-hidden="true" />
+        <div class="home-lead-popup__shade" aria-hidden="true" @click="skipPopup" />
         <section class="home-lead-popup__panel">
           <button type="button" class="home-lead-popup__close" aria-label="Close popup" @click="closePopup">
             <el-icon :size="18"><Close /></el-icon>
@@ -146,25 +171,16 @@ watch(popupEnabled, (enabled) => {
             </div>
 
             <div class="home-lead-popup__media">
-              <div class="home-lead-popup__player" :class="{ 'is-ready': hasVideo, 'is-playing': playing }">
+              <div class="home-lead-popup__player" :class="{ 'is-ready': hasVideo, 'is-playing': videoOpen }">
                 <div class="home-lead-popup__player-top">
                   <span>
                     <el-icon><VideoCamera /></el-icon>
                     Factory Video
                   </span>
-                  <small>{{ hasVideo ? 'External source' : 'Video URL reserved' }}</small>
                 </div>
 
                 <div class="home-lead-popup__screen">
-                  <iframe
-                    v-if="playing && videoUrl"
-                    :src="videoUrl"
-                    title="YIYUAN production video"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowfullscreen
-                  />
                   <button
-                    v-else
                     type="button"
                     class="home-lead-popup__play"
                     :class="{ 'is-disabled': !hasVideo }"
@@ -172,11 +188,10 @@ watch(popupEnabled, (enabled) => {
                     @click="startVideo"
                   >
                     <span class="home-lead-popup__play-icon">
-                      <el-icon :size="30"><VideoPlay /></el-icon>
+                      <span class="home-lead-popup__play-triangle" />
                     </span>
                     <span class="home-lead-popup__play-copy">
-                      <strong>Watch factory overview</strong>
-                      <small>External video player</small>
+                      <strong>Watch Real Factory Video</strong>
                     </span>
                   </button>
                 </div>
@@ -184,7 +199,7 @@ watch(popupEnabled, (enabled) => {
                 <div class="home-lead-popup__controls" aria-hidden="true">
                   <span class="home-lead-popup__time">00:00</span>
                   <span class="home-lead-popup__track">
-                    <span :style="{ width: playing ? '82%' : '28%' }" />
+                    <span />
                   </span>
                   <span class="home-lead-popup__time">01:28</span>
                   <span class="home-lead-popup__control-icon">
@@ -198,6 +213,31 @@ watch(popupEnabled, (enabled) => {
             </div>
           </div>
         </section>
+
+        <Transition name="home-video-modal">
+          <div v-if="videoOpen" class="home-video-modal" role="dialog" aria-modal="true" aria-label="Factory video player">
+            <div class="home-video-modal__shade" aria-hidden="true" @click="closeVideo" />
+            <section class="home-video-modal__panel">
+              <div class="home-video-modal__bar">
+                <span>
+                  <el-icon><VideoCamera /></el-icon>
+                  Factory Video
+                </span>
+                <button type="button" aria-label="Close video" @click="closeVideo">
+                  <el-icon :size="18"><Close /></el-icon>
+                </button>
+              </div>
+              <div class="home-video-modal__frame">
+                <iframe
+                  :src="videoUrl"
+                  title="YIYUAN production video"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                />
+              </div>
+            </section>
+          </div>
+        </Transition>
       </div>
     </Transition>
   </Teleport>
@@ -219,6 +259,7 @@ watch(popupEnabled, (enabled) => {
   inset: 0;
   background: rgba(10, 31, 56, 0.66);
   backdrop-filter: blur(8px);
+  cursor: pointer;
 }
 
 .home-lead-popup__panel {
@@ -349,7 +390,7 @@ watch(popupEnabled, (enabled) => {
   border-left: 1px solid var(--color-line);
   background:
     linear-gradient(135deg, rgba(15, 42, 74, 0.92), rgba(10, 31, 56, 0.98)),
-    url('/images/workshop-main.png') center / cover;
+    url('/images/workshop-main.webp') center / cover;
 }
 
 .home-lead-popup__player {
@@ -364,7 +405,7 @@ watch(popupEnabled, (enabled) => {
   display: flex;
   min-height: 42px;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 12px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.14);
   padding: 0 14px;
@@ -380,21 +421,13 @@ watch(popupEnabled, (enabled) => {
   font-weight: 800;
 }
 
-.home-lead-popup__player-top small {
-  color: rgba(255, 255, 255, 0.58);
-  font-size: 11px;
-  font-weight: 800;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
 .home-lead-popup__screen {
   position: relative;
   aspect-ratio: 16 / 9;
   overflow: hidden;
   background:
     linear-gradient(180deg, rgba(10, 31, 56, 0.1), rgba(10, 31, 56, 0.72)),
-    url('/images/workshop-main.png') center / cover;
+    url('/images/workshop-main.webp') center / cover;
 }
 
 .home-lead-popup__screen::before {
@@ -409,16 +442,6 @@ watch(popupEnabled, (enabled) => {
   opacity: 0.36;
 }
 
-.home-lead-popup__screen iframe {
-  position: relative;
-  z-index: 2;
-  display: block;
-  height: 100%;
-  width: 100%;
-  border: 0;
-  background: #000;
-}
-
 .home-lead-popup__play {
   position: absolute;
   inset: 0;
@@ -429,9 +452,14 @@ watch(popupEnabled, (enabled) => {
   justify-content: center;
   gap: 14px;
   border: 0;
-  background: rgba(10, 31, 56, 0.12);
+  background:
+    radial-gradient(circle at center, rgba(193, 18, 31, 0.16), transparent 34%),
+    rgba(10, 31, 56, 0.1);
   color: #fff;
   cursor: pointer;
+  transition:
+    background-color 180ms ease,
+    backdrop-filter 180ms ease;
 }
 
 .home-lead-popup__play.is-disabled {
@@ -444,37 +472,63 @@ watch(popupEnabled, (enabled) => {
   width: 74px;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  background: rgba(193, 18, 31, 0.92);
-  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.24);
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  background: rgba(193, 18, 31, 0.18);
+  box-shadow:
+    0 16px 34px rgba(0, 0, 0, 0.24),
+    inset 0 0 0 1px rgba(193, 18, 31, 0.34);
+  backdrop-filter: blur(10px);
   transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
     transform 180ms ease,
     background-color 180ms ease;
 }
 
+.home-lead-popup__play-triangle {
+  display: block;
+  width: 0;
+  height: 0;
+  margin-left: 5px;
+  border-top: 14px solid transparent;
+  border-bottom: 14px solid transparent;
+  border-left: 22px solid rgba(255, 255, 255, 0.96);
+  filter: drop-shadow(0 2px 8px rgba(193, 18, 31, 0.35));
+}
+
 @media (hover: hover) {
+  .home-lead-popup__player.is-ready:hover {
+    border-color: rgba(193, 18, 31, 0.46);
+    box-shadow:
+      0 20px 48px rgba(0, 0, 0, 0.28),
+      0 0 0 1px rgba(193, 18, 31, 0.18);
+  }
+
+  .home-lead-popup__player.is-ready:hover .home-lead-popup__play {
+    background:
+      radial-gradient(circle at center, rgba(193, 18, 31, 0.24), transparent 38%),
+      rgba(10, 31, 56, 0.02);
+  }
+
   .home-lead-popup__play:not(.is-disabled):hover .home-lead-popup__play-icon {
-    background: var(--color-accent);
-    transform: scale(1.04);
+    border-color: rgba(255, 255, 255, 0.68);
+    background: rgba(193, 18, 31, 0.26);
+    box-shadow:
+      0 18px 40px rgba(0, 0, 0, 0.28),
+      0 0 0 8px rgba(193, 18, 31, 0.12),
+      inset 0 0 0 1px rgba(193, 18, 31, 0.44);
+    transform: scale(1.06);
   }
 }
 
 .home-lead-popup__play-copy {
   display: grid;
-  gap: 3px;
   text-align: center;
 }
 
 .home-lead-popup__play-copy strong {
   font-size: 17px;
   font-weight: 900;
-}
-
-.home-lead-popup__play-copy small {
-  color: rgba(255, 255, 255, 0.68);
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
 }
 
 .home-lead-popup__controls {
@@ -503,6 +557,7 @@ watch(popupEnabled, (enabled) => {
 
 .home-lead-popup__track span {
   display: block;
+  width: 28%;
   height: 100%;
   background: var(--color-accent);
   transition: width 220ms ease;
@@ -538,15 +593,123 @@ watch(popupEnabled, (enabled) => {
   transform: translateY(12px);
 }
 
+.home-video-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 140;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+}
+
+.home-video-modal__shade {
+  position: absolute;
+  inset: 0;
+  background: rgba(3, 12, 24, 0.78);
+  backdrop-filter: blur(10px);
+}
+
+.home-video-modal__panel {
+  position: relative;
+  z-index: 1;
+  width: min(980px, 100%);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: #020812;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.42);
+}
+
+.home-video-modal__bar {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0 14px;
+  color: #fff;
+}
+
+.home-video-modal__bar span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.home-video-modal__bar button {
+  display: flex;
+  height: 34px;
+  width: 34px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+@media (hover: hover) {
+  .home-video-modal__bar button:hover {
+    border-color: rgba(193, 18, 31, 0.68);
+    background: rgba(193, 18, 31, 0.18);
+  }
+}
+
+.home-video-modal__frame {
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
+
+.home-video-modal__frame iframe {
+  display: block;
+  height: 100%;
+  width: 100%;
+  border: 0;
+  background: #000;
+}
+
+.home-video-modal-enter-active,
+.home-video-modal-leave-active {
+  transition: opacity 180ms ease;
+}
+
+.home-video-modal-enter-active .home-video-modal__panel,
+.home-video-modal-leave-active .home-video-modal__panel {
+  transition: transform 180ms ease;
+}
+
+.home-video-modal-enter-from,
+.home-video-modal-leave-to {
+  opacity: 0;
+}
+
+.home-video-modal-enter-from .home-video-modal__panel,
+.home-video-modal-leave-to .home-video-modal__panel {
+  transform: translateY(10px) scale(0.98);
+}
+
 @media (max-width: 760px) {
   .home-lead-popup {
-    align-items: flex-end;
-    padding: 12px;
+    align-items: center;
+    padding: 10px;
   }
 
   .home-lead-popup__panel {
-    max-height: calc(100dvh - 24px);
-    overflow-y: auto;
+    width: min(392px, 100%);
+    max-height: calc(100dvh - 20px);
+    overflow: hidden;
+  }
+
+  .home-lead-popup__close {
+    top: 8px;
+    right: 8px;
+    height: 32px;
+    width: 32px;
   }
 
   .home-lead-popup__content {
@@ -554,34 +717,202 @@ watch(popupEnabled, (enabled) => {
   }
 
   .home-lead-popup__copy {
-    padding: 34px 22px 24px;
+    padding: 20px 16px 14px;
+  }
+
+  .home-lead-popup__eyebrow {
+    padding-left: 8px;
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
   }
 
   .home-lead-popup__copy h2 {
-    max-width: 14ch;
-    font-size: 29px;
+    margin-top: 9px;
+    max-width: none;
+    font-size: 23px;
+    line-height: 1.12;
+  }
+
+  .home-lead-popup__copy p {
+    margin-top: 8px;
+    font-size: 12.5px;
+    line-height: 1.45;
+  }
+
+  .home-lead-popup__points {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+    margin-top: 10px;
+    font-size: 11.5px;
+  }
+
+  .home-lead-popup__points span {
+    min-width: 0;
+    min-height: 32px;
+    gap: 6px;
+    border: 1px solid var(--color-line);
+    padding: 6px 8px;
+    line-height: 1.2;
   }
 
   .home-lead-popup__actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 12px;
     align-items: stretch;
   }
 
   .home-lead-popup__actions > a,
   .home-lead-popup__actions :deep(.el-button) {
     width: 100%;
+    height: 38px;
+    min-height: 38px;
+    padding: 0 10px;
     margin-left: 0;
+    font-size: 13px;
   }
 
   .home-lead-popup__email {
+    grid-column: 1 / -1;
     justify-content: center;
     width: 100%;
+    min-height: 30px;
+    overflow: hidden;
+    border: 1px solid var(--color-line);
+    padding: 0 8px;
+    font-size: 11.5px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .home-lead-popup__media {
     min-height: 0;
-    padding: 18px;
+    padding: 12px 16px 16px;
     border-top: 1px solid var(--color-line);
     border-left: 0;
+  }
+
+  .home-lead-popup__player-top {
+    min-height: 32px;
+    padding: 0 10px;
+  }
+
+  .home-lead-popup__player-top span {
+    font-size: 11.5px;
+  }
+
+  .home-lead-popup__screen {
+    aspect-ratio: 16 / 8;
+  }
+
+  .home-lead-popup__play {
+    gap: 8px;
+  }
+
+  .home-lead-popup__play-icon {
+    height: 56px;
+    width: 56px;
+  }
+
+  .home-lead-popup__play-triangle {
+    margin-left: 4px;
+    border-top-width: 10px;
+    border-bottom-width: 10px;
+    border-left-width: 16px;
+  }
+
+  .home-lead-popup__play-copy strong {
+    font-size: 13px;
+  }
+
+  .home-lead-popup__controls {
+    min-height: 34px;
+    grid-template-columns: auto minmax(44px, 1fr) auto auto auto;
+    gap: 6px;
+    padding: 0 9px;
+  }
+
+  .home-lead-popup__control-icon {
+    height: 20px;
+    width: 20px;
+  }
+
+  .home-video-modal {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 760px) and (max-height: 700px) {
+  .home-lead-popup {
+    padding: 8px;
+  }
+
+  .home-lead-popup__panel {
+    width: min(374px, 100%);
+    max-height: calc(100dvh - 16px);
+  }
+
+  .home-lead-popup__copy {
+    padding: 16px 14px 10px;
+  }
+
+  .home-lead-popup__copy h2 {
+    margin-top: 7px;
+    font-size: 21px;
+  }
+
+  .home-lead-popup__copy p {
+    margin-top: 6px;
+    font-size: 12px;
+    line-height: 1.38;
+  }
+
+  .home-lead-popup__points {
+    gap: 6px;
+    margin-top: 8px;
+    font-size: 11px;
+  }
+
+  .home-lead-popup__points span {
+    min-height: 28px;
+    padding: 5px 7px;
+  }
+
+  .home-lead-popup__actions {
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  .home-lead-popup__actions > a,
+  .home-lead-popup__actions :deep(.el-button) {
+    height: 34px;
+    min-height: 34px;
+  }
+
+  .home-lead-popup__email {
+    min-height: 28px;
+  }
+
+  .home-lead-popup__media {
+    padding: 8px 14px 12px;
+  }
+
+  .home-lead-popup__player-top {
+    min-height: 28px;
+  }
+
+  .home-lead-popup__screen {
+    aspect-ratio: 16 / 7;
+  }
+
+  .home-lead-popup__play-icon {
+    height: 50px;
+    width: 50px;
+  }
+
+  .home-lead-popup__controls {
+    min-height: 30px;
   }
 }
 </style>
