@@ -20,6 +20,9 @@ importers:
       '@tailwindcss/vite':
         specifier: ^4.0.0
         version: 4.3.2(vite@7.3.6(@types/node@24.10.4)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.48.0)(yaml@2.9.0))
+      '@tinymce/tinymce-vue':
+        specifier: ^6.3.0
+        version: 6.3.0(tinymce@8.6.0)(vue@3.5.39(typescript@5.7.3))
       element-plus:
         specifier: ^2.8.8
         version: 2.14.2(vue@3.5.39(typescript@5.7.3))
@@ -35,6 +38,12 @@ importers:
       tailwindcss:
         specifier: ^4.0.0
         version: 4.2.0
+      tinymce:
+        specifier: ^8.6.0
+        version: 8.6.0
+      tinymce-i18n:
+        specifier: ^26.6.8
+        version: 26.6.8
       vue:
         specifier: ^3.5.0
         version: 3.5.39(typescript@5.7.3)
@@ -1343,6 +1352,15 @@ packages:
     resolution: {integrity: sha512-eHpMeX4JXfVNJDEcsouTeCBubJBTcTLigeaw/NTUW6PB5ATKKXdyonnXgTBX2VuRbjz1hjfz6C5XAhr52ImQXA==}
     peerDependencies:
       vite: ^5.2.0 || ^6 || ^7 || ^8
+
+  '@tinymce/tinymce-vue@6.3.0':
+    resolution: {integrity: sha512-DSP8Jhd3XqCCliTnusfbmz3D8GqQ4iRzkc4aadYHDcJPVjkaqopJ61McOdH82CSy599vGLkPjGzqJYWJkRMiUA==}
+    peerDependencies:
+      tinymce: ^8.0.0 || ^7.0.0 || ^6.0.0 || ^5.5.1
+      vue: ^3.0.0
+    peerDependenciesMeta:
+      tinymce:
+        optional: true
 
   '@tybys/wasm-util@0.10.3':
     resolution: {integrity: sha512-F3fo1MYrRJYL3zER0OUOmkutjr1Vp23m7OsSgp7nq4SP6OqX6C/56XFIPAl5bt3zaBRjmW7SGz3u/6LwFpYcOg==}
@@ -3371,6 +3389,12 @@ packages:
     resolution: {integrity: sha512-wXR/dYpcqKmfWpEdZjiKJOwCNFndD0DMnrW/cYjVGttEkBfVgcLFHoNrlj47mjOVic9yyNu65alsgF4NQyTa2g==}
     engines: {node: '>=12.0.0'}
 
+  tinymce-i18n@26.6.8:
+    resolution: {integrity: sha512-RqiDUfRPCWoXeCLVcOhLatGyX5faJ0WrR891/Q3u0EYZefSxJugH9bGzd57q4BK74wziCrVQLIa3XNBnXjMIng==}
+
+  tinymce@8.6.0:
+    resolution: {integrity: sha512-qODYoNL4cPIzNFpkEEQDm3DWI78I/nQXIPwUMHRN+q/LyT9Wzt7xis2Nfhk88kV6sibp6MJXPSaUDVNe02ZB/w==}
+
   to-regex-range@5.0.1:
     resolution: {integrity: sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==}
     engines: {node: '>=8.0'}
@@ -5084,6 +5108,12 @@ snapshots:
       '@tailwindcss/oxide': 4.3.2
       tailwindcss: 4.3.2
       vite: 7.3.6(@types/node@24.10.4)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.48.0)(yaml@2.9.0)
+
+  '@tinymce/tinymce-vue@6.3.0(tinymce@8.6.0)(vue@3.5.39(typescript@5.7.3))':
+    dependencies:
+      vue: 3.5.39(typescript@5.7.3)
+    optionalDependencies:
+      tinymce: 8.6.0
 
   '@tybys/wasm-util@0.10.3':
     dependencies:
@@ -7531,6 +7561,10 @@ snapshots:
     dependencies:
       fdir: 6.5.0(picomatch@4.0.4)
       picomatch: 4.0.4
+
+  tinymce-i18n@26.6.8: {}
+
+  tinymce@8.6.0: {}
 
   to-regex-range@5.0.1:
     dependencies:

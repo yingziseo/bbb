@@ -1060,6 +1060,39 @@
 
 - commit: `未提交`
 
+## 2026-07-01 - 后台文章编辑器升级 TinyMCE
+
+背景：
+
+- 后台发布文章的手写富文本编辑器功能过于简陋，图片和链接插入依赖输入框，无法满足接近 WordPress 的编辑体验。
+
+改动：
+
+- 将 `AdminRichTextEditor` 内部替换为 TinyMCE 自托管富文本编辑器，保留原组件调用方式。
+- 增加中文编辑器语言包和成熟工具栏：标题、字体、字号、加粗、颜色、对齐、列表、链接、图片、表格、媒体、源码、预览、全屏等。
+- 编辑器内图片上传接入现有 `/api/admin/uploads`，支持选择图片、粘贴图片和拖入图片。
+- 服务端文章 HTML 清洗规则补充媒体标签和 iframe/image 属性，避免保存后内容被误过滤。
+
+涉及文件：
+
+- `app/components/admin/RichTextEditor.client.vue`
+- `server/utils/content.ts`
+- `package.json`
+- `pnpm-lock.yaml`
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- `pnpm build` 通过。
+- 已重启公网 3005 服务。
+- `http://127.0.0.1:3005/admin/login` 返回 200。
+- 默认管理员接口登录成功。
+- 登录后 `http://127.0.0.1:3005/admin/posts/new` 返回 200。
+
+提交：
+
+- commit: `当前提交`
+
 ## 记录模板
 
 ```markdown

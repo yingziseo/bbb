@@ -1,319 +1,257 @@
 <script setup lang="ts">
-import {
-  Delete,
-  Document,
-  EditPen,
-  Link,
-  List,
-  Picture,
-  Tickets,
-  View,
-} from '@element-plus/icons-vue'
-
-type EditorMode = 'visual' | 'source' | 'preview'
+import { ElMessage } from 'element-plus'
+import Editor from '@tinymce/tinymce-vue'
+import 'tinymce/tinymce'
+import 'tinymce/models/dom'
+import 'tinymce/icons/default'
+import 'tinymce/themes/silver'
+import 'tinymce/plugins/advlist'
+import 'tinymce/plugins/anchor'
+import 'tinymce/plugins/autolink'
+import 'tinymce/plugins/autosave'
+import 'tinymce/plugins/charmap'
+import 'tinymce/plugins/code'
+import 'tinymce/plugins/fullscreen'
+import 'tinymce/plugins/help'
+import 'tinymce/plugins/image'
+import 'tinymce/plugins/insertdatetime'
+import 'tinymce/plugins/link'
+import 'tinymce/plugins/lists'
+import 'tinymce/plugins/media'
+import 'tinymce/plugins/nonbreaking'
+import 'tinymce/plugins/pagebreak'
+import 'tinymce/plugins/preview'
+import 'tinymce/plugins/quickbars'
+import 'tinymce/plugins/searchreplace'
+import 'tinymce/plugins/table'
+import 'tinymce/plugins/visualblocks'
+import 'tinymce/plugins/visualchars'
+import 'tinymce/plugins/wordcount'
+import 'tinymce-i18n/langs8/zh-CN.js'
+import 'tinymce/skins/ui/oxide/skin.min.css'
+import type { RawEditorOptions } from 'tinymce'
 
 const model = defineModel<string>({ default: '<p></p>' })
 
-const mode = ref<EditorMode>('visual')
-const editorRef = ref<HTMLElement>()
-const sourceValue = ref(model.value || '<p></p>')
-let syncingInternally = false
-
-const normalizedHtml = (value: string) => {
-  const html = value.trim()
-  return html ? html : '<p><br></p>'
-}
-
-const setEditorHtml = () => {
-  if (!editorRef.value) return
-  const html = normalizedHtml(model.value || '')
-  if (editorRef.value.innerHTML !== html) {
-    editorRef.value.innerHTML = html
-  }
-}
-
-const commit = (value: string) => {
-  syncingInternally = true
-  model.value = value
-  sourceValue.value = value
-  nextTick(() => {
-    syncingInternally = false
+const uploadImage = async (file: Blob, filename: string) => {
+  const body = new FormData()
+  body.append('file', file, filename)
+  const result = await $fetch<{ path: string }>('/api/admin/uploads', {
+    method: 'POST',
+    body,
   })
+
+  return result.path
 }
 
-watch(
-  () => model.value,
-  (value) => {
-    if (syncingInternally) return
-    sourceValue.value = value || '<p></p>'
-    if (mode.value === 'visual') nextTick(setEditorHtml)
+const imagesUploadHandler: RawEditorOptions['images_upload_handler'] = async (blobInfo, progress) => {
+  progress(15)
+  const path = await uploadImage(blobInfo.blob(), blobInfo.filename())
+  progress(100)
+  return path
+}
+
+const filePickerCallback: RawEditorOptions['file_picker_callback'] = (callback, _value, meta) => {
+  if (meta.filetype !== 'image') return
+
+  const input = document.createElement('input')
+  input.type = 'file'
+  input.accept = 'image/png,image/jpeg,image/webp,image/gif'
+
+  input.addEventListener('change', async () => {
+    const file = input.files?.[0]
+    if (!file) return
+
+    try {
+      const path = await uploadImage(file, file.name)
+      callback(path, {
+        alt: file.name.replace(/\.[^.]+$/, ''),
+        title: file.name,
+      })
+      ElMessage.success('图片已插入正文')
+    } catch (error: any) {
+      ElMessage.error(error?.data?.message || error?.statusMessage || '图片上传失败')
+    }
+  })
+
+  input.click()
+}
+
+const editorInit: RawEditorOptions = {
+  license_key: 'gpl',
+  language: 'zh-CN',
+  height: 560,
+  min_height: 420,
+  max_height: 900,
+  resize: true,
+  skin: false,
+  content_css: false,
+  branding: false,
+  promotion: false,
+  elementpath: false,
+  menubar: 'file edit view insert format tools table help',
+  plugins:
+    'advlist anchor autolink autosave charmap code fullscreen help image insertdatetime link lists media nonbreaking pagebreak preview quickbars searchreplace table visualblocks visualchars wordcount',
+  toolbar:
+    'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media table blockquote | removeformat code preview fullscreen',
+  toolbar_mode: 'sliding',
+  quickbars_selection_toolbar: 'bold italic underline | quicklink h2 h3 blockquote | bullist numlist',
+  quickbars_insert_toolbar: 'quickimage quicktable media',
+  contextmenu: 'link image table',
+  block_formats: '段落=p; 一级标题=h1; 二级标题=h2; 三级标题=h3; 引用=blockquote; 预格式=pre',
+  font_size_formats: '12px 14px 16px 18px 20px 24px 28px 32px',
+  paste_data_images: true,
+  automatic_uploads: true,
+  images_reuse_filename: false,
+  images_file_types: 'jpeg,jpg,jpe,png,gif,webp',
+  images_upload_handler: imagesUploadHandler,
+  file_picker_types: 'image',
+  file_picker_callback: filePickerCallback,
+  image_advtab: true,
+  image_caption: true,
+  image_title: true,
+  link_assume_external_targets: 'https',
+  link_default_target: '_blank',
+  link_title: true,
+  default_link_target: '_blank',
+  target_list: [
+    { title: '当前窗口打开', value: '' },
+    { title: '新窗口打开', value: '_blank' },
+  ],
+  rel_list: [
+    { title: '默认', value: '' },
+    { title: 'No opener', value: 'noopener' },
+    { title: 'No follow', value: 'nofollow' },
+    { title: 'No opener + No follow', value: 'noopener nofollow' },
+  ],
+  media_live_embeds: true,
+  media_alt_source: false,
+  media_poster: false,
+  table_default_attributes: {
+    border: '0',
   },
-)
-
-watch(mode, (value) => {
-  if (value === 'visual') nextTick(setEditorHtml)
-})
-
-onMounted(setEditorHtml)
-
-const syncFromEditor = () => {
-  commit(editorRef.value?.innerHTML || '<p></p>')
-}
-
-const syncFromSource = () => {
-  commit(sourceValue.value || '<p></p>')
-}
-
-const focusEditor = () => {
-  editorRef.value?.focus()
-}
-
-const runCommand = async (command: string, value?: string) => {
-  mode.value = 'visual'
-  await nextTick()
-  focusEditor()
-  document.execCommand(command, false, value)
-  syncFromEditor()
-}
-
-const formatBlock = (tag: 'p' | 'h2' | 'h3' | 'blockquote') => {
-  runCommand('formatBlock', tag)
-}
-
-const insertLink = async () => {
-  const href = window.prompt('输入链接地址')
-  if (!href) return
-  await runCommand('createLink', href)
-}
-
-const insertImage = async () => {
-  const src = window.prompt('输入图片地址，例如 /uploads/example.png')
-  if (!src) return
-  await runCommand('insertImage', src)
-}
-
-const insertTable = async () => {
-  await runCommand(
-    'insertHTML',
-    '<table><tbody><tr><th>Header</th><th>Header</th></tr><tr><td>Content</td><td>Content</td></tr></tbody></table>',
-  )
-}
-
-const clearFormatting = () => {
-  runCommand('removeFormat')
-}
-
-const handlePaste = (event: ClipboardEvent) => {
-  const html = event.clipboardData?.getData('text/html')
-  if (html) return
-
-  const text = event.clipboardData?.getData('text/plain')
-  if (!text) return
-
-  event.preventDefault()
-  const paragraphs = text
-    .split(/\n{2,}/)
-    .map((item) => item.trim())
-    .filter(Boolean)
-    .map((item) => `<p>${item.replace(/\n/g, '<br>')}</p>`)
-    .join('')
-  document.execCommand('insertHTML', false, paragraphs)
-  syncFromEditor()
-}
-
-const ensureContent = () => {
-  const text = editorRef.value?.innerText.trim()
-  if (!text && editorRef.value) {
-    editorRef.value.innerHTML = '<p><br></p>'
-  }
-  syncFromEditor()
+  table_default_styles: {
+    width: '100%',
+  },
+  style_formats: [
+    { title: '正文强调', inline: 'strong' },
+    { title: '红色重点', inline: 'span', styles: { color: '#c1121f', fontWeight: '700' } },
+    { title: '蓝色重点', inline: 'span', styles: { color: '#0f2a4a', fontWeight: '700' } },
+    { title: '图片居中', selector: 'img', styles: { display: 'block', marginLeft: 'auto', marginRight: 'auto' } },
+  ],
+  content_style: `
+    body {
+      color: #2f3b49;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      font-size: 16px;
+      line-height: 1.75;
+      margin: 18px;
+    }
+    h1, h2, h3, h4 {
+      color: #0f2a4a;
+      font-weight: 800;
+      line-height: 1.25;
+    }
+    h1 { font-size: 30px; }
+    h2 { font-size: 24px; }
+    h3 { font-size: 20px; }
+    a {
+      color: #c1121f;
+      font-weight: 700;
+    }
+    img {
+      border: 1px solid #d7dee8;
+      height: auto;
+      max-width: 100%;
+    }
+    figure {
+      margin: 1.5rem 0;
+    }
+    figcaption {
+      color: #69778a;
+      font-size: 13px;
+      margin-top: 8px;
+      text-align: center;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    td, th {
+      border: 1px solid #d7dee8;
+      padding: 10px 12px;
+    }
+    th {
+      background: #f4f7fb;
+      color: #0f2a4a;
+      font-weight: 800;
+    }
+    blockquote {
+      border-left: 4px solid #c1121f;
+      color: #43556b;
+      margin: 1.4rem 0;
+      padding: 8px 0 8px 18px;
+    }
+  `,
 }
 </script>
 
 <template>
   <div class="admin-rich-editor">
-    <div class="admin-rich-editor__modebar">
-      <button
-        type="button"
-        :class="['admin-rich-editor__mode', mode === 'visual' ? 'is-active' : '']"
-        @click="mode = 'visual'"
-      >
-        <el-icon><EditPen /></el-icon>
-        编写
-      </button>
-      <button
-        type="button"
-        :class="['admin-rich-editor__mode', mode === 'source' ? 'is-active' : '']"
-        @click="mode = 'source'"
-      >
-        <el-icon><Document /></el-icon>
-        HTML
-      </button>
-      <button
-        type="button"
-        :class="['admin-rich-editor__mode', mode === 'preview' ? 'is-active' : '']"
-        @click="mode = 'preview'"
-      >
-        <el-icon><View /></el-icon>
-        预览
-      </button>
+    <Editor v-model="model" :init="editorInit" license-key="gpl" output-format="html" />
+    <div class="admin-rich-editor__hint">
+      支持图片上传、粘贴图片、插入链接、表格、视频嵌入、HTML 源码和预览。
     </div>
-
-    <div v-if="mode === 'visual'" class="admin-rich-editor__toolbar" @mousedown.prevent>
-      <button type="button" title="正文" @click="formatBlock('p')">P</button>
-      <button type="button" title="二级标题" @click="formatBlock('h2')">H2</button>
-      <button type="button" title="三级标题" @click="formatBlock('h3')">H3</button>
-      <button type="button" title="引用" @click="formatBlock('blockquote')">“”</button>
-      <span class="admin-rich-editor__divider" />
-      <button type="button" title="加粗" @click="runCommand('bold')"><strong>B</strong></button>
-      <button type="button" title="斜体" @click="runCommand('italic')"><em>I</em></button>
-      <button type="button" title="下划线" @click="runCommand('underline')"><u>U</u></button>
-      <span class="admin-rich-editor__divider" />
-      <button type="button" title="无序列表" @click="runCommand('insertUnorderedList')">
-        <el-icon><List /></el-icon>
-      </button>
-      <button type="button" title="有序列表" @click="runCommand('insertOrderedList')">1.</button>
-      <button type="button" title="链接" @click="insertLink">
-        <el-icon><Link /></el-icon>
-      </button>
-      <button type="button" title="图片" @click="insertImage">
-        <el-icon><Picture /></el-icon>
-      </button>
-      <button type="button" title="表格" @click="insertTable">
-        <el-icon><Tickets /></el-icon>
-      </button>
-      <span class="admin-rich-editor__divider" />
-      <button type="button" title="清除格式" @click="clearFormatting">
-        <el-icon><Delete /></el-icon>
-      </button>
-    </div>
-
-    <div
-      v-show="mode === 'visual'"
-      ref="editorRef"
-      class="admin-rich-editor__canvas article-body"
-      contenteditable="true"
-      role="textbox"
-      aria-label="文章正文编辑器"
-      @input="syncFromEditor"
-      @blur="ensureContent"
-      @paste="handlePaste"
-    />
-
-    <textarea
-      v-show="mode === 'source'"
-      v-model="sourceValue"
-      class="admin-rich-editor__source"
-      spellcheck="false"
-      aria-label="文章 HTML 源码"
-      @input="syncFromSource"
-    />
-
-    <div v-show="mode === 'preview'" class="admin-rich-editor__preview article-body" v-html="model" />
   </div>
 </template>
 
 <style scoped>
 .admin-rich-editor {
   width: 100%;
-  overflow: hidden;
-  border: 1px solid var(--color-line-strong);
-  background: #ffffff;
 }
 
-.admin-rich-editor__modebar {
-  display: flex;
-  border-bottom: 1px solid var(--color-line);
-  background: var(--color-panel);
-}
-
-.admin-rich-editor__mode {
-  display: inline-flex;
-  min-height: 42px;
-  align-items: center;
-  gap: 6px;
-  border-right: 1px solid var(--color-line);
-  padding: 0 14px;
-  color: var(--color-graphite);
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.admin-rich-editor__mode.is-active {
-  background: #ffffff;
-  color: var(--color-navy);
-}
-
-.admin-rich-editor__toolbar {
-  display: flex;
-  min-height: 44px;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 4px;
-  border-bottom: 1px solid var(--color-line);
-  background: #ffffff;
-  padding: 6px;
-}
-
-.admin-rich-editor__toolbar button {
-  display: inline-flex;
-  min-width: 34px;
-  height: 32px;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid transparent;
-  color: var(--color-navy);
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.admin-rich-editor__toolbar button:hover {
+.admin-rich-editor :deep(.tox-tinymce) {
   border-color: var(--color-line-strong);
-  background: var(--color-panel);
+  border-radius: 0;
 }
 
-.admin-rich-editor__divider {
-  width: 1px;
-  height: 24px;
-  margin-inline: 4px;
-  background: var(--color-line);
-}
-
-.admin-rich-editor__canvas,
-.admin-rich-editor__source,
-.admin-rich-editor__preview {
-  min-height: 460px;
-  width: 100%;
+.admin-rich-editor :deep(.tox .tox-toolbar),
+.admin-rich-editor :deep(.tox .tox-toolbar__overflow),
+.admin-rich-editor :deep(.tox .tox-toolbar__primary) {
   background: #ffffff;
 }
 
-.admin-rich-editor__canvas,
-.admin-rich-editor__preview {
-  padding: 22px;
+.admin-rich-editor :deep(.tox .tox-tbtn:hover),
+.admin-rich-editor :deep(.tox .tox-tbtn--enabled),
+.admin-rich-editor :deep(.tox .tox-split-button:hover) {
+  background: var(--color-panel);
 }
 
-.admin-rich-editor__canvas {
-  outline: none;
+.admin-rich-editor :deep(.tox .tox-tbtn svg) {
+  fill: var(--color-navy);
 }
 
-.admin-rich-editor__canvas:focus {
-  box-shadow: inset 0 0 0 2px rgba(15, 42, 74, 0.14);
+.admin-rich-editor :deep(.tox .tox-statusbar) {
+  border-top-color: var(--color-line);
 }
 
-.admin-rich-editor__source {
-  display: block;
-  resize: vertical;
-  border: 0;
-  padding: 18px;
-  color: var(--color-ink);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: 13px;
-  line-height: 1.65;
-  outline: none;
-}
-
-.admin-rich-editor__preview {
-  overflow: auto;
+.admin-rich-editor__hint {
+  border: 1px solid var(--color-line-strong);
+  border-top: 0;
   background: #fbfcfd;
+  padding: 10px 12px;
+  color: var(--color-slate-muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .admin-rich-editor :deep(.tox-tinymce) {
+    min-height: 480px;
+  }
+
+  .admin-rich-editor__hint {
+    font-size: 11.5px;
+  }
 }
 </style>
