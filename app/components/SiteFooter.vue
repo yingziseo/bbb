@@ -210,23 +210,6 @@ const year = new Date().getFullYear()
               </div>
             </div>
           </div>
-
-          <button
-            type="button"
-            class="flex w-full items-center justify-between px-1 py-4 text-center text-white"
-            @click="toggleSection('social')"
-          >
-            <span class="flex-1 text-[13px] font-bold uppercase tracking-[0.12em]">Social</span>
-            <el-icon :size="16" class="text-white/60">
-              <ArrowUp v-if="mobileOpen === 'social'" />
-              <ArrowDown v-else />
-            </el-icon>
-          </button>
-          <div v-if="mobileOpen === 'social'" class="pb-2">
-            <ul class="space-y-3 px-1 pt-1 text-center text-[14px] text-white/70">
-              <li v-for="item in socialPlatforms" :key="item.platformKey">{{ item.name }}</li>
-            </ul>
-          </div>
         </div>
       </div>
     </div>
