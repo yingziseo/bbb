@@ -735,6 +735,60 @@
 
 - commit: `d1d34e1`
 
+## 2026-07-01 - 优化后台 TDK 管理边界
+
+背景：
+
+- 后台 SEO 管理不应混入产品详情、产品分类和图片上传。
+- 主要页面 TDK 应集中管理，产品和分类 TDK 应回到产品模块内维护。
+
+改动：
+
+- 后台导航和页面文案从 `SEO 管理` 调整为 `页面 TDK`。
+- `/api/admin/seo` 只返回 `page_type = page` 的首页、产品页、公司页、博客页、联系页。
+- 页面 TDK 编辑页移除 Open Graph 图片上传和 OG 编辑区，只保留 Title、Description、Keywords、Canonical、Robots。
+- 产品和产品分类表增加 `seo_title`、`seo_description`、`seo_keywords`、`canonical` 字段，并提供自动迁移。
+- 产品编辑弹窗新增 `产品 SEO` 区块，分类编辑弹窗新增 `分类 SEO` 区块。
+- 新增正式分类页 `/products/category/:slug`，分类页读取 `category:slug` TDK。
+- 导航、底部和首页分类入口改为正式分类 URL。
+- 草稿产品和停用分类会删除对应 SEO 记录，避免 sitemap 出现不可访问页面。
+
+涉及文件：
+
+- `app/layouts/admin.vue`
+- `app/pages/admin/seo/index.vue`
+- `app/pages/admin/seo/[id].vue`
+- `app/pages/admin/products.vue`
+- `app/pages/products/index.vue`
+- `app/pages/products/category/[slug].vue`
+- `app/components/SiteHeader.vue`
+- `app/components/SiteFooter.vue`
+- `app/pages/index.vue`
+- `server/api/admin/seo/*`
+- `server/api/admin/products/*`
+- `server/api/admin/product-categories/*`
+- `server/utils/db.ts`
+- `server/utils/product-seo.ts`
+- `server/utils/serializers.ts`
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- `pnpm build` 通过。
+- 已重启公网 3005 服务。
+- `http://43.134.105.149:3005/products` 返回 200。
+- `http://43.134.105.149:3005/products/category/cling-film` 返回 200。
+- `sitemap.xml` 包含 `/products/category/cling-film` 和 `/products/category/disposable-meal-boxes`，不再包含旧的 `/products?category=`。
+- `/api/admin/seo` 登录后只返回 `page:/`、`page:/about`、`page:/blog`、`page:/contact`、`page:/products`。
+- 直接访问产品 SEO 的 `/api/admin/seo/:id` 返回 404。
+- `products` 和 `product_categories` 表已迁移出 `seo_title`、`seo_description`、`seo_keywords`、`canonical` 字段。
+- 使用现有产品原值 PUT `/api/admin/products/:id` 返回 200，并返回产品 TDK 字段。
+- 使用现有分类原值 PUT `/api/admin/product-categories/:id` 返回 200，并返回分类 TDK 字段。
+
+提交：
+
+- commit: `未提交`
+
 ## 记录模板
 
 ```markdown

@@ -4,6 +4,7 @@ import { asString } from '../../../utils/content'
 import { asInteger, generatedSlug, normalizeEnabled } from '../../../utils/product-catalog'
 import { getDb, touchNow } from '../../../utils/db'
 import { mapProductCategory } from '../../../utils/serializers'
+import { moveCategorySeoKey, upsertCategorySeo } from '../../../utils/product-seo'
 
 export default defineEventHandler(async (event) => {
   requireAdmin(event)
@@ -15,7 +16,7 @@ export default defineEventHandler(async (event) => {
   if (!id || !name || !slug) throw createError({ statusCode: 400, statusMessage: '分类名称和 Slug 必填' })
 
   const db = getDb()
-  const current = db.prepare('SELECT * FROM product_categories WHERE id = ?').get(id)
+  const current = db.prepare('SELECT * FROM product_categories WHERE id = ?').get(id) as { slug: string } | undefined
   if (!current) throw createError({ statusCode: 404, statusMessage: '分类不存在' })
 
   const conflict = db.prepare('SELECT id FROM product_categories WHERE slug = ? AND id <> ?').get(slug, id)
@@ -23,19 +24,42 @@ export default defineEventHandler(async (event) => {
 
   db.prepare(`
     UPDATE product_categories
-    SET slug = ?, name = ?, description = ?, image = ?, sort_order = ?, enabled = ?, updated_at = ?
+    SET slug = ?, name = ?, description = ?, image = ?,
+        seo_title = ?, seo_description = ?, seo_keywords = ?, canonical = ?,
+        sort_order = ?, enabled = ?, updated_at = ?
     WHERE id = ?
   `).run(
     slug,
     name,
     asString(body?.description),
     asString(body?.image),
+    asString(body?.seoTitle),
+    asString(body?.seoDescription),
+    asString(body?.seoKeywords),
+    asString(body?.canonical),
     asInteger(body?.sortOrder),
     normalizeEnabled(body?.enabled),
     touchNow(),
     id,
   )
 
+  moveCategorySeoKey(current.slug, slug)
   const row = db.prepare('SELECT * FROM product_categories WHERE id = ?').get(id)
-  return { item: mapProductCategory(row) }
+  const item = mapProductCategory(row)
+  if (item.enabled) {
+    upsertCategorySeo({
+      slug: item.slug,
+      name: item.name,
+      description: item.description,
+      image: item.image,
+      seoTitle: item.seoTitle,
+      seoDescription: item.seoDescription,
+      seoKeywords: item.seoKeywords,
+      canonical: item.canonical,
+    })
+  } else {
+    db.prepare('DELETE FROM seo_entries WHERE entry_key = ?').run(`category:${item.slug}`)
+  }
+
+  return { item }
 })

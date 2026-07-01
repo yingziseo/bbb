@@ -10,9 +10,6 @@ await useManagedSeo('page:products', {
   image: '/images/product-cling-film.png',
 })
 
-const route = useRoute()
-const router = useRouter()
-
 type ProductCategory = {
   id: number
   slug: string
@@ -25,24 +22,6 @@ type ProductCategory = {
 const { data: catalogData } = await useFetch<{ categories: ProductCategory[]; items: Product[] }>('/api/public/products')
 const categories = computed(() => catalogData.value?.categories || [])
 const products = computed(() => catalogData.value?.items || [])
-const active = ref<string>((route.query.category as string) || 'all')
-
-watch(
-  () => route.query.category,
-  (v) => {
-    active.value = (v as string) || 'all'
-  },
-)
-
-const setFilter = (slug: string) => {
-  active.value = slug
-  router.replace({ query: slug === 'all' ? {} : { category: slug } })
-}
-
-const filtered = computed(() => {
-  if (active.value === 'all') return products.value
-  return products.value.filter((p) => p.categorySlug === active.value)
-})
 </script>
 
 <template>
@@ -65,33 +44,27 @@ const filtered = computed(() => {
     <section class="section bg-white">
       <div class="container-x">
         <div class="flex flex-wrap gap-2 border-b border-[var(--color-line)] pb-5">
-          <button
-            class="border px-4 py-2 text-[14px] font-semibold transition-colors"
-            :class="active === 'all'
-              ? 'bg-[var(--color-navy)] text-white border-[var(--color-navy)]'
-              : 'bg-white text-[var(--color-graphite)] border-[var(--color-line)] hover:border-[var(--color-navy)]'"
-            @click="setFilter('all')"
+          <NuxtLink
+            to="/products"
+            class="border border-[var(--color-navy)] bg-[var(--color-navy)] px-4 py-2 text-[14px] font-semibold text-white transition-colors"
           >
             All Products
-          </button>
-          <button
+          </NuxtLink>
+          <NuxtLink
             v-for="c in categories"
             :key="c.slug"
-            class="border px-4 py-2 text-[14px] font-semibold transition-colors"
-            :class="active === c.slug
-              ? 'bg-[var(--color-navy)] text-white border-[var(--color-navy)]'
-              : 'bg-white text-[var(--color-graphite)] border-[var(--color-line)] hover:border-[var(--color-navy)]'"
-            @click="setFilter(c.slug)"
+            :to="`/products/category/${c.slug}`"
+            class="border border-[var(--color-line)] bg-white px-4 py-2 text-[14px] font-semibold text-[var(--color-graphite)] transition-colors hover:border-[var(--color-navy)]"
           >
             {{ c.name }}
-          </button>
+          </NuxtLink>
         </div>
 
         <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <ProductCard v-for="p in filtered" :key="p.slug" :product="p" />
+          <ProductCard v-for="p in products" :key="p.slug" :product="p" />
         </div>
 
-        <div v-if="!filtered.length" class="py-16 text-center text-[var(--color-slate-muted)]">
+        <div v-if="!products.length" class="py-16 text-center text-[var(--color-slate-muted)]">
           No products in this category yet.
         </div>
       </div>

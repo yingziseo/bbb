@@ -127,7 +127,7 @@ await useManagedSeo('page:home', {
           <NuxtLink
             v-for="c in categoryCards"
             :key="c.slug"
-            :to="`/products?category=${c.slug}`"
+            :to="`/products/category/${c.slug}`"
             class="group flex flex-col overflow-hidden border border-[var(--color-line)] bg-white"
           >
             <div class="aspect-[4/3] overflow-hidden bg-[var(--color-panel)]">

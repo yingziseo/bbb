@@ -45,9 +45,10 @@ export default defineEventHandler(async (event) => {
     .prepare(`
       INSERT INTO products (
         category_id, slug, name, short_desc, image, material, moq, custom, packaging,
+        seo_title, seo_description, seo_keywords, canonical,
         specs_json, size_options_json, applications_json, sort_order, status, created_at, updated_at
       )
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `)
     .run(
       categoryId,
@@ -59,6 +60,10 @@ export default defineEventHandler(async (event) => {
       asString(body?.moq),
       normalizeCustom(body?.custom),
       asString(body?.packaging),
+      asString(body?.seoTitle),
+      asString(body?.seoDescription),
+      asString(body?.seoKeywords),
+      asString(body?.canonical),
       JSON.stringify(specs),
       JSON.stringify(sizeOptions),
       JSON.stringify(applications),
@@ -70,14 +75,22 @@ export default defineEventHandler(async (event) => {
 
   const row = db.prepare(`${productListSelect} WHERE p.id = ?`).get(result.lastInsertRowid)
   const item = mapProduct(row)
-  upsertProductSeo({
-    slug: item.slug,
-    name: item.name,
-    shortDesc: item.shortDesc,
-    image: item.image,
-    material: item.material,
-    categoryName: category.name,
-  })
+  if (item.status === 'published') {
+    upsertProductSeo({
+      slug: item.slug,
+      name: item.name,
+      shortDesc: item.shortDesc,
+      image: item.image,
+      material: item.material,
+      categoryName: category.name,
+      seoTitle: item.seoTitle,
+      seoDescription: item.seoDescription,
+      seoKeywords: item.seoKeywords,
+      canonical: item.canonical,
+    })
+  } else {
+    db.prepare('DELETE FROM seo_entries WHERE entry_key = ?').run(`product:${item.slug}`)
+  }
 
   return { item }
 })

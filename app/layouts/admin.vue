@@ -19,7 +19,7 @@ const mobileNavOpen = ref(false)
 
 const nav = [
   { label: '概览', to: '/admin', icon: HomeFilled },
-  { label: 'SEO 管理', to: '/admin/seo', icon: Operation },
+  { label: '页面 TDK', to: '/admin/seo', icon: Operation },
   { label: '产品管理', to: '/admin/products', icon: Box },
   { label: '博客文章', to: '/admin/posts', icon: Document },
   { label: '询盘记录', to: '/admin/inquiries', icon: MessageBox },

@@ -114,7 +114,7 @@ onBeforeUnmount(() => {
                 <NuxtLink
                   v-for="category in productCategories"
                   :key="category.slug"
-                  :to="`/products?category=${category.slug}`"
+                  :to="`/products/category/${category.slug}`"
                   class="site-nav-dropdown__item"
                 >
                   <span class="site-nav-dropdown__name">{{ category.name }}</span>
@@ -171,7 +171,7 @@ onBeforeUnmount(() => {
               <NuxtLink
                 v-for="category in productCategories"
                 :key="category.slug"
-                :to="`/products?category=${category.slug}`"
+                :to="`/products/category/${category.slug}`"
                 class="site-mobile-category"
               >
                 {{ category.name }}

@@ -65,6 +65,10 @@ const execSchema = (database: DatabaseSync) => {
       name TEXT NOT NULL,
       description TEXT,
       image TEXT,
+      seo_title TEXT,
+      seo_description TEXT,
+      seo_keywords TEXT,
+      canonical TEXT,
       sort_order INTEGER NOT NULL DEFAULT 0,
       enabled INTEGER NOT NULL DEFAULT 1,
       created_at TEXT NOT NULL,
@@ -82,6 +86,10 @@ const execSchema = (database: DatabaseSync) => {
       moq TEXT,
       custom INTEGER NOT NULL DEFAULT 1,
       packaging TEXT,
+      seo_title TEXT,
+      seo_description TEXT,
+      seo_keywords TEXT,
+      canonical TEXT,
       specs_json TEXT NOT NULL DEFAULT '[]',
       size_options_json TEXT NOT NULL DEFAULT '[]',
       applications_json TEXT NOT NULL DEFAULT '[]',
@@ -157,8 +165,10 @@ const execSchema = (database: DatabaseSync) => {
   `)
 }
 
-const adminColumnNames = (database: DatabaseSync) =>
-  new Set((database.prepare('PRAGMA table_info(admin_users)').all() as Array<{ name: string }>).map((column) => column.name))
+const tableColumnNames = (database: DatabaseSync, table: string) =>
+  new Set((database.prepare(`PRAGMA table_info(${table})`).all() as Array<{ name: string }>).map((column) => column.name))
+
+const adminColumnNames = (database: DatabaseSync) => tableColumnNames(database, 'admin_users')
 
 const migrateAdminUsers = (database: DatabaseSync) => {
   let columns = adminColumnNames(database)
@@ -179,6 +189,20 @@ const migrateAdminUsers = (database: DatabaseSync) => {
   })
 
   database.exec('CREATE UNIQUE INDEX IF NOT EXISTS idx_admin_users_username ON admin_users(username)')
+}
+
+const addTextColumnIfMissing = (database: DatabaseSync, table: string, column: string) => {
+  const columns = tableColumnNames(database, table)
+  if (!columns.has(column)) {
+    database.exec(`ALTER TABLE ${table} ADD COLUMN ${column} TEXT`)
+  }
+}
+
+const migrateProductCatalog = (database: DatabaseSync) => {
+  ;['seo_title', 'seo_description', 'seo_keywords', 'canonical'].forEach((column) => {
+    addTextColumnIfMissing(database, 'products', column)
+    addTextColumnIfMissing(database, 'product_categories', column)
+  })
 }
 
 const insertSeo = (
@@ -408,7 +432,17 @@ const seedProductCatalog = (database: DatabaseSync) => {
 const seedProductSeo = (database: DatabaseSync) => {
   const rows = database
     .prepare(`
-      SELECT p.slug, p.name, p.short_desc, p.image, p.material, c.name AS category_name
+      SELECT
+        p.slug,
+        p.name,
+        p.short_desc,
+        p.image,
+        p.material,
+        p.seo_title,
+        p.seo_description,
+        p.seo_keywords,
+        p.canonical,
+        c.name AS category_name
       FROM products p
       JOIN product_categories c ON c.id = p.category_id
     `)
@@ -418,20 +452,65 @@ const seedProductSeo = (database: DatabaseSync) => {
       short_desc: string
       image: string
       material: string
+      seo_title: string
+      seo_description: string
+      seo_keywords: string
+      canonical: string
       category_name: string
     }>
 
   for (const product of rows) {
+    const title = product.seo_title || `${product.name} | ${company.name}`
+    const description = product.seo_description || product.short_desc
+    const keywords = product.seo_keywords || `${product.name}, ${product.category_name}, ${product.material}`
     insertSeo(database, {
       key: `product:${product.slug}`,
       pageType: 'product',
       entitySlug: product.slug,
       name: `产品详情：${product.name}`,
       path: `/products/${product.slug}`,
-      title: `${product.name} | ${company.name}`,
-      description: product.short_desc,
-      keywords: `${product.name}, ${product.category_name}, ${product.material}`,
+      title,
+      description,
+      keywords,
+      canonical: product.canonical,
       ogImage: product.image,
+    })
+  }
+}
+
+const seedCategorySeo = (database: DatabaseSync) => {
+  const rows = database
+    .prepare(`
+      SELECT slug, name, description, image, seo_title, seo_description, seo_keywords, canonical
+      FROM product_categories
+      WHERE enabled = 1
+    `)
+    .all() as Array<{
+      slug: string
+      name: string
+      description: string
+      image: string
+      seo_title: string
+      seo_description: string
+      seo_keywords: string
+      canonical: string
+    }>
+
+  for (const category of rows) {
+    const title = category.seo_title || `${category.name} | Products | ${company.name}`
+    const description = category.seo_description || category.description || `Browse ${category.name} products from ${company.name}.`
+    const keywords = category.seo_keywords || `${category.name}, food packaging products`
+    insertSeo(database, {
+      key: `category:${category.slug}`,
+      pageType: 'category',
+      entitySlug: category.slug,
+      name: `产品分类：${category.name}`,
+      path: `/products/category/${category.slug}`,
+      title,
+      description,
+      keywords,
+      canonical: category.canonical,
+      ogImage: category.image,
     })
   }
 }
@@ -544,6 +623,7 @@ const seedDatabase = (database: DatabaseSync) => {
   seedAdmin(database)
   seedProductCatalog(database)
   seedSeo(database)
+  seedCategorySeo(database)
   seedProductSeo(database)
   seedPostsTable(database)
   seedPostSeo(database)
@@ -559,6 +639,7 @@ export const getDb = () => {
   db = new DatabaseSync(path)
   execSchema(db)
   migrateAdminUsers(db)
+  migrateProductCatalog(db)
   seedDatabase(db)
 
   return db

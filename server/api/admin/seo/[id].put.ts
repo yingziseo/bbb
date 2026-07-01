@@ -16,10 +16,13 @@ export default defineEventHandler(async (event) => {
   }
 
   const db = getDb()
+  const current = db.prepare("SELECT id FROM seo_entries WHERE id = ? AND page_type = 'page'").get(id)
+  if (!current) throw createError({ statusCode: 404, statusMessage: 'SEO entry not found' })
+
   db.prepare(`
     UPDATE seo_entries
     SET title = ?, description = ?, keywords = ?, canonical = ?, robots = ?,
-        og_title = ?, og_description = ?, og_image = ?, updated_at = ?
+        og_title = ?, og_description = ?, updated_at = ?
     WHERE id = ?
   `).run(
     title,
@@ -27,9 +30,8 @@ export default defineEventHandler(async (event) => {
     asString(body?.keywords),
     asString(body?.canonical),
     asString(body?.robots, 'index,follow') || 'index,follow',
-    asString(body?.ogTitle) || title,
-    asString(body?.ogDescription) || description,
-    asString(body?.ogImage),
+    title,
+    description,
     touchNow(),
     id,
   )

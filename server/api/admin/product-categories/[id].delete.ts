@@ -6,7 +6,7 @@ export default defineEventHandler((event) => {
   requireAdmin(event)
   const id = Number(getRouterParam(event, 'id'))
   const db = getDb()
-  const category = db.prepare('SELECT id FROM product_categories WHERE id = ?').get(id)
+  const category = db.prepare('SELECT id, slug FROM product_categories WHERE id = ?').get(id) as { id: number; slug: string } | undefined
   if (!category) throw createError({ statusCode: 404, statusMessage: '分类不存在' })
 
   const count = db.prepare('SELECT COUNT(*) AS count FROM products WHERE category_id = ?').get(id) as { count: number }
@@ -15,5 +15,6 @@ export default defineEventHandler((event) => {
   }
 
   db.prepare('DELETE FROM product_categories WHERE id = ?').run(id)
+  db.prepare('DELETE FROM seo_entries WHERE entry_key = ?').run(`category:${category.slug}`)
   return { ok: true }
 })

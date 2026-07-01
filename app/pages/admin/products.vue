@@ -11,6 +11,10 @@ type CategoryForm = {
   name: string
   description: string
   image: string
+  seoTitle: string
+  seoDescription: string
+  seoKeywords: string
+  canonical: string
   sortOrder: number
   enabled: boolean
 }
@@ -26,6 +30,10 @@ type ProductForm = {
   moq: string
   custom: boolean
   packaging: string
+  seoTitle: string
+  seoDescription: string
+  seoKeywords: string
+  canonical: string
   specs: Array<{ label: string; value: string }>
   sizeOptions: Array<{ label: string; value: string; packaging: string }>
   applications: string[]
@@ -68,6 +76,10 @@ const emptyCategory = (): CategoryForm => ({
   name: '',
   description: '',
   image: '',
+  seoTitle: '',
+  seoDescription: '',
+  seoKeywords: '',
+  canonical: '',
   sortOrder: 0,
   enabled: true,
 })
@@ -82,6 +94,10 @@ const emptyProduct = (): ProductForm => ({
   moq: '10,000 件',
   custom: true,
   packaging: '每箱200个，每托盘50箱',
+  seoTitle: '',
+  seoDescription: '',
+  seoKeywords: '',
+  canonical: '',
   specs: [
     { label: '材料', value: '食品级牛皮纸 + PE 涂层' },
     { label: '用途', value: '外卖、餐饮打包、食品配送' },
@@ -368,6 +384,23 @@ const refreshAll = async () => {
               </el-upload>
             </div>
           </el-form-item>
+          <section class="md:col-span-2 border border-[var(--color-line)] p-4">
+            <h3 class="mb-3 text-[15px] font-bold text-[var(--color-navy)]">分类 SEO</h3>
+            <div class="grid gap-4 md:grid-cols-2">
+              <el-form-item label="SEO Title">
+                <el-input v-model="categoryForm.seoTitle" maxlength="80" show-word-limit placeholder="留空则根据分类名称自动生成" />
+              </el-form-item>
+              <el-form-item label="SEO Keywords">
+                <el-input v-model="categoryForm.seoKeywords" placeholder="关键词用英文逗号分隔" />
+              </el-form-item>
+              <el-form-item label="SEO Description" class="md:col-span-2">
+                <el-input v-model="categoryForm.seoDescription" type="textarea" :rows="3" maxlength="180" show-word-limit placeholder="留空则使用分类描述" />
+              </el-form-item>
+              <el-form-item label="Canonical" class="md:col-span-2">
+                <el-input v-model="categoryForm.canonical" placeholder="可留空，或填写绝对 URL" />
+              </el-form-item>
+            </div>
+          </section>
           <div class="grid gap-4 sm:grid-cols-2">
             <el-form-item label="排序">
               <el-input-number v-model="categoryForm.sortOrder" :min="0" controls-position="right" class="!w-full" />
@@ -484,6 +517,21 @@ const refreshAll = async () => {
               <div class="font-semibold text-[var(--color-navy)]">录入提示</div>
               <p class="mt-2">一次性餐盒常用字段：容量、尺寸、材料、涂层、是否可微波、防油防漏、每箱数量。</p>
               <p class="mt-2">保鲜膜常用字段：材料、宽度、厚度、卷长、纸芯、粘性、透明度、包装方式。</p>
+            </div>
+            <div class="border border-[var(--color-line)] p-4">
+              <h3 class="mb-3 text-[15px] font-bold text-[var(--color-navy)]">产品 SEO</h3>
+              <el-form-item label="SEO Title">
+                <el-input v-model="productForm.seoTitle" maxlength="80" show-word-limit placeholder="留空则根据产品名称自动生成" />
+              </el-form-item>
+              <el-form-item label="SEO Description">
+                <el-input v-model="productForm.seoDescription" type="textarea" :rows="3" maxlength="180" show-word-limit placeholder="留空则使用简短描述" />
+              </el-form-item>
+              <el-form-item label="SEO Keywords">
+                <el-input v-model="productForm.seoKeywords" placeholder="关键词用英文逗号分隔" />
+              </el-form-item>
+              <el-form-item label="Canonical">
+                <el-input v-model="productForm.canonical" placeholder="可留空，或填写绝对 URL" />
+              </el-form-item>
             </div>
           </aside>
         </div>

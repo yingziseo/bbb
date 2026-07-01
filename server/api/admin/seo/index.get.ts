@@ -8,13 +8,8 @@ export default defineEventHandler((event) => {
     .prepare(`
       SELECT *
       FROM seo_entries
+      WHERE page_type = 'page'
       ORDER BY
-        CASE page_type
-          WHEN 'page' THEN 1
-          WHEN 'product' THEN 2
-          WHEN 'post' THEN 3
-          ELSE 4
-        END,
         path ASC
     `)
     .all()

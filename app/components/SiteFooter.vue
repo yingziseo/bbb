@@ -89,7 +89,7 @@ const year = new Date().getFullYear()
             <h4 class="mb-4 text-white font-bold text-[14px] uppercase tracking-[0.12em]">Products</h4>
             <ul class="space-y-2.5 text-[14px] text-white/72">
               <li v-for="c in categories" :key="c.slug">
-                <NuxtLink :to="`/products?category=${c.slug}`" class="hover:text-white transition-colors">{{ c.name }}</NuxtLink>
+                <NuxtLink :to="`/products/category/${c.slug}`" class="hover:text-white transition-colors">{{ c.name }}</NuxtLink>
               </li>
             </ul>
           </div>
@@ -163,7 +163,7 @@ const year = new Date().getFullYear()
           <div v-if="mobileOpen === 'products'" class="border-b border-white/10 pb-4">
             <ul class="space-y-3 px-1 pt-1 text-center text-[14px] text-white/70">
               <li v-for="c in categories" :key="c.slug">
-                <NuxtLink :to="`/products?category=${c.slug}`" class="hover:text-white transition-colors">{{ c.name }}</NuxtLink>
+                <NuxtLink :to="`/products/category/${c.slug}`" class="hover:text-white transition-colors">{{ c.name }}</NuxtLink>
               </li>
             </ul>
           </div>
