@@ -35,15 +35,20 @@ const contactOptions = [
     <button
       v-if="!expanded"
       type="button"
-      class="flex h-12 min-w-12 items-center justify-center gap-2 border border-[var(--color-accent-dark)] bg-[var(--color-accent)] px-4 text-white shadow-[0_12px_28px_rgba(193,18,31,0.22)] transition-colors hover:bg-[var(--color-accent-dark)]"
+      class="whatsapp-fab__trigger"
       aria-label="Open contact options"
       :aria-expanded="expanded"
       @click="expanded = true"
     >
-      <el-icon :size="19">
-        <ChatDotRound />
-      </el-icon>
-      <span class="hidden text-[14px] font-semibold sm:inline">Contact</span>
+      <span class="whatsapp-fab__trigger-icon" aria-hidden="true">
+        <el-icon :size="22">
+          <ChatDotRound />
+        </el-icon>
+      </span>
+      <span class="whatsapp-fab__trigger-copy">
+        <span class="whatsapp-fab__trigger-label">Contact Us</span>
+        <span class="whatsapp-fab__trigger-note">Fast quote</span>
+      </span>
     </button>
 
     <div
@@ -130,3 +135,132 @@ const contactOptions = [
     </div>
   </div>
 </template>
+
+<style scoped>
+.whatsapp-fab__trigger {
+  position: relative;
+  display: inline-flex;
+  min-height: 58px;
+  min-width: 142px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid var(--color-accent-dark);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0) 36%),
+    linear-gradient(135deg, var(--color-accent), var(--color-accent-dark));
+  color: #ffffff;
+  padding: 8px 17px 8px 11px;
+  box-shadow:
+    0 18px 36px rgba(15, 42, 74, 0.18),
+    0 10px 28px rgba(193, 18, 31, 0.28);
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+  animation: contact-soft-nudge 2s ease-in-out infinite;
+}
+
+.whatsapp-fab__trigger::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border: 1px solid rgba(193, 18, 31, 0.22);
+  pointer-events: none;
+}
+
+.whatsapp-fab__trigger:hover {
+  border-color: #7f0b13;
+  box-shadow:
+    0 20px 40px rgba(15, 42, 74, 0.2),
+    0 12px 30px rgba(193, 18, 31, 0.34);
+}
+
+.whatsapp-fab__trigger-icon {
+  display: inline-flex;
+  height: 38px;
+  width: 38px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  background: rgba(15, 42, 74, 0.16);
+}
+
+.whatsapp-fab__trigger-copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.05;
+}
+
+.whatsapp-fab__trigger-label {
+  white-space: nowrap;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+
+.whatsapp-fab__trigger-note {
+  margin-top: 4px;
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+@keyframes contact-soft-nudge {
+  0%,
+  70%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+
+  74% {
+    transform: translate3d(-1px, 0, 0) rotate(-0.8deg);
+  }
+
+  78% {
+    transform: translate3d(2px, 0, 0) rotate(0.9deg);
+  }
+
+  82% {
+    transform: translate3d(-2px, 0, 0) rotate(-0.7deg);
+  }
+
+  86% {
+    transform: translate3d(1px, 0, 0) rotate(0.45deg);
+  }
+
+  90% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+}
+
+@media (max-width: 480px) {
+  .whatsapp-fab__trigger {
+    min-height: 56px;
+    min-width: 132px;
+    padding-right: 14px;
+  }
+
+  .whatsapp-fab__trigger-icon {
+    height: 36px;
+    width: 36px;
+  }
+
+  .whatsapp-fab__trigger-label {
+    font-size: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .whatsapp-fab__trigger {
+    animation: none;
+  }
+}
+</style>
