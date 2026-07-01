@@ -9,6 +9,49 @@
 - 如果只是文档或内容改动，也要记录。
 - 如果没有跑测试或构建，需要明确写出来。
 
+## 2026-07-01 - 发布 6 篇保鲜膜 TOB 博客和统一水印图片
+
+背景：
+
+- 用户确认 6 篇保鲜膜 TOB 文章使用真实商务合作、工厂、采购、包装场景图片。
+- 图片需要统一右下角联系信息水印，不使用公司 logo，不出现 AI 乱码文字。
+- 文章 HTML 已完成，需要生成图片、转 WebP、写入数据库并上线验证。
+
+改动：
+
+- 更新 `工作流/博客文章工作流.md`，补充真实 TOB 摄影风格、高画质、统一右下角联系信息水印规则，并使用项目邮箱 `yiyuancoop@gmail.com`。
+- 生成并处理 18 张博客图片：每篇 1 张封面 + 2 张正文图。
+- PNG 原图保存到 `工作流/封面图/`，WebP 90% 保存到 `工作流/封面图/已经转webp/`。
+- WebP 成品复制到 `public/images/blog/`，文件名使用 `slug-cover.webp`、`slug-01.webp`、`slug-02.webp`。
+- 所有成品图片统一为 `1672x940`、16:9，并用 Pillow 叠加一致的右下角半透明联系信息水印。
+- 发布 6 篇文章到 `posts`，状态为 `published`，并写入对应 `seo_entries`。
+- 更新 `工作流/文章执行记录.md`，记录图片、WebP、数据库发布和验证结果。
+- 更新 `.gitignore`，忽略 `data/backups/`，避免 SQLite 备份误提交。
+
+涉及文件：
+
+- `.gitignore`
+- `工作流/博客文章工作流.md`
+- `工作流/文章执行记录.md`
+- `工作流/文章/1.html` 到 `工作流/文章/6.html`
+- `工作流/封面图/*.png`
+- `工作流/封面图/已经转webp/*.webp`
+- `public/images/blog/*.webp`
+- `data/yiyuan.db`（按用户要求使用 `git add -f` 强制纳入本次提交）
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- 发布前已备份 SQLite：`data/backups/yiyuan-before-blog-publish-2026-07-01_08-23-30.db`。
+- 数据库确认 6 篇新文章均为 `published`，封面图和 SEO OG image 均指向 `/images/blog/*-cover.webp`。
+- `pnpm build` 通过；存在既有依赖警告：TinyMCE CSS `2of`、部分 chunk 超 500 kB、`@nuxt/image` sharp binaries 警告。
+- 已重启公网 3005 生产服务，当前 PID `9242`，监听 `0.0.0.0:3005`。
+- `http://127.0.0.1:3005` 和 `http://43.134.105.149:3005` 下 6 篇文章页、公开 API、封面图资源均返回 200。
+
+提交：
+
+- commit: `1990760`
+
 ## 2026-07-01 - 博客文章页新增自动目录
 
 背景：

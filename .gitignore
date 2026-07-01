@@ -19,6 +19,7 @@ node-compile-cache
 .DS_Store
 data/*.db
 data/*.db-*
+data/backups/
 public/uploads/
 image-originals/
 to-b.zip
