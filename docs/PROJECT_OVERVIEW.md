@@ -93,7 +93,7 @@ docs/
 
 | 组件 | 作用 |
 | --- | --- |
-| `SiteHeader.vue` | 顶部联系方式、跑马灯、桌面/移动导航、询盘按钮 |
+| `SiteHeader.vue` | 跑马灯、桌面/移动导航、询盘按钮 |
 | `SiteFooter.vue` | 合规跑马灯、社交图标、产品/公司/联系链接、移动端折叠区块 |
 | `InfoMarquee.vue` | 可复用跑马灯组件 |
 | `ProductCard.vue` | 产品卡片，包含详情和询盘入口 |

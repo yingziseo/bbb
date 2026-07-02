@@ -9,6 +9,44 @@
 - 如果只是文档或内容改动，也要记录。
 - 如果没有跑测试或构建，需要明确写出来。
 
+## 2026-07-02 - 精简顶部信息和优化页脚层级
+
+背景：
+
+- 用户反馈顶部电话、邮箱和业务短句同时展示过于杂乱，需要删除顶部信息条。
+- 用户要求电脑端页脚更简单、干脆、清爽、明朗，减少重复信息和杂乱层级。
+
+改动：
+
+- 删除前台顶部深蓝联系方式工具栏，移除电话、邮箱和业务短句展示。
+- 桌面端页脚品牌区精简为 Logo、品牌名、简短定位、法定公司名和一行公司 metadata。
+- 桌面端公司事实信息从三格卡片改为一行弱化文本。
+- 桌面端 Contact 区电话和邮箱改为可点击链接，地址弱化显示。
+- 手机端页脚品牌信息同步精简，去掉三格事实卡片。
+- 友情链接保持桌面底部横向展示、手机端折叠展示。
+- 同步项目总览中 `SiteHeader` 的组件说明。
+
+涉及文件：
+
+- `app/components/SiteHeader.vue`
+- `app/components/SiteFooter.vue`
+- `docs/DEVELOPMENT_LOG.md`
+- `docs/PROJECT_OVERVIEW.md`
+
+验证：
+
+- `NODE_OPTIONS=--max-old-space-size=1536 ionice -c2 -n7 nice -n 15 pnpm build` 通过。
+- 构建存在既有警告：TinyMCE CSS `2of`、部分 chunk 超 500 kB、`@nuxt/image` sharp binaries 警告；未阻断构建。
+- 已重启 `3000` 生产服务，当前监听 `127.0.0.1:3000`，PID `2001823`。
+- `http://127.0.0.1:3000/` 返回 200。
+- `http://127.0.0.1:3000/api/public/friend-links` 返回 200。
+- 源站 HTTPS 直连 `https://yiyuanpack.com/` 返回 200。
+- 首页 HTML 已确认不再包含顶部业务短句和 `site-header__utility` 结构。
+
+提交：
+
+- commit: `待提交`
+
 ## 2026-07-02 - 调整页脚友情链接为横向展示
 
 背景：

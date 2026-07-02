@@ -65,9 +65,9 @@ const year = new Date().getFullYear()
     </div>
 
     <div class="hidden md:block">
-      <div class="container-x py-12">
-        <div class="grid gap-10 lg:grid-cols-[1.2fr_0.85fr_0.85fr_1fr]">
-          <div class="border-r border-white/10 pr-8">
+      <div class="container-x py-10">
+        <div class="grid gap-9 lg:grid-cols-[1.18fr_0.72fr_0.72fr_1fr]">
+          <div class="pr-8">
             <div class="site-footer-brand">
               <div class="site-footer-brand__identity">
                 <span class="site-footer-logo site-footer-logo--desktop">
@@ -84,23 +84,12 @@ const year = new Date().getFullYear()
                 </span>
                 <div class="min-w-0">
                   <div class="site-footer-brand__name">{{ company.displayName }}</div>
-                  <div class="site-footer-brand__legal">{{ company.name }}</div>
+                  <div class="site-footer-brand__tagline">Food packaging and cling film export supplier.</div>
                 </div>
               </div>
-              <div class="site-footer-brand__tagline">{{ company.tagline }}</div>
-              <div class="site-footer-brand__facts">
-                <div class="site-footer-brand__fact">
-                  <span>Location</span>
-                  <strong>{{ company.location }}</strong>
-                </div>
-                <div class="site-footer-brand__fact">
-                  <span>Founded</span>
-                  <strong>{{ company.founded }}</strong>
-                </div>
-                <div class="site-footer-brand__fact">
-                  <span>Capital</span>
-                  <strong>{{ company.registeredCapital }}</strong>
-                </div>
+              <div class="site-footer-brand__legal">{{ company.name }}</div>
+              <div class="site-footer-brand__meta">
+                {{ company.location }} · Founded {{ company.founded }} · {{ company.registeredCapital }} capital
               </div>
             </div>
           </div>
@@ -126,9 +115,13 @@ const year = new Date().getFullYear()
           <div>
             <h4 class="mb-4 text-white font-bold text-[14px] uppercase tracking-[0.12em]">Contact</h4>
             <div class="space-y-3 text-[14px] text-white/72">
-              <div>{{ company.phone }}</div>
-              <div class="break-all">{{ company.email }}</div>
-              <div class="leading-relaxed">{{ company.address }}</div>
+              <a :href="company.whatsappLink" target="_blank" rel="noopener" class="block hover:text-white transition-colors">
+                {{ company.phone }}
+              </a>
+              <a :href="company.contactLink" class="block break-all hover:text-white transition-colors">
+                {{ company.email }}
+              </a>
+              <div class="max-w-[320px] leading-relaxed text-white/48">{{ company.address }}</div>
             </div>
             <div class="mt-5">
               <a :href="company.whatsappLink" target="_blank" class="inline-block">
@@ -163,7 +156,7 @@ const year = new Date().getFullYear()
 
     <div class="md:hidden">
       <div class="container-x py-8">
-        <div class="site-footer-mobile-brand border border-white/10 px-5 py-6">
+        <div class="site-footer-mobile-brand px-1 py-2">
           <div class="flex items-center justify-center gap-3">
             <div class="site-footer-logo site-footer-logo--mobile">
               <NuxtImg
@@ -179,22 +172,12 @@ const year = new Date().getFullYear()
             </div>
             <div class="min-w-0 text-left">
               <div class="site-footer-mobile-brand__name">{{ company.displayName }}</div>
-              <div class="site-footer-mobile-brand__tagline">{{ company.tagline }}</div>
+              <div class="site-footer-mobile-brand__tagline">Food packaging and cling film export supplier.</div>
             </div>
           </div>
-          <div class="site-footer-mobile-brand__facts">
-            <div>
-              <span>Location</span>
-              <strong>{{ company.location }}</strong>
-            </div>
-            <div>
-              <span>Founded</span>
-              <strong>{{ company.founded }}</strong>
-            </div>
-            <div>
-              <span>Capital</span>
-              <strong>{{ company.registeredCapital }}</strong>
-            </div>
+          <div class="site-footer-mobile-brand__legal">{{ company.name }}</div>
+          <div class="site-footer-mobile-brand__meta">
+            {{ company.location }} · Founded {{ company.founded }} · {{ company.registeredCapital }} capital
           </div>
         </div>
 
@@ -250,8 +233,12 @@ const year = new Date().getFullYear()
           </button>
           <div v-if="mobileOpen === 'contact'" class="border-b border-white/10 pb-4">
             <div class="space-y-3 px-1 pt-1 text-center text-[14px] text-white/70">
-              <div>{{ company.phone }}</div>
-              <div class="break-all">{{ company.email }}</div>
+              <a :href="company.whatsappLink" target="_blank" rel="noopener" class="block hover:text-white transition-colors">
+                {{ company.phone }}
+              </a>
+              <a :href="company.contactLink" class="block break-all hover:text-white transition-colors">
+                {{ company.email }}
+              </a>
               <div class="leading-relaxed">{{ company.address }}</div>
               <div class="pt-2">
                 <a :href="company.whatsappLink" target="_blank" class="inline-block">
@@ -349,58 +336,26 @@ const year = new Date().getFullYear()
 }
 
 .site-footer-brand__legal {
-  margin-top: 5px;
+  margin-top: 16px;
   color: rgba(255, 255, 255, 0.5);
   font-size: 12px;
   line-height: 1.35;
 }
 
 .site-footer-brand__tagline {
-  margin-top: 16px;
-  color: rgba(255, 255, 255, 0.72);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  line-height: 1.35;
-  text-transform: uppercase;
-}
-
-.site-footer-brand__facts {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin-top: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.site-footer-brand__fact {
-  min-width: 0;
-  padding: 12px 10px;
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.site-footer-brand__fact:last-child {
-  border-right: 0;
-}
-
-.site-footer-brand__fact span,
-.site-footer-mobile-brand__facts span {
-  display: block;
+  margin-top: 6px;
   color: rgba(255, 255, 255, 0.62);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  line-height: 1;
-  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1.35;
 }
 
-.site-footer-brand__fact strong,
-.site-footer-mobile-brand__facts strong {
-  display: block;
-  margin-top: 7px;
-  color: rgba(255, 255, 255, 0.78);
+.site-footer-brand__meta {
+  margin-top: 10px;
+  color: rgba(255, 255, 255, 0.42);
   font-size: 12px;
-  font-weight: 700;
-  line-height: 1.25;
+  font-weight: 650;
+  line-height: 1.5;
 }
 
 .site-footer-mobile-brand {
@@ -417,42 +372,25 @@ const year = new Date().getFullYear()
 .site-footer-mobile-brand__tagline {
   margin-top: 5px;
   color: rgba(255, 255, 255, 0.52);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-size: 12px;
+  font-weight: 650;
   line-height: 1.3;
-  text-transform: uppercase;
 }
 
-.site-footer-mobile-brand__facts {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin-top: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+.site-footer-mobile-brand__legal {
+  margin-top: 16px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+  line-height: 1.4;
 }
 
-.site-footer-mobile-brand__facts > div {
-  min-width: 0;
-  padding: 11px 8px;
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.site-footer-mobile-brand__facts > div:last-child {
-  border-right: 0;
-}
-
-@media (max-width: 420px) {
-  .site-footer-mobile-brand__facts {
-    grid-template-columns: 1fr;
-  }
-
-  .site-footer-mobile-brand__facts > div {
-    border-right: 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .site-footer-mobile-brand__facts > div:last-child {
-    border-bottom: 0;
-  }
+.site-footer-mobile-brand__meta {
+  margin-top: 9px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.42);
+  font-size: 11.5px;
+  font-weight: 650;
+  line-height: 1.45;
 }
 </style>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ArrowDown, Close, Message, Menu as MenuIcon, Promotion } from '@element-plus/icons-vue'
+import { ArrowDown, Close, Menu as MenuIcon, Promotion } from '@element-plus/icons-vue'
 import { headerMarqueeItems } from '~/data/site'
 
 const company = await useSiteSettings()
@@ -67,33 +67,6 @@ onBeforeUnmount(() => {
 
 <template>
   <header class="site-header bg-white" :class="{ 'site-header--scrolled': isScrolled }">
-    <!-- Top utility bar -->
-    <div class="site-header__utility bg-[var(--color-navy-dark)] text-white text-[13px]">
-      <div class="container-x flex justify-end py-2">
-        <div class="flex flex-wrap items-center justify-end gap-x-5 gap-y-1 text-right">
-          <a
-            :href="company.whatsappLink"
-            target="_blank"
-            rel="noopener"
-            class="site-header__utility-link"
-            :aria-label="`Contact on WhatsApp ${company.phone}`"
-          >
-            <SocialIcon name="whatsapp" />{{ company.phone }}
-          </a>
-          <a
-            :href="company.contactLink"
-            class="site-header__utility-link"
-            :aria-label="`Send email to ${company.email}`"
-          >
-            <el-icon><Message /></el-icon>{{ company.email }}
-          </a>
-          <span class="hidden lg:block text-white/64">
-            Overseas Sourcing | OEM/ODM Private Label | Custom Processing
-          </span>
-        </div>
-      </div>
-    </div>
-
     <InfoMarquee :items="headerMarqueeItems" direction="ltr" tone="dark" />
 
     <div
@@ -279,28 +252,6 @@ onBeforeUnmount(() => {
   background: rgba(255, 255, 255, 0.92);
   box-shadow: 0 10px 28px rgba(15, 42, 74, 0.1);
   backdrop-filter: blur(12px);
-}
-
-.site-header__utility-link {
-  display: inline-flex;
-  min-width: 0;
-  align-items: center;
-  gap: 6px;
-  color: rgba(255, 255, 255, 0.88);
-  text-decoration: none;
-  transition:
-    color 180ms ease,
-    opacity 180ms ease;
-}
-
-.site-header__utility-link:active {
-  opacity: 0.72;
-}
-
-@media (hover: hover) {
-  .site-header__utility-link:hover {
-    color: #fff;
-  }
 }
 
 .site-header__main {
