@@ -5,6 +5,12 @@ type ManagedSeoFallback = {
   image?: string
 }
 
+type ManagedSeoOptions = {
+  canonicalPath?: string
+  titleSuffix?: string
+  robots?: string
+}
+
 type SeoPayload = {
   seo: null | {
     path: string
@@ -27,7 +33,7 @@ const absoluteUrl = (value: string, origin: string) => {
   return origin ? `${origin.replace(/\/+$/, '')}${path}` : path
 }
 
-export const useManagedSeo = (key: string, fallback: ManagedSeoFallback) => {
+export const useManagedSeo = (key: string, fallback: ManagedSeoFallback, options: ManagedSeoOptions = {}) => {
   const route = useRoute()
   const requestUrl = useRequestURL()
   const { data } = useFetch<SeoPayload>('/api/public/seo', {
@@ -36,21 +42,23 @@ export const useManagedSeo = (key: string, fallback: ManagedSeoFallback) => {
 
   useHead(() => {
     const seo = data.value?.seo
-    const title = seo?.title || fallback.title
+    const baseTitle = seo?.title || fallback.title
+    const title = options.titleSuffix ? `${baseTitle} | ${options.titleSuffix}` : baseTitle
     const description = seo?.description || fallback.description || ''
     const keywords = seo?.keywords || fallback.keywords || ''
     const ogTitle = seo?.ogTitle || title
     const ogDescription = seo?.ogDescription || description
-    const canonical = absoluteUrl(seo?.canonical || seo?.path || route.path, requestUrl.origin)
+    const canonical = absoluteUrl(options.canonicalPath || seo?.canonical || seo?.path || route.path, requestUrl.origin)
     const ogImage = absoluteUrl(seo?.ogImage || fallback.image || '', requestUrl.origin)
     const ogType = key.startsWith('post:') ? 'article' : key.startsWith('product:') ? 'product' : 'website'
+    const robots = options.robots || seo?.robots
 
     return {
       title,
       meta: [
         description ? { name: 'description', content: description } : null,
         keywords ? { name: 'keywords', content: keywords } : null,
-        seo?.robots ? { name: 'robots', content: seo.robots } : null,
+        robots ? { name: 'robots', content: robots } : null,
         { property: 'og:title', content: ogTitle },
         ogDescription ? { property: 'og:description', content: ogDescription } : null,
         ogImage ? { property: 'og:image', content: ogImage } : null,
