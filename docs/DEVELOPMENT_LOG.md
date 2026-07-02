@@ -9,6 +9,47 @@
 - 如果只是文档或内容改动，也要记录。
 - 如果没有跑测试或构建，需要明确写出来。
 
+## 2026-07-02 - 更新 6 篇保鲜膜博客图片水印
+
+背景：
+
+- 用户要求已发布 6 篇保鲜膜 TOB 文章的封面图和正文配图移除邮箱、WhatsApp 联系信息。
+- 新水印只保留大写域名 `YIYUANPACK.COM`，位置沿用右下角。
+- 本次是静态图片同名覆盖，不涉及数据库、页面代码或 API；由于 Nuxt/Nitro 生产服务会使用构建时静态资源元数据，最终需要重新构建并重启生产服务。
+
+改动：
+
+- 处理 18 张博客图片：每篇 1 张封面图 + 2 张正文配图。
+- 更新 `工作流/封面图/*.png`，覆盖旧右下角三行联系信息水印区域，只保留 `YIYUANPACK.COM`。
+- 从更新后的 PNG 重新生成 WebP 90% 成品，覆盖 `工作流/封面图/已经转webp/*.webp`。
+- 覆盖发布用图片 `public/images/blog/*.webp`。
+- 重新构建 `.output`，使生产静态资源 manifest 使用新图片尺寸和 ETag。
+- 更新 `工作流/博客文章工作流.md` 和 `工作流/文章执行记录.md`，将水印规则改为只使用大写域名。
+
+涉及文件：
+
+- `工作流/博客文章工作流.md`
+- `工作流/文章执行记录.md`
+- `工作流/封面图/*.png`
+- `工作流/封面图/已经转webp/*.webp`
+- `public/images/blog/*.webp`
+- `.output/public/images/blog/*.webp`（构建产物，不提交）
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- 抽样查看 `public/images/blog/pe-vs-pvc-cling-film-cover.webp` 和 `public/images/blog/cling-film-supplier-china-checklist-02.webp`，右下角只显示 `YIYUANPACK.COM`，未见邮箱和 WhatsApp。
+- 确认 18 张 PNG、工作流 WebP、发布用 WebP 均保持 `1672x940`。
+- 先用 `NODE_OPTIONS=--max-old-space-size=1024`、`nice`、`ionice` 低优先级构建，server build 阶段因堆限制过低 OOM 退出。
+- 改用 `NODE_OPTIONS=--max-old-space-size=1536`、`nice -n 15`、`ionice -c2 -n7` 后 `pnpm build` 通过。
+- 已停止旧生产进程，启动新生产服务，当前监听 `127.0.0.1:3000`，PID `1225594`；未启动 3005。
+- `https://yiyuanpack.com/images/blog/pe-vs-pvc-cling-film-cover.webp`、`https://yiyuanpack.com/images/blog/cling-film-supplier-china-checklist-02.webp`、`https://yiyuanpack.com/images/blog/pvc-fresh-wrap-supermarket-guide-cover.webp` 均返回 200，`Content-Type: image/webp`，下载大小和本地文件一致。
+- `https://yiyuanpack.com/blog/pe-vs-pvc-cling-film` 返回 200。
+
+提交：
+
+- commit: `未提交`
+
 ## 2026-07-01 - 发布 6 篇保鲜膜 TOB 博客和统一水印图片
 
 背景：
