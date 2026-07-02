@@ -9,6 +9,36 @@
 - 如果只是文档或内容改动，也要记录。
 - 如果没有跑测试或构建，需要明确写出来。
 
+## 2026-07-02 - 精简首页询盘区和页脚联系方式
+
+背景：
+
+- 用户反馈首页底部 Contact 区右侧 `Get a Quote / Start Your Inquiry` CTA 与现有联系方式重复，信息过多。
+- 用户要求页脚能力标签补足 4 个，并要求页脚 Contact 里电话、邮箱、地址直接显示，不再加 `Phone / Email / Address` 标签。
+
+改动：
+
+- 删除首页 Contact 区右侧重复 CTA 卡片，保留左侧联系方式。
+- 页脚能力标签从 3 个补为 4 个：`Wholesale Orders`、`OEM/ODM Packing`、`Sample Support`、`Export Support`。
+- 页脚 Contact 列删除 `Phone / Email / Address` 前置标签，改为直接显示电话、邮箱和地址。
+- 未涉及数据库、API、后台管理逻辑或数据迁移。
+
+涉及文件：
+
+- `app/pages/index.vue`
+- `app/components/SiteFooter.vue`
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- `NODE_OPTIONS=--max-old-space-size=1536 ionice -c2 -n7 nice -n 15 pnpm build` 通过。
+- 构建存在既有警告：VueUse pure 注释、TinyMCE CSS `2of`、部分 chunk 超 500 kB、`node:sqlite` external、`@nuxt/image` sharp binaries 警告；未阻断构建。
+- 已重启 `3000` 生产服务，当前监听 `127.0.0.1:3000`，PID `2144595`。
+- `http://127.0.0.1:3000/` 返回 200。
+- `http://127.0.0.1:3000/api/public/friend-links` GET 返回 200。
+- `https://yiyuanpack.com/` 返回 200。
+- 本机和公网首页 HTML 已确认包含 `Export Support`，不再包含首页 Contact 区的 `Start Your Inquiry` 和 `Open Inquiry Form`。
+
 ## 2026-07-02 - 重新设计前台页脚视觉结构
 
 背景：

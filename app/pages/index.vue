@@ -380,7 +380,7 @@ await useManagedSeo('page:home', {
 
     <!-- CONTACT / QUOTE -->
     <section class="section bg-[var(--color-navy-dark)] text-white">
-      <div class="container-x grid lg:grid-cols-[1.15fr_0.85fr] gap-8">
+      <div class="container-x">
         <div>
           <SectionHeading
             eyebrow="Contact"
@@ -410,34 +410,6 @@ await useManagedSeo('page:home', {
               </div>
               <div class="mt-3 text-[15px] font-semibold text-white">{{ company.location }}</div>
             </div>
-          </div>
-        </div>
-
-        <div class="flex h-full flex-col justify-between border border-white/10 bg-white/4 p-6 sm:p-8 lg:p-10">
-          <div>
-            <div class="text-[12px] font-bold uppercase tracking-[0.14em] text-white/60">Get a Quote</div>
-            <h3 class="mt-4 max-w-[11ch] text-[clamp(28px,3vw,34px)] font-extrabold leading-tight">Start Your Inquiry</h3>
-            <p class="mt-4 max-w-[36ch] text-[15px] leading-relaxed text-white/74">
-              For fast handling, send product name, size, quantity, and custom requirements.
-            </p>
-          </div>
-          <div class="mt-8 grid gap-3 [&_.el-button]:!ml-0 [&_.el-button]:!w-full">
-            <NuxtLink to="/contact" class="block w-full">
-              <el-button color="#c1121f" size="large">
-                <el-icon><Promotion /></el-icon>
-                <span>Open Inquiry Form</span>
-              </el-button>
-            </NuxtLink>
-            <el-button tag="a" :href="company.whatsappLink" target="_blank" size="large" color="#1b3c63">
-              <span class="inline-flex items-center gap-1.5">
-                <SocialIcon name="whatsapp" />
-                <span>Contact on WhatsApp</span>
-              </span>
-            </el-button>
-            <el-button tag="a" :href="company.contactLink" size="large" plain class="!border-white/16 !bg-transparent !text-white hover:!bg-white/6">
-              <el-icon><Message /></el-icon>
-              <span>Send Email</span>
-            </el-button>
           </div>
         </div>
       </div>

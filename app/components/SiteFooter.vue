@@ -24,7 +24,7 @@ const companyLinks = [
 
 const mobileOpen = ref<string | null>(null)
 
-const footerHighlights = ['Wholesale Orders', 'OEM/ODM Packing', 'Sample Support']
+const footerHighlights = ['Wholesale Orders', 'OEM/ODM Packing', 'Sample Support', 'Export Support']
 
 const toggleSection = (key: string) => {
   mobileOpen.value = mobileOpen.value === key ? null : key
@@ -126,24 +126,11 @@ const year = new Date().getFullYear()
 
             <section class="site-footer-section site-footer-contact" aria-label="Contact information">
               <div class="site-footer-section-title">Contact</div>
-              <dl class="site-footer-contact-list">
-                <div>
-                  <dt>Phone</dt>
-                  <dd>
-                    <a :href="company.whatsappLink" target="_blank" rel="noopener">{{ company.phone }}</a>
-                  </dd>
-                </div>
-                <div>
-                  <dt>Email</dt>
-                  <dd>
-                    <a :href="company.contactLink">{{ company.email }}</a>
-                  </dd>
-                </div>
-                <div>
-                  <dt>Address</dt>
-                  <dd>{{ company.address }}</dd>
-                </div>
-              </dl>
+              <div class="site-footer-contact-list">
+                <a :href="company.whatsappLink" target="_blank" rel="noopener">{{ company.phone }}</a>
+                <a :href="company.contactLink">{{ company.email }}</a>
+                <span>{{ company.address }}</span>
+              </div>
             </section>
           </div>
 
@@ -516,6 +503,7 @@ const year = new Date().getFullYear()
 
 .site-footer-link-list a,
 .site-footer-contact-list a,
+.site-footer-contact-list span,
 .site-footer-mobile-list a,
 .site-footer-mobile-contact a {
   color: rgba(255, 255, 255, 0.66);
@@ -537,31 +525,15 @@ const year = new Date().getFullYear()
 
 .site-footer-contact-list {
   display: grid;
-  gap: 14px;
-  margin: 0;
-}
-
-.site-footer-contact-list div {
-  display: grid;
-  grid-template-columns: 68px minmax(0, 1fr);
   gap: 12px;
-}
-
-.site-footer-contact-list dt {
-  color: rgba(255, 255, 255, 0.38);
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  line-height: 1.55;
-  text-transform: uppercase;
-}
-
-.site-footer-contact-list dd {
-  min-width: 0;
   margin: 0;
-  color: rgba(255, 255, 255, 0.64);
   font-size: 14px;
   line-height: 1.6;
+}
+
+.site-footer-contact-list a,
+.site-footer-contact-list span {
+  min-width: 0;
   overflow-wrap: anywhere;
 }
 
@@ -764,11 +736,6 @@ const year = new Date().getFullYear()
 
   .site-footer-contact-list {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .site-footer-contact-list div {
-    grid-template-columns: 1fr;
-    gap: 4px;
   }
 }
 
