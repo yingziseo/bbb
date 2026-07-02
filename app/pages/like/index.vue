@@ -13,6 +13,7 @@ const cards = computed(() => [
   { label: '询盘总数', value: data.value?.inquiries || 0 },
   { label: '未读询盘', value: data.value?.unreadInquiries || 0 },
   { label: 'SEO 条目', value: data.value?.seoEntries || 0 },
+  { label: '友情链接', value: data.value?.friendLinks || 0 },
   { label: '邮件失败', value: data.value?.failedMails || 0 },
 ])
 </script>
@@ -50,6 +51,10 @@ const cards = computed(() => [
       <NuxtLink to="/like/settings" class="border border-[var(--color-line)] bg-white px-4 py-3 transition-colors hover:border-[var(--color-navy)]">
         <h2 class="text-[15px] font-bold text-[var(--color-navy)]">修改网站联系方式</h2>
         <p class="mt-1 text-[13px] leading-relaxed text-[var(--color-slate-muted)]">统一维护前台电话、邮箱、WhatsApp、公司信息和 sitemap 域名。</p>
+      </NuxtLink>
+      <NuxtLink to="/like/friend-links" class="border border-[var(--color-line)] bg-white px-4 py-3 transition-colors hover:border-[var(--color-navy)]">
+        <h2 class="text-[15px] font-bold text-[var(--color-navy)]">管理友情链接</h2>
+        <p class="mt-1 text-[13px] leading-relaxed text-[var(--color-slate-muted)]">维护页脚低优先级友链，手机端默认折叠显示。</p>
       </NuxtLink>
     </div>
   </div>

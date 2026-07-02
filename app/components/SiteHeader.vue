@@ -88,7 +88,7 @@ onBeforeUnmount(() => {
             <el-icon><Message /></el-icon>{{ company.email }}
           </a>
           <span class="hidden lg:block text-white/64">
-            Export Sourcing | Private Label OEM | Custom Converting
+            Overseas Sourcing | OEM/ODM Private Label | Custom Processing
           </span>
         </div>
       </div>
@@ -165,7 +165,6 @@ onBeforeUnmount(() => {
           </nav>
 
           <div class="hidden lg:flex items-center gap-3">
-            <LanguageSwitcher />
             <el-button
               tag="a"
               :href="company.whatsappLink"

@@ -11,6 +11,9 @@ const categories = computed(() => (catalogData.value?.categories || fallbackCate
 const { data: socialData } = await useFetch('/api/public/social-links')
 const socialPlatforms = computed(() => socialData.value?.items || [])
 
+const { data: friendLinksData } = await useFetch('/api/public/friend-links')
+const friendLinks = computed(() => friendLinksData.value?.items || [])
+
 const companyLinks = [
   { label: 'Factory Overview', to: '/about' },
   { label: 'All Products', to: '/products' },
@@ -63,7 +66,10 @@ const year = new Date().getFullYear()
 
     <div class="hidden md:block">
       <div class="container-x py-12">
-        <div class="grid gap-10 lg:grid-cols-[1.2fr_0.85fr_0.85fr_1fr]">
+        <div
+          class="grid gap-10"
+          :class="friendLinks.length ? 'lg:grid-cols-5' : 'lg:grid-cols-[1.2fr_0.85fr_0.85fr_1fr]'"
+        >
           <div class="border-r border-white/10 pr-8">
             <div class="site-footer-brand">
               <div class="site-footer-brand__identity">
@@ -137,6 +143,25 @@ const year = new Date().getFullYear()
                 </el-button>
               </a>
             </div>
+          </div>
+
+          <div v-if="friendLinks.length">
+            <h4 class="mb-4 text-white font-bold text-[14px] uppercase tracking-[0.12em]">Friend Links</h4>
+            <ul class="space-y-2.5 text-[14px] text-white/62">
+              <li v-for="item in friendLinks" :key="item.id">
+                <a
+                  :href="item.url"
+                  :target="item.newWindow ? '_blank' : undefined"
+                  :rel="item.newWindow ? 'noopener' : undefined"
+                  class="hover:text-white transition-colors"
+                >
+                  {{ item.name }}
+                </a>
+                <div v-if="item.description" class="mt-0.5 text-[12px] leading-relaxed text-white/42">
+                  {{ item.description }}
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -246,6 +271,34 @@ const year = new Date().getFullYear()
               </div>
             </div>
           </div>
+
+          <template v-if="friendLinks.length">
+            <button
+              type="button"
+              class="flex w-full items-center justify-between px-1 py-4 text-center text-white"
+              @click="toggleSection('friend-links')"
+            >
+              <span class="flex-1 text-[13px] font-bold uppercase tracking-[0.12em]">Friend Links</span>
+              <el-icon :size="16" class="text-white/60">
+                <ArrowUp v-if="mobileOpen === 'friend-links'" />
+                <ArrowDown v-else />
+              </el-icon>
+            </button>
+            <div v-if="mobileOpen === 'friend-links'" class="pb-4">
+              <ul class="space-y-3 px-1 pt-1 text-center text-[14px] text-white/62">
+                <li v-for="item in friendLinks" :key="item.id">
+                  <a
+                    :href="item.url"
+                    :target="item.newWindow ? '_blank' : undefined"
+                    :rel="item.newWindow ? 'noopener' : undefined"
+                    class="hover:text-white transition-colors"
+                  >
+                    {{ item.name }}
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </template>
         </div>
       </div>
     </div>

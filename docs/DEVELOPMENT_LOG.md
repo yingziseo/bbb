@@ -9,6 +9,74 @@
 - 如果只是文档或内容改动，也要记录。
 - 如果没有跑测试或构建，需要明确写出来。
 
+## 2026-07-02 - 优化顶部导航、博客目录并新增友情链接模块
+
+背景：
+
+- 用户要求顶部业务文案更贴近海外采购、OEM/ODM 贴牌代工和定制加工。
+- 用户要求电脑端移除多余语言切换组件，只保留手机端语言预留入口。
+- 用户要求博客详情页目录大纲只在电脑端悬浮跟随滚动，手机端不显示。
+- 用户要求新增友情链接模块，后台支持管理，页脚手机端与 Products、Company、Contact 一样折叠显示。
+- 用户确认当前线上端口口径应为 `3000`，部分文档仍保留历史 `3005` 和旧后台/数据模型口径，需要同步当前状态。
+
+改动：
+
+- 顶部工具栏文案改为 `Overseas Sourcing | OEM/ODM Private Label | Custom Processing`。
+- 顶部跑马灯相关词改为 `OEM/ODM Private Label` 和 `Custom Processing`。
+- 移除桌面端导航右侧语言切换组件，手机端保留 compact 语言切换入口。
+- 博客 `ArticleToc` 移除手机端 `Outline` 入口和底部弹层，仅桌面端显示；sticky 改到目录根容器，增强跟随滚动稳定性。
+- 新增 `friend_links` SQLite 表。
+- 新增后台友情链接 CRUD API：`/api/admin/friend-links`。
+- 新增公开友情链接接口：`/api/public/friend-links`。
+- 新增后台页面 `/like/friend-links`，支持名称、URL、描述、启用、排序和新窗口打开。
+- 页脚桌面端新增低优先级 `Friend Links` 链接列；手机端新增默认折叠的 `Friend Links` 区块。
+- 后台侧边栏整理为 `总览`、`内容管理`、`询盘转化`、`站点配置` 四组，并加入友情链接入口。
+- 后台概览增加友情链接统计和快捷入口。
+- `package.json` 的 `dev`、`preview`、`start` 端口统一为 `3000`。
+- 同步更新项目文档，修正当前后台路径 `/like`、当前数据模型、当前端口和友情链接模块说明。
+
+涉及文件：
+
+- `app/components/SiteHeader.vue`
+- `app/components/ArticleToc.client.vue`
+- `app/components/SiteFooter.vue`
+- `app/data/site.ts`
+- `app/layouts/admin.vue`
+- `app/pages/like/index.vue`
+- `app/pages/like/friend-links.vue`
+- `server/utils/db.ts`
+- `server/utils/serializers.ts`
+- `server/api/admin/friend-links/*`
+- `server/api/public/friend-links.get.ts`
+- `server/api/admin/stats.get.ts`
+- `package.json`
+- `AGENTS.md`
+- `docs/ADMIN_PANEL_PLAN.md`
+- `docs/ADMIN_PANEL_USAGE.md`
+- `docs/PROJECT_OVERVIEW.md`
+- `docs/PROJECT_STATE.md`
+- `docs/PUSH_CHECKLIST.md`
+- `docs/TASKS.md`
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- 已备份 SQLite：`data/backups/yiyuan-before-friend-links-20260702_210437.db`。
+- `NODE_OPTIONS=--max-old-space-size=1536 ionice -c2 -n7 nice -n 15 pnpm build` 通过。
+- 构建存在既有警告：TinyMCE CSS `2of`、部分 chunk 超 500 kB、`@nuxt/image` sharp binaries 警告；未阻断构建。
+- 新构建先在 `127.0.0.1:3010` 临时验证，通过后停止临时服务。
+- 临时服务验证：后台登录 200、`/like/friend-links` 200、创建/公开读取/删除临时友链接口均 200。
+- 已停止旧 `3000` 生产进程，保留旧进程环境变量启动新生产进程，当前监听 `127.0.0.1:3000`，PID `1931508`。
+- `http://127.0.0.1:3000/` 返回 200，输出新顶部文案，不再输出旧顶部文案。
+- `http://127.0.0.1:3000/blog/pe-vs-pvc-cling-film` 返回 200，不再输出手机端 `Outline` 文案。
+- `http://127.0.0.1:3000/api/public/friend-links` 返回 200，当前 `items` 为 0。
+- 使用当前进程环境中的正式后台账号登录 `/api/admin/auth/login` 返回 200，访问 `/like/friend-links` 返回 200。
+- 源站 HTTPS 直连 `https://yiyuanpack.com/` 和 `https://yiyuanpack.com/blog/pe-vs-pvc-cling-film` 均返回 200。
+
+提交：
+
+- commit: `57d33fc`
+
 ## 2026-07-02 - 更新询盘邮件转发收件人并测试发信
 
 背景：

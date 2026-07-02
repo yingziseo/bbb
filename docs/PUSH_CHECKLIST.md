@@ -52,7 +52,10 @@ pnpm test
 - `/blog`
 - `/blog/[slug]`
 - `/contact`
+- `/like/login`
+- `/like`
 - 移动端导航和页脚折叠区域
+- 页脚友情链接折叠区域
 - WhatsApp、邮箱、询盘按钮
 
 ## 4. 提交信息建议

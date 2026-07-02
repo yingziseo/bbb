@@ -12,6 +12,7 @@ import {
   SwitchButton,
   VideoCamera,
   Close,
+  Connection,
 } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 
@@ -20,27 +21,33 @@ const mobileNavOpen = ref(false)
 
 const navSections = [
   {
-    label: '内容管理',
+    label: '总览',
     items: [
       { label: '概览', to: '/like', icon: HomeFilled },
-      { label: '页面 TDK', to: '/like/seo', icon: Operation },
-      { label: '产品管理', to: '/like/products', icon: Box },
-      { label: '首页弹窗', to: '/like/home-popup', icon: VideoCamera },
-      { label: '博客文章', to: '/like/posts', icon: Document },
     ],
   },
   {
-    label: '询盘管理',
+    label: '内容管理',
+    items: [
+      { label: '产品管理', to: '/like/products', icon: Box },
+      { label: '博客文章', to: '/like/posts', icon: Document },
+      { label: '页面 TDK', to: '/like/seo', icon: Operation },
+    ],
+  },
+  {
+    label: '询盘转化',
     items: [
       { label: '客户询盘', to: '/like/inquiries', icon: MessageBox },
       { label: '转发管理', to: '/like/mail-forwarding', icon: SettingIcon },
+      { label: '首页弹窗', to: '/like/home-popup', icon: VideoCamera },
     ],
   },
   {
-    label: '系统设置',
+    label: '站点配置',
     items: [
       { label: '网站设置', to: '/like/settings', icon: SettingIcon },
       { label: '社交链接', to: '/like/social-links', icon: Link },
+      { label: '友情链接', to: '/like/friend-links', icon: Connection },
     ],
   },
 ]
@@ -76,13 +83,13 @@ const logout = async () => {
       </div>
 
       <nav class="p-3">
-        <div v-for="section in navSections" :key="section.label" class="mb-4 last:mb-0">
-          <div class="mb-2 px-3 text-[11px] font-bold uppercase text-[var(--color-slate-muted)]">{{ section.label }}</div>
+        <div v-for="section in navSections" :key="section.label" class="mb-3 border-b border-[var(--color-line)] pb-3 last:mb-0 last:border-b-0 last:pb-0">
+          <div class="mb-2 px-3 text-[11px] font-bold uppercase tracking-[0.08em] text-[var(--color-slate-muted)]">{{ section.label }}</div>
           <NuxtLink
             v-for="item in section.items"
             :key="item.to"
             :to="item.to"
-            class="mb-1 flex items-center gap-3 border px-4 py-3 text-[14px] font-semibold transition-colors"
+            class="mb-1 flex items-center gap-3 border px-3 py-2.5 text-[14px] font-semibold transition-colors"
             :class="isActiveNav(item.to)
               ? 'border-[var(--color-navy)] bg-[var(--color-navy)] text-white'
               : 'border-transparent text-[var(--color-graphite)] hover:border-[var(--color-line)] hover:bg-[var(--color-panel)]'"
@@ -125,13 +132,13 @@ const logout = async () => {
       </div>
 
       <nav class="flex-1 overflow-y-auto p-3">
-        <div v-for="section in navSections" :key="section.label" class="mb-4 last:mb-0">
-          <div class="mb-2 px-3 text-[11px] font-bold uppercase text-[var(--color-slate-muted)]">{{ section.label }}</div>
+        <div v-for="section in navSections" :key="section.label" class="mb-3 border-b border-[var(--color-line)] pb-3 last:mb-0 last:border-b-0 last:pb-0">
+          <div class="mb-2 px-3 text-[11px] font-bold uppercase tracking-[0.08em] text-[var(--color-slate-muted)]">{{ section.label }}</div>
           <NuxtLink
             v-for="item in section.items"
             :key="item.to"
             :to="item.to"
-            class="mb-1 flex items-center gap-3 border px-4 py-3 text-[15px] font-semibold transition-colors"
+            class="mb-1 flex items-center gap-3 border px-4 py-2.5 text-[15px] font-semibold transition-colors"
             :class="isActiveNav(item.to)
               ? 'border-[var(--color-navy)] bg-[var(--color-navy)] text-white'
               : 'border-transparent text-[var(--color-graphite)] hover:border-[var(--color-line)] hover:bg-[var(--color-panel)]'"

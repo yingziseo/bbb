@@ -85,6 +85,18 @@ export const mapSocialLink = (row: any) => ({
   updatedAt: row.updated_at,
 })
 
+export const mapFriendLink = (row: any) => ({
+  id: row.id,
+  name: row.name,
+  url: row.url || '',
+  description: row.description || '',
+  enabled: toBool(row.enabled),
+  sortOrder: row.sort_order || 0,
+  newWindow: toBool(row.new_window),
+  createdAt: row.created_at,
+  updatedAt: row.updated_at,
+})
+
 const parseJsonArray = (value: unknown) => {
   if (!value || typeof value !== 'string') return []
   try {

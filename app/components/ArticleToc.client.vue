@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ArrowDown, ArrowUp, Close, Operation } from '@element-plus/icons-vue'
+import { ArrowDown, ArrowUp } from '@element-plus/icons-vue'
 
 type TocItem = {
   id: string
@@ -21,7 +21,6 @@ const props = withDefaults(
 const items = ref<TocItem[]>([])
 const activeId = ref('')
 const desktopExpanded = ref(true)
-const mobileOpen = ref(false)
 let ticking = false
 
 const hasItems = computed(() => items.value.length >= 2)
@@ -111,7 +110,6 @@ const scrollToHeading = (id: string) => {
   heading.scrollIntoView({ behavior: 'smooth', block: 'start' })
   window.history.replaceState(null, '', `#${id}`)
   activeId.value = id
-  mobileOpen.value = false
 }
 
 const rebuild = async () => {
@@ -168,70 +166,16 @@ onBeforeUnmount(() => {
         </button>
       </nav>
     </aside>
-
-    <button
-      type="button"
-      class="article-toc__mobile-trigger"
-      aria-controls="article-mobile-toc"
-      :aria-expanded="mobileOpen"
-      @click="mobileOpen = true"
-    >
-      <el-icon :size="17"><Operation /></el-icon>
-      <span>Outline</span>
-    </button>
-
-    <button
-      v-if="mobileOpen"
-      type="button"
-      class="article-toc__mobile-backdrop"
-      aria-label="Close article outline"
-      @click="mobileOpen = false"
-    />
-
-    <section
-      id="article-mobile-toc"
-      class="article-toc__mobile-panel"
-      :class="{ 'is-open': mobileOpen }"
-      aria-label="Article outline"
-    >
-      <div class="article-toc__mobile-head">
-        <div>
-          <span class="article-toc__eyebrow">Article</span>
-          <h2>On this page</h2>
-        </div>
-        <button type="button" class="article-toc__close" aria-label="Close article outline" @click="mobileOpen = false">
-          <el-icon :size="20"><Close /></el-icon>
-        </button>
-      </div>
-
-      <nav class="article-toc__mobile-list">
-        <button
-          v-for="item in items"
-          :key="item.id"
-          type="button"
-          class="article-toc__mobile-link"
-          :class="[
-            item.level === 3 ? 'article-toc__mobile-link--child' : '',
-            activeId === item.id ? 'is-active' : '',
-          ]"
-          @click="scrollToHeading(item.id)"
-        >
-          {{ item.text }}
-        </button>
-      </nav>
-    </section>
   </div>
 </template>
 
 <style scoped>
 .article-toc {
+  display: none;
   min-width: 0;
 }
 
 .article-toc__desktop {
-  position: sticky;
-  top: 96px;
-  display: none;
   border: 1px solid var(--color-line);
   background: #fff;
 }
@@ -337,145 +281,16 @@ onBeforeUnmount(() => {
   font-weight: 600;
 }
 
-.article-toc__mobile-trigger {
-  position: fixed;
-  right: auto;
-  bottom: 16px;
-  left: 16px;
-  z-index: 45;
-  display: inline-flex;
-  min-height: 44px;
-  align-items: center;
-  gap: 8px;
-  border: 1px solid var(--color-navy);
-  background: var(--color-navy);
-  padding: 0 13px;
-  color: #fff;
-  font-size: 13px;
-  font-weight: 800;
-  box-shadow: 0 12px 28px rgba(15, 42, 74, 0.18);
-}
-
-.article-toc__mobile-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 58;
-  border: 0;
-  background: rgba(10, 31, 56, 0.34);
-}
-
-.article-toc__mobile-panel {
-  position: fixed;
-  right: 12px;
-  bottom: 12px;
-  left: 12px;
-  z-index: 60;
-  max-height: min(74vh, 560px);
-  transform: translateY(calc(100% + 24px));
-  border: 1px solid var(--color-line-strong);
-  background: #fff;
-  box-shadow: 0 -18px 38px rgba(15, 42, 74, 0.2);
-  opacity: 0;
-  pointer-events: none;
-  transition:
-    transform 220ms ease,
-    opacity 180ms ease;
-}
-
-.article-toc__mobile-panel.is-open {
-  transform: translateY(0);
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.article-toc__mobile-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  border-bottom: 1px solid var(--color-line);
-  padding: 14px 15px;
-}
-
-.article-toc__mobile-head h2 {
-  margin: 2px 0 0;
-  color: var(--color-navy);
-  font-size: 18px;
-  font-weight: 850;
-  line-height: 1.2;
-}
-
-.article-toc__close {
-  display: inline-flex;
-  height: 38px;
-  width: 38px;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--color-line);
-  background: #fff;
-  color: var(--color-navy);
-}
-
-.article-toc__mobile-list {
-  max-height: calc(min(74vh, 560px) - 68px);
-  overflow-y: auto;
-  padding: 8px 0 10px;
-}
-
-.article-toc__mobile-link {
-  position: relative;
-  display: block;
-  width: 100%;
-  border: 0;
-  background: transparent;
-  padding: 11px 16px 11px 20px;
-  text-align: left;
-  color: var(--color-graphite);
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.35;
-}
-
-.article-toc__mobile-link::before {
-  position: absolute;
-  top: 11px;
-  bottom: 11px;
-  left: 0;
-  width: 3px;
-  background: transparent;
-  content: '';
-}
-
-.article-toc__mobile-link.is-active {
-  background: #fff5f6;
-  color: var(--color-navy);
-}
-
-.article-toc__mobile-link.is-active::before {
-  background: var(--color-accent);
-}
-
-.article-toc__mobile-link--child {
-  padding-left: 34px;
-  color: var(--color-slate-muted);
-  font-size: 13px;
-  font-weight: 650;
-}
-
 @media (min-width: 1024px) {
-  .article-toc__desktop {
+  .article-toc {
+    position: sticky;
+    top: 96px;
     display: block;
-  }
-
-  .article-toc__mobile-trigger,
-  .article-toc__mobile-backdrop,
-  .article-toc__mobile-panel {
-    display: none;
+    align-self: start;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .article-toc__mobile-panel,
   .article-toc__header,
   .article-toc__link {
     transition: none;
