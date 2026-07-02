@@ -9,6 +9,39 @@
 - 如果只是文档或内容改动，也要记录。
 - 如果没有跑测试或构建，需要明确写出来。
 
+## 2026-07-02 - 修正页脚品牌区居中层级
+
+背景：
+
+- 用户反馈页脚品牌区仍然堆叠过多信息，Logo、品牌名、描述、公司全称和 metadata 混在一起，视觉层级不清晰。
+- 用户明确要求品牌区按 Logo、`YIYUAN NEW MATERIALS`、`Food packaging and cling film export supplier.` 居中展示。
+
+改动：
+
+- 页脚品牌区删除法定公司名、地点、成立年份和注册资本 metadata。
+- 桌面端品牌区改为 Logo 与品牌名居中一行，描述文案在下方居中显示。
+- 手机端品牌区同步改为 Logo 与品牌名居中一行，描述文案下方居中显示。
+- 页脚 Logo 从 `NuxtImg` 改为原生 `img`，避免图片处理异常时显示 alt 文本造成品牌名重复。
+
+涉及文件：
+
+- `app/components/SiteFooter.vue`
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- `NODE_OPTIONS=--max-old-space-size=1536 ionice -c2 -n7 nice -n 15 pnpm build` 通过。
+- 构建存在既有警告：TinyMCE CSS `2of`、部分 chunk 超 500 kB、`@nuxt/image` sharp binaries 警告；未阻断构建。
+- 已重启 `3000` 生产服务，当前监听 `127.0.0.1:3000`，PID `2057082`。
+- `http://127.0.0.1:3000/` 返回 200。
+- `http://127.0.0.1:3000/api/public/friend-links` 返回 200。
+- 源站 HTTPS 直连 `https://yiyuanpack.com/` 返回 200。
+- 首页 HTML 已确认页脚品牌区使用原生 Logo 图片，保留描述文案，并移除法定公司名和 metadata 信息块。
+
+提交：
+
+- commit: `待提交`
+
 ## 2026-07-02 - 精简顶部信息和优化页脚层级
 
 背景：

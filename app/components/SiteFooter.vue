@@ -67,30 +67,24 @@ const year = new Date().getFullYear()
     <div class="hidden md:block">
       <div class="container-x py-10">
         <div class="grid gap-9 lg:grid-cols-[1.18fr_0.72fr_0.72fr_1fr]">
-          <div class="pr-8">
+          <div>
             <div class="site-footer-brand">
               <div class="site-footer-brand__identity">
                 <span class="site-footer-logo site-footer-logo--desktop">
-                  <NuxtImg
+                  <img
                     :src="company.logoPath || '/site-logo.png'"
-                    :alt="company.displayName"
+                    alt=""
+                    aria-hidden="true"
                     width="64"
                     height="64"
-                    format="webp"
-                    quality="90"
-                    densities="1x"
                     class="site-footer-logo__image"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </span>
-                <div class="min-w-0">
-                  <div class="site-footer-brand__name">{{ company.displayName }}</div>
-                  <div class="site-footer-brand__tagline">Food packaging and cling film export supplier.</div>
-                </div>
+                <div class="site-footer-brand__name">{{ company.displayName }}</div>
               </div>
-              <div class="site-footer-brand__legal">{{ company.name }}</div>
-              <div class="site-footer-brand__meta">
-                {{ company.location }} · Founded {{ company.founded }} · {{ company.registeredCapital }} capital
-              </div>
+              <div class="site-footer-brand__tagline">Food packaging and cling film export supplier.</div>
             </div>
           </div>
 
@@ -157,28 +151,22 @@ const year = new Date().getFullYear()
     <div class="md:hidden">
       <div class="container-x py-8">
         <div class="site-footer-mobile-brand px-1 py-2">
-          <div class="flex items-center justify-center gap-3">
-            <div class="site-footer-logo site-footer-logo--mobile">
-              <NuxtImg
+          <div class="site-footer-mobile-brand__identity">
+            <span class="site-footer-logo site-footer-logo--mobile">
+              <img
                 :src="company.logoPath || '/site-logo.png'"
-                :alt="company.displayName"
+                alt=""
+                aria-hidden="true"
                 width="64"
                 height="64"
-                format="webp"
-                quality="90"
-                densities="1x"
                 class="site-footer-logo__image"
+                loading="lazy"
+                decoding="async"
               />
-            </div>
-            <div class="min-w-0 text-left">
-              <div class="site-footer-mobile-brand__name">{{ company.displayName }}</div>
-              <div class="site-footer-mobile-brand__tagline">Food packaging and cling film export supplier.</div>
-            </div>
+            </span>
+            <div class="site-footer-mobile-brand__name">{{ company.displayName }}</div>
           </div>
-          <div class="site-footer-mobile-brand__legal">{{ company.name }}</div>
-          <div class="site-footer-mobile-brand__meta">
-            {{ company.location }} · Founded {{ company.founded }} · {{ company.registeredCapital }} capital
-          </div>
+          <div class="site-footer-mobile-brand__tagline">Food packaging and cling film export supplier.</div>
         </div>
 
         <div class="mt-6 border-y border-white/10">
@@ -306,91 +294,83 @@ const year = new Date().getFullYear()
 }
 
 .site-footer-logo--desktop {
-  height: 52px;
-  width: 52px;
+  height: 42px;
+  width: 42px;
 }
 
 .site-footer-logo--mobile {
-  height: 50px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
 }
 
 .site-footer-logo__image {
-  height: 108%;
-  width: 108%;
+  height: 100%;
+  width: 100%;
   object-fit: contain;
 }
 
-.site-footer-brand__identity {
+.site-footer-brand {
   display: flex;
+  max-width: 320px;
+  margin: 0 auto;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.site-footer-brand__identity {
+  display: inline-flex;
   min-width: 0;
   align-items: center;
-  gap: 14px;
+  justify-content: center;
+  gap: 10px;
 }
 
 .site-footer-brand__name {
   color: #fff;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 800;
-  line-height: 1.05;
-}
-
-.site-footer-brand__legal {
-  margin-top: 16px;
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 12px;
-  line-height: 1.35;
+  line-height: 1.1;
+  white-space: nowrap;
 }
 
 .site-footer-brand__tagline {
-  margin-top: 6px;
-  color: rgba(255, 255, 255, 0.62);
-  font-size: 13px;
-  font-weight: 650;
-  line-height: 1.35;
-}
-
-.site-footer-brand__meta {
-  margin-top: 10px;
-  color: rgba(255, 255, 255, 0.42);
+  margin-top: 9px;
+  max-width: 310px;
+  color: rgba(255, 255, 255, 0.6);
   font-size: 12px;
-  font-weight: 650;
-  line-height: 1.5;
+  font-weight: 500;
+  line-height: 1.45;
+  text-wrap: balance;
 }
 
 .site-footer-mobile-brand {
-  text-align: left;
+  text-align: center;
+}
+
+.site-footer-mobile-brand__identity {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
 .site-footer-mobile-brand__name {
   color: #fff;
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 800;
-  line-height: 1.08;
+  line-height: 1.1;
+  white-space: nowrap;
 }
 
 .site-footer-mobile-brand__tagline {
-  margin-top: 5px;
-  color: rgba(255, 255, 255, 0.52);
+  margin: 9px auto 0;
+  max-width: 290px;
+  color: rgba(255, 255, 255, 0.6);
   font-size: 12px;
-  font-weight: 650;
-  line-height: 1.3;
-}
-
-.site-footer-mobile-brand__legal {
-  margin-top: 16px;
-  text-align: center;
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 12px;
+  font-weight: 500;
   line-height: 1.4;
-}
-
-.site-footer-mobile-brand__meta {
-  margin-top: 9px;
-  text-align: center;
-  color: rgba(255, 255, 255, 0.42);
-  font-size: 11.5px;
-  font-weight: 650;
-  line-height: 1.45;
+  text-wrap: balance;
 }
 </style>
