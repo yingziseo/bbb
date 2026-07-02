@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Close, FullScreen, Message, Mute, Present, Promotion, VideoCamera } from '@element-plus/icons-vue'
+import { Close, FullScreen, Mute, Present, Promotion, VideoCamera } from '@element-plus/icons-vue'
 import type { PublicSiteSettings } from '~/composables/useSiteSettings'
 
 const props = defineProps<{
@@ -171,7 +171,7 @@ watch(popupEnabled, (enabled) => {
                 <NuxtLink to="/contact?source=home-popup">
                   <el-button color="#c1121f" size="large">
                     <el-icon><Promotion /></el-icon>
-                    <span>Free Sample</span>
+                    <span>Inquiry Form</span>
                   </el-button>
                 </NuxtLink>
                 <el-button
@@ -187,10 +187,6 @@ watch(popupEnabled, (enabled) => {
                     <span>Contact on WhatsApp</span>
                   </span>
                 </el-button>
-                <a class="home-lead-popup__email" :href="settings.contactLink">
-                  <el-icon><Message /></el-icon>
-                  {{ settings.email }}
-                </a>
               </div>
             </div>
 
@@ -391,23 +387,6 @@ watch(popupEnabled, (enabled) => {
   flex-wrap: wrap;
   align-items: center;
   gap: 12px;
-}
-
-.home-lead-popup__email {
-  display: inline-flex;
-  min-width: 0;
-  align-items: center;
-  gap: 7px;
-  color: var(--color-slate-muted);
-  font-size: 13px;
-  font-weight: 700;
-  transition: color 180ms ease;
-}
-
-@media (hover: hover) {
-  .home-lead-popup__email:hover {
-    color: var(--color-accent);
-  }
 }
 
 .home-lead-popup__media {
@@ -787,8 +766,8 @@ watch(popupEnabled, (enabled) => {
 
   .home-lead-popup__actions {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 12px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
     margin-top: 12px;
     align-items: stretch;
   }
@@ -796,24 +775,11 @@ watch(popupEnabled, (enabled) => {
   .home-lead-popup__actions > a,
   .home-lead-popup__actions :deep(.el-button) {
     width: 100%;
-    height: 44px;
-    min-height: 44px;
+    height: 38px;
+    min-height: 38px;
     padding: 0 10px;
     margin-left: 0;
     font-size: 13px;
-  }
-
-  .home-lead-popup__email {
-    grid-column: 1 / -1;
-    justify-content: center;
-    width: 100%;
-    min-height: 30px;
-    overflow: hidden;
-    border: 1px solid var(--color-line);
-    padding: 0 8px;
-    font-size: 11.5px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
   }
 
   .home-lead-popup__media {
@@ -910,18 +876,14 @@ watch(popupEnabled, (enabled) => {
   }
 
   .home-lead-popup__actions {
-    gap: 10px;
+    gap: 6px;
     margin-top: 10px;
   }
 
   .home-lead-popup__actions > a,
   .home-lead-popup__actions :deep(.el-button) {
-    height: 44px;
-    min-height: 44px;
-  }
-
-  .home-lead-popup__email {
-    min-height: 28px;
+    height: 34px;
+    min-height: 34px;
   }
 
   .home-lead-popup__media {
