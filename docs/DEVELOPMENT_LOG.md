@@ -9,6 +9,36 @@
 - 如果只是文档或内容改动，也要记录。
 - 如果没有跑测试或构建，需要明确写出来。
 
+## 2026-07-02 - 重新设计前台页脚视觉结构
+
+背景：
+
+- 用户反馈前台底部视觉效果差，需要重新设计 footer。
+- 本次只调整前台展示层，保留后台友情链接数据、现有公开 API 和站点设置数据来源。
+
+改动：
+
+- 桌面端页脚重做为品牌行动区、Export Supplier 信息区、Products / Company / Contact 三列内容区，以及底部低调横向 `Friend Links` 区域。
+- 手机端保留原有折叠交互，重做品牌展示、CTA 按钮、折叠标题、联系信息和友情链接列表样式。
+- 社交链接只展示已配置 URL 的可点击平台，去掉空 URL 的灰色占位图标。
+- 友情链接仍从 `/api/public/friend-links` 读取；当前后台友链名称仍为 `link`，本次未改后台数据。
+- 未涉及数据库、API、后台管理逻辑或数据迁移。
+
+涉及文件：
+
+- `app/components/SiteFooter.vue`
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- `NODE_OPTIONS=--max-old-space-size=1536 ionice -c2 -n7 nice -n 15 pnpm build` 通过。
+- 构建存在既有警告：VueUse pure 注释、TinyMCE CSS `2of`、部分 chunk 超 500 kB、`node:sqlite` external、`@nuxt/image` sharp binaries 警告；未阻断构建。
+- 已重启 `3000` 生产服务，当前监听 `127.0.0.1:3000`，PID `2093428`。
+- `http://127.0.0.1:3000/` 返回 200。
+- `http://127.0.0.1:3000/api/public/friend-links` GET 返回 200。
+- `https://yiyuanpack.com/` 返回 200。
+- 本机与公网首页 HTML 已确认包含新 footer 输出：`site-footer-friend-links`、`Friend Links`、`Request Export Quote`。
+
 ## 2026-07-02 - 修正页脚品牌区居中层级
 
 背景：
