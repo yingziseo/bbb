@@ -41,7 +41,6 @@ const form = reactive({
   email: '',
   country: '',
   message: props.defaultProduct ? `I am interested in ${props.defaultProduct}.\n` : '',
-  website: '',
 })
 
 watch(
@@ -128,8 +127,6 @@ const submit = async (el?: FormInstance) => {
         :placeholder="messagePlaceholder"
       />
     </el-form-item>
-
-    <input v-model="form.website" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
     <div class="pt-1">
       <el-button color="#c1121f" size="large" native-type="button" class="w-full sm:!w-auto" :loading="submitting" @click="submit(formRef)">

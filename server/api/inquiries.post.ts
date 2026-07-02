@@ -9,10 +9,6 @@ export default defineEventHandler(async (event) => {
   assertInquiryRateLimit(event)
 
   const body = await readBody(event)
-  if (asString(body?.website)) {
-    throw createError({ statusCode: 400, statusMessage: 'Invalid submission' })
-  }
-
   const name = asString(body?.name)
   const email = asString(body?.email).toLowerCase()
   const country = asString(body?.country)
