@@ -2,6 +2,7 @@
 import { ArrowDown } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 import flagCn from 'flag-icons/flags/4x3/cn.svg'
+import flagDe from 'flag-icons/flags/4x3/de.svg'
 import flagEs from 'flag-icons/flags/4x3/es.svg'
 import flagFr from 'flag-icons/flags/4x3/fr.svg'
 import flagId from 'flag-icons/flags/4x3/id.svg'
@@ -25,6 +26,7 @@ type LanguageOption = {
 
 const languages: LanguageOption[] = [
   { code: 'en', shortCode: 'EN', label: 'English', flag: flagUs },
+  { code: 'zh', shortCode: 'ZH', label: 'Chinese', flag: flagCn },
   { code: 'id', shortCode: 'ID', label: 'Indonesian', flag: flagId },
   { code: 'ms', shortCode: 'MS', label: 'Malay', flag: flagMy },
   { code: 'th', shortCode: 'TH', label: 'Thai', flag: flagTh },
@@ -32,14 +34,17 @@ const languages: LanguageOption[] = [
   { code: 'fil', shortCode: 'FIL', label: 'Filipino', flag: flagPh },
   { code: 'my', shortCode: 'MY', label: 'Burmese', flag: flagMm },
   { code: 'km', shortCode: 'KM', label: 'Khmer', flag: flagKh },
-  { code: 'zh', shortCode: 'ZH', label: 'Chinese', flag: flagCn },
-  { code: 'ja', shortCode: 'JA', label: 'Japanese', flag: flagJp },
-  { code: 'ko', shortCode: 'KO', label: 'Korean', flag: flagKr },
   { code: 'ar', shortCode: 'AR', label: 'Arabic', flag: flagSa },
+  { code: 'de', shortCode: 'DE', label: 'German', flag: flagDe },
   { code: 'es', shortCode: 'ES', label: 'Spanish', flag: flagEs },
   { code: 'fr', shortCode: 'FR', label: 'French', flag: flagFr },
+  { code: 'ja', shortCode: 'JA', label: 'Japanese', flag: flagJp },
+  { code: 'ko', shortCode: 'KO', label: 'Korean', flag: flagKr },
 ]
 
+const props = withDefaults(defineProps<{ compact?: boolean }>(), {
+  compact: false,
+})
 const activeLanguage = languages[0]
 
 const notifyUnavailable = () => {
@@ -56,12 +61,13 @@ const notifyUnavailable = () => {
   >
     <button
       type="button"
-      class="inline-flex h-8 items-center gap-1.5 border border-[var(--color-line)] bg-white px-2.5 text-[12px] font-semibold text-[var(--color-navy)] transition-colors hover:border-[var(--color-navy)]"
+      class="language-switcher-trigger"
+      :class="{ 'language-switcher-trigger--compact': props.compact }"
       aria-label="Select language"
     >
-      <img :src="activeLanguage.flag" alt="" class="h-3.5 w-5 border border-black/10 object-cover" aria-hidden="true" />
-      <span>{{ activeLanguage.shortCode }}</span>
-      <el-icon :size="12"><ArrowDown /></el-icon>
+      <img :src="activeLanguage.flag" alt="" class="language-switcher-trigger__flag" aria-hidden="true" />
+      <span v-if="!props.compact">{{ activeLanguage.shortCode }}</span>
+      <el-icon v-if="!props.compact" :size="12"><ArrowDown /></el-icon>
     </button>
 
     <template #dropdown>
@@ -89,6 +95,42 @@ const notifyUnavailable = () => {
 </template>
 
 <style>
+.language-switcher-trigger {
+  display: inline-flex;
+  height: 32px;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--color-line);
+  background: #fff;
+  padding: 0 10px;
+  color: var(--color-navy);
+  font-size: 12px;
+  font-weight: 700;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.language-switcher-trigger:hover,
+.language-switcher-trigger:focus-visible {
+  border-color: var(--color-navy);
+}
+
+.language-switcher-trigger--compact {
+  height: 40px;
+  min-width: 40px;
+  justify-content: center;
+  gap: 4px;
+  padding: 0 8px;
+}
+
+.language-switcher-trigger__flag {
+  height: 14px;
+  width: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  object-fit: cover;
+}
+
 .language-switcher-popper {
   max-width: min(92vw, 310px);
 }

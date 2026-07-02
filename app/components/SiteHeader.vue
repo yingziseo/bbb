@@ -169,17 +169,20 @@ onBeforeUnmount(() => {
             </NuxtLink>
           </div>
 
-          <button
-            class="site-mobile-toggle lg:hidden"
-            :aria-label="mobileOpen ? 'Close menu' : 'Open menu'"
-            :aria-expanded="mobileOpen"
-            @click="mobileOpen = !mobileOpen"
-          >
-            <el-icon :size="20">
-              <Close v-if="mobileOpen" />
-              <MenuIcon v-else />
-            </el-icon>
-          </button>
+          <div class="site-mobile-actions lg:hidden">
+            <LanguageSwitcher compact />
+            <button
+              class="site-mobile-toggle"
+              :aria-label="mobileOpen ? 'Close menu' : 'Open menu'"
+              :aria-expanded="mobileOpen"
+              @click="mobileOpen = !mobileOpen"
+            >
+              <el-icon :size="20">
+                <Close v-if="mobileOpen" />
+                <MenuIcon v-else />
+              </el-icon>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -209,10 +212,6 @@ onBeforeUnmount(() => {
               </NuxtLink>
             </div>
 
-            <div class="flex items-center justify-between border-b border-[var(--color-line)] py-3">
-              <span class="text-[12px] font-semibold uppercase tracking-[0.12em] text-[var(--color-slate-muted)]">Language</span>
-              <LanguageSwitcher />
-            </div>
             <div class="grid grid-cols-2 gap-3 pt-4">
               <el-button tag="a" :href="company.whatsappLink" target="_blank" color="#1b3c63" class="w-full">WhatsApp</el-button>
               <NuxtLink to="/contact">
@@ -535,6 +534,13 @@ onBeforeUnmount(() => {
     border-color 180ms ease,
     background-color 180ms ease,
     color 180ms ease;
+}
+
+.site-mobile-actions {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 8px;
 }
 
 .site-mobile-toggle:hover,
