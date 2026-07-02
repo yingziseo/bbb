@@ -36,19 +36,27 @@ const year = new Date().getFullYear()
     <div class="border-b border-white/10">
       <div class="container-x py-5">
         <div class="flex flex-wrap items-center justify-center gap-2.5 md:gap-3">
-          <a
-            v-for="item in socialPlatforms"
-            :key="item.platformKey"
-            :title="item.name"
-            :aria-label="item.name"
-            :href="item.url || undefined"
-            :target="item.url && item.newWindow ? '_blank' : undefined"
-            :rel="item.url && item.newWindow ? 'noopener' : undefined"
-            :aria-disabled="!item.url"
-            class="flex h-11 w-11 items-center justify-center border border-white/12 bg-white/3 text-white/70 transition-colors hover:bg-white/7 hover:text-white"
-          >
-            <SocialIcon :name="item.platformKey" />
-          </a>
+          <template v-for="item in socialPlatforms" :key="item.platformKey">
+            <a
+              v-if="item.url"
+              :title="item.name"
+              :aria-label="item.name"
+              :href="item.url"
+              :target="item.newWindow ? '_blank' : undefined"
+              :rel="item.newWindow ? 'noopener' : undefined"
+              class="flex h-11 w-11 items-center justify-center border border-white/12 bg-white/3 text-white/70 transition-colors hover:bg-white/7 hover:text-white"
+            >
+              <SocialIcon :name="item.platformKey" />
+            </a>
+            <span
+              v-else
+              :title="item.name"
+              class="flex h-11 w-11 items-center justify-center border border-white/12 bg-white/3 text-white/45"
+              aria-hidden="true"
+            >
+              <SocialIcon :name="item.platformKey" />
+            </span>
+          </template>
         </div>
       </div>
     </div>
@@ -60,7 +68,16 @@ const year = new Date().getFullYear()
             <div class="site-footer-brand">
               <div class="site-footer-brand__identity">
                 <span class="site-footer-logo site-footer-logo--desktop">
-                  <img :src="company.logoPath || '/site-logo.png'" :alt="company.displayName" class="site-footer-logo__image" />
+                  <NuxtImg
+                    :src="company.logoPath || '/site-logo.png'"
+                    :alt="company.displayName"
+                    width="64"
+                    height="64"
+                    format="webp"
+                    quality="90"
+                    densities="1x"
+                    class="site-footer-logo__image"
+                  />
                 </span>
                 <div class="min-w-0">
                   <div class="site-footer-brand__name">{{ company.displayName }}</div>
@@ -130,7 +147,16 @@ const year = new Date().getFullYear()
         <div class="site-footer-mobile-brand border border-white/10 px-5 py-6">
           <div class="flex items-center justify-center gap-3">
             <div class="site-footer-logo site-footer-logo--mobile">
-              <img :src="company.logoPath || '/site-logo.png'" :alt="company.displayName" class="site-footer-logo__image" />
+              <NuxtImg
+                :src="company.logoPath || '/site-logo.png'"
+                :alt="company.displayName"
+                width="64"
+                height="64"
+                format="webp"
+                quality="90"
+                densities="1x"
+                class="site-footer-logo__image"
+              />
             </div>
             <div class="min-w-0 text-left">
               <div class="site-footer-mobile-brand__name">{{ company.displayName }}</div>
@@ -312,7 +338,7 @@ const year = new Date().getFullYear()
 .site-footer-brand__fact span,
 .site-footer-mobile-brand__facts span {
   display: block;
-  color: rgba(255, 255, 255, 0.42);
+  color: rgba(255, 255, 255, 0.62);
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.1em;

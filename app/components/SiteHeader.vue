@@ -109,7 +109,16 @@ onBeforeUnmount(() => {
         <div class="container-x flex h-[68px] items-center justify-between gap-4">
           <NuxtLink to="/" class="site-brand group">
             <span class="site-brand__mark">
-              <img :src="company.logoPath || '/site-logo.png'" :alt="company.displayName" class="site-brand__logo" />
+              <NuxtImg
+                :src="company.logoPath || '/site-logo.png'"
+                :alt="company.displayName"
+                width="64"
+                height="64"
+                format="webp"
+                quality="90"
+                densities="1x"
+                class="site-brand__logo"
+              />
             </span>
             <span class="site-brand__copy">
               <span class="site-brand__name site-brand__name--full">{{ company.displayName }}</span>

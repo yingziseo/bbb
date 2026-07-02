@@ -62,7 +62,7 @@ await useManagedSeo('page:home', {
 
 <template>
   <div>
-    <HomeLeadPopup :settings="company" />
+    <LazyHomeLeadPopup :settings="company" />
 
     <!-- HERO -->
     <section class="bg-[var(--color-navy)] text-white">
@@ -107,6 +107,7 @@ await useManagedSeo('page:home', {
               width="1024"
               height="1024"
               sizes="sm:100vw md:50vw lg:560px"
+              quality="86"
               :preload="{ fetchPriority: 'high' }"
               loading="eager"
               fetchpriority="high"
@@ -154,6 +155,8 @@ await useManagedSeo('page:home', {
                 width="640"
                 height="480"
                 sizes="sm:100vw md:50vw lg:25vw"
+                densities="1x"
+                quality="82"
                 loading="lazy"
                 fetchpriority="low"
                 decoding="async"
@@ -192,7 +195,7 @@ await useManagedSeo('page:home', {
         </div>
         <div class="grid grid-cols-2 gap-4">
           <div v-for="cap in capabilities" :key="cap.title" class="border border-[var(--color-line)] bg-white p-5">
-            <h4 class="text-[15px] font-bold text-[var(--color-navy)]">{{ cap.title }}</h4>
+            <h3 class="text-[15px] font-bold text-[var(--color-navy)]">{{ cap.title }}</h3>
             <p class="mt-2 text-[13px] leading-relaxed text-[var(--color-slate-muted)]">{{ cap.desc }}</p>
           </div>
         </div>
@@ -215,6 +218,8 @@ await useManagedSeo('page:home', {
               width="1024"
               height="1024"
               sizes="sm:100vw md:66vw lg:760px"
+              densities="1x"
+              quality="82"
               loading="lazy"
               fetchpriority="low"
               decoding="async"
@@ -228,6 +233,8 @@ await useManagedSeo('page:home', {
               width="640"
               height="480"
               sizes="sm:100vw md:33vw lg:380px"
+              densities="1x"
+              quality="82"
               loading="lazy"
               fetchpriority="low"
               decoding="async"
@@ -241,6 +248,8 @@ await useManagedSeo('page:home', {
               width="640"
               height="480"
               sizes="sm:100vw md:33vw lg:380px"
+              densities="1x"
+              quality="82"
               loading="lazy"
               fetchpriority="low"
               decoding="async"
@@ -261,6 +270,8 @@ await useManagedSeo('page:home', {
             width="1024"
             height="1024"
             sizes="sm:100vw md:50vw lg:560px"
+            densities="1x"
+            quality="82"
             loading="lazy"
             fetchpriority="low"
             decoding="async"
@@ -356,6 +367,8 @@ await useManagedSeo('page:home', {
             width="1024"
             height="1024"
             sizes="sm:100vw md:50vw lg:560px"
+            densities="1x"
+            quality="82"
             loading="lazy"
             fetchpriority="low"
             decoding="async"

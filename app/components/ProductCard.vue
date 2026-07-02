@@ -13,6 +13,8 @@ defineProps<{ product: Product }>()
         width="640"
         height="480"
         sizes="sm:100vw md:50vw lg:25vw"
+        densities="1x"
+        quality="82"
         class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.04]"
         loading="lazy"
         fetchpriority="low"

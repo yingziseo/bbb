@@ -63,7 +63,7 @@ const notifyUnavailable = () => {
       type="button"
       class="language-switcher-trigger"
       :class="{ 'language-switcher-trigger--compact': props.compact }"
-      aria-label="Select language"
+      :aria-label="props.compact ? 'Select language' : `Select language ${activeLanguage.shortCode}`"
     >
       <img :src="activeLanguage.flag" alt="" class="language-switcher-trigger__flag" aria-hidden="true" />
       <span v-if="!props.compact">{{ activeLanguage.shortCode }}</span>

@@ -9,6 +9,7 @@ const props = defineProps<{
 const storageKey = 'yiyuan:home-popup-video-modal-dismissed-until'
 const visible = ref(false)
 const videoOpen = ref(false)
+let popupTimer: ReturnType<typeof window.setTimeout> | null = null
 
 const popupEnabled = computed(() => props.settings.homePopupEnabled === 'true')
 const cooldownMs = computed(() => {
@@ -54,6 +55,18 @@ const closeVideo = () => {
   videoOpen.value = false
 }
 
+const getPopupDelay = () => {
+  if (!import.meta.client) return 0
+
+  return window.matchMedia('(max-width: 760px)').matches ? 3000 : 2500
+}
+
+const clearPopupTimer = () => {
+  if (!popupTimer) return
+  window.clearTimeout(popupTimer)
+  popupTimer = null
+}
+
 const handleKeydown = (event: KeyboardEvent) => {
   if (event.key !== 'Escape' || !visible.value) return
 
@@ -96,16 +109,23 @@ function toEmbedVideoUrl(rawUrl: string) {
 }
 
 onMounted(() => {
-  visible.value = shouldShowPopup()
+  if (shouldShowPopup()) {
+    popupTimer = window.setTimeout(() => {
+      visible.value = true
+      popupTimer = null
+    }, getPopupDelay())
+  }
   window.addEventListener('keydown', handleKeydown)
 })
 
 onBeforeUnmount(() => {
+  clearPopupTimer()
   window.removeEventListener('keydown', handleKeydown)
 })
 
 watch(popupEnabled, (enabled) => {
   if (!enabled) {
+    clearPopupTimer()
     visible.value = false
     videoOpen.value = false
   }
@@ -189,6 +209,7 @@ watch(popupEnabled, (enabled) => {
                     class="home-lead-popup__play"
                     :class="{ 'is-disabled': !hasVideo }"
                     :aria-disabled="!hasVideo"
+                    :disabled="!hasVideo"
                     @click="startVideo"
                   >
                     <span class="home-lead-popup__play-icon">
@@ -766,8 +787,8 @@ watch(popupEnabled, (enabled) => {
 
   .home-lead-popup__actions {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
+    grid-template-columns: 1fr;
+    gap: 12px;
     margin-top: 12px;
     align-items: stretch;
   }
@@ -775,8 +796,8 @@ watch(popupEnabled, (enabled) => {
   .home-lead-popup__actions > a,
   .home-lead-popup__actions :deep(.el-button) {
     width: 100%;
-    height: 38px;
-    min-height: 38px;
+    height: 44px;
+    min-height: 44px;
     padding: 0 10px;
     margin-left: 0;
     font-size: 13px;
@@ -889,14 +910,14 @@ watch(popupEnabled, (enabled) => {
   }
 
   .home-lead-popup__actions {
-    gap: 6px;
+    gap: 10px;
     margin-top: 10px;
   }
 
   .home-lead-popup__actions > a,
   .home-lead-popup__actions :deep(.el-button) {
-    height: 34px;
-    min-height: 34px;
+    height: 44px;
+    min-height: 44px;
   }
 
   .home-lead-popup__email {

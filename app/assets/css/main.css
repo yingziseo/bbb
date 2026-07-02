@@ -237,6 +237,11 @@ body {
   padding-left: 10px;
 }
 
+.section-heading--inverse .eyebrow {
+  color: #ffb4bc;
+  border-left-color: #ffb4bc;
+}
+
 .section-title {
   font-size: clamp(26px, 3.4vw, 36px);
   font-weight: 800;

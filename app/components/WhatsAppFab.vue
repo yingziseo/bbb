@@ -69,7 +69,6 @@ const contactOptions = [
       v-if="!expanded"
       type="button"
       class="whatsapp-fab__trigger"
-      aria-label="Open contact options"
       :aria-expanded="expanded"
       @click="openContactOptions"
     >
@@ -91,12 +90,11 @@ const contactOptions = [
       <button
         type="button"
         class="flex w-full items-center justify-between border-b border-[var(--color-accent-dark)] bg-[var(--color-accent)] px-4 py-3 text-left text-white"
-        aria-label="Collapse contact options"
         :aria-expanded="expanded"
         @click="collapseContactOptions"
       >
         <span>
-          <span class="block text-[12px] font-bold uppercase text-white/68">Contact</span>
+          <span class="block text-[12px] font-bold uppercase text-white">Contact</span>
           <span class="mt-1 block text-[14px] font-semibold">WhatsApp, Email, or Inquiry Form</span>
         </span>
         <el-icon :size="18" class="text-white/78">
@@ -243,7 +241,7 @@ const contactOptions = [
   font-weight: 700;
   letter-spacing: 0;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(255, 255, 255, 0.92);
 }
 
 @keyframes contact-soft-nudge {
