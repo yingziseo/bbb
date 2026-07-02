@@ -32,7 +32,7 @@ const registeredFacts = [
     <section class="bg-[var(--color-navy)] text-white">
       <div class="container-x grid lg:grid-cols-2 gap-10 py-14 items-center">
         <div>
-          <el-breadcrumb separator="/" class="mb-4 [&_.el-breadcrumb__inner]:!text-white/70">
+          <el-breadcrumb separator="/" class="page-breadcrumb page-breadcrumb--dark mb-4">
             <el-breadcrumb-item :to="{ path: '/' }">Home</el-breadcrumb-item>
             <el-breadcrumb-item>Company</el-breadcrumb-item>
           </el-breadcrumb>

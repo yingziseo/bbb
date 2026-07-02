@@ -31,7 +31,7 @@ const related = computed(() =>
   <div v-if="product">
     <section class="bg-[var(--color-panel)] border-b border-[var(--color-line)]">
       <div class="container-x py-5">
-        <el-breadcrumb separator="/">
+        <el-breadcrumb separator="/" class="page-breadcrumb page-breadcrumb--light">
           <el-breadcrumb-item :to="{ path: '/' }">Home</el-breadcrumb-item>
           <el-breadcrumb-item :to="{ path: '/products' }">Products</el-breadcrumb-item>
           <el-breadcrumb-item>{{ product.name }}</el-breadcrumb-item>

@@ -114,6 +114,98 @@ body {
   padding-inline: 20px;
 }
 
+.page-breadcrumb {
+  display: inline-flex;
+  max-width: 100%;
+  align-items: center;
+  overflow: hidden;
+  padding: 8px 11px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.page-breadcrumb .el-breadcrumb__item {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+}
+
+.page-breadcrumb .el-breadcrumb__inner {
+  display: inline-block;
+  max-width: min(42vw, 360px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: bottom;
+  white-space: nowrap;
+}
+
+.page-breadcrumb .el-breadcrumb__separator {
+  margin-inline: 9px;
+  font-weight: 800;
+}
+
+.page-breadcrumb--dark {
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: inset 3px 0 0 rgba(193, 18, 31, 0.95);
+}
+
+.page-breadcrumb--dark .el-breadcrumb__inner,
+.page-breadcrumb--dark .el-breadcrumb__inner a {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.page-breadcrumb--dark .el-breadcrumb__inner.is-link:hover,
+.page-breadcrumb--dark .el-breadcrumb__inner a:hover,
+.page-breadcrumb--dark .el-breadcrumb__item:last-child .el-breadcrumb__inner {
+  color: #ffffff;
+}
+
+.page-breadcrumb--dark .el-breadcrumb__separator {
+  color: rgba(255, 255, 255, 0.58);
+}
+
+.page-breadcrumb--light {
+  border: 1px solid var(--color-line-strong);
+  background: #ffffff;
+  box-shadow:
+    inset 3px 0 0 var(--color-accent),
+    0 8px 18px rgba(15, 42, 74, 0.06);
+}
+
+.page-breadcrumb--light .el-breadcrumb__inner,
+.page-breadcrumb--light .el-breadcrumb__inner a {
+  color: var(--color-slate-muted);
+}
+
+.page-breadcrumb--light .el-breadcrumb__inner.is-link:hover,
+.page-breadcrumb--light .el-breadcrumb__inner a:hover,
+.page-breadcrumb--light .el-breadcrumb__item:last-child .el-breadcrumb__inner {
+  color: var(--color-navy);
+}
+
+.page-breadcrumb--light .el-breadcrumb__separator {
+  color: var(--color-line-strong);
+}
+
+@media (max-width: 640px) {
+  .page-breadcrumb {
+    padding: 7px 9px;
+    font-size: 11px;
+  }
+
+  .page-breadcrumb .el-breadcrumb__inner {
+    max-width: min(50vw, 220px);
+  }
+
+  .page-breadcrumb .el-breadcrumb__separator {
+    margin-inline: 7px;
+  }
+}
+
 .eyebrow {
   display: inline-block;
   font-size: 12px;

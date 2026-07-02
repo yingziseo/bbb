@@ -51,7 +51,7 @@ await useManagedSeo(`category:${slug}`, {
   <div v-if="category">
     <section class="bg-[var(--color-navy)] text-white">
       <div class="container-x py-12">
-        <el-breadcrumb separator="/" class="!text-white/70 mb-4 [&_.el-breadcrumb__inner]:!text-white/70">
+        <el-breadcrumb separator="/" class="page-breadcrumb page-breadcrumb--dark mb-4">
           <el-breadcrumb-item :to="{ path: '/' }">Home</el-breadcrumb-item>
           <el-breadcrumb-item :to="{ path: '/products' }">Products</el-breadcrumb-item>
           <el-breadcrumb-item>{{ category.name }}</el-breadcrumb-item>

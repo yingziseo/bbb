@@ -4,6 +4,39 @@ import { ArrowDown, ArrowUp, ChatDotRound, Document, Message } from '@element-pl
 const company = await useSiteSettings()
 
 const expanded = ref(false)
+const hasUserToggled = ref(false)
+let contactMediaQuery: MediaQueryList | null = null
+let removeMediaQueryListener = () => {}
+
+const applyDefaultExpanded = () => {
+  if (!contactMediaQuery || hasUserToggled.value) return
+  expanded.value = contactMediaQuery.matches
+}
+
+const openContactOptions = () => {
+  hasUserToggled.value = true
+  expanded.value = true
+}
+
+const collapseContactOptions = () => {
+  hasUserToggled.value = true
+  expanded.value = false
+}
+
+onMounted(() => {
+  contactMediaQuery = window.matchMedia('(min-width: 768px)')
+  const handleMediaChange = () => applyDefaultExpanded()
+
+  applyDefaultExpanded()
+  contactMediaQuery.addEventListener('change', handleMediaChange)
+  removeMediaQueryListener = () => {
+    contactMediaQuery?.removeEventListener('change', handleMediaChange)
+  }
+})
+
+onBeforeUnmount(() => {
+  removeMediaQueryListener()
+})
 
 const contactOptions = [
   {
@@ -38,7 +71,7 @@ const contactOptions = [
       class="whatsapp-fab__trigger"
       aria-label="Open contact options"
       :aria-expanded="expanded"
-      @click="expanded = true"
+      @click="openContactOptions"
     >
       <span class="whatsapp-fab__trigger-icon" aria-hidden="true">
         <el-icon :size="22">
@@ -60,10 +93,10 @@ const contactOptions = [
         class="flex w-full items-center justify-between border-b border-[var(--color-accent-dark)] bg-[var(--color-accent)] px-4 py-3 text-left text-white"
         aria-label="Collapse contact options"
         :aria-expanded="expanded"
-        @click="expanded = !expanded"
+        @click="collapseContactOptions"
       >
         <span>
-          <span class="block text-[12px] font-bold uppercase tracking-[0.12em] text-white/68">Contact</span>
+          <span class="block text-[12px] font-bold uppercase text-white/68">Contact</span>
           <span class="mt-1 block text-[14px] font-semibold">WhatsApp, email, or form</span>
         </span>
         <el-icon :size="18" class="text-white/78">
@@ -200,7 +233,7 @@ const contactOptions = [
   white-space: nowrap;
   font-size: 15px;
   font-weight: 800;
-  letter-spacing: 0.01em;
+  letter-spacing: 0;
 }
 
 .whatsapp-fab__trigger-note {
@@ -208,7 +241,7 @@ const contactOptions = [
   white-space: nowrap;
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.11em;
+  letter-spacing: 0;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.72);
 }

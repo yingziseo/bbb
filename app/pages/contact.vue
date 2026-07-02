@@ -18,7 +18,7 @@ const defaultProduct = computed(() => (route.query.product as string) || '')
   <div>
     <section class="bg-[var(--color-navy)] text-white">
       <div class="container-x py-12">
-        <el-breadcrumb separator="/" class="mb-4 [&_.el-breadcrumb__inner]:!text-white/70">
+        <el-breadcrumb separator="/" class="page-breadcrumb page-breadcrumb--dark mb-4">
           <el-breadcrumb-item :to="{ path: '/' }">Home</el-breadcrumb-item>
           <el-breadcrumb-item>Contact</el-breadcrumb-item>
         </el-breadcrumb>

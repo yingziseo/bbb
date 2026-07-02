@@ -28,7 +28,7 @@ const more = computed(() => (moreData.value?.items || []).filter((p) => p.slug !
   <div v-if="post">
     <section class="bg-[var(--color-panel)] border-b border-[var(--color-line)]">
       <div class="container-x py-5">
-        <el-breadcrumb separator="/">
+        <el-breadcrumb separator="/" class="page-breadcrumb page-breadcrumb--light">
           <el-breadcrumb-item :to="{ path: '/' }">Home</el-breadcrumb-item>
           <el-breadcrumb-item :to="{ path: '/blog' }">Blog</el-breadcrumb-item>
           <el-breadcrumb-item>Article</el-breadcrumb-item>
