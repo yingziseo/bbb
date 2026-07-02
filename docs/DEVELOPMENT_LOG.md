@@ -9,6 +9,42 @@
 - 如果只是文档或内容改动，也要记录。
 - 如果没有跑测试或构建，需要明确写出来。
 
+## 2026-07-02 - 调整页脚友情链接为横向展示
+
+背景：
+
+- 用户要求 `Friend Links` 不要作为页脚竖向栏目展示，需要单独在底部横向显示一行友情链接。
+- 手机端仍保持折叠展示。
+
+改动：
+
+- 桌面端页脚主内容恢复为品牌、Products、Company、Contact 四列。
+- 友情链接从桌面端主网格中移出，改到四列内容下方，单独一行横向排列。
+- 桌面端横向友链只显示链接名称，不显示描述。
+- 手机端 `Friend Links` 折叠区块保持不变。
+- 同步文档中关于友情链接展示方式的描述。
+
+涉及文件：
+
+- `app/components/SiteFooter.vue`
+- `docs/ADMIN_PANEL_USAGE.md`
+- `docs/DEVELOPMENT_LOG.md`
+- `docs/PROJECT_OVERVIEW.md`
+- `docs/PROJECT_STATE.md`
+
+验证：
+
+- `NODE_OPTIONS=--max-old-space-size=1536 ionice -c2 -n7 nice -n 15 pnpm build` 通过。
+- 构建存在既有警告：TinyMCE CSS `2of`、部分 chunk 超 500 kB、`@nuxt/image` sharp binaries 警告；未阻断构建。
+- 已重启 `3000` 生产服务，当前监听 `127.0.0.1:3000`，PID `1953498`。
+- `http://127.0.0.1:3000/` 返回 200。
+- `http://127.0.0.1:3000/api/public/friend-links` 返回 200。
+- 源站 HTTPS 直连 `https://yiyuanpack.com/` 返回 200。
+
+提交：
+
+- commit: `待提交`
+
 ## 2026-07-02 - 优化顶部导航、博客目录并新增友情链接模块
 
 背景：

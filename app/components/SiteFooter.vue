@@ -66,10 +66,7 @@ const year = new Date().getFullYear()
 
     <div class="hidden md:block">
       <div class="container-x py-12">
-        <div
-          class="grid gap-10"
-          :class="friendLinks.length ? 'lg:grid-cols-5' : 'lg:grid-cols-[1.2fr_0.85fr_0.85fr_1fr]'"
-        >
+        <div class="grid gap-10 lg:grid-cols-[1.2fr_0.85fr_0.85fr_1fr]">
           <div class="border-r border-white/10 pr-8">
             <div class="site-footer-brand">
               <div class="site-footer-brand__identity">
@@ -144,24 +141,21 @@ const year = new Date().getFullYear()
               </a>
             </div>
           </div>
+        </div>
 
-          <div v-if="friendLinks.length">
-            <h4 class="mb-4 text-white font-bold text-[14px] uppercase tracking-[0.12em]">Friend Links</h4>
-            <ul class="space-y-2.5 text-[14px] text-white/62">
-              <li v-for="item in friendLinks" :key="item.id">
-                <a
-                  :href="item.url"
-                  :target="item.newWindow ? '_blank' : undefined"
-                  :rel="item.newWindow ? 'noopener' : undefined"
-                  class="hover:text-white transition-colors"
-                >
-                  {{ item.name }}
-                </a>
-                <div v-if="item.description" class="mt-0.5 text-[12px] leading-relaxed text-white/42">
-                  {{ item.description }}
-                </div>
-              </li>
-            </ul>
+        <div v-if="friendLinks.length" class="mt-10 border-t border-white/10 pt-5">
+          <div class="flex flex-wrap items-center gap-x-5 gap-y-2 text-[13px] text-white/58">
+            <span class="font-bold uppercase tracking-[0.12em] text-white/70">Friend Links</span>
+            <a
+              v-for="item in friendLinks"
+              :key="item.id"
+              :href="item.url"
+              :target="item.newWindow ? '_blank' : undefined"
+              :rel="item.newWindow ? 'noopener' : undefined"
+              class="transition-colors hover:text-white"
+            >
+              {{ item.name }}
+            </a>
           </div>
         </div>
       </div>

@@ -115,7 +115,7 @@ docs/
 - `seo_entries`：页面 TDK、canonical、robots、OG 和结构化数据相关配置。
 - `inquiries`：前台询盘记录、处理状态和邮件发送状态。
 - `social_links`：页脚社交平台链接。
-- `friend_links`：页脚低优先级友情链接。
+- `friend_links`：页脚友情链接。
 - `admin_users`、`sessions`、`uploaded_files`：后台账号、登录会话和上传文件记录。
 
 `app/data/site.ts` 仍保留公司默认值、跑马灯内容和产品/博客初始化种子数据。产品详情页、分类页和博客详情页都依赖 slug 精确匹配，新增产品、分类或文章时需要保证 slug 唯一。
@@ -137,7 +137,7 @@ docs/
 - WhatsApp 和邮箱使用外部链接或 `mailto:`。
 - 语言切换入口仅保留在手机端，当前作为多语言预留入口。
 - 博客详情页桌面端显示悬浮文章目录，手机端不显示目录。
-- 页脚友情链接由后台维护；手机端与 Products、Company、Contact 一样折叠显示，默认收起。
+- 页脚友情链接由后台维护；桌面端在页脚底部横向展示，手机端与 Products、Company、Contact 一样折叠显示，默认收起。
 
 ## SEO 与 head
 
