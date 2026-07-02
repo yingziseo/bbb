@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Promotion } from '@element-plus/icons-vue'
 import type { Product } from '~/data/site'
 defineProps<{ product: Product }>()
 </script>
@@ -38,7 +39,10 @@ defineProps<{ product: Product }>()
           <el-button class="w-full" plain>Details</el-button>
         </NuxtLink>
         <NuxtLink :to="`/contact?product=${encodeURIComponent(product.name)}`" class="flex-1">
-          <el-button class="w-full" color="#c1121f">Inquiry</el-button>
+          <el-button class="w-full" color="#c1121f">
+            <el-icon><Promotion /></el-icon>
+            <span>Inquiry</span>
+          </el-button>
         </NuxtLink>
       </div>
     </div>

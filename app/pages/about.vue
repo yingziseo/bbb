@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { OfficeBuilding, Setting, Box, Histogram, Check } from '@element-plus/icons-vue'
+import { OfficeBuilding, Setting, Box, Histogram, Check, Promotion } from '@element-plus/icons-vue'
 
 const company = await useSiteSettings()
 
@@ -133,7 +133,10 @@ const registeredFacts = [
             </li>
           </ul>
           <NuxtLink to="/contact" class="inline-block mt-7">
-            <el-button color="#c1121f" size="large">Start an Inquiry</el-button>
+            <el-button color="#c1121f" size="large">
+              <el-icon><Promotion /></el-icon>
+              <span>Start an Inquiry</span>
+            </el-button>
           </NuxtLink>
         </div>
       </div>
@@ -145,8 +148,18 @@ const registeredFacts = [
         <h2 class="text-[clamp(24px,3.4vw,34px)] font-extrabold">Send Your Inquiry</h2>
         <p class="mt-3 text-white/75 max-w-xl mx-auto">Send product details by email or WhatsApp.</p>
         <div class="mt-7 flex flex-wrap justify-center gap-3">
-          <NuxtLink to="/contact"><el-button color="#c1121f" size="large">Get a Quote</el-button></NuxtLink>
-          <el-button tag="a" :href="company.whatsappLink" target="_blank" size="large" color="#1b3c63">Contact on WhatsApp</el-button>
+          <NuxtLink to="/contact">
+            <el-button color="#c1121f" size="large">
+              <el-icon><Promotion /></el-icon>
+              <span>Get a Quote</span>
+            </el-button>
+          </NuxtLink>
+          <el-button tag="a" :href="company.whatsappLink" target="_blank" size="large" color="#1b3c63">
+            <span class="inline-flex items-center gap-1.5">
+              <SocialIcon name="whatsapp" />
+              <span>Contact on WhatsApp</span>
+            </span>
+          </el-button>
         </div>
       </div>
     </section>

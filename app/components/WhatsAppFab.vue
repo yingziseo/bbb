@@ -80,7 +80,7 @@ const contactOptions = [
       </span>
       <span class="whatsapp-fab__trigger-copy">
         <span class="whatsapp-fab__trigger-label">Contact Us</span>
-        <span class="whatsapp-fab__trigger-note">Fast quote</span>
+        <span class="whatsapp-fab__trigger-note">Fast Quote</span>
       </span>
     </button>
 
@@ -97,7 +97,7 @@ const contactOptions = [
       >
         <span>
           <span class="block text-[12px] font-bold uppercase text-white/68">Contact</span>
-          <span class="mt-1 block text-[14px] font-semibold">WhatsApp, email, or form</span>
+          <span class="mt-1 block text-[14px] font-semibold">WhatsApp, Email, or Inquiry Form</span>
         </span>
         <el-icon :size="18" class="text-white/78">
           <ArrowUp v-if="expanded" />

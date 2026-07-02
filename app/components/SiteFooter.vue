@@ -112,7 +112,12 @@ const year = new Date().getFullYear()
             </div>
             <div class="mt-5">
               <a :href="company.whatsappLink" target="_blank" class="inline-block">
-                <el-button color="#c1121f">Chat on WhatsApp</el-button>
+                <el-button color="#c1121f">
+                  <span class="inline-flex items-center gap-1.5">
+                    <SocialIcon name="whatsapp" />
+                    <span>Chat on WhatsApp</span>
+                  </span>
+                </el-button>
               </a>
             </div>
           </div>
@@ -205,7 +210,12 @@ const year = new Date().getFullYear()
               <div class="leading-relaxed">{{ company.address }}</div>
               <div class="pt-2">
                 <a :href="company.whatsappLink" target="_blank" class="inline-block">
-                  <el-button color="#c1121f">Chat on WhatsApp</el-button>
+                  <el-button color="#c1121f">
+                    <span class="inline-flex items-center gap-1.5">
+                      <SocialIcon name="whatsapp" />
+                      <span>Chat on WhatsApp</span>
+                    </span>
+                  </el-button>
                 </a>
               </div>
             </div>

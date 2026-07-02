@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Message, Location, OfficeBuilding, Clock } from '@element-plus/icons-vue'
+import { Message, Location, Clock } from '@element-plus/icons-vue'
 
 const company = await useSiteSettings()
 
@@ -51,7 +51,10 @@ const defaultProduct = computed(() => (route.query.product as string) || '')
                 size="large"
                 class="!ml-0 !h-auto !min-h-12 !w-full !whitespace-normal !px-4 !py-3"
               >
-                <span class="text-center leading-snug">WhatsApp {{ company.phone }}</span>
+                <span class="inline-flex items-center justify-center gap-1.5 text-center leading-snug">
+                  <SocialIcon name="whatsapp" />
+                  <span>WhatsApp {{ company.phone }}</span>
+                </span>
               </el-button>
               <el-button
                 tag="a"
@@ -77,7 +80,9 @@ const defaultProduct = computed(() => (route.query.product as string) || '')
               </div>
             </li>
             <li class="flex items-start gap-3 p-5">
-              <el-icon :size="20" class="text-[var(--color-accent)] mt-0.5"><OfficeBuilding /></el-icon>
+              <span class="mt-0.5 text-[var(--color-accent)]">
+                <SocialIcon name="whatsapp" />
+              </span>
               <div>
                 <div class="text-[12px] uppercase tracking-wide text-[var(--color-slate-muted)]">WhatsApp / Phone</div>
                 <div class="text-[15px] font-semibold text-[var(--color-navy)]">{{ company.phone }}</div>

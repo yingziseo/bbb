@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Promotion } from '@element-plus/icons-vue'
+
 const company = await useSiteSettings()
 
 const route = useRoute()
@@ -68,8 +70,18 @@ const more = computed(() => (moreData.value?.items || []).filter((p) => p.slug !
               <h3 class="text-[19px] font-extrabold">Need product details?</h3>
               <p class="mt-2 text-[14.5px] text-white/75 leading-relaxed">Contact us for product information and quotation.</p>
               <div class="mt-5 flex flex-wrap gap-3">
-                <NuxtLink to="/contact"><el-button color="#c1121f">Get a Quote</el-button></NuxtLink>
-                <el-button tag="a" :href="company.whatsappLink" target="_blank" color="#1b3c63">WhatsApp</el-button>
+                <NuxtLink to="/contact">
+                  <el-button color="#c1121f">
+                    <el-icon><Promotion /></el-icon>
+                    <span>Get a Quote</span>
+                  </el-button>
+                </NuxtLink>
+                <el-button tag="a" :href="company.whatsappLink" target="_blank" color="#1b3c63">
+                  <span class="inline-flex items-center gap-1.5">
+                    <SocialIcon name="whatsapp" />
+                    <span>WhatsApp</span>
+                  </span>
+                </el-button>
               </div>
             </div>
           </div>

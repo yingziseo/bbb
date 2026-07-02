@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Promotion } from '@element-plus/icons-vue'
 import type { Product } from '~/data/site'
 
 const company = await useSiteSettings()
@@ -103,9 +104,17 @@ await useManagedSeo(`category:${slug}`, {
         </div>
         <div class="flex gap-3">
           <NuxtLink :to="`/contact?product=${encodeURIComponent(category.name)}`">
-            <el-button color="#c1121f" size="large">Get a Quote</el-button>
+            <el-button color="#c1121f" size="large">
+              <el-icon><Promotion /></el-icon>
+              <span>Get a Quote</span>
+            </el-button>
           </NuxtLink>
-          <el-button tag="a" :href="company.whatsappLink" target="_blank" size="large" color="#1b3c63">WhatsApp</el-button>
+          <el-button tag="a" :href="company.whatsappLink" target="_blank" size="large" color="#1b3c63">
+            <span class="inline-flex items-center gap-1.5">
+              <SocialIcon name="whatsapp" />
+              <span>WhatsApp</span>
+            </span>
+          </el-button>
         </div>
       </div>
     </section>

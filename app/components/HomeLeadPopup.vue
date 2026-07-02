@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ChatDotRound, Close, FullScreen, Message, Mute, Present, VideoCamera } from '@element-plus/icons-vue'
+import { Close, FullScreen, Message, Mute, Present, Promotion, VideoCamera } from '@element-plus/icons-vue'
 import type { PublicSiteSettings } from '~/composables/useSiteSettings'
 
 const props = defineProps<{
@@ -139,18 +139,19 @@ watch(popupEnabled, (enabled) => {
               <div class="home-lead-popup__points">
                 <span>
                   <el-icon><Present /></el-icon>
-                  Free sample support
+                  Free Sample Support
                 </span>
                 <span>
-                  <el-icon><ChatDotRound /></el-icon>
-                  Fast quote by WhatsApp
+                  <SocialIcon name="whatsapp" />
+                  Fast Quote by WhatsApp
                 </span>
               </div>
 
               <div class="home-lead-popup__actions">
                 <NuxtLink to="/contact?source=home-popup">
                   <el-button color="#c1121f" size="large">
-                    Free Sample
+                    <el-icon><Promotion /></el-icon>
+                    <span>Free Sample</span>
                   </el-button>
                 </NuxtLink>
                 <el-button
@@ -161,7 +162,10 @@ watch(popupEnabled, (enabled) => {
                   color="#1b3c63"
                   size="large"
                 >
-                  Contact Us
+                  <span class="inline-flex items-center gap-1.5">
+                    <SocialIcon name="whatsapp" />
+                    <span>Contact on WhatsApp</span>
+                  </span>
                 </el-button>
                 <a class="home-lead-popup__email" :href="settings.contactLink">
                   <el-icon><Message /></el-icon>
@@ -352,6 +356,11 @@ watch(popupEnabled, (enabled) => {
 }
 
 .home-lead-popup__points .el-icon {
+  color: var(--color-accent);
+}
+
+.home-lead-popup__points svg {
+  flex: 0 0 auto;
   color: var(--color-accent);
 }
 

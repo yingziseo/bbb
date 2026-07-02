@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Promotion } from '@element-plus/icons-vue'
 import type { Product } from '~/data/site'
 
 const company = await useSiteSettings()
@@ -78,8 +79,18 @@ const products = computed(() => catalogData.value?.items || [])
           <p class="mt-2 text-[15px] text-[var(--color-slate-muted)]">Send size, quantity, and packaging requirements for quotation.</p>
         </div>
         <div class="flex gap-3">
-          <NuxtLink to="/contact"><el-button color="#c1121f" size="large">Get a Quote</el-button></NuxtLink>
-          <el-button tag="a" :href="company.whatsappLink" target="_blank" size="large" color="#1b3c63">WhatsApp</el-button>
+          <NuxtLink to="/contact">
+            <el-button color="#c1121f" size="large">
+              <el-icon><Promotion /></el-icon>
+              <span>Get a Quote</span>
+            </el-button>
+          </NuxtLink>
+          <el-button tag="a" :href="company.whatsappLink" target="_blank" size="large" color="#1b3c63">
+            <span class="inline-flex items-center gap-1.5">
+              <SocialIcon name="whatsapp" />
+              <span>WhatsApp</span>
+            </span>
+          </el-button>
         </div>
       </div>
     </section>

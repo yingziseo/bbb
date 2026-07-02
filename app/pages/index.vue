@@ -4,8 +4,8 @@ import {
   Check,
   ArrowRight,
   Message,
-  Phone,
   Location,
+  Promotion,
 } from '@element-plus/icons-vue'
 import type { Product } from '~/data/site'
 
@@ -80,12 +80,16 @@ await useManagedSeo('page:home', {
           <div class="mt-8 flex flex-wrap gap-3">
             <NuxtLink to="/contact">
               <el-button color="#c1121f" size="large">
+                <el-icon><Promotion /></el-icon>
                 Get a Quote
                 <el-icon class="ml-1"><ArrowRight /></el-icon>
               </el-button>
             </NuxtLink>
             <el-button tag="a" :href="company.whatsappLink" target="_blank" size="large" color="#1b3c63">
-              Contact on WhatsApp
+              <span class="inline-flex items-center gap-1.5">
+                <SocialIcon name="whatsapp" />
+                <span>Contact on WhatsApp</span>
+              </span>
             </el-button>
           </div>
           <div class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-[13.5px] text-white/70">
@@ -298,10 +302,16 @@ await useManagedSeo('page:home', {
           </ul>
           <div class="mt-8 flex flex-wrap gap-3">
             <NuxtLink to="/contact">
-              <el-button color="#c1121f" size="large">Request Custom Quote</el-button>
+              <el-button color="#c1121f" size="large">
+                <el-icon><Promotion /></el-icon>
+                <span>Request Custom Quote</span>
+              </el-button>
             </NuxtLink>
             <el-button tag="a" :href="company.whatsappLink" target="_blank" size="large" color="#1b3c63">
-              Contact on WhatsApp
+              <span class="inline-flex items-center gap-1.5">
+                <SocialIcon name="whatsapp" />
+                <span>Contact on WhatsApp</span>
+              </span>
             </el-button>
           </div>
         </div>
@@ -368,7 +378,7 @@ await useManagedSeo('page:home', {
           <div class="mt-8 grid gap-px overflow-hidden border border-white/10 bg-white/10 sm:grid-cols-3">
             <div class="bg-[var(--color-navy-dark)] p-5">
               <div class="flex items-center gap-2 text-white/70">
-                <el-icon><Phone /></el-icon>
+                <SocialIcon name="whatsapp" />
                 <span class="text-[12px] uppercase tracking-wide">WhatsApp / Phone</span>
               </div>
               <div class="mt-3 text-[15px] font-semibold text-white">{{ company.phone }}</div>
@@ -400,13 +410,20 @@ await useManagedSeo('page:home', {
           </div>
           <div class="mt-8 grid gap-3 [&_.el-button]:!ml-0 [&_.el-button]:!w-full">
             <NuxtLink to="/contact" class="block w-full">
-              <el-button color="#c1121f" size="large">Open Inquiry Form</el-button>
+              <el-button color="#c1121f" size="large">
+                <el-icon><Promotion /></el-icon>
+                <span>Open Inquiry Form</span>
+              </el-button>
             </NuxtLink>
             <el-button tag="a" :href="company.whatsappLink" target="_blank" size="large" color="#1b3c63">
-              Contact on WhatsApp
+              <span class="inline-flex items-center gap-1.5">
+                <SocialIcon name="whatsapp" />
+                <span>Contact on WhatsApp</span>
+              </span>
             </el-button>
             <el-button tag="a" :href="company.contactLink" size="large" plain class="!border-white/16 !bg-transparent !text-white hover:!bg-white/6">
-              Send Email
+              <el-icon><Message /></el-icon>
+              <span>Send Email</span>
             </el-button>
           </div>
         </div>

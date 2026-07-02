@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ArrowDown, Close, Message, Menu as MenuIcon, Phone } from '@element-plus/icons-vue'
+import { ArrowDown, Close, Message, Menu as MenuIcon, Promotion } from '@element-plus/icons-vue'
 import { headerMarqueeItems } from '~/data/site'
 
 const company = await useSiteSettings()
@@ -78,7 +78,7 @@ onBeforeUnmount(() => {
             class="site-header__utility-link"
             :aria-label="`Contact on WhatsApp ${company.phone}`"
           >
-            <el-icon><Phone /></el-icon>{{ company.phone }}
+            <SocialIcon name="whatsapp" />{{ company.phone }}
           </a>
           <a
             :href="company.contactLink"
@@ -162,10 +162,17 @@ onBeforeUnmount(() => {
               :href="company.whatsappLink"
               target="_blank"
               color="#1b3c63"
-              >WhatsApp</el-button
             >
+              <span class="inline-flex items-center gap-1.5">
+                <SocialIcon name="whatsapp" />
+                <span>WhatsApp</span>
+              </span>
+            </el-button>
             <NuxtLink to="/contact">
-              <el-button color="#c1121f">Get a Quote</el-button>
+              <el-button color="#c1121f">
+                <el-icon><Promotion /></el-icon>
+                <span>Get a Quote</span>
+              </el-button>
             </NuxtLink>
           </div>
 
@@ -213,9 +220,17 @@ onBeforeUnmount(() => {
             </div>
 
             <div class="grid grid-cols-2 gap-3 pt-4">
-              <el-button tag="a" :href="company.whatsappLink" target="_blank" color="#1b3c63" class="w-full">WhatsApp</el-button>
+              <el-button tag="a" :href="company.whatsappLink" target="_blank" color="#1b3c63" class="w-full">
+                <span class="inline-flex items-center gap-1.5">
+                  <SocialIcon name="whatsapp" />
+                  <span>WhatsApp</span>
+                </span>
+              </el-button>
               <NuxtLink to="/contact">
-                <el-button color="#c1121f" class="w-full">Get a Quote</el-button>
+                <el-button color="#c1121f" class="w-full">
+                  <el-icon><Promotion /></el-icon>
+                  <span>Get a Quote</span>
+                </el-button>
               </NuxtLink>
             </div>
           </div>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { FormInstance, FormRules } from 'element-plus'
+import { Promotion } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 
 const props = defineProps<{ defaultProduct?: string }>()
@@ -130,7 +131,8 @@ const submit = async (el?: FormInstance) => {
 
     <div class="pt-1">
       <el-button color="#c1121f" size="large" native-type="button" class="w-full sm:!w-auto" :loading="submitting" @click="submit(formRef)">
-        Submit Inquiry
+        <el-icon><Promotion /></el-icon>
+        <span>Submit Inquiry</span>
       </el-button>
     </div>
   </el-form>

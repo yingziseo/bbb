@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ChatDotRound, Close, FullScreen, Message, Mute, Present, VideoCamera } from '@element-plus/icons-vue'
+import { Close, FullScreen, Message, Mute, Present, Promotion, VideoCamera } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 import { defaultHomePopupVideoUrl } from '~/data/site'
 
@@ -200,12 +200,20 @@ watch(
                 We supply cling film, fresh wrap, disposable food containers, and private-label packaging for wholesale and OEM orders.
               </p>
               <div class="mt-5 grid gap-2 text-[13px] font-semibold text-[var(--color-navy)]">
-                <span class="flex items-center gap-2"><el-icon class="text-[var(--color-accent)]"><Present /></el-icon>Free sample support</span>
-                <span class="flex items-center gap-2"><el-icon class="text-[var(--color-accent)]"><ChatDotRound /></el-icon>Fast quote by WhatsApp</span>
+                <span class="flex items-center gap-2"><el-icon class="text-[var(--color-accent)]"><Present /></el-icon>Free Sample Support</span>
+                <span class="flex items-center gap-2 text-[var(--color-navy)]"><SocialIcon name="whatsapp" />Fast Quote by WhatsApp</span>
               </div>
               <div class="mt-6 flex flex-wrap gap-3">
-                <el-button color="#c1121f">Free Sample</el-button>
-                <el-button color="#1b3c63">Contact Us</el-button>
+                <el-button color="#c1121f">
+                  <el-icon><Promotion /></el-icon>
+                  <span>Free Sample</span>
+                </el-button>
+                <el-button color="#1b3c63">
+                  <span class="inline-flex items-center gap-1.5">
+                    <SocialIcon name="whatsapp" />
+                    <span>Contact on WhatsApp</span>
+                  </span>
+                </el-button>
                 <span class="flex min-w-0 items-center gap-1.5 text-[12px] font-semibold text-[var(--color-slate-muted)]">
                   <el-icon><Message /></el-icon>{{ contactEmail }}
                 </span>

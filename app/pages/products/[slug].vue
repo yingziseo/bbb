@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Check, Close, ChatDotRound } from '@element-plus/icons-vue'
+import { Check, Close, Promotion } from '@element-plus/icons-vue'
 import type { Product } from '~/data/site'
 
 const company = await useSiteSettings()
@@ -80,10 +80,16 @@ const related = computed(() =>
 
           <div class="mt-7 flex flex-wrap gap-3">
             <NuxtLink :to="`/contact?product=${encodeURIComponent(product.name)}`">
-              <el-button color="#c1121f" size="large">Send Inquiry</el-button>
+              <el-button color="#c1121f" size="large">
+                <el-icon><Promotion /></el-icon>
+                <span>Send Inquiry</span>
+              </el-button>
             </NuxtLink>
             <el-button tag="a" :href="company.whatsappLink" target="_blank" size="large" color="#1b3c63">
-              <el-icon class="mr-1"><ChatDotRound /></el-icon>WhatsApp
+              <span class="inline-flex items-center gap-1.5">
+                <SocialIcon name="whatsapp" />
+                <span>WhatsApp</span>
+              </span>
             </el-button>
           </div>
         </div>
@@ -126,7 +132,10 @@ const related = computed(() =>
             <h3 class="text-[16px] font-bold">Request Pricing</h3>
             <p class="mt-2 text-[13.5px] text-white/75 leading-relaxed">Send quantity and specifications for quotation.</p>
             <NuxtLink :to="`/contact?product=${encodeURIComponent(product.name)}`" class="inline-block mt-4">
-              <el-button color="#c1121f">Get Pricing</el-button>
+              <el-button color="#c1121f">
+                <el-icon><Promotion /></el-icon>
+                <span>Get Pricing</span>
+              </el-button>
             </NuxtLink>
           </div>
         </div>
