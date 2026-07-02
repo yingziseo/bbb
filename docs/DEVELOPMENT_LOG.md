@@ -9,6 +9,30 @@
 - 如果只是文档或内容改动，也要记录。
 - 如果没有跑测试或构建，需要明确写出来。
 
+## 2026-07-02 - 更新询盘邮件转发收件人并测试发信
+
+背景：
+
+- 用户要求将询盘邮件转发邮箱改为 `hezuo1025@gmail.com`，并模拟提交一条询盘检查邮件效果。
+
+改动：
+
+- 操作前备份 SQLite：`data/backups/yiyuan-before-mail-to-change-20260702_144516.db`。
+- 更新 `site_settings.inquiryMailTo` 为 `hezuo1025@gmail.com`。
+- 通过生产服务 `127.0.0.1:3000/api/inquiries` 提交测试询盘。
+
+验证：
+
+- 生产进程中 `RESEND_API_KEY` 已配置。
+- 数据库确认 `inquiryMailEnabled = true`。
+- 测试询盘 ID `8` 写入成功。
+- 邮件转发状态为 `sent`，收件人 `hezuo1025@gmail.com`，Provider `resend`，Message ID `4f460c0d-8729-4c7d-a251-6d7f67ab9bda`。
+- 本次只改数据库配置和提交测试询盘，不涉及代码构建；不需要重启生产服务。
+
+提交：
+
+- commit: `未提交`
+
 ## 2026-07-02 - 源站性能优化与 PageSpeed 问题处理
 
 背景：
