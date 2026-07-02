@@ -134,6 +134,12 @@ const execSchema = (database: DatabaseSync) => {
       message TEXT NOT NULL,
       mail_status TEXT NOT NULL DEFAULT 'pending',
       mail_error TEXT,
+      mail_provider TEXT,
+      mail_to TEXT,
+      mail_message_id TEXT,
+      mail_attempts INTEGER NOT NULL DEFAULT 0,
+      last_mail_attempt_at TEXT,
+      next_mail_attempt_at TEXT,
       forwarded_at TEXT,
       read_at TEXT,
       handled_at TEXT,
@@ -249,6 +255,12 @@ const migrateInquiriesSchema = (database: DatabaseSync) => {
       message TEXT NOT NULL,
       mail_status TEXT NOT NULL DEFAULT 'pending',
       mail_error TEXT,
+      mail_provider TEXT,
+      mail_to TEXT,
+      mail_message_id TEXT,
+      mail_attempts INTEGER NOT NULL DEFAULT 0,
+      last_mail_attempt_at TEXT,
+      next_mail_attempt_at TEXT,
       forwarded_at TEXT,
       read_at TEXT,
       handled_at TEXT,
@@ -278,6 +290,22 @@ const migrateInquiriesSchema = (database: DatabaseSync) => {
     DROP TABLE inquiries;
     ALTER TABLE inquiries_next RENAME TO inquiries;
   `)
+}
+
+const migrateInquiryMailColumns = (database: DatabaseSync) => {
+  const columns = tableColumnNames(database, 'inquiries')
+  const addColumn = (column: string, definition: string) => {
+    if (!columns.has(column)) {
+      database.exec(`ALTER TABLE inquiries ADD COLUMN ${column} ${definition}`)
+    }
+  }
+
+  addColumn('mail_provider', 'TEXT')
+  addColumn('mail_to', 'TEXT')
+  addColumn('mail_message_id', 'TEXT')
+  addColumn('mail_attempts', 'INTEGER NOT NULL DEFAULT 0')
+  addColumn('last_mail_attempt_at', 'TEXT')
+  addColumn('next_mail_attempt_at', 'TEXT')
 }
 
 const migrateInquirySeoCopy = (database: DatabaseSync) => {
@@ -892,6 +920,7 @@ export const getDb = () => {
   migrateProductCatalog(db)
   migrateStaticImagePathsToWebp(db)
   migrateInquiriesSchema(db)
+  migrateInquiryMailColumns(db)
   migrateInquirySeoCopy(db)
   seedDatabase(db)
 

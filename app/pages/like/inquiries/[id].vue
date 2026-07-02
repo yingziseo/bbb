@@ -16,6 +16,14 @@ useHead({ title: `询盘 #${id} | YIYUAN` })
 const item = computed(() => data.value?.item)
 const formatDate = (value?: string) => (value ? new Date(value).toLocaleString('zh-CN') : '-')
 
+const mailStatusLabel = (status?: string) => {
+  if (status === 'sent') return '成功'
+  if (status === 'retrying') return '重试中'
+  if (status === 'failed') return '失败'
+  if (status === 'skipped') return '未启用'
+  return '等待'
+}
+
 const updateFlag = async (field: 'read' | 'handled', value: boolean) => {
   try {
     await $fetch(`/api/admin/inquiries/${id}`, {
@@ -90,8 +98,14 @@ const resend = async () => {
         <div class="border border-[var(--color-line)] bg-white p-5">
           <h2 class="mb-4 text-[17px] font-bold text-[var(--color-navy)]">邮件转发</h2>
           <div class="space-y-3 text-[14px] text-[var(--color-graphite)]">
-            <div>状态：{{ item.mailStatus }}</div>
-            <div>发送时间：{{ formatDate(item.forwardedAt) }}</div>
+            <div>状态：{{ mailStatusLabel(item.mailStatus) }}</div>
+            <div>收件邮箱：{{ item.mailTo || '-' }}</div>
+            <div>服务商：{{ item.mailProvider || '-' }}</div>
+            <div>尝试次数：{{ item.mailAttempts || 0 }} 次</div>
+            <div>最后尝试：{{ formatDate(item.lastMailAttemptAt) }}</div>
+            <div>下次重试：{{ formatDate(item.nextMailAttemptAt) }}</div>
+            <div>成功时间：{{ formatDate(item.forwardedAt) }}</div>
+            <div v-if="item.mailMessageId" class="break-all">邮件 ID：{{ item.mailMessageId }}</div>
             <div v-if="item.mailError" class="break-all text-[var(--color-accent)]">错误：{{ item.mailError }}</div>
           </div>
           <el-button class="mt-5 w-full" color="#c1121f" @click="resend">重新发送邮件</el-button>

@@ -13,8 +13,17 @@ const formatDate = (value: string) => (value ? new Date(value).toLocaleString('z
 const statusType = (status: string) => {
   if (status === 'sent') return 'success'
   if (status === 'failed') return 'danger'
+  if (status === 'retrying') return 'warning'
   if (status === 'skipped') return 'warning'
   return 'info'
+}
+
+const statusLabel = (status: string) => {
+  if (status === 'sent') return '成功'
+  if (status === 'retrying') return '重试中'
+  if (status === 'failed') return '失败'
+  if (status === 'skipped') return '未启用'
+  return '等待'
 }
 
 const removeInquiry = async (id: number) => {
@@ -49,7 +58,7 @@ const resend = async (id: number) => {
     <div class="mb-6 flex flex-wrap items-end justify-between gap-4">
       <div>
         <h1 class="text-[26px] font-extrabold text-[var(--color-navy)]">询盘记录</h1>
-        <p class="mt-2 text-[14px] text-[var(--color-slate-muted)]">查看表单提交内容、处理状态和邮件转发状态。</p>
+        <p class="mt-2 text-[14px] text-[var(--color-slate-muted)]">查看表单提交内容和邮件自动转发状态。</p>
       </div>
       <el-button :loading="pending" @click="refresh">刷新</el-button>
     </div>
@@ -58,7 +67,7 @@ const resend = async (id: number) => {
       <el-select v-model="query.status" placeholder="筛选状态" class="w-full sm:!w-[180px]" clearable @change="refresh">
         <el-option label="未读" value="unread" />
         <el-option label="已处理" value="handled" />
-        <el-option label="邮件失败" value="failed" />
+        <el-option label="邮件异常" value="failed" />
       </el-select>
       <el-button @click="refresh">查询</el-button>
     </div>
@@ -76,10 +85,16 @@ const resend = async (id: number) => {
         <el-table-column prop="name" label="姓名" min-width="120" />
         <el-table-column prop="email" label="邮箱" min-width="200" show-overflow-tooltip />
         <el-table-column prop="country" label="国家/地区" min-width="150" show-overflow-tooltip />
-        <el-table-column label="邮件" width="120">
+        <el-table-column label="邮件转发" width="120">
           <template #default="{ row }">
-            <el-tag :type="statusType(row.mailStatus)" effect="plain" class="!rounded-none">{{ row.mailStatus }}</el-tag>
+            <el-tag :type="statusType(row.mailStatus)" effect="plain" class="!rounded-none">{{ statusLabel(row.mailStatus) }}</el-tag>
           </template>
+        </el-table-column>
+        <el-table-column label="尝试" width="90">
+          <template #default="{ row }">{{ row.mailAttempts || 0 }} 次</template>
+        </el-table-column>
+        <el-table-column label="下次重试" min-width="180">
+          <template #default="{ row }">{{ formatDate(row.nextMailAttemptAt) }}</template>
         </el-table-column>
         <el-table-column label="提交时间" min-width="180">
           <template #default="{ row }">{{ formatDate(row.createdAt) }}</template>

@@ -12,6 +12,9 @@ type InquiryForMail = {
 export type MailResult = {
   status: 'sent' | 'failed' | 'skipped'
   error?: string
+  provider: string
+  to: string
+  messageId?: string
 }
 
 const row = (label: string, value?: string | null) => {
@@ -20,14 +23,21 @@ const row = (label: string, value?: string | null) => {
 }
 
 export const sendInquiryMail = async (inquiry: InquiryForMail): Promise<MailResult> => {
-  const apiKey = process.env.RESEND_API_KEY
-  if (!apiKey) {
-    return { status: 'skipped', error: 'RESEND_API_KEY is not configured' }
+  const provider = 'resend'
+  const to = process.env.MAIL_TO || 'yiyuancoop@gmail.com'
+
+  if (process.env.INQUIRY_MAIL_ENABLED === 'false') {
+    return { status: 'skipped', error: 'Inquiry mail forwarding is disabled', provider, to }
   }
 
-  const to = process.env.MAIL_TO || 'yiyuancoop@gmail.com'
+  const apiKey = process.env.RESEND_API_KEY
+  if (!apiKey) {
+    return { status: 'skipped', error: 'RESEND_API_KEY is not configured', provider, to }
+  }
+
   const from = process.env.MAIL_FROM || 'YIYUAN Website <onboarding@resend.dev>'
-  const subject = `New inquiry from ${inquiry.name}`
+  const subjectPrefix = process.env.MAIL_SUBJECT_PREFIX || '[YIYUAN Inquiry]'
+  const subject = `${subjectPrefix} #${inquiry.id} from ${inquiry.name}`
   const html = `
     <div style="font-family:Arial,sans-serif;color:#1a1f26;">
       <h2>New Website Inquiry</h2>
@@ -55,17 +65,22 @@ export const sendInquiryMail = async (inquiry: InquiryForMail): Promise<MailResu
         to,
         subject,
         html,
-        reply_to: inquiry.email,
       }),
     })
 
     if (!response.ok) {
       const text = await response.text()
-      return { status: 'failed', error: text || `HTTP ${response.status}` }
+      return { status: 'failed', error: text || `HTTP ${response.status}`, provider, to }
     }
 
-    return { status: 'sent' }
+    const payload = await response.json().catch(() => null) as { id?: string } | null
+    return { status: 'sent', provider, to, messageId: payload?.id || '' }
   } catch (error) {
-    return { status: 'failed', error: error instanceof Error ? error.message : 'Unknown mail error' }
+    return {
+      status: 'failed',
+      error: error instanceof Error ? error.message : 'Unknown mail error',
+      provider,
+      to,
+    }
   }
 }

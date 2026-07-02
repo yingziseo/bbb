@@ -16,6 +16,6 @@ export default defineEventHandler((event) => {
     inquiries: scalar('SELECT COUNT(*) AS count FROM inquiries'),
     unreadInquiries: scalar('SELECT COUNT(*) AS count FROM inquiries WHERE read_at IS NULL'),
     seoEntries: scalar('SELECT COUNT(*) AS count FROM seo_entries'),
-    failedMails: scalar("SELECT COUNT(*) AS count FROM inquiries WHERE mail_status = 'failed'"),
+    failedMails: scalar("SELECT COUNT(*) AS count FROM inquiries WHERE mail_status IN ('failed', 'retrying')"),
   }
 })

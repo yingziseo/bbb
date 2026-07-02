@@ -2,7 +2,7 @@ import { createError, readBody } from 'h3'
 import { assertInquiryRateLimit } from '../utils/rate-limit'
 import { asString } from '../utils/content'
 import { getDb, touchNow } from '../utils/db'
-import { sendInquiryMail } from '../utils/mail'
+import { sendAndRecordInquiryMail } from '../utils/inquiry-mail'
 import { mapInquiry } from '../utils/serializers'
 
 export default defineEventHandler(async (event) => {
@@ -46,20 +46,6 @@ export default defineEventHandler(async (event) => {
     )
 
   const inquiry = db.prepare('SELECT * FROM inquiries WHERE id = ?').get(result.lastInsertRowid) as any
-  const mail = await sendInquiryMail(inquiry)
-
-  db.prepare(`
-    UPDATE inquiries
-    SET mail_status = ?, mail_error = ?, forwarded_at = ?, updated_at = ?
-    WHERE id = ?
-  `).run(
-    mail.status,
-    mail.error || '',
-    mail.status === 'sent' ? touchNow() : null,
-    touchNow(),
-    inquiry.id,
-  )
-
-  const updated = db.prepare('SELECT * FROM inquiries WHERE id = ?').get(inquiry.id)
+  const updated = await sendAndRecordInquiryMail(inquiry)
   return { item: mapInquiry(updated) }
 })
