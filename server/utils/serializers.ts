@@ -36,6 +36,22 @@ export const mapPost = (row: any) => ({
   updatedAt: row.updated_at,
 })
 
+export const mapPostSummary = (row: any) => ({
+  id: row.id,
+  slug: row.slug,
+  title: row.title,
+  excerpt: row.excerpt,
+  coverImage: row.cover_image || '',
+  status: row.status,
+  publishedAt: row.published_at || '',
+  seoTitle: row.seo_title || '',
+  seoDescription: row.seo_description || '',
+  seoKeywords: row.seo_keywords || '',
+  canonical: row.canonical || '',
+  createdAt: row.created_at,
+  updatedAt: row.updated_at,
+})
+
 export const mapInquiry = (row: any) => ({
   id: row.id,
   name: row.name,

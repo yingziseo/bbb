@@ -6,11 +6,16 @@ defineProps<{ product: Product }>()
 <template>
   <div class="group flex flex-col overflow-hidden border border-[var(--color-line)] bg-white">
     <NuxtLink :to="`/products/${product.slug}`" class="block relative aspect-[4/3] bg-[var(--color-panel)] overflow-hidden">
-      <img
+      <NuxtImg
         :src="product.image"
         :alt="product.name"
+        width="640"
+        height="480"
+        sizes="sm:100vw md:50vw lg:25vw"
         class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.04]"
         loading="lazy"
+        fetchpriority="low"
+        decoding="async"
       />
       <span class="absolute top-0 left-0 bg-[var(--color-navy)] text-white text-[11px] font-bold uppercase tracking-wider px-3 py-1.5">
         {{ product.category }}

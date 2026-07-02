@@ -97,7 +97,18 @@ await useManagedSeo('page:home', {
 
         <div class="relative">
           <div class="aspect-[4/3] overflow-hidden border border-white/10">
-            <img :src="`/images/hero-factory.webp`" alt="Food packaging production line inside our factory" class="h-full w-full object-cover" />
+            <NuxtImg
+              src="/images/hero-factory.webp"
+              alt="Food packaging production line inside our factory"
+              width="1024"
+              height="1024"
+              sizes="sm:100vw md:50vw lg:560px"
+              :preload="{ fetchPriority: 'high' }"
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+              class="h-full w-full object-cover"
+            />
           </div>
           <div class="absolute -bottom-5 left-5 right-5 grid grid-cols-3 overflow-hidden border border-[var(--color-line)] bg-white text-[var(--color-navy)]">
             <div class="p-4 text-center border-r border-[var(--color-line)]">
@@ -133,7 +144,17 @@ await useManagedSeo('page:home', {
             class="group flex flex-col overflow-hidden border border-[var(--color-line)] bg-white"
           >
             <div class="aspect-[4/3] overflow-hidden bg-[var(--color-panel)]">
-              <img :src="c.image" :alt="c.name" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.04]" />
+              <NuxtImg
+                :src="c.image"
+                :alt="c.name"
+                width="640"
+                height="480"
+                sizes="sm:100vw md:50vw lg:25vw"
+                loading="lazy"
+                fetchpriority="low"
+                decoding="async"
+                class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.04]"
+              />
             </div>
             <div class="p-5">
               <h3 class="text-[16px] font-bold text-[var(--color-navy)] flex items-center justify-between">
@@ -184,13 +205,43 @@ await useManagedSeo('page:home', {
         />
         <div class="mt-10 grid gap-4 md:grid-cols-3">
           <div class="overflow-hidden border border-[var(--color-line)] md:row-span-2 md:col-span-2">
-            <img :src="`/images/workshop-main.webp`" alt="Main production workshop with injection molding lines" class="h-full w-full object-cover" />
+            <NuxtImg
+              src="/images/workshop-main.webp"
+              alt="Main production workshop with injection molding lines"
+              width="1024"
+              height="1024"
+              sizes="sm:100vw md:66vw lg:760px"
+              loading="lazy"
+              fetchpriority="low"
+              decoding="async"
+              class="h-full w-full object-cover"
+            />
           </div>
           <div class="aspect-[4/3] overflow-hidden border border-[var(--color-line)]">
-            <img :src="`/images/workshop-equipment.webp`" alt="Automated film extrusion equipment" class="h-full w-full object-cover" />
+            <NuxtImg
+              src="/images/workshop-equipment.webp"
+              alt="Automated film extrusion equipment"
+              width="640"
+              height="480"
+              sizes="sm:100vw md:33vw lg:380px"
+              loading="lazy"
+              fetchpriority="low"
+              decoding="async"
+              class="h-full w-full object-cover"
+            />
           </div>
           <div class="aspect-[4/3] overflow-hidden border border-[var(--color-line)]">
-            <img :src="`/images/workshop-warehouse.webp`" alt="Finished goods warehouse ready for export" class="h-full w-full object-cover" />
+            <NuxtImg
+              src="/images/workshop-warehouse.webp"
+              alt="Finished goods warehouse ready for export"
+              width="640"
+              height="480"
+              sizes="sm:100vw md:33vw lg:380px"
+              loading="lazy"
+              fetchpriority="low"
+              decoding="async"
+              class="h-full w-full object-cover"
+            />
           </div>
         </div>
       </div>
@@ -200,7 +251,17 @@ await useManagedSeo('page:home', {
     <section class="section bg-[var(--color-navy)] text-white border-y border-white/10">
       <div class="container-x grid lg:grid-cols-2 gap-12 items-center">
         <div class="overflow-hidden border border-white/10 order-2 lg:order-1">
-          <img :src="`/images/custom-oem.webp`" alt="Custom printed packaging and OEM production samples" class="h-full w-full object-cover" />
+          <NuxtImg
+            src="/images/custom-oem.webp"
+            alt="Custom printed packaging and OEM production samples"
+            width="1024"
+            height="1024"
+            sizes="sm:100vw md:50vw lg:560px"
+            loading="lazy"
+            fetchpriority="low"
+            decoding="async"
+            class="h-full w-full object-cover"
+          />
         </div>
         <div class="order-1 lg:order-2">
           <SectionHeading
@@ -279,7 +340,17 @@ await useManagedSeo('page:home', {
           </ul>
         </div>
         <div class="overflow-hidden border border-[var(--color-line)]">
-          <img :src="`/images/quality-control.webp`" alt="Quality control inspection of food containers" class="h-full w-full object-cover" />
+          <NuxtImg
+            src="/images/quality-control.webp"
+            alt="Quality control inspection of food containers"
+            width="1024"
+            height="1024"
+            sizes="sm:100vw md:50vw lg:560px"
+            loading="lazy"
+            fetchpriority="low"
+            decoding="async"
+            class="h-full w-full object-cover"
+          />
         </div>
       </div>
     </section>

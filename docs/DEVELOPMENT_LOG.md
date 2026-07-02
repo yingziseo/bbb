@@ -9,6 +9,54 @@
 - 如果只是文档或内容改动，也要记录。
 - 如果没有跑测试或构建，需要明确写出来。
 
+## 2026-07-02 - 源站性能优化与 PageSpeed 问题处理
+
+背景：
+
+- 用户要求参考 PageSpeed 检测结果制定并执行优化。
+- PageSpeed Insights API 在当前环境返回 429 配额错误，无法直接取得正式 PageSpeed JSON 分数。
+- 用户说明腾讯 EdgeOne 当前暂停解析使用；实际排查发现公网 `yiyuanpack.com` 仍解析到 `yiyuanpack.com.eo.dnse1.com`，并由 EdgeOne 返回 `*.cdn.myqcloud.com` 证书，严格 HTTPS 校验会失败。源站验证均通过 `--resolve yiyuanpack.com:443:127.0.0.1` 直连本机完成。
+
+改动：
+
+- 调整源站 Nginx `/etc/nginx/conf.d/yiyuanpack.com.conf`：
+  - 为 HTTPS 监听启用 HTTP/2。
+  - 为 HTML、CSS、JS、JSON、SVG 等文本资源启用 gzip。
+  - 为 `/images/`、`/uploads/`、`/_ipx/` 响应设置 `Cache-Control: public, max-age=604800`。
+  - 对上述静态/图片路径隐藏上游缓存头，避免重复 `Cache-Control`。
+- 优化公开博客列表接口 `server/api/public/posts/index.get.ts`，列表只查询并返回摘要字段，不再返回完整 `contentHtml`。
+- 新增 `mapPostSummary`，详情接口仍保留 `mapPost` 返回完整正文。
+- 首页、博客列表、博客详情封面图和产品卡片图改用 `NuxtImg`，补充 `sizes`、`width`、`height`、`loading`、`fetchpriority`、`decoding`。
+- 首屏关键图设置 preload/high priority；非首屏图设置 lazy/low priority。
+
+涉及文件：
+
+- `app/pages/index.vue`
+- `app/components/BlogListing.vue`
+- `app/components/ProductCard.vue`
+- `app/pages/blog/[slug].vue`
+- `server/api/public/posts/index.get.ts`
+- `server/utils/serializers.ts`
+- `/etc/nginx/conf.d/yiyuanpack.com.conf`（系统配置，不在 git 仓库）
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- `nginx -t` 通过并已 reload。
+- `NODE_OPTIONS=--max-old-space-size=1536 ionice -c2 -n7 nice -n 15 pnpm build` 通过。
+- 构建存在既有依赖警告：TinyMCE CSS `2of`、部分 chunk 超 500 kB、`@nuxt/image` sharp binaries 警告；未阻断构建。
+- 新构建先在 `127.0.0.1:3010` 临时验证，`/_ipx/` 图片正常返回 200。
+- 已停止旧生产进程，启动新生产服务，当前监听 `127.0.0.1:3000`，PID `1313497`。
+- 源站直连首页和博客页均返回 `HTTP/2 200`，并带 `Content-Encoding: gzip`。
+- 源站直连 `/_ipx/s_768x432/images/blog/pe-vs-pvc-cling-film-cover.webp` 返回 `HTTP/2 200`、`Content-Type: image/webp`、`Cache-Control: public, max-age=604800`。
+- `/api/public/posts` 从约 91KB 降到约 7.8KB，9 条列表数据不再包含 `contentHtml`。
+- 源站直连未压缩 HTML：首页约 165.6KB，博客详情约 158.3KB。
+- 源站直连压缩下载体积：首页约 27.0KB，博客详情约 32.3KB。
+
+提交：
+
+- commit: `1dcf8ff`
+
 ## 2026-07-02 - 更新 6 篇保鲜膜博客图片水印
 
 背景：
@@ -48,7 +96,7 @@
 
 提交：
 
-- commit: `未提交`
+- commit: `64f0cf7`
 
 ## 2026-07-01 - 发布 6 篇保鲜膜 TOB 博客和统一水印图片
 

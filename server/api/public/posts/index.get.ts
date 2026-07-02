@@ -1,6 +1,6 @@
 import { getQuery } from 'h3'
 import { getDb } from '../../../utils/db'
-import { mapPost } from '../../../utils/serializers'
+import { mapPostSummary } from '../../../utils/serializers'
 
 const DEFAULT_PAGE_SIZE = 9
 const MAX_PAGE_SIZE = 24
@@ -24,7 +24,20 @@ export default defineEventHandler((event) => {
 
   const rows = getDb()
     .prepare(`
-      SELECT *
+      SELECT
+        id,
+        slug,
+        title,
+        excerpt,
+        cover_image,
+        status,
+        published_at,
+        seo_title,
+        seo_description,
+        seo_keywords,
+        canonical,
+        created_at,
+        updated_at
       FROM posts
       WHERE status = 'published'
       ORDER BY COALESCE(published_at, created_at) DESC, id DESC
@@ -33,7 +46,7 @@ export default defineEventHandler((event) => {
     .all(pageSize, offset)
 
   return {
-    items: rows.map(mapPost),
+    items: rows.map(mapPostSummary),
     total,
     page,
     pageSize,
