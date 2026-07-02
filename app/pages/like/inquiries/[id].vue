@@ -52,7 +52,7 @@ const resend = async () => {
   <div v-if="item">
     <div class="mb-6 flex flex-wrap items-end justify-between gap-4">
       <div>
-        <h1 class="text-[26px] font-extrabold text-[var(--color-navy)]">询盘 #{{ item.id }}</h1>
+        <h1 class="text-[26px] font-extrabold text-[var(--color-navy)]">客户询盘 #{{ item.id }}</h1>
         <p class="mt-2 text-[14px] text-[var(--color-slate-muted)]">提交时间：{{ formatDate(item.createdAt) }}</p>
       </div>
       <NuxtLink to="/like/inquiries"><el-button plain>返回列表</el-button></NuxtLink>

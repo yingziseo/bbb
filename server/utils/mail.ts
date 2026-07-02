@@ -1,4 +1,5 @@
 import { escapeHtml } from './content'
+import { getSiteSettings, parseMailFrom } from './site-settings'
 
 type InquiryForMail = {
   id: number
@@ -24,9 +25,10 @@ const row = (label: string, value?: string | null) => {
 
 export const sendInquiryMail = async (inquiry: InquiryForMail): Promise<MailResult> => {
   const provider = 'resend'
-  const to = process.env.MAIL_TO || 'yiyuancoop@gmail.com'
+  const settings = getSiteSettings()
+  const to = settings.inquiryMailTo || settings.email
 
-  if (process.env.INQUIRY_MAIL_ENABLED === 'false') {
+  if (settings.inquiryMailEnabled === 'false') {
     return { status: 'skipped', error: 'Inquiry mail forwarding is disabled', provider, to }
   }
 
@@ -35,8 +37,11 @@ export const sendInquiryMail = async (inquiry: InquiryForMail): Promise<MailResu
     return { status: 'skipped', error: 'RESEND_API_KEY is not configured', provider, to }
   }
 
-  const from = process.env.MAIL_FROM || 'YIYUAN Website <onboarding@resend.dev>'
-  const subjectPrefix = process.env.MAIL_SUBJECT_PREFIX || '[YIYUAN Inquiry]'
+  const fallbackFrom = parseMailFrom(process.env.MAIL_FROM || '')
+  const fromName = settings.inquiryMailFromName || fallbackFrom.name || 'YIYUAN Website'
+  const fromEmail = settings.inquiryMailFromEmail || fallbackFrom.email || 'inquiry@yiyuanpack.com'
+  const from = `${fromName} <${fromEmail}>`
+  const subjectPrefix = settings.inquiryMailSubjectPrefix || process.env.MAIL_SUBJECT_PREFIX || '[YIYUAN Inquiry]'
   const subject = `${subjectPrefix} #${inquiry.id} from ${inquiry.name}`
   const html = `
     <div style="font-family:Arial,sans-serif;color:#1a1f26;">

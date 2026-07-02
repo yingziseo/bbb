@@ -731,6 +731,11 @@ const seedSiteSettings = (database: DatabaseSync) => {
     homePopupEnabled: 'true',
     homePopupCooldownHours: '12',
     homePopupVideoUrl: defaultHomePopupVideoUrl,
+    inquiryMailEnabled: process.env.INQUIRY_MAIL_ENABLED === 'false' ? 'false' : 'true',
+    inquiryMailTo: process.env.MAIL_TO || company.email,
+    inquiryMailFromName: 'YIYUAN Website',
+    inquiryMailFromEmail: 'inquiry@yiyuanpack.com',
+    inquiryMailSubjectPrefix: process.env.MAIL_SUBJECT_PREFIX || '[YIYUAN Inquiry]',
   }
 
   const statement = database.prepare(`

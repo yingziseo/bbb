@@ -3,7 +3,7 @@ import { Delete, Message, Refresh } from '@element-plus/icons-vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 
 definePageMeta({ layout: 'admin' })
-useHead({ title: '询盘记录 | YIYUAN' })
+useHead({ title: '客户询盘 | YIYUAN' })
 
 const query = reactive({ status: '' })
 const { data, pending, refresh } = await useFetch('/api/admin/inquiries', { query })
@@ -57,8 +57,8 @@ const resend = async (id: number) => {
   <div>
     <div class="mb-6 flex flex-wrap items-end justify-between gap-4">
       <div>
-        <h1 class="text-[26px] font-extrabold text-[var(--color-navy)]">询盘记录</h1>
-        <p class="mt-2 text-[14px] text-[var(--color-slate-muted)]">查看表单提交内容和邮件自动转发状态。</p>
+        <h1 class="text-[26px] font-extrabold text-[var(--color-navy)]">客户询盘</h1>
+        <p class="mt-2 text-[14px] text-[var(--color-slate-muted)]">查看、阅读和管理客户提交的全部询盘信息，邮件转发状态作为辅助提醒。</p>
       </div>
       <el-button :loading="pending" @click="refresh">刷新</el-button>
     </div>
@@ -67,7 +67,7 @@ const resend = async (id: number) => {
       <el-select v-model="query.status" placeholder="筛选状态" class="w-full sm:!w-[180px]" clearable @change="refresh">
         <el-option label="未读" value="unread" />
         <el-option label="已处理" value="handled" />
-        <el-option label="邮件异常" value="failed" />
+        <el-option label="转发异常" value="failed" />
       </el-select>
       <el-button @click="refresh">查询</el-button>
     </div>

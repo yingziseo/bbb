@@ -23,6 +23,11 @@ export const siteSettingKeys = [
   'homePopupEnabled',
   'homePopupCooldownHours',
   'homePopupVideoUrl',
+  'inquiryMailEnabled',
+  'inquiryMailTo',
+  'inquiryMailFromName',
+  'inquiryMailFromEmail',
+  'inquiryMailSubjectPrefix',
 ] as const
 
 type SiteSettingKey = (typeof siteSettingKeys)[number]
@@ -50,6 +55,11 @@ const defaultSettings = (): Record<SiteSettingKey, string> => ({
   homePopupEnabled: 'true',
   homePopupCooldownHours: '12',
   homePopupVideoUrl: defaultHomePopupVideoUrl,
+  inquiryMailEnabled: process.env.INQUIRY_MAIL_ENABLED === 'false' ? 'false' : 'true',
+  inquiryMailTo: process.env.MAIL_TO || company.email,
+  inquiryMailFromName: parseMailFrom(process.env.MAIL_FROM || '').name || 'YIYUAN Website',
+  inquiryMailFromEmail: parseMailFrom(process.env.MAIL_FROM || '').email || 'inquiry@yiyuanpack.com',
+  inquiryMailSubjectPrefix: process.env.MAIL_SUBJECT_PREFIX || '[YIYUAN Inquiry]',
 })
 
 const normalizeBaseUrl = (value: string) => value.trim().replace(/\/+$/, '')
@@ -75,6 +85,21 @@ const normalizeExternalUrl = (value: string) => {
   return /^https?:\/\//i.test(trimmed) ? trimmed : ''
 }
 
+export const parseMailFrom = (value: string) => {
+  const match = value.match(/^\s*(.*?)\s*<([^>]+)>\s*$/)
+  if (match) {
+    return {
+      name: match[1].trim(),
+      email: match[2].trim(),
+    }
+  }
+
+  return {
+    name: '',
+    email: value.includes('@') ? value.trim() : '',
+  }
+}
+
 export const normalizeSiteSettings = (input: Partial<Record<SiteSettingKey, string>> = {}): SiteSettings => {
   const defaults = defaultSettings()
   const settings = siteSettingKeys.reduce((acc, key) => {
@@ -88,6 +113,11 @@ export const normalizeSiteSettings = (input: Partial<Record<SiteSettingKey, stri
   settings.homePopupEnabled = normalizeBooleanFlag(settings.homePopupEnabled)
   settings.homePopupCooldownHours = normalizeCooldownHours(settings.homePopupCooldownHours)
   settings.homePopupVideoUrl = normalizeExternalUrl(settings.homePopupVideoUrl)
+  settings.inquiryMailEnabled = normalizeBooleanFlag(settings.inquiryMailEnabled)
+  settings.inquiryMailTo = settings.inquiryMailTo || settings.email
+  settings.inquiryMailFromName = settings.inquiryMailFromName || 'YIYUAN Website'
+  settings.inquiryMailFromEmail = settings.inquiryMailFromEmail || 'inquiry@yiyuanpack.com'
+  settings.inquiryMailSubjectPrefix = settings.inquiryMailSubjectPrefix || '[YIYUAN Inquiry]'
 
   return {
     ...settings,

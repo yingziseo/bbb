@@ -18,16 +18,33 @@ import { ElMessage } from 'element-plus'
 const route = useRoute()
 const mobileNavOpen = ref(false)
 
-const nav = [
-  { label: '概览', to: '/like', icon: HomeFilled },
-  { label: '页面 TDK', to: '/like/seo', icon: Operation },
-  { label: '产品管理', to: '/like/products', icon: Box },
-  { label: '首页弹窗', to: '/like/home-popup', icon: VideoCamera },
-  { label: '博客文章', to: '/like/posts', icon: Document },
-  { label: '询盘记录', to: '/like/inquiries', icon: MessageBox },
-  { label: '网站设置', to: '/like/settings', icon: SettingIcon },
-  { label: '社交链接', to: '/like/social-links', icon: Link },
+const navSections = [
+  {
+    label: '内容管理',
+    items: [
+      { label: '概览', to: '/like', icon: HomeFilled },
+      { label: '页面 TDK', to: '/like/seo', icon: Operation },
+      { label: '产品管理', to: '/like/products', icon: Box },
+      { label: '首页弹窗', to: '/like/home-popup', icon: VideoCamera },
+      { label: '博客文章', to: '/like/posts', icon: Document },
+    ],
+  },
+  {
+    label: '询盘管理',
+    items: [
+      { label: '客户询盘', to: '/like/inquiries', icon: MessageBox },
+      { label: '转发管理', to: '/like/mail-forwarding', icon: SettingIcon },
+    ],
+  },
+  {
+    label: '系统设置',
+    items: [
+      { label: '网站设置', to: '/like/settings', icon: SettingIcon },
+      { label: '社交链接', to: '/like/social-links', icon: Link },
+    ],
+  },
 ]
+const nav = navSections.flatMap((section) => section.items)
 
 const isActiveNav = (to: string) => route.path === to || (to !== '/like' && route.path.startsWith(to))
 const currentNav = computed(() => nav.find((item) => isActiveNav(item.to)) || nav[0])
@@ -59,18 +76,21 @@ const logout = async () => {
       </div>
 
       <nav class="p-3">
-        <NuxtLink
-          v-for="item in nav"
-          :key="item.to"
-          :to="item.to"
-          class="mb-1 flex items-center gap-3 border px-4 py-3 text-[14px] font-semibold transition-colors"
-          :class="isActiveNav(item.to)
-            ? 'border-[var(--color-navy)] bg-[var(--color-navy)] text-white'
-            : 'border-transparent text-[var(--color-graphite)] hover:border-[var(--color-line)] hover:bg-[var(--color-panel)]'"
-        >
-          <el-icon><component :is="item.icon" /></el-icon>
-          {{ item.label }}
-        </NuxtLink>
+        <div v-for="section in navSections" :key="section.label" class="mb-4 last:mb-0">
+          <div class="mb-2 px-3 text-[11px] font-bold uppercase text-[var(--color-slate-muted)]">{{ section.label }}</div>
+          <NuxtLink
+            v-for="item in section.items"
+            :key="item.to"
+            :to="item.to"
+            class="mb-1 flex items-center gap-3 border px-4 py-3 text-[14px] font-semibold transition-colors"
+            :class="isActiveNav(item.to)
+              ? 'border-[var(--color-navy)] bg-[var(--color-navy)] text-white'
+              : 'border-transparent text-[var(--color-graphite)] hover:border-[var(--color-line)] hover:bg-[var(--color-panel)]'"
+          >
+            <el-icon><component :is="item.icon" /></el-icon>
+            {{ item.label }}
+          </NuxtLink>
+        </div>
       </nav>
     </aside>
 
@@ -105,18 +125,21 @@ const logout = async () => {
       </div>
 
       <nav class="flex-1 overflow-y-auto p-3">
-        <NuxtLink
-          v-for="item in nav"
-          :key="item.to"
-          :to="item.to"
-          class="mb-1 flex items-center gap-3 border px-4 py-3 text-[15px] font-semibold transition-colors"
-          :class="isActiveNav(item.to)
-            ? 'border-[var(--color-navy)] bg-[var(--color-navy)] text-white'
-            : 'border-transparent text-[var(--color-graphite)] hover:border-[var(--color-line)] hover:bg-[var(--color-panel)]'"
-        >
-          <el-icon><component :is="item.icon" /></el-icon>
-          {{ item.label }}
-        </NuxtLink>
+        <div v-for="section in navSections" :key="section.label" class="mb-4 last:mb-0">
+          <div class="mb-2 px-3 text-[11px] font-bold uppercase text-[var(--color-slate-muted)]">{{ section.label }}</div>
+          <NuxtLink
+            v-for="item in section.items"
+            :key="item.to"
+            :to="item.to"
+            class="mb-1 flex items-center gap-3 border px-4 py-3 text-[15px] font-semibold transition-colors"
+            :class="isActiveNav(item.to)
+              ? 'border-[var(--color-navy)] bg-[var(--color-navy)] text-white'
+              : 'border-transparent text-[var(--color-graphite)] hover:border-[var(--color-line)] hover:bg-[var(--color-panel)]'"
+          >
+            <el-icon><component :is="item.icon" /></el-icon>
+            {{ item.label }}
+          </NuxtLink>
+        </div>
       </nav>
 
       <div class="border-t border-[var(--color-line)] p-4">
