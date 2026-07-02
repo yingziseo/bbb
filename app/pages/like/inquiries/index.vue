@@ -99,19 +99,22 @@ const resend = async (id: number) => {
         <el-table-column label="提交时间" min-width="180">
           <template #default="{ row }">{{ formatDate(row.createdAt) }}</template>
         </el-table-column>
-        <el-table-column label="操作" width="240" fixed="right">
+        <el-table-column label="操作" width="300" fixed="right">
           <template #default="{ row }">
-            <div class="flex gap-2">
+            <div class="flex flex-wrap gap-2">
               <NuxtLink :to="`/like/inquiries/${row.id}`">
                 <el-button size="small" color="#0f2a4a">
                   <el-icon><Message /></el-icon>
+                  <span>阅读</span>
                 </el-button>
               </NuxtLink>
               <el-button size="small" plain @click="resend(row.id)">
                 <el-icon><Refresh /></el-icon>
+                <span>重发</span>
               </el-button>
               <el-button size="small" type="danger" plain @click="removeInquiry(row.id)">
                 <el-icon><Delete /></el-icon>
+                <span>删除</span>
               </el-button>
             </div>
           </template>
