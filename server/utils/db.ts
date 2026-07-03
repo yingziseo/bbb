@@ -739,7 +739,7 @@ const seedSiteSettings = (database: DatabaseSync) => {
     registeredCapital: company.registeredCapital,
     legalRepresentative: company.legalRepresentative,
     logoPath: '/site-logo.png',
-    faviconPath: '/favicon.ico',
+    faviconPath: '/favicon-96x96.png',
     homePopupEnabled: 'true',
     homePopupCooldownHours: '12',
     homePopupVideoUrl: defaultHomePopupVideoUrl,

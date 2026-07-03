@@ -30,8 +30,8 @@ export default defineNuxtConfig({
         { name: 'theme-color', content: '#0f2a4a' },
       ],
       link: [
-        { rel: 'icon', href: '/favicon.ico' },
-        { rel: 'apple-touch-icon', href: '/site-logo.png' },
+        { key: 'favicon', rel: 'icon', type: 'image/png', sizes: '96x96', href: '/favicon-96x96.png' },
+        { key: 'apple-touch-icon', rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-icon.png' },
       ],
     },
   },

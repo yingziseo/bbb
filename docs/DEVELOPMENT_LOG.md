@@ -9,6 +9,51 @@
 - 如果只是文档或内容改动，也要记录。
 - 如果没有跑测试或构建，需要明确写出来。
 
+## 2026-07-03 - 修复 Google 结果 favicon PNG 识别
+
+背景：
+
+- 用户反馈 Google 搜索结果仍显示灰色默认图标，并指出网页头部没有明确的 PNG favicon 声明。
+- 当前页面 head 只输出 `<link rel="icon" href="/favicon.ico">` 和 `<link rel="apple-touch-icon" href="/site-logo.png">`；`public/favicon.ico` 实际是 ICO 容器，内部为 60x60 PNG，不符合用户要求的明确 PNG favicon 输出。
+
+改动：
+
+- 从现有 `site-logo.png` 生成真实 96x96 PNG：`public/favicon-96x96.png`。
+- 将 Nuxt 公共 head 和默认布局 head 改为输出 `<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">`。
+- Apple touch icon 改为明确的 180x180 PNG：`/apple-icon.png`。
+- 将站点设置默认 favicon 从 `/favicon.ico` 改为 `/favicon-96x96.png`。
+- 后台“网站设置”里的网页图标文案改为 PNG 图标，并限制上传入口为 PNG。
+- 操作前备份 SQLite：`data/backups/yiyuan-before-favicon-png-20260703_142715.db`。
+- 更新线上 SQLite `site_settings.faviconPath` 为 `/favicon-96x96.png`。
+
+涉及文件/数据：
+
+- `public/favicon-96x96.png`
+- `nuxt.config.ts`
+- `app/layouts/default.vue`
+- `app/composables/useSiteSettings.ts`
+- `app/pages/like/settings.vue`
+- `server/utils/site-settings.ts`
+- `server/utils/db.ts`
+- `docs/DEVELOPMENT_LOG.md`
+- `data/yiyuan.db`：更新 `site_settings.faviconPath`；数据库文件不纳入 git 提交。
+
+验证：
+
+- `public/favicon-96x96.png` 确认为 96x96 PNG。
+- `NODE_OPTIONS=--max-old-space-size=1536 ionice -c2 -n7 nice -n 15 pnpm build` 通过。
+- 构建存在既有警告：VueUse pure 注释、TinyMCE CSS `2of`、部分 chunk 超 500 kB、`node:sqlite` external、`@nuxt/image` sharp binaries 警告；未阻断构建。
+- 已重启 `3000` 生产服务，当前监听 `127.0.0.1:3000`，PID `3121657`。
+- `http://127.0.0.1:3000/` 的 head 输出 PNG favicon 和 Apple touch icon，不再输出 `/favicon.ico`。
+- `http://127.0.0.1:3000/favicon-96x96.png` 返回 200，`Content-Type: image/png`，`Content-Length: 9631`。
+- `/api/public/settings` 返回 `faviconPath = /favicon-96x96.png`。
+- 源站 HTTPS 直连 `https://yiyuanpack.com/` head 输出 PNG favicon；`https://yiyuanpack.com/favicon-96x96.png` 返回 200，`Content-Type: image/png`。
+- 公网 `https://yiyuanpack.com/` head 输出 PNG favicon，不再输出 `/favicon.ico`；公网 `https://yiyuanpack.com/favicon-96x96.png` 返回 200，`Content-Type: image/png`。
+
+提交：
+
+- 本条记录随本次提交保存，提交完成后在最终回复中说明 commit hash 和 push 状态。
+
 ## 2026-07-03 - 后台管理路由改为 CSR
 
 背景：

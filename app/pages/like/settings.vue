@@ -41,7 +41,7 @@ const createEmptyForm = (): SettingsForm => ({
   registeredCapital: '',
   legalRepresentative: '',
   logoPath: '/site-logo.png',
-  faviconPath: '/favicon.ico',
+  faviconPath: '/favicon-96x96.png',
 })
 
 const { data, pending, refresh } = await useFetch<SettingsResponse>('/api/admin/settings')
@@ -143,22 +143,22 @@ const uploadAsset = async (option: any, target: 'logoPath' | 'faviconPath') => {
                 </div>
               </div>
             </el-form-item>
-            <el-form-item label="网页 ICO 图标" class="md:col-span-2">
+            <el-form-item label="网页 PNG 图标" class="md:col-span-2">
               <div class="grid w-full gap-3 sm:grid-cols-[72px_1fr]">
                 <div class="flex h-[72px] w-[72px] items-center justify-center border border-[var(--color-line)] bg-[var(--color-panel)] p-2">
-                  <img :src="form.faviconPath || '/favicon.ico'" alt="ICO 预览" class="max-h-full max-w-full object-contain" />
+                  <img :src="form.faviconPath || '/favicon-96x96.png'" alt="网页图标预览" class="max-h-full max-w-full object-contain" />
                 </div>
                 <div class="min-w-0">
-                  <el-input v-model="form.faviconPath" placeholder="/favicon.ico 或 /uploads/favicon.ico" />
+                  <el-input v-model="form.faviconPath" placeholder="/favicon-96x96.png 或 /uploads/favicon.png" />
                   <div class="mt-2 flex flex-wrap items-center gap-3">
                     <el-upload
                       :show-file-list="false"
                       :http-request="(option: any) => uploadAsset(option, 'faviconPath')"
-                      accept="image/png,image/x-icon,image/vnd.microsoft.icon,.ico"
+                      accept="image/png"
                     >
-                      <el-button :loading="uploadLoading === 'faviconPath'">上传替换 ICO</el-button>
+                      <el-button :loading="uploadLoading === 'faviconPath'">上传替换 PNG 图标</el-button>
                     </el-upload>
-                    <span class="text-[12px] text-[var(--color-slate-muted)]">当前默认使用 60x60 的 favicon.ico。</span>
+                    <span class="text-[12px] text-[var(--color-slate-muted)]">当前默认使用 96x96 PNG，网页头部会输出明确的 type 和 sizes。</span>
                   </div>
                 </div>
               </div>
