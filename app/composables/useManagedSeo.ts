@@ -12,6 +12,7 @@ type ManagedSeoOptions = {
 }
 
 type SeoPayload = {
+  siteUrl?: string
   seo: null | {
     path: string
     title: string
@@ -33,6 +34,23 @@ const absoluteUrl = (value: string, origin: string) => {
   return origin ? `${origin.replace(/\/+$/, '')}${path}` : path
 }
 
+const toCanonicalPath = (value: string) => {
+  if (!value) return ''
+
+  if (/^https?:\/\//i.test(value)) {
+    try {
+      const url = new URL(value)
+      return url.pathname === '/' ? '/' : url.pathname.replace(/\/+$/, '')
+    } catch {
+      return ''
+    }
+  }
+
+  const pathname = value.split('#')[0]?.split('?')[0] || ''
+  const path = pathname.startsWith('/') ? pathname : `/${pathname}`
+  return path === '/' ? '/' : path.replace(/\/+$/, '')
+}
+
 export const useManagedSeo = (key: string, fallback: ManagedSeoFallback, options: ManagedSeoOptions = {}) => {
   const route = useRoute()
   const requestUrl = useRequestURL()
@@ -48,8 +66,9 @@ export const useManagedSeo = (key: string, fallback: ManagedSeoFallback, options
     const keywords = seo?.keywords || fallback.keywords || ''
     const ogTitle = seo?.ogTitle || title
     const ogDescription = seo?.ogDescription || description
-    const canonical = absoluteUrl(options.canonicalPath || seo?.canonical || seo?.path || route.path, requestUrl.origin)
-    const ogImage = absoluteUrl(seo?.ogImage || fallback.image || '', requestUrl.origin)
+    const siteOrigin = data.value?.siteUrl || requestUrl.origin
+    const canonical = absoluteUrl(toCanonicalPath(options.canonicalPath || seo?.canonical || seo?.path || route.path), siteOrigin)
+    const ogImage = absoluteUrl(seo?.ogImage || fallback.image || '', siteOrigin)
     const ogType = key.startsWith('post:') ? 'article' : key.startsWith('product:') ? 'product' : 'website'
     const robots = options.robots || seo?.robots
 

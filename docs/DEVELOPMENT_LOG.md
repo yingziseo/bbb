@@ -9,6 +9,46 @@
 - 如果只是文档或内容改动，也要记录。
 - 如果没有跑测试或构建，需要明确写出来。
 
+## 2026-07-03 - 优化 sitemap 与规范 URL
+
+背景：
+
+- 用户要求检查并优化 `sitemap.xml`、`robots.txt`、sitemap URL 状态、canonical 一致性、尾部斜杠和 `lastmod` 真实性。
+- 线上检查显示当前 sitemap 有效，但 `/about/` 这类尾部斜杠页面也返回 200，且前端 canonical 原先依赖当前请求域名生成，未来在 CDN、www 或备用域名访问时存在不一致风险。
+
+改动：
+
+- `sitemap.xml` 继续输出标准 XML 声明和 `urlset` 根节点。
+- sitemap 查询改为只收录真实公开内容：公开页面、已发布产品、启用分类、已发布博客文章，并排除 `noindex`。
+- sitemap `lastmod` 改为使用 SEO 条目更新时间与产品/分类/文章真实更新时间中的较新值。
+- canonical 路径统一去除参数、hash 和非首页尾部斜杠，并固定使用后台配置的 `siteUrl`。
+- `/api/public/seo` 返回规范站点主域名，供前端 SEO head 使用。
+- 新增页面尾部斜杠 301 规范化中间件，跳过 API 和静态资源。
+
+涉及文件：
+
+- `server/routes/sitemap.xml.get.ts`
+- `server/api/public/seo.get.ts`
+- `app/composables/useManagedSeo.ts`
+- `server/middleware/canonical-url.ts`
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- `NODE_OPTIONS=--max-old-space-size=1536 ionice -c2 -n7 nice -n 15 pnpm build` 通过。
+- 构建存在既有警告：VueUse pure 注释、TinyMCE CSS `2of`、部分 chunk 超 500 kB、`node:sqlite` external、`@nuxt/image` sharp binaries 警告；未阻断构建。
+- 已重启 `3000` 生产服务，当前监听 `127.0.0.1:3000`，PID `3192848`。
+- 本地 `/sitemap.xml` 返回 200，`Content-Type: application/xml; charset=utf-8`，首行 XML 声明和 `urlset` 根节点正确。
+- 本地 `/robots.txt` 返回 200，包含 `User-agent: *`、`Allow: /` 和 `Sitemap: https://yiyuanpack.com/sitemap.xml`。
+- 本地 `/about/` 返回 301 到 `/about`，`/about` canonical 为 `https://yiyuanpack.com/about`。
+- 公网 `https://yiyuanpack.com/sitemap.xml` GET/HEAD 均返回 200，`Content-Type: application/xml; charset=utf-8`。
+- 公网 sitemap 共 24 个 URL，全部 GET/HEAD 直接返回 200；无 canonical 不一致、无 noindex、无参数 URL、无错误 lastmod、无非首页尾部斜杠。
+- 公网 `/about/` 返回 301 到 `/about`，`/products/pe-cling-film/` 返回 301 到 `/products/pe-cling-film`。
+
+提交：
+
+- commit: `当前提交`
+
 ## 2026-07-03 - 修复 Google 结果 favicon PNG 识别
 
 背景：
