@@ -9,6 +9,37 @@
 - 如果只是文档或内容改动，也要记录。
 - 如果没有跑测试或构建，需要明确写出来。
 
+## 2026-07-03 - 更新询盘转发邮箱并模拟询盘
+
+背景：
+
+- 用户要求后台邮箱设置为 `yiyuancoop@gmail.com`，并模拟发送一条询盘，检查后台邮件自动转发是否正常。
+- 当前站点联系邮箱 `email` 已是 `yiyuancoop@gmail.com`，但询盘自动转发收件邮箱 `inquiryMailTo` 仍为 `hezuo1025@gmail.com`。
+
+改动：
+
+- 操作前备份 SQLite：`data/backups/yiyuan-before-mail-to-yiyuancoop-20260703_091901.db`。
+- 更新 `site_settings.inquiryMailTo` 为 `yiyuancoop@gmail.com`。
+- 通过生产服务 `127.0.0.1:3000/api/inquiries` 提交一条模拟询盘。
+- 本次只改数据库配置和提交测试询盘，不涉及代码构建或重启生产服务。
+
+涉及文件/数据：
+
+- `data/yiyuan.db`：更新线上 SQLite 站点设置，并新增测试询盘记录；数据库文件不纳入 git 提交。
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- 生产接口 `/api/public/settings` 返回 `email = yiyuancoop@gmail.com`、`inquiryMailEnabled = true`、`inquiryMailTo = yiyuancoop@gmail.com`。
+- `http://127.0.0.1:3000/contact` 返回 200。
+- 模拟询盘 ID `9` 写入成功。
+- 邮件转发状态为 `sent`，收件人 `yiyuancoop@gmail.com`，Provider `resend`，Message ID `8ae9441b-1139-4566-9d51-19eada357c89`。
+- 数据库反查最新询盘记录与接口返回一致，`mail_attempts = 1`，`mail_error` 为空。
+
+提交：
+
+- 本条记录随本次提交保存，提交完成后在最终回复中说明 commit hash 和 push 状态。
+
 ## 2026-07-02 - 精简首页询盘区和页脚联系方式
 
 背景：
