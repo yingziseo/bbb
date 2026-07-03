@@ -284,7 +284,7 @@ const refreshAll = async () => {
           <el-button :loading="productPending" @click="refreshProducts">查询</el-button>
         </div>
 
-        <div class="border border-[var(--color-line)] bg-white">
+        <div class="table-scroll border border-[var(--color-line)] bg-white" style="--table-min-width: 1080px">
           <el-table :data="productData?.items || []" stripe>
             <el-table-column label="图片" width="110">
               <template #default="{ row }">
@@ -327,7 +327,7 @@ const refreshAll = async () => {
           </el-button>
         </div>
 
-        <div class="border border-[var(--color-line)] bg-white">
+        <div class="table-scroll border border-[var(--color-line)] bg-white" style="--table-min-width: 930px">
           <el-table :data="categoryData?.items || []" stripe>
             <el-table-column label="图片" width="110">
               <template #default="{ row }">

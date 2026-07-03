@@ -31,7 +31,7 @@ const save = async (item: any) => {
       <p class="mt-2 text-[14px] text-[var(--color-slate-muted)]">配置页脚社交媒体图标链接。默认新窗口打开，未填写链接时前台显示为不可点击图标。</p>
     </div>
 
-    <div class="border border-[var(--color-line)] bg-white">
+    <div class="table-scroll border border-[var(--color-line)] bg-white" style="--table-min-width: 920px">
       <el-table :data="data?.items || []" stripe>
         <el-table-column label="平台" min-width="160">
           <template #default="{ row }">

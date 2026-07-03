@@ -33,6 +33,7 @@ const toggleSection = (key: string) => {
 const year = new Date().getFullYear()
 // 法定公司名固定中文展示，不跟随多语言或后台站点名称变更。
 const legalCompanyName = '商丘市宜沅新材料有限公司'
+const englishBrandName = 'YIYUAN NEW MATERIALS'
 </script>
 
 <template>
@@ -60,8 +61,8 @@ const legalCompanyName = '商丘市宜沅新材料有限公司'
                   />
                 </span>
                 <div>
-                  <div class="site-footer-brand__name">{{ company.displayName }}</div>
-                  <div class="site-footer-brand__tagline">Food packaging and cling film export supplier.</div>
+                  <div class="site-footer-brand__name">{{ legalCompanyName }}</div>
+                  <div class="site-footer-brand__tagline">{{ englishBrandName }}</div>
                 </div>
               </div>
             </div>
@@ -167,8 +168,8 @@ const legalCompanyName = '商丘市宜沅新材料有限公司'
                   decoding="async"
                 />
               </span>
-              <div class="site-footer-mobile-brand__name">{{ company.displayName }}</div>
-              <div class="site-footer-mobile-brand__tagline">Food packaging and cling film export supplier.</div>
+              <div class="site-footer-mobile-brand__name">{{ legalCompanyName }}</div>
+              <div class="site-footer-mobile-brand__tagline">{{ englishBrandName }}</div>
             </div>
 
             <div class="site-footer-mobile-actions">

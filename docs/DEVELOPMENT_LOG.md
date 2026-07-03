@@ -9,6 +9,55 @@
 - 如果只是文档或内容改动，也要记录。
 - 如果没有跑测试或构建，需要明确写出来。
 
+## 2026-07-03 - 修复移动端横向溢出与品牌中文展示
+
+背景：
+
+- 用户反馈 `https://yiyuanpack.com/products/pvc-fresh-wrap` 手机端页面没有完全铺满屏幕，怀疑 `Size Options` 横向表格撑宽页面。
+- 检查后确认产品详情页规格和尺寸表在手机端存在横向溢出风险，后台多个列表页也存在宽表格风险。
+- 用户要求 header/logo 文字和页脚品牌主文字使用中文公司名，小字保留英文，更符合中国公司身份。
+
+改动：
+
+- 产品详情页移动端将 `Specifications` 和 `Size Options` 从 Element Plus 表格改为纵向信息卡片，桌面端继续保留表格。
+- 产品详情页主图、信息栏、规格栏增加 `min-w-0` 和 `break-words`，避免长字段撑宽布局。
+- 产品详情页顶部参数卡在手机端改为单列，`sm` 以上恢复两列。
+- 新增通用 `.table-scroll` 样式，让宽表格在容器内部横向滑动，不撑宽整页。
+- 后台 SEO、友情链接、社交链接、博客文章、客户询盘、产品列表、产品分类列表全部套用内部横向滚动容器。
+- Header 品牌主文字改为中文公司名，手机窄屏使用短中文名 `宜沅新材料`，小字使用英文 `YIYUAN NEW MATERIALS`。
+- 页脚品牌区主文字改为 `商丘市宜沅新材料有限公司`，小字使用英文 `YIYUAN NEW MATERIALS`；底部版权声明继续固定中文法定公司名。
+- 多语言备注：后续做多语言时，Header/logo 主文字、Footer 品牌主文字、版权公司名都不参与翻译，不随语言切换或后台站点名称变更。
+
+涉及文件：
+
+- `app/pages/products/[slug].vue`
+- `app/assets/css/main.css`
+- `app/pages/like/seo/index.vue`
+- `app/pages/like/friend-links.vue`
+- `app/pages/like/social-links.vue`
+- `app/pages/like/posts/index.vue`
+- `app/pages/like/inquiries/index.vue`
+- `app/pages/like/products.vue`
+- `app/components/SiteHeader.vue`
+- `app/components/SiteFooter.vue`
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- `git diff --check` 通过。
+- `NODE_OPTIONS=--max-old-space-size=1536 ionice -c2 -n7 nice -n 15 pnpm build` 通过。
+- 构建存在既有警告：VueUse pure 注释、TinyMCE CSS `2of`、部分 chunk 超 500 kB、`node:sqlite` external、`@nuxt/image` sharp binaries 警告；未阻断构建。
+- 已重启 `3000` 生产服务，当前监听 `127.0.0.1:3000`，PID `3305105`。
+- 使用 Chromium 手机视口扫描 sitemap 中 24 个公开页面：390 宽度下没有页面级横向溢出，`bad = 0`。
+- 使用 Chromium 手机视口复测首页和 `/products/pvc-fresh-wrap`：360、390、414 宽度下 `documentElement.scrollWidth` 和 `body.scrollWidth` 均等于视口宽度。
+- 单独复测 `/products/pvc-fresh-wrap`：390 宽度下 `docScrollWidth = 390`、`bodyScrollWidth = 390`，并确认移动端 `Size Options` 显示为纵向卡片。
+- 公网 `https://yiyuanpack.com/` 返回 200，HTML 输出 `商丘市宜沅新材料有限公司`、`宜沅新材料`、`YIYUAN NEW MATERIALS`、`版权所有。`。
+- 公网 `https://yiyuanpack.com/products/pvc-fresh-wrap` 返回 200。
+
+提交：
+
+- commit: `当前提交`
+
 ## 2026-07-03 - 固定底部中文版权声明
 
 背景：

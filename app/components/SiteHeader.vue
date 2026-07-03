@@ -34,6 +34,9 @@ const route = useRoute()
 
 const productCategories = computed(() => (headerCatalog.value?.categories || []).slice(0, 4))
 const isActive = (to: string) => (to === '/' ? route.path === '/' : route.path === to || route.path.startsWith(`${to}/`))
+const legalCompanyName = '商丘市宜沅新材料有限公司'
+const shortCompanyName = '宜沅新材料'
+const englishBrandName = 'YIYUAN NEW MATERIALS'
 const updateScrolled = () => {
   stickySpacerHeight.value = stickyMainRef.value?.offsetHeight || 68
 
@@ -84,7 +87,7 @@ onBeforeUnmount(() => {
             <span class="site-brand__mark">
               <NuxtImg
                 :src="company.logoPath || '/site-logo.png'"
-                :alt="company.displayName"
+                :alt="legalCompanyName"
                 width="64"
                 height="64"
                 format="webp"
@@ -94,10 +97,10 @@ onBeforeUnmount(() => {
               />
             </span>
             <span class="site-brand__copy">
-              <span class="site-brand__name site-brand__name--full">{{ company.displayName }}</span>
-              <span class="site-brand__name site-brand__name--short">YIYUAN</span>
-              <span class="site-brand__tagline site-brand__tagline--full">{{ company.tagline }}</span>
-              <span class="site-brand__tagline site-brand__tagline--short">Export Factory</span>
+              <span class="site-brand__name site-brand__name--full">{{ legalCompanyName }}</span>
+              <span class="site-brand__name site-brand__name--short">{{ shortCompanyName }}</span>
+              <span class="site-brand__tagline site-brand__tagline--full">{{ englishBrandName }}</span>
+              <span class="site-brand__tagline site-brand__tagline--short">{{ englishBrandName }}</span>
             </span>
           </NuxtLink>
 
@@ -288,7 +291,7 @@ onBeforeUnmount(() => {
 .site-brand__copy {
   display: block;
   min-width: 0;
-  max-width: 128px;
+  max-width: clamp(132px, 38vw, 180px);
   line-height: 1.12;
 }
 

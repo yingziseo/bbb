@@ -15,7 +15,7 @@ const { data, pending, refresh } = await useFetch('/api/admin/seo')
       <el-button :loading="pending" @click="refresh">刷新</el-button>
     </div>
 
-    <div class="border border-[var(--color-line)] bg-white">
+    <div class="table-scroll border border-[var(--color-line)] bg-white" style="--table-min-width: 880px">
       <el-table :data="data?.items || []" stripe>
         <el-table-column prop="name" label="页面" min-width="180" />
         <el-table-column prop="path" label="路径" min-width="180" />

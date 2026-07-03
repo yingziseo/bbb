@@ -57,7 +57,7 @@ const formatDate = (value: string) => (value ? new Date(value).toLocaleString('z
       <el-button :loading="pending" @click="refresh">查询</el-button>
     </div>
 
-    <div class="border border-[var(--color-line)] bg-white">
+    <div class="table-scroll border border-[var(--color-line)] bg-white" style="--table-min-width: 900px">
       <el-table :data="data?.items || []" stripe>
         <el-table-column label="封面" width="110">
           <template #default="{ row }">

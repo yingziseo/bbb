@@ -72,7 +72,7 @@ const resend = async (id: number) => {
       <el-button @click="refresh">查询</el-button>
     </div>
 
-    <div class="border border-[var(--color-line)] bg-white">
+    <div class="table-scroll border border-[var(--color-line)] bg-white" style="--table-min-width: 1380px">
       <el-table :data="data?.items || []" stripe>
         <el-table-column label="ID" prop="id" width="80" />
         <el-table-column label="状态" width="110">

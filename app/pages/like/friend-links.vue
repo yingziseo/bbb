@@ -103,7 +103,7 @@ const remove = async (item: FriendLink) => {
       </el-button>
     </div>
 
-    <div class="border border-[var(--color-line)] bg-white">
+    <div class="table-scroll border border-[var(--color-line)] bg-white" style="--table-min-width: 920px">
       <el-table v-loading="pending" :data="data?.items || []" stripe>
         <el-table-column label="名称" min-width="180">
           <template #default="{ row }">
