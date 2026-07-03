@@ -5,6 +5,10 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
   modules: ['@element-plus/nuxt', '@nuxt/image'],
   css: ['~/assets/css/main.css'],
+  routeRules: {
+    '/like': { ssr: false },
+    '/like/**': { ssr: false },
+  },
   vite: {
     plugins: [tailwindcss()],
   },

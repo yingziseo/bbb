@@ -12,7 +12,6 @@ import 'tinymce/plugins/autosave'
 import 'tinymce/plugins/charmap'
 import 'tinymce/plugins/code'
 import 'tinymce/plugins/fullscreen'
-import 'tinymce/plugins/help'
 import 'tinymce/plugins/image'
 import 'tinymce/plugins/insertdatetime'
 import 'tinymce/plugins/link'
@@ -89,9 +88,9 @@ const editorInit: RawEditorOptions = {
   branding: false,
   promotion: false,
   elementpath: false,
-  menubar: 'file edit view insert format tools table help',
+  menubar: 'file edit view insert format tools table',
   plugins:
-    'advlist anchor autolink autosave charmap code fullscreen help image insertdatetime link lists media nonbreaking pagebreak preview quickbars searchreplace table visualblocks visualchars wordcount',
+    'advlist anchor autolink autosave charmap code fullscreen image insertdatetime link lists media nonbreaking pagebreak preview quickbars searchreplace table visualblocks visualchars wordcount',
   toolbar:
     'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media table blockquote | removeformat code preview fullscreen',
   toolbar_mode: 'sliding',

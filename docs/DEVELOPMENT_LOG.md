@@ -9,6 +9,45 @@
 - 如果只是文档或内容改动，也要记录。
 - 如果没有跑测试或构建，需要明确写出来。
 
+## 2026-07-03 - 后台管理路由改为 CSR
+
+背景：
+
+- 用户确认当前项目小，不需要前后端拆分，但希望将管理后台改为客户端渲染，保持前台公开页面 SSR。
+- 后台不需要 SEO，且富文本、上传、表格、弹窗等交互组件更适合浏览器端运行。
+
+改动：
+
+- 在 `nuxt.config.ts` 增加 route rules：`/like` 与 `/like/**` 关闭 SSR，后台页面改为 CSR。
+- 保留同一个 Nuxt/Nitro 服务、同一个 `3000` 端口、同一套 `/api/admin/*` 服务端接口，不拆前后端。
+- 新增 `/like/index.html` 的 GET/HEAD 服务端 301 重定向到 `/like`，保留旧入口兼容。
+- 移除后台富文本编辑器 TinyMCE 的 `help` 插件和 Help 菜单项，避免 CSR 页面下插件尝试从 `/like/posts//plugins/help/...` 加载资源并触发 `Unexpected token '<'`。
+
+涉及文件：
+
+- `nuxt.config.ts`
+- `server/routes/like/index.html.get.ts`
+- `server/routes/like/index.html.head.ts`
+- `app/components/admin/RichTextEditor.client.vue`
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- `NODE_OPTIONS=--max-old-space-size=1536 ionice -c2 -n7 nice -n 15 pnpm build` 通过。
+- 构建存在既有警告：VueUse pure 注释、TinyMCE CSS `2of`、部分 chunk 超 500 kB、`node:sqlite` external、`@nuxt/image` sharp binaries 警告；未阻断构建。
+- 临时生产预览 `127.0.0.1:3010` 验证：前台首页仍输出 SSR 内容，后台 `/like` 输出 CSR 壳，未登录 `/api/admin/stats` 返回 401，`/like/index.html` GET/HEAD 均 301 到 `/like`。
+- 使用当前生产环境后台账号登录 `3010`，后台主要 API 均返回 200：概览、产品、分类、文章、SEO、询盘、邮件转发、网站设置、社交链接、友情链接。
+- 使用 Chromium headless 验证 `3010` 后台 CSR 页面，概览、产品、文章列表、新建文章、SEO、询盘、转发管理、网站设置、首页弹窗、社交链接、友情链接、文章编辑、SEO 编辑、询盘详情均渲染成功，未捕获前端异常。
+- 已重启 `3000` 生产服务，当前监听 `127.0.0.1:3000`，PID `3094240`。
+- 生产验证：`http://127.0.0.1:3000/` 返回 200 且包含前台 SSR 内容；`http://127.0.0.1:3000/like` 返回 CSR 壳且不包含后台 SSR 文本；`/like/index.html` GET/HEAD 返回 301；未登录 `/api/admin/stats` 返回 401。
+- 使用当前生产环境后台账号登录 `3000`，后台主要 API 均返回 200。
+- 使用 Chromium headless 验证 `3000`：未登录访问 `/like/products` 会跳到 `/like/login?redirect=/like/products`；登录后 14 个后台页面均渲染成功，未捕获前端异常。
+- 公网入口 `http://43.159.38.19/` 返回 301 到 `https://yiyuanpack.com/`；`https://yiyuanpack.com/` 和 `https://yiyuanpack.com/like` 返回 200；源站 HTTPS 直连同样返回 200。
+
+提交：
+
+- 本条记录随本次提交保存，提交完成后在最终回复中说明 commit hash 和 push 状态。
+
 ## 2026-07-03 - 更新询盘转发邮箱并模拟询盘
 
 背景：
