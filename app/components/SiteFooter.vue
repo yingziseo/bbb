@@ -31,6 +31,8 @@ const toggleSection = (key: string) => {
 }
 
 const year = new Date().getFullYear()
+// 法定公司名固定中文展示，不跟随多语言或后台站点名称变更。
+const legalCompanyName = '商丘市宜沅新材料有限公司'
 </script>
 
 <template>
@@ -273,7 +275,7 @@ const year = new Date().getFullYear()
 
     <div class="site-footer-legal">
       <div class="container-x site-footer-legal__inner">
-        <span>© {{ year }} {{ company.name }} All rights reserved.</span>
+        <span>© {{ year }} {{ legalCompanyName }} 版权所有。</span>
         <span>{{ company.location }}</span>
       </div>
     </div>

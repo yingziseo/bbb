@@ -9,6 +9,34 @@
 - 如果只是文档或内容改动，也要记录。
 - 如果没有跑测试或构建，需要明确写出来。
 
+## 2026-07-03 - 固定底部中文版权声明
+
+背景：
+
+- 用户要求网站底部版权声明使用中文公司名 `商丘市宜沅新材料有限公司`，并且后续即使做多语言也不要改变。
+
+改动：
+
+- 将底部版权声明从后台站点名称 `company.name` 改为固定中文法定公司名。
+- 增加代码注释，说明该公司名不跟随多语言或后台站点名称变更。
+
+涉及文件：
+
+- `app/components/SiteFooter.vue`
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- `NODE_OPTIONS=--max-old-space-size=1536 ionice -c2 -n7 nice -n 15 pnpm build` 通过。
+- 构建存在既有警告：VueUse pure 注释、TinyMCE CSS `2of`、部分 chunk 超 500 kB、`node:sqlite` external、`@nuxt/image` sharp binaries 警告；未阻断构建。
+- 已重启 `3000` 生产服务，当前监听 `127.0.0.1:3000`，PID `3218130`。
+- 本地首页返回 200，HTML 输出 `© 2026 商丘市宜沅新材料有限公司 版权所有。`。
+- 公网 `https://yiyuanpack.com/` 返回 200，HTML 输出 `© 2026 商丘市宜沅新材料有限公司 版权所有。`。
+
+提交：
+
+- commit: `当前提交`
+
 ## 2026-07-03 - 优化 sitemap 与规范 URL
 
 背景：
