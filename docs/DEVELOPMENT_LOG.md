@@ -9,6 +9,51 @@
 - 如果只是文档或内容改动，也要记录。
 - 如果没有跑测试或构建，需要明确写出来。
 
+## 2026-07-06 - 修复后台上传图片运行时不可访问
+
+背景：
+
+- 用户反馈后台新增产品并上传图片后，图片无法在前台显示。
+- 排查确认上传接口会把文件写入 `public/uploads` 并返回 `/uploads/...`，但生产构建后的 Nitro 服务不会自动服务运行时新增的 `public/uploads` 文件。
+- 另外，前台部分动态图片使用 `NuxtImg`，会把 `/uploads/...` 转成 `/_ipx/.../uploads/...`，对运行时新增上传图仍会 404。
+
+改动：
+
+- 新增 `/uploads/**` 运行时文件路由，直接从 `public/uploads` 读取上传文件，支持 `GET` 和 `HEAD`，并限制只能访问上传目录内文件。
+- 新增 `RuntimeImage` 组件：`/uploads/...` 使用普通 `<img>` 直连，静态 `/images/...` 继续使用 `NuxtImg`。
+- 产品卡片、博客列表、博客详情、Header Logo、首页分类图片改用 `RuntimeImage`，避免后台上传图被错误转成 `_ipx` 地址。
+- 未修改数据库结构、上传接口、后台表单字段或已有产品数据。
+
+涉及文件：
+
+- `server/routes/uploads/[...path].ts`
+- `app/components/RuntimeImage.vue`
+- `app/components/ProductCard.vue`
+- `app/components/BlogListing.vue`
+- `app/components/SiteHeader.vue`
+- `app/pages/blog/[slug].vue`
+- `app/pages/index.vue`
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- `git diff --check` 通过。
+- 使用低资源命令 `NODE_OPTIONS=--max-old-space-size=2048 ionice -c2 -n7 nice -n 15 pnpm build` 构建通过。
+- 构建存在既有警告：VueUse pure 注释、TinyMCE CSS `2of`、部分 chunk 超 500 kB、`node:sqlite` external、`@nuxt/image` sharp binaries 警告；未阻断构建。
+- 已重启 `3000` 生产服务，当前监听 `127.0.0.1:3000`，PID `1102080`。
+- 服务启动后临时新增 `public/uploads/runtime-upload-test.webp`，本地 `/uploads/runtime-upload-test.webp` 返回 200，Content-Type 为 `image/webp`。
+- 同一运行时临时文件公网 `https://yiyuanpack.com/uploads/runtime-upload-test.webp` 返回 200，Content-Type 为 `image/webp`；验证后已删除临时文件。
+- 本地 `/products` 页面只输出 `/uploads/product-commercial-cling-film-roll.webp` 和 `/uploads/product-custom-disposable-food-containers.webp`，不再输出 `_ipx...uploads`。
+- 本地 `/uploads/../data/yiyuan.db` 返回 404，未暴露上传目录外文件。
+- 本地两张产品图 `/uploads/product-commercial-cling-film-roll.webp`、`/uploads/product-custom-disposable-food-containers.webp` 均返回 200，Content-Type 为 `image/webp`。
+- 本地 `/products/commercial-cling-film-roll`、`/products/custom-disposable-food-containers`、`/blog` 均返回 200。
+- 公网两张产品图和两个产品详情页均返回 200，公网 `/blog` 返回 200。
+- 代码扫描确认剩余 `<NuxtImg>` 只用于首页固定 `/images/...` 静态图；后台可上传的产品、博客、分类、Logo 图片不再依赖 IPX。
+
+提交：
+
+- commit: `当前提交`
+
 ## 2026-07-06 - 新增商用保鲜膜和定制一次性餐盒产品
 
 背景：

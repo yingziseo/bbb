@@ -49,7 +49,7 @@ const more = computed(() => (moreData.value?.items || []).filter((p) => p.slug !
             <h1 class="mt-4 text-[clamp(26px,3.6vw,38px)] font-extrabold text-[var(--color-navy)] leading-tight text-balance">{{ post.title }}</h1>
 
             <div v-if="post.coverImage" class="mt-7 overflow-hidden border border-[var(--color-line)]">
-              <NuxtImg
+              <RuntimeImage
                 :src="post.coverImage"
                 :alt="post.title"
                 width="1200"
@@ -59,7 +59,7 @@ const more = computed(() => (moreData.value?.items || []).filter((p) => p.slug !
                 loading="eager"
                 fetchpriority="high"
                 decoding="async"
-                class="w-full aspect-[16/9] object-cover"
+                image-class="w-full aspect-[16/9] object-cover"
               />
             </div>
 
@@ -103,7 +103,7 @@ const more = computed(() => (moreData.value?.items || []).filter((p) => p.slug !
             class="group flex flex-col overflow-hidden border border-[var(--color-line)] bg-white sm:flex-row"
           >
             <div class="sm:w-44 shrink-0 aspect-[16/10] sm:aspect-auto overflow-hidden bg-[var(--color-panel-2)]">
-              <NuxtImg
+              <RuntimeImage
                 :src="p.coverImage"
                 :alt="p.title"
                 width="320"
@@ -112,7 +112,7 @@ const more = computed(() => (moreData.value?.items || []).filter((p) => p.slug !
                 loading="lazy"
                 fetchpriority="low"
                 decoding="async"
-                class="h-full w-full object-cover"
+                image-class="h-full w-full object-cover"
               />
             </div>
             <div class="p-5">

@@ -50,7 +50,7 @@ const gridPosts = computed(() => (props.showFeatured ? props.items.slice(1) : pr
           class="group mb-12 grid gap-0 overflow-hidden border border-[var(--color-line)] md:grid-cols-2"
         >
           <div class="aspect-[16/10] overflow-hidden bg-[var(--color-panel)] md:aspect-auto">
-            <NuxtImg
+            <RuntimeImage
               :src="featured.coverImage"
               :alt="featured.title"
               width="1000"
@@ -60,7 +60,7 @@ const gridPosts = computed(() => (props.showFeatured ? props.items.slice(1) : pr
               loading="eager"
               fetchpriority="high"
               decoding="async"
-              class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+              image-class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
             />
           </div>
           <div class="flex flex-col justify-center p-7 sm:p-9">
@@ -84,7 +84,7 @@ const gridPosts = computed(() => (props.showFeatured ? props.items.slice(1) : pr
             class="group flex flex-col overflow-hidden border border-[var(--color-line)] bg-white"
           >
             <div class="aspect-[16/10] overflow-hidden bg-[var(--color-panel)]">
-              <NuxtImg
+              <RuntimeImage
                 :src="p.coverImage"
                 :alt="p.title"
                 width="640"
@@ -93,7 +93,7 @@ const gridPosts = computed(() => (props.showFeatured ? props.items.slice(1) : pr
                 loading="lazy"
                 fetchpriority="low"
                 decoding="async"
-                class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.04]"
+                image-class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.04]"
               />
             </div>
             <div class="flex flex-1 flex-col p-5">

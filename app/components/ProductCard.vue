@@ -7,7 +7,7 @@ defineProps<{ product: Product }>()
 <template>
   <div class="group flex flex-col overflow-hidden border border-[var(--color-line)] bg-white">
     <NuxtLink :to="`/products/${product.slug}`" class="block relative aspect-[4/3] bg-[var(--color-panel)] overflow-hidden">
-      <NuxtImg
+      <RuntimeImage
         :src="product.image"
         :alt="product.name"
         width="640"
@@ -15,7 +15,7 @@ defineProps<{ product: Product }>()
         sizes="sm:100vw md:50vw lg:25vw"
         densities="1x"
         quality="82"
-        class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.04]"
+        image-class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.04]"
         loading="lazy"
         fetchpriority="low"
         decoding="async"

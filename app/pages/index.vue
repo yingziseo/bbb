@@ -149,7 +149,7 @@ await useManagedSeo('page:home', {
             class="group flex flex-col overflow-hidden border border-[var(--color-line)] bg-white"
           >
             <div class="aspect-[4/3] overflow-hidden bg-[var(--color-panel)]">
-              <NuxtImg
+              <RuntimeImage
                 :src="c.image"
                 :alt="c.name"
                 width="640"
@@ -160,7 +160,7 @@ await useManagedSeo('page:home', {
                 loading="lazy"
                 fetchpriority="low"
                 decoding="async"
-                class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.04]"
+                image-class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.04]"
               />
             </div>
             <div class="p-5">
