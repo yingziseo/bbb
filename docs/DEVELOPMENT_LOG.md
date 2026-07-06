@@ -9,6 +9,55 @@
 - 如果只是文档或内容改动，也要记录。
 - 如果没有跑测试或构建，需要明确写出来。
 
+## 2026-07-06 - 新增商用保鲜膜和定制一次性餐盒产品
+
+背景：
+
+- 用户提供 `/root/bbb/产品图/` 下两张产品 PNG，要求转换为 WebP、尺寸 `1024x1024`，并新增对应产品资料、SEO 描述和规格信息。
+- 产品分别为商用餐厅/商超用保鲜膜，以及多尺寸、可定制的一次性餐盒/食品容器。
+
+改动：
+
+- 将两张源 PNG 按原图等比例缩小并居中补白为 `1024x1024` WebP，不裁切、不改色、不修图。
+- 新增上传图：
+  - `/uploads/product-commercial-cling-film-roll.webp`
+  - `/uploads/product-custom-disposable-food-containers.webp`
+- 新增产品 `Commercial Cling Film Roll`，slug 为 `commercial-cling-film-roll`，归类到 `cling-film`，排序为 `1`。
+- 新增产品 `Custom Disposable Food Containers`，slug 为 `custom-disposable-food-containers`，归类到 `disposable-meal-boxes`，排序为 `1`。
+- 为两条产品补充英文简短描述、材料、MOQ、包装、规格参数、尺寸选项、应用场景和产品 SEO TDK。
+- 同步写入对应 `seo_entries`，OG image 指向各自 `/uploads/*.webp` 图片。
+- 写入 `uploaded_files` 记录，模拟后台上传后的运行时图片记录。
+
+涉及文件和数据：
+
+- `data/yiyuan.db`
+- `public/uploads/product-commercial-cling-film-roll.webp`（运行时上传目录，已忽略，不提交）
+- `public/uploads/product-custom-disposable-food-containers.webp`（运行时上传目录，已忽略，不提交）
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- 已备份 SQLite：
+  - `data/backups/yiyuan-before-two-products-20260706130924..db`
+  - `data/backups/yiyuan-before-upload-paths-20260706131437..db`
+  - `data/backups/yiyuan-before-sort-new-products-20260706131502..db`
+- 首次 `pnpm build` 在服务端构建阶段因默认 Node heap OOM 失败。
+- 使用 `NODE_OPTIONS=--max-old-space-size=3072 pnpm build` 通过。
+- 构建存在既有警告：VueUse pure 注释、TinyMCE CSS `2of`、部分 chunk 超 500 kB、`node:sqlite` external、`@nuxt/image` sharp binaries 警告；未阻断构建。
+- 已重启 `3000` 生产服务，新进程 PID `1063329`。
+- 本地 `/uploads/product-commercial-cling-film-roll.webp` 和 `/uploads/product-custom-disposable-food-containers.webp` 均返回 200，Content-Type 为 `image/webp`。
+- 本地 `/products/commercial-cling-film-roll` 和 `/products/custom-disposable-food-containers` 均返回 200，并输出对应产品名、SEO title 和上传图片路径。
+- 本地 `/api/public/products` 显示两条新产品排序为 `1`；商用保鲜膜为保鲜膜分类第一项，定制一次性餐盒在一次性餐盒分类中排在同排序产品前。
+- 本地 `/api/public/seo?key=product:commercial-cling-film-roll` 和 `/api/public/seo?key=product:custom-disposable-food-containers` 均返回 Product JSON-LD，图片指向对应上传图。
+- 本地 `/products/category/cling-film` 和 `/products/category/disposable-meal-boxes` 均返回 200，并包含对应新产品。
+- 本地 `/sitemap.xml` 已包含两个新产品 URL。
+- 公网两张上传图片均返回 200。
+- 公网 `https://yiyuanpack.com/products/commercial-cling-film-roll` 和 `https://yiyuanpack.com/products/custom-disposable-food-containers` 均返回 200，并包含对应产品名和上传图片路径。
+
+提交：
+
+- commit: `当前提交`
+
 ## 2026-07-03 - 修复移动端横向溢出与品牌中文展示
 
 背景：
