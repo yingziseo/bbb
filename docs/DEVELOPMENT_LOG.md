@@ -9,6 +9,62 @@
 - 如果只是文档或内容改动，也要记录。
 - 如果没有跑测试或构建，需要明确写出来。
 
+## 2026-07-08 - 新增产品资料和检验报告下载入口
+
+背景：
+
+- 客户提供两个 PDF：一个产品介绍资料，一个检验报告 / 认证资料。
+- 站点此前缺少真实产品资料、检测报告和可下载采购文件，影响海外采购商信任和询盘转化。
+- 需要让客户可以在线阅读和下载 PDF，并建立后续资料补充清单。
+
+改动：
+
+- 将客户 PDF 复制到公开静态目录并重命名为英文文件名：
+  - `/downloads/yiyuan-food-container-cling-film-product-catalog.pdf`
+  - `/downloads/yiyuan-cling-film-test-report-ccf-000071.pdf`
+- 新增 `app/data/documents.ts`，统一维护采购资料 PDF 的标题、描述、URL 和下载文件名。
+- 新增 `DocumentDownloads` 前台组件，提供 `View Online` 和 `Download PDF` 两类操作。
+- 产品列表页新增产品目录 PDF 入口。
+- 产品详情页新增 `Available Documents`，展示产品资料和检验 / 测试报告。
+- 关于页新增 `Quality Documents` 区块，展示检验 / 测试报告。
+- 联系页新增 `Buyer Files`，方便询盘前查看和下载资料。
+- 首页 `Quality Control` 区块新增轻量测试报告查看 / 下载按钮。
+- 新增 `docs/CONTENT_IMPROVEMENT_BACKLOG.md`，记录产品资料、工厂公司资料和采购信息的后续补充清单。
+- 更新文档索引、项目总览和当前状态。
+- 未涉及数据库、后台、API 或环境变量。
+
+涉及文件：
+
+- `public/downloads/yiyuan-food-container-cling-film-product-catalog.pdf`
+- `public/downloads/yiyuan-cling-film-test-report-ccf-000071.pdf`
+- `app/data/documents.ts`
+- `app/components/DocumentDownloads.vue`
+- `app/pages/index.vue`
+- `app/pages/products/index.vue`
+- `app/pages/products/[slug].vue`
+- `app/pages/about.vue`
+- `app/pages/contact.vue`
+- `docs/CONTENT_IMPROVEMENT_BACKLOG.md`
+- `docs/README.md`
+- `docs/PROJECT_OVERVIEW.md`
+- `docs/PROJECT_STATE.md`
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- `git diff --check` 通过。
+- `NODE_OPTIONS=--max-old-space-size=2048 ionice -c2 -n7 nice -n 15 pnpm build` 构建通过。
+- 构建存在既有警告：VueUse pure 注释、TinyMCE CSS `2of`、部分 chunk 超 500 kB、`node:sqlite` external、`@nuxt/image` sharp binaries 警告；未阻断构建。
+- 已重启 `3000` 生产服务，当前监听 `127.0.0.1:3000`，PID `3079333`。
+- 本地 `/`、`/products`、`/products/commercial-cling-film-roll`、`/about`、`/contact` 均返回 200。
+- 本地两个 PDF 均返回 200，Content-Type 为 `application/pdf`。
+- 本地页面 HTML 已确认输出对应 PDF 链接和 `Product Catalog`、`Inspection / Test Report`、`Available Documents`、`Buyer Files` 等文案。
+- 公网 `/products`、`/about`、`/contact` 和两个 PDF 均返回 200。
+
+提交：
+
+- 本条记录随本次提交保存，提交完成后在最终回复中说明 commit hash 和 push 状态。
+
 ## 2026-07-06 - 修复后台上传图片运行时不可访问
 
 背景：

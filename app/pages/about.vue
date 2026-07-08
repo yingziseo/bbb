@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { OfficeBuilding, Setting, Box, Histogram, Check, Promotion } from '@element-plus/icons-vue'
+import { buyerDocuments } from '~/data/documents'
 
 const company = await useSiteSettings()
 
@@ -24,6 +25,7 @@ const registeredFacts = [
   'Address translated from the public registration record',
   'PVC Phase I public notice references 5,000 tons annual output',
 ]
+const qualityDocuments = [buyerDocuments.testReport]
 </script>
 
 <template>
@@ -77,8 +79,20 @@ const registeredFacts = [
       </div>
     </section>
 
-    <!-- Workshop gallery -->
+    <!-- Quality documents -->
     <section class="section bg-[var(--color-panel)] border-y border-[var(--color-line)]">
+      <div class="container-x">
+        <DocumentDownloads
+          eyebrow="Quality Documents"
+          title="Inspection Document for Buyer Review"
+          subtitle="A scanned inspection / test report is available for overseas buyers who need supporting files before inquiry or order discussion."
+          :documents="qualityDocuments"
+        />
+      </div>
+    </section>
+
+    <!-- Workshop gallery -->
+    <section class="section bg-white">
       <div class="container-x">
         <SectionHeading eyebrow="Factory" title="Workshop, Equipment & Storage" subtitle="Production floor, converting equipment, warehouse, and product samples." />
         <div class="mt-10 grid gap-4 md:grid-cols-3">

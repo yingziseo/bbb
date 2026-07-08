@@ -3,10 +3,13 @@ import {
   CircleCheck,
   Check,
   ArrowRight,
+  Document,
+  Download,
   Message,
   Location,
   Promotion,
 } from '@element-plus/icons-vue'
+import { buyerDocuments } from '~/data/documents'
 import type { Product } from '~/data/site'
 
 const company = await useSiteSettings()
@@ -49,6 +52,7 @@ const quality = [
   'ISO-based quality management',
   'Third-party lab testing available on request',
 ]
+const testReport = buyerDocuments.testReport
 
 const featured = computed(() => (catalogData.value?.items || []).slice(0, 4))
 
@@ -359,6 +363,16 @@ await useManagedSeo('page:home', {
               <span class="text-[15px] text-[var(--color-graphite)] leading-relaxed">{{ q }}</span>
             </li>
           </ul>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <el-button tag="a" :href="testReport.href" target="_blank" rel="noopener" color="#1b3c63">
+              <el-icon><Document /></el-icon>
+              <span>View Test Report</span>
+            </el-button>
+            <el-button tag="a" :href="testReport.href" :download="testReport.filename" plain>
+              <el-icon><Download /></el-icon>
+              <span>Download PDF</span>
+            </el-button>
+          </div>
         </div>
         <div class="overflow-hidden border border-[var(--color-line)]">
           <NuxtImg

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Check, Close, Promotion } from '@element-plus/icons-vue'
+import { buyerDocumentList } from '~/data/documents'
 import type { Product } from '~/data/site'
 
 const company = await useSiteSettings()
@@ -25,6 +26,7 @@ const related = computed(() =>
     .filter((p) => p.categorySlug === product.value?.categorySlug && p.slug !== product.value?.slug)
     .slice(0, 3),
 )
+const productDocuments = buyerDocumentList
 </script>
 
 <template>
@@ -151,6 +153,15 @@ const related = computed(() =>
             <el-tag v-for="a in product.applications" :key="a" type="info" effect="plain" size="large" class="!rounded-none">
               {{ a }}
             </el-tag>
+          </div>
+
+          <div class="mt-8">
+            <DocumentDownloads
+              title="Available Documents"
+              subtitle="Review product information and quality documents before confirming specifications."
+              :documents="productDocuments"
+              compact
+            />
           </div>
 
           <div class="mt-8 bg-[var(--color-navy)] p-6 text-white">

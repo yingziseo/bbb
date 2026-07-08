@@ -11,9 +11,10 @@
 3. [管理面板开发规划](./ADMIN_PANEL_PLAN.md)
 4. [管理面板使用说明](./ADMIN_PANEL_USAGE.md)
 5. [协作规则](./COLLABORATION_RULES.md)
-6. [开发记录](./DEVELOPMENT_LOG.md)
-7. [待办清单](./TASKS.md)
-8. [推送检查清单](./PUSH_CHECKLIST.md)
+6. [内容资料优化清单](./CONTENT_IMPROVEMENT_BACKLOG.md)
+7. [开发记录](./DEVELOPMENT_LOG.md)
+8. [待办清单](./TASKS.md)
+9. [推送检查清单](./PUSH_CHECKLIST.md)
 
 ## 维护规则
 
@@ -21,6 +22,7 @@
 - 如果路由、核心组件、数据结构或依赖发生变化，同步更新 `PROJECT_OVERVIEW.md`。
 - 如果项目实际状态发生变化，例如表单接入后端、增加测试、上线部署等，同步更新 `PROJECT_STATE.md`。
 - 如果发现问题或产生新需求，放入 `TASKS.md`，并标注优先级。
+- 如果客户新增真实产品、工厂、证书、检测、采购参数等资料，同步更新 `CONTENT_IMPROVEMENT_BACKLOG.md`。
 - 每次提交或推送前，按 `PUSH_CHECKLIST.md` 做一次检查。
 
 ## 记录粒度

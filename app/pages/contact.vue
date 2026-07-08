@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Message, Location, Clock } from '@element-plus/icons-vue'
+import { buyerDocumentList } from '~/data/documents'
 
 const company = await useSiteSettings()
 
@@ -12,6 +13,7 @@ await useManagedSeo('page:contact', {
 
 const route = useRoute()
 const defaultProduct = computed(() => (route.query.product as string) || '')
+const contactDocuments = buyerDocumentList
 </script>
 
 <template>
@@ -70,6 +72,13 @@ const defaultProduct = computed(() => (route.query.product as string) || '')
               </el-button>
             </div>
           </div>
+
+          <DocumentDownloads
+            title="Buyer Files"
+            subtitle="Open or download product and quality PDFs before submitting your inquiry."
+            :documents="contactDocuments"
+            compact
+          />
 
           <ul class="divide-y divide-[var(--color-line)] border border-[var(--color-line)]">
             <li class="flex items-start gap-3 p-5">

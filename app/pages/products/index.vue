@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Promotion } from '@element-plus/icons-vue'
+import { buyerDocuments } from '~/data/documents'
 import type { Product } from '~/data/site'
 
 const company = await useSiteSettings()
@@ -23,6 +24,7 @@ type ProductCategory = {
 const { data: catalogData } = await useFetch<{ categories: ProductCategory[]; items: Product[] }>('/api/public/products')
 const categories = computed(() => catalogData.value?.categories || [])
 const products = computed(() => catalogData.value?.items || [])
+const productDocuments = [buyerDocuments.productCatalog]
 </script>
 
 <template>
@@ -59,6 +61,15 @@ const products = computed(() => catalogData.value?.items || [])
           >
             {{ c.name }}
           </NuxtLink>
+        </div>
+
+        <div class="mt-8">
+          <DocumentDownloads
+            title="Product Catalog"
+            subtitle="Review current food container and cling film product information before sending specifications."
+            :documents="productDocuments"
+            compact
+          />
         </div>
 
         <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

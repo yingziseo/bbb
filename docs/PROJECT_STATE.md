@@ -30,6 +30,7 @@
 - 询盘邮件转发接口，支持后台配置和重发；未配置邮件 API 时记录为 `skipped`。
 - sitemap、robots 和基础结构化数据。
 - 页脚友情链接模块：桌面端在页脚底部横向展示，手机端默认折叠。
+- 产品资料和检验 / 测试报告 PDF 下载：产品页、产品详情页、关于页、联系页和首页质量区已提供在线阅读和下载入口。
 
 ## 内容资产
 
@@ -39,6 +40,7 @@
 - 产品图：`product-meal-box.webp`、`product-bento.webp`、`product-cling-film.webp`、`product-fresh-wrap.webp`、`product-deli.webp`、`product-clamshell.webp`、`product-custom-box.webp`、`product-cup.webp`。
 - 分类图：`cat-containers.webp`、`cat-film.webp`、`cat-food.webp`、`cat-custom.webp`。
 - 博客图：早期 `blog-*.webp` 和 `public/images/blog/*.webp` 下 6 篇保鲜膜 TOB 文章图片。
+- 公开下载资料：`public/downloads/yiyuan-food-container-cling-film-product-catalog.pdf`、`public/downloads/yiyuan-cling-film-test-report-ccf-000071.pdf`。
 
 根目录还有 `hero.png`、`home.png`、`home2.png`、`product.png`、`to-b.zip` 等文件，当前 `.gitignore` 已忽略这些大文件或临时文件。
 
@@ -48,6 +50,7 @@
 - 邮件自动转发依赖运行环境 `RESEND_API_KEY` 和后台转发设置。
 - `app/data/site.ts` 仍保留默认值和初始化种子，真实运行数据以 SQLite 为准。
 - 合规跑马灯中的认证和法规词需要确认业务证据，避免不准确宣传。
+- 检验 / 测试报告已上线为 PDF，但报告性质、适用产品、检测项目和证书编号仍建议继续由业务侧确认。
 
 ## 推荐近期优先级
 
