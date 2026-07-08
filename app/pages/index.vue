@@ -366,11 +366,11 @@ await useManagedSeo('page:home', {
           <div class="mt-6 flex flex-wrap gap-3">
             <el-button tag="a" :href="testReport.href" target="_blank" rel="noopener" color="#1b3c63">
               <el-icon><Document /></el-icon>
-              <span>View Test Report</span>
+              <span>View Report</span>
             </el-button>
             <el-button tag="a" :href="testReport.href" :download="testReport.filename" plain>
               <el-icon><Download /></el-icon>
-              <span>Download PDF</span>
+              <span>PDF</span>
             </el-button>
           </div>
         </div>

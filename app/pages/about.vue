@@ -84,8 +84,8 @@ const qualityDocuments = [buyerDocuments.testReport]
       <div class="container-x">
         <DocumentDownloads
           eyebrow="Quality Documents"
-          title="Inspection Document for Buyer Review"
-          subtitle="A scanned inspection / test report is available for overseas buyers who need supporting files before inquiry or order discussion."
+          title="Inspection Document"
+          subtitle="View or download"
           :documents="qualityDocuments"
         />
       </div>

@@ -9,6 +9,48 @@
 - 如果只是文档或内容改动，也要记录。
 - 如果没有跑测试或构建，需要明确写出来。
 
+## 2026-07-08 - 精简采购资料下载区样式
+
+背景：
+
+- 用户反馈联系页 `Buyer Files` 区块视觉过重，卡片嵌套和按钮换行导致布局不整齐。
+- 需要减少文案噪音，改成符合当前工业 B2B 站风格的克制、紧凑资料入口。
+
+改动：
+
+- `DocumentDownloads` 从大卡片嵌套结构改为紧凑列表结构。
+- 删除顶部大图标和长段说明，资料项统一一行展示文件名、类型和页数。
+- 按钮文案由 `View Online` / `Download PDF` 精简为 `View` / `PDF`，并统一小尺寸、固定最小宽度、取消 Element Plus 相邻按钮默认左边距。
+- 产品页、产品详情页、关于页、联系页中的资料区副标题统一精简为 `View or download`。
+- 首页质量区按钮文案精简为 `View Report` 和 `PDF`。
+- 未涉及数据库、后台、API 或 PDF 文件位置。
+
+涉及文件：
+
+- `app/components/DocumentDownloads.vue`
+- `app/data/documents.ts`
+- `app/pages/index.vue`
+- `app/pages/products/index.vue`
+- `app/pages/products/[slug].vue`
+- `app/pages/about.vue`
+- `app/pages/contact.vue`
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- `git diff --check` 通过。
+- `NODE_OPTIONS=--max-old-space-size=2048 ionice -c2 -n7 nice -n 15 pnpm build` 构建通过。
+- 构建存在既有警告：VueUse pure 注释、TinyMCE CSS `2of`、部分 chunk 超 500 kB、`node:sqlite` external、`@nuxt/image` sharp binaries 警告；未阻断构建。
+- 已重启 `3000` 生产服务，当前监听 `127.0.0.1:3000`，PID `3115214`。
+- 本地 `/`、`/products`、`/products/commercial-cling-film-roll`、`/about`、`/contact` 和两个 PDF 均返回 200。
+- 本地页面 HTML 已确认输出短文案 `Catalog`、`Test Report`、`View`、`PDF`，不再输出 `View Online`、`Download PDF` 和旧长描述。
+- 公网 `/products`、`/products/commercial-cling-film-roll`、`/about`、`/contact` 和两个 PDF 均返回 200。
+- 公网 `/contact` 和产品详情页已确认输出短文案 `Catalog`、`Test Report`、`View`、`PDF`。
+
+提交：
+
+- 本条记录随本次提交保存，提交完成后在最终回复中说明 commit hash 和 push 状态。
+
 ## 2026-07-08 - 新增产品资料和检验报告下载入口
 
 背景：

@@ -66,7 +66,7 @@ const productDocuments = [buyerDocuments.productCatalog]
         <div class="mt-8">
           <DocumentDownloads
             title="Product Catalog"
-            subtitle="Review current food container and cling film product information before sending specifications."
+            subtitle="View or download"
             :documents="productDocuments"
             compact
           />

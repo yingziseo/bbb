@@ -8,18 +8,18 @@ export type BuyerDocument = {
 
 export const buyerDocuments = {
   productCatalog: {
-    title: 'Product Catalog PDF',
-    description: 'Disposable food containers and cling film product overview for buyer review.',
+    title: 'Catalog',
+    description: 'Product overview',
     href: '/downloads/yiyuan-food-container-cling-film-product-catalog.pdf',
     filename: 'yiyuan-food-container-cling-film-product-catalog.pdf',
-    meta: 'Product information · 6 pages',
+    meta: '6 pages',
   },
   testReport: {
-    title: 'Inspection / Test Report',
-    description: 'Scanned inspection document provided for buyer quality review.',
+    title: 'Test Report',
+    description: 'Quality document',
     href: '/downloads/yiyuan-cling-film-test-report-ccf-000071.pdf',
     filename: 'yiyuan-cling-film-test-report-ccf-000071.pdf',
-    meta: 'Quality document · 4 pages',
+    meta: '4 pages',
   },
 } satisfies Record<string, BuyerDocument>
 
