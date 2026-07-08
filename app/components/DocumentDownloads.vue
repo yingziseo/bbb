@@ -23,52 +23,35 @@ withDefaults(defineProps<{
     class="border p-4 sm:p-5"
     :class="inverse ? 'border-white/12 bg-white/5 text-white' : 'border-[var(--color-line)] bg-white text-[var(--color-ink)]'"
   >
-    <div class="min-w-0">
-      <div
-        class="text-[10px] font-bold uppercase tracking-[0.12em]"
-        :class="inverse ? 'text-white/52' : 'text-[var(--color-slate-muted)]'"
-      >
-        {{ eyebrow }}
-      </div>
-      <div class="mt-1 flex min-w-0 items-end justify-between gap-3">
-        <h2
-          class="truncate font-extrabold leading-tight"
-          :class="[compact ? 'text-[17px]' : 'text-[20px]', inverse ? 'text-white' : 'text-[var(--color-navy)]']"
-        >
-          {{ title }}
-        </h2>
-        <p
-          v-if="subtitle"
-          class="hidden shrink-0 text-[12.5px] sm:block"
-          :class="inverse ? 'text-white/58' : 'text-[var(--color-slate-muted)]'"
-        >
-          {{ subtitle }}
-        </p>
-      </div>
-    </div>
+    <h2
+      class="font-extrabold leading-tight"
+      :class="[compact ? 'text-[17px]' : 'text-[20px]', inverse ? 'text-white' : 'text-[var(--color-navy)]']"
+    >
+      {{ title }}
+    </h2>
 
     <div class="mt-4 grid gap-2">
       <article
         v-for="doc in documents"
         :key="doc.href"
-        class="flex min-w-0 items-center justify-between gap-3 border px-3 py-3"
-        :class="inverse ? 'border-white/12 bg-[var(--color-navy-dark)]/35' : 'border-[var(--color-line)] bg-[var(--color-panel)]'"
+        class="border-t pt-3 first:border-t-0 first:pt-0"
+        :class="inverse ? 'border-white/12' : 'border-[var(--color-line)]'"
       >
         <div class="min-w-0">
           <h3
-            class="truncate text-[14px] font-extrabold leading-snug"
+            class="text-[14.5px] font-extrabold leading-snug"
             :class="inverse ? 'text-white' : 'text-[var(--color-navy)]'"
           >
             {{ doc.title }}
           </h3>
           <div
-            class="mt-1 truncate text-[12px] font-semibold"
+            class="mt-1 text-[12.5px] font-semibold leading-relaxed"
             :class="inverse ? 'text-white/52' : 'text-[var(--color-slate-muted)]'"
           >
             {{ doc.description }} · {{ doc.meta }}
           </div>
         </div>
-        <div class="flex shrink-0 items-center gap-2">
+        <div class="mt-3 flex items-center gap-2">
           <el-button
             tag="a"
             :href="doc.href"

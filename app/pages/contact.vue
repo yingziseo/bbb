@@ -75,7 +75,6 @@ const contactDocuments = buyerDocumentList
 
           <DocumentDownloads
             title="Buyer Files"
-            subtitle="View or download"
             :documents="contactDocuments"
             compact
           />

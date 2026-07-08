@@ -9,6 +9,45 @@
 - 如果只是文档或内容改动，也要记录。
 - 如果没有跑测试或构建，需要明确写出来。
 
+## 2026-07-08 - 调整资料下载区为标题说明和按钮分层
+
+背景：
+
+- 用户反馈上一版将文件名、说明、页数和按钮压得过紧，实际需求是只让 `View` / `PDF` 两个按钮在一行对齐。
+- 资料标题、说明和页数应正常上下排列，避免信息挤在一起。
+
+改动：
+
+- `DocumentDownloads` 只保留一个区块标题，移除额外 eyebrow 和副标题展示。
+- 每个文件恢复为标题、说明 / 页数、按钮行三层结构。
+- `View` / `PDF` 两个按钮保持同一行左对齐，继续使用紧凑按钮样式。
+- 清理产品页、产品详情页、关于页、联系页传入的无用 `View or download` 副标题。
+- 未涉及数据库、后台、API 或 PDF 文件。
+
+涉及文件：
+
+- `app/components/DocumentDownloads.vue`
+- `app/pages/products/index.vue`
+- `app/pages/products/[slug].vue`
+- `app/pages/about.vue`
+- `app/pages/contact.vue`
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- `git diff --check` 通过。
+- `NODE_OPTIONS=--max-old-space-size=2048 ionice -c2 -n7 nice -n 15 pnpm build` 构建通过。
+- 构建存在既有警告：VueUse pure 注释、TinyMCE CSS `2of`、部分 chunk 超 500 kB、`node:sqlite` external、`@nuxt/image` sharp binaries 警告；未阻断构建。
+- 已重启 `3000` 生产服务，当前监听 `127.0.0.1:3000`，PID `3140139`。
+- 本地 `/products`、`/products/commercial-cling-film-roll`、`/about`、`/contact` 均返回 200。
+- 本地 `/contact` 已确认输出 `Buyer Files`、`Catalog`、`Product overview · 6 pages`、`Test Report`、`Quality document · 4 pages`、`View`、`PDF`，不再输出 `Buyer Documents` 和 `View or download`。
+- 公网 `/products`、`/products/commercial-cling-film-roll`、`/about`、`/contact` 均返回 200。
+- 公网 `/contact` 已确认输出新结构文案，不再输出旧标题和旧副标题。
+
+提交：
+
+- 本条记录随本次提交保存，提交完成后在最终回复中说明 commit hash 和 push 状态。
+
 ## 2026-07-08 - 精简采购资料下载区样式
 
 背景：

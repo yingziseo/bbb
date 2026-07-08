@@ -66,7 +66,6 @@ const productDocuments = [buyerDocuments.productCatalog]
         <div class="mt-8">
           <DocumentDownloads
             title="Product Catalog"
-            subtitle="View or download"
             :documents="productDocuments"
             compact
           />

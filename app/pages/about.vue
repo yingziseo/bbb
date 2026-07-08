@@ -85,7 +85,6 @@ const qualityDocuments = [buyerDocuments.testReport]
         <DocumentDownloads
           eyebrow="Quality Documents"
           title="Inspection Document"
-          subtitle="View or download"
           :documents="qualityDocuments"
         />
       </div>
