@@ -1,6 +1,6 @@
 # 项目总览
 
-最后更新：2026-07-02
+最后更新：2026-07-09
 
 ## 项目定位
 
@@ -78,6 +78,7 @@ docs/
 | `/blog/page/[page]` | `app/pages/blog/page/[page].vue` | 博客分页列表 |
 | `/blog/[slug]` | `app/pages/blog/[slug].vue` | 博客详情页，从公开文章接口按 slug 查找 |
 | `/contact` | `app/pages/contact.vue` | 询盘表单和联系方式 |
+| `/cn`、`/cn/about`、`/cn/products`、`/cn/products/category/[slug]`、`/cn/products/[slug]`、`/cn/documents`、`/cn/contact` | 对应英文页面 alias | 中文前台主页面；页面固定文案、导航、按钮、表单和 TDK 中文化，数据库产品/分类内容仍保持单语言 |
 | `/like` | `app/pages/like/index.vue` | 后台概览，需要登录 |
 | `/like/login` | `app/pages/like/login.vue` | 后台登录 |
 | `/like/seo` | `app/pages/like/seo/index.vue` | 页面 TDK 管理 |
@@ -138,7 +139,7 @@ docs/
 - 产品详情和产品卡片可跳转到带 `product` 查询参数的联系页。
 - 联系表单提交到 `/api/inquiries`，写入 SQLite 并尝试邮件转发。
 - WhatsApp 和邮箱使用外部链接或 `mailto:`。
-- 语言切换入口仅保留在手机端，当前作为多语言预留入口。
+- 语言切换入口在桌面和手机端均可用；当前支持英文默认站点和中文 `/cn` 主页面。博客和后台不做中文前台内容复制。
 - 博客详情页桌面端显示悬浮文章目录，手机端不显示目录。
 - 页脚友情链接由后台维护；桌面端在页脚底部横向展示，手机端与 Products、Company、Contact 一样折叠显示，默认收起。
 - 产品资料 PDF 和检验 / 测试报告存放在 `public/downloads/`，前台通过 `/documents` 集中展示，并在产品页、产品详情页、关于页、联系页和首页质量区提供在线阅读和下载入口。
@@ -154,6 +155,8 @@ docs/
 - theme-color
 
 页面级 SEO 通过后台 `seo_entries` 配置，并由 `useManagedSeo` 接入。当前已支持 sitemap、robots、Open Graph 和基础结构化数据。
+
+中文 `/cn` 页面使用代码内中文 TDK、`lang="zh-CN"`、canonical 和 hreflang；sitemap 会追加中文首页、公司页、产品页、产品分类页、产品详情页、资料页和联系页，不生成中文博客 URL。
 
 ## 当前注意点
 

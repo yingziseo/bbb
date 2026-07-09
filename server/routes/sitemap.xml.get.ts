@@ -23,6 +23,24 @@ const normalizeSitemapPath = (value: string) => {
   return path.replace(/\/+$/, '')
 }
 
+const toCnSitemapPath = (value: string) => {
+  const path = normalizeSitemapPath(value)
+
+  if (path === '/') return '/cn'
+  if (
+    path === '/about'
+    || path === '/products'
+    || path === '/documents'
+    || path === '/contact'
+    || /^\/products\/category\/[^/]+$/.test(path)
+    || /^\/products\/[^/]+$/.test(path)
+  ) {
+    return `/cn${path}`
+  }
+
+  return ''
+}
+
 export default defineEventHandler((event) => {
   const rows = getDb()
     .prepare(`
@@ -50,6 +68,19 @@ export default defineEventHandler((event) => {
     .all() as SitemapRow[]
 
   const sitemapRows = [...rows]
+  const existingPaths = new Set(sitemapRows.map((row) => normalizeSitemapPath(row.path)))
+
+  for (const row of rows) {
+    const cnPath = toCnSitemapPath(row.path)
+    if (!cnPath || existingPaths.has(cnPath)) continue
+
+    existingPaths.add(cnPath)
+    sitemapRows.push({
+      path: cnPath,
+      updated_at: row.updated_at,
+    })
+  }
+
   const blogEntry = rows.find((row) => row.path === '/blog')
   const publishedPostCount = (
     getDb()

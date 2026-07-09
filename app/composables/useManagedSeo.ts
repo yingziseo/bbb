@@ -1,3 +1,5 @@
+import { toValue, type MaybeRefOrGetter } from 'vue'
+
 type ManagedSeoFallback = {
   title: string
   description?: string
@@ -6,9 +8,12 @@ type ManagedSeoFallback = {
 }
 
 type ManagedSeoOptions = {
-  canonicalPath?: string
-  titleSuffix?: string
-  robots?: string
+  canonicalPath?: MaybeRefOrGetter<string | undefined>
+  titleSuffix?: MaybeRefOrGetter<string | undefined>
+  robots?: MaybeRefOrGetter<string | undefined>
+  fallbackOnly?: MaybeRefOrGetter<boolean>
+  htmlLang?: MaybeRefOrGetter<string>
+  alternatePaths?: MaybeRefOrGetter<Record<string, string> | undefined>
 }
 
 type SeoPayload = {
@@ -51,7 +56,7 @@ const toCanonicalPath = (value: string) => {
   return path === '/' ? '/' : path.replace(/\/+$/, '')
 }
 
-export const useManagedSeo = (key: string, fallback: ManagedSeoFallback, options: ManagedSeoOptions = {}) => {
+export const useManagedSeo = (key: string, fallback: MaybeRefOrGetter<ManagedSeoFallback>, options: ManagedSeoOptions = {}) => {
   const route = useRoute()
   const requestUrl = useRequestURL()
   const { data } = useFetch<SeoPayload>('/api/public/seo', {
@@ -59,20 +64,29 @@ export const useManagedSeo = (key: string, fallback: ManagedSeoFallback, options
   })
 
   useHead(() => {
-    const seo = data.value?.seo
-    const baseTitle = seo?.title || fallback.title
-    const title = options.titleSuffix ? `${baseTitle} | ${options.titleSuffix}` : baseTitle
-    const description = seo?.description || fallback.description || ''
-    const keywords = seo?.keywords || fallback.keywords || ''
+    const fallbackValue = toValue(fallback)
+    const seo = toValue(options.fallbackOnly) ? null : data.value?.seo
+    const titleSuffix = toValue(options.titleSuffix)
+    const baseTitle = seo?.title || fallbackValue.title
+    const title = titleSuffix ? `${baseTitle} | ${titleSuffix}` : baseTitle
+    const description = seo?.description || fallbackValue.description || ''
+    const keywords = seo?.keywords || fallbackValue.keywords || ''
     const ogTitle = seo?.ogTitle || title
     const ogDescription = seo?.ogDescription || description
     const siteOrigin = data.value?.siteUrl || requestUrl.origin
-    const canonical = absoluteUrl(toCanonicalPath(options.canonicalPath || seo?.canonical || seo?.path || route.path), siteOrigin)
-    const ogImage = absoluteUrl(seo?.ogImage || fallback.image || '', siteOrigin)
+    const canonical = absoluteUrl(toCanonicalPath(toValue(options.canonicalPath) || seo?.canonical || seo?.path || route.path), siteOrigin)
+    const ogImage = absoluteUrl(seo?.ogImage || fallbackValue.image || '', siteOrigin)
     const ogType = key.startsWith('post:') ? 'article' : key.startsWith('product:') ? 'product' : 'website'
-    const robots = options.robots || seo?.robots
+    const robots = toValue(options.robots) || seo?.robots
+
+    const alternateLinks = Object.entries(toValue(options.alternatePaths) || {}).map(([hreflang, path]) => ({
+      rel: 'alternate',
+      hreflang,
+      href: absoluteUrl(toCanonicalPath(path), siteOrigin),
+    }))
 
     return {
+      htmlAttrs: toValue(options.htmlLang) ? { lang: toValue(options.htmlLang) } : undefined,
       title,
       meta: [
         description ? { name: 'description', content: description } : null,
@@ -88,7 +102,10 @@ export const useManagedSeo = (key: string, fallback: ManagedSeoFallback, options
         ogDescription ? { name: 'twitter:description', content: ogDescription } : null,
         ogImage ? { name: 'twitter:image', content: ogImage } : null,
       ].filter(Boolean) as Array<Record<string, string>>,
-      link: canonical ? [{ rel: 'canonical', href: canonical }] : [],
+      link: [
+        canonical ? { rel: 'canonical', href: canonical } : null,
+        ...alternateLinks,
+      ].filter(Boolean) as Array<Record<string, string>>,
       script: data.value?.jsonLd
         ? [
             {

@@ -1,9 +1,7 @@
-export type BuyerDocument = {
+export type BuyerDocumentCopy = {
   title: string
   document: string
   description: string
-  href: string
-  filename: string
   meta: string
   appliesTo: string
   standard: string
@@ -11,7 +9,21 @@ export type BuyerDocument = {
   date: string
   viewLabel: string
   downloadLabel: string
+}
+
+export type BuyerDocument = BuyerDocumentCopy & {
+  href: string
+  filename: string
   requestOnly?: boolean
+  cn?: Partial<BuyerDocumentCopy>
+}
+
+export const getBuyerDocumentCopy = (doc: BuyerDocument, isCn: boolean): BuyerDocument => {
+  if (!isCn || !doc.cn) return doc
+  return {
+    ...doc,
+    ...doc.cn,
+  }
 }
 
 export const buyerDocuments = {
@@ -28,6 +40,16 @@ export const buyerDocuments = {
     date: '2026',
     viewLabel: 'View PDF',
     downloadLabel: 'Download PDF',
+    cn: {
+      title: '产品资料',
+      document: '产品规格 PDF',
+      description: '产品范围和规格说明',
+      meta: '6 页',
+      appliesTo: '保鲜膜和一次性食品容器',
+      standard: '产品规格资料',
+      viewLabel: '查看文件',
+      downloadLabel: '下载 PDF',
+    },
   },
   testReport: {
     title: 'Test Report',
@@ -42,6 +64,17 @@ export const buyerDocuments = {
     date: '2026',
     viewLabel: 'View Report',
     downloadLabel: 'Download PDF',
+    cn: {
+      title: '检测报告',
+      document: '食品接触检测报告',
+      description: '质量与检测文件',
+      meta: '4 页',
+      appliesTo: 'PVC 保鲜膜 / 生鲜保鲜膜',
+      standard: '食品接触检测文件',
+      issuedBy: '第三方实验室',
+      viewLabel: '查看报告',
+      downloadLabel: '下载 PDF',
+    },
   },
 } satisfies Record<string, BuyerDocument>
 
@@ -60,6 +93,17 @@ export const requestDocumentRows: BuyerDocument[] = [
     viewLabel: 'Request Documents',
     downloadLabel: '',
     requestOnly: true,
+    cn: {
+      title: '迁移测试',
+      document: '材料安全 / 迁移测试',
+      description: '可按目标市场补充迁移测试或合规文件',
+      meta: '按需提供',
+      appliesTo: '生鲜保鲜膜',
+      standard: '按目标市场确认',
+      issuedBy: '待确认',
+      date: '按需提供',
+      viewLabel: '申请资料',
+    },
   },
   {
     title: 'Factory Profile',
@@ -75,6 +119,16 @@ export const requestDocumentRows: BuyerDocument[] = [
     viewLabel: 'Request Documents',
     downloadLabel: '',
     requestOnly: true,
+    cn: {
+      title: '工厂资料',
+      document: '公司注册 / 工厂资料',
+      description: '可用于采购审核的公司和工厂资料',
+      meta: '按需提供',
+      appliesTo: '公司审核',
+      standard: '供应商资质资料',
+      date: '按需提供',
+      viewLabel: '申请资料',
+    },
   },
 ]
 

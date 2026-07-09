@@ -3,6 +3,21 @@ import { ArrowDown, Close, Menu as MenuIcon, Promotion } from '@element-plus/ico
 import { headerMarqueeItems } from '~/data/site'
 
 const company = await useSiteSettings()
+const { isCn, text, localePath } = useLocale()
+const marqueeItems = computed(() => isCn.value ? [
+  '中国河南商丘',
+  '保鲜膜',
+  '生鲜膜',
+  '包装材料',
+  'OEM 订单',
+  '私标定制',
+  '食品包装',
+  '大卷供应',
+  '切割盒膜',
+  '批发订单',
+  '出口供应',
+  '出口询盘',
+] : headerMarqueeItems)
 
 type HeaderProductCategory = {
   slug: string
@@ -16,14 +31,14 @@ const { data: headerCatalog } = await useFetch<{ categories: HeaderProductCatego
   default: () => ({ categories: [] }),
 })
 
-const nav = [
-  { label: 'Home', to: '/' },
-  { label: 'Products', to: '/products' },
-  { label: 'Company', to: '/about' },
-  { label: 'Documents', to: '/documents' },
-  { label: 'Blog', to: '/blog' },
-  { label: 'Contact', to: '/contact' },
-]
+const nav = computed(() => [
+  { label: text.value.nav.home, to: '/' },
+  { label: text.value.nav.products, to: '/products' },
+  { label: text.value.nav.company, to: '/about' },
+  { label: text.value.nav.documents, to: '/documents' },
+  { label: text.value.nav.blog, to: '/blog' },
+  { label: text.value.nav.contact, to: '/contact' },
+])
 
 const mobileOpen = ref(false)
 const isScrolled = ref(false)
@@ -34,7 +49,17 @@ const stickyMainRef = ref<HTMLElement | null>(null)
 const route = useRoute()
 
 const productCategories = computed(() => (headerCatalog.value?.categories || []).slice(0, 4))
-const isActive = (to: string) => (to === '/' ? route.path === '/' : route.path === to || route.path.startsWith(`${to}/`))
+const normalizeRoutePath = (value: string) => {
+  const path = value.split('?')[0]?.split('#')[0] || '/'
+  return path === '/' ? path : path.replace(/\/+$/, '')
+}
+const isActive = (to: string) => {
+  const target = normalizeRoutePath(localePath(to))
+  const current = normalizeRoutePath(route.path)
+  return target === '/' || target === '/cn'
+    ? current === target
+    : current === target || current.startsWith(`${target}/`)
+}
 const legalCompanyName = '商丘市宜沅新材料有限公司'
 const shortCompanyName = '宜沅新材料'
 const englishBrandName = 'YIYUAN NEW MATERIALS'
@@ -71,7 +96,7 @@ onBeforeUnmount(() => {
 
 <template>
   <header class="site-header bg-white" :class="{ 'site-header--scrolled': isScrolled }">
-    <InfoMarquee :items="headerMarqueeItems" direction="ltr" tone="dark" />
+    <InfoMarquee :items="marqueeItems" direction="ltr" tone="dark" />
 
     <div
       ref="stickyAnchorRef"
@@ -84,7 +109,7 @@ onBeforeUnmount(() => {
       <!-- Main nav -->
       <div ref="stickyMainRef" class="site-header__main border-b border-[var(--color-line)]">
         <div class="container-x flex h-[68px] items-center justify-between gap-4">
-          <NuxtLink to="/" class="site-brand group">
+          <NuxtLink :to="localePath('/')" class="site-brand group">
             <span class="site-brand__mark">
               <RuntimeImage
                 :src="company.logoPath || '/site-logo.png'"
@@ -113,7 +138,7 @@ onBeforeUnmount(() => {
               :class="{ 'site-nav-node--products': item.to === '/products' }"
             >
               <NuxtLink
-                :to="item.to"
+                :to="localePath(item.to)"
                 class="site-nav-link"
                 :class="{ 'is-active': isActive(item.to) }"
               >
@@ -131,37 +156,36 @@ onBeforeUnmount(() => {
                 <NuxtLink
                   v-for="category in productCategories"
                   :key="category.slug"
-                  :to="`/products/category/${category.slug}`"
+                  :to="localePath(`/products/category/${category.slug}`)"
                   class="site-nav-dropdown__item"
                 >
                   <span class="site-nav-dropdown__name">{{ category.name }}</span>
-                  <span class="site-nav-dropdown__meta">{{ category.productCount }} products</span>
+                  <span class="site-nav-dropdown__meta">{{ category.productCount }} {{ text.labels.products }}</span>
                 </NuxtLink>
               </div>
             </div>
           </nav>
 
-          <div class="hidden lg:flex items-center gap-3">
-            <el-button
-              tag="a"
-              :href="company.whatsappLink"
-              target="_blank"
-              color="#1b3c63"
-            >
-              <span class="inline-flex items-center gap-1.5">
-                <SocialIcon name="whatsapp" />
-                <span>WhatsApp</span>
-              </span>
-            </el-button>
-            <NuxtLink to="/contact">
-              <el-button color="#c1121f">
-                <el-icon><Promotion /></el-icon>
-                <span>Get a Quote</span>
+          <div class="site-header-actions">
+            <div class="hidden items-center gap-3 lg:flex">
+              <el-button
+                tag="a"
+                :href="company.whatsappLink"
+                target="_blank"
+                color="#1b3c63"
+              >
+                <span class="inline-flex items-center gap-1.5">
+                  <SocialIcon name="whatsapp" />
+                  <span>WhatsApp</span>
+                </span>
               </el-button>
-            </NuxtLink>
-          </div>
-
-          <div class="site-mobile-actions lg:hidden">
+              <NuxtLink :to="localePath('/contact')">
+                <el-button color="#c1121f">
+                  <el-icon><Promotion /></el-icon>
+                  <span>{{ text.actions.getQuote }}</span>
+                </el-button>
+              </NuxtLink>
+            </div>
             <LanguageSwitcher compact />
             <button
               class="site-mobile-toggle"
@@ -185,7 +209,7 @@ onBeforeUnmount(() => {
             <NuxtLink
               v-for="item in nav"
               :key="item.to"
-              :to="item.to"
+              :to="localePath(item.to)"
               class="site-mobile-link"
               :class="{ 'is-active': isActive(item.to) }"
             >
@@ -197,7 +221,7 @@ onBeforeUnmount(() => {
               <NuxtLink
                 v-for="category in productCategories"
                 :key="category.slug"
-                :to="`/products/category/${category.slug}`"
+                :to="localePath(`/products/category/${category.slug}`)"
                 class="site-mobile-category"
               >
                 {{ category.name }}
@@ -211,10 +235,10 @@ onBeforeUnmount(() => {
                   <span>WhatsApp</span>
                 </span>
               </el-button>
-              <NuxtLink to="/contact">
+              <NuxtLink :to="localePath('/contact')">
                 <el-button color="#c1121f" class="w-full">
                   <el-icon><Promotion /></el-icon>
-                  <span>Get a Quote</span>
+                  <span>{{ text.actions.getQuote }}</span>
                 </el-button>
               </NuxtLink>
             </div>
@@ -514,7 +538,7 @@ onBeforeUnmount(() => {
     color 180ms ease;
 }
 
-.site-mobile-actions {
+.site-header-actions {
   display: flex;
   flex: 0 0 auto;
   align-items: center;

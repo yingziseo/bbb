@@ -6,6 +6,37 @@ const props = defineProps<{
   settings: PublicSiteSettings
 }>()
 
+const { isCn, localePath } = useLocale()
+const copy = computed(() => isCn.value ? {
+  closePopup: '关闭弹窗',
+  closeVideo: '关闭视频',
+  eyebrow: '宜沅包装供应',
+  title: '保鲜膜与食品包装定制',
+  desc: '供应保鲜膜、生鲜膜、一次性食品容器和私标包装，支持批发与 OEM 订单。',
+  sample: '样品支持',
+  quote: 'WhatsApp 快速询价',
+  form: '询盘表单',
+  whatsapp: 'WhatsApp 联系',
+  video: '工厂视频',
+  watch: '观看工厂视频',
+  videoDialog: '工厂视频播放器',
+  videoTitle: '宜沅生产视频',
+} : {
+  closePopup: 'Close popup',
+  closeVideo: 'Close video',
+  eyebrow: 'YIYUAN Packaging Supply',
+  title: 'Custom Food Packaging and Cling Film',
+  desc: 'We supply cling film, fresh wrap, disposable food containers, and private-label packaging for wholesale and OEM orders.',
+  sample: 'Free Sample Support',
+  quote: 'Fast Quote by WhatsApp',
+  form: 'Inquiry Form',
+  whatsapp: 'Contact on WhatsApp',
+  video: 'Factory Video',
+  watch: 'Watch Real Factory Video',
+  videoDialog: 'Factory video player',
+  videoTitle: 'YIYUAN production video',
+})
+
 const storageKey = 'yiyuan:home-popup-video-modal-dismissed-until'
 const visible = ref(false)
 const videoOpen = ref(false)
@@ -144,34 +175,34 @@ watch(popupEnabled, (enabled) => {
       >
         <div class="home-lead-popup__shade" aria-hidden="true" @click="skipPopup" />
         <section class="home-lead-popup__panel">
-          <button type="button" class="home-lead-popup__close" aria-label="Close popup" @click="closePopup">
+          <button type="button" class="home-lead-popup__close" :aria-label="copy.closePopup" @click="closePopup">
             <el-icon :size="18"><Close /></el-icon>
           </button>
 
           <div class="home-lead-popup__content">
             <div class="home-lead-popup__copy">
-              <span class="home-lead-popup__eyebrow">YIYUAN Packaging Supply</span>
-              <h2 id="home-lead-popup-title">Custom Food Packaging and Cling Film</h2>
+              <span class="home-lead-popup__eyebrow">{{ copy.eyebrow }}</span>
+              <h2 id="home-lead-popup-title">{{ copy.title }}</h2>
               <p>
-                We supply cling film, fresh wrap, disposable food containers, and private-label packaging for wholesale and OEM orders.
+                {{ copy.desc }}
               </p>
 
               <div class="home-lead-popup__points">
                 <span>
                   <el-icon><Present /></el-icon>
-                  Free Sample Support
+                  {{ copy.sample }}
                 </span>
                 <span>
                   <SocialIcon name="whatsapp" />
-                  Fast Quote by WhatsApp
+                  {{ copy.quote }}
                 </span>
               </div>
 
               <div class="home-lead-popup__actions">
-                <NuxtLink to="/contact?source=home-popup">
+                <NuxtLink :to="localePath('/contact?source=home-popup')">
                   <el-button color="#c1121f" size="large">
                     <el-icon><Promotion /></el-icon>
-                    <span>Inquiry Form</span>
+                    <span>{{ copy.form }}</span>
                   </el-button>
                 </NuxtLink>
                 <el-button
@@ -184,7 +215,7 @@ watch(popupEnabled, (enabled) => {
                 >
                   <span class="inline-flex items-center gap-1.5">
                     <SocialIcon name="whatsapp" />
-                    <span>Contact on WhatsApp</span>
+                    <span>{{ copy.whatsapp }}</span>
                   </span>
                 </el-button>
               </div>
@@ -195,7 +226,7 @@ watch(popupEnabled, (enabled) => {
                 <div class="home-lead-popup__player-top">
                   <span>
                     <el-icon><VideoCamera /></el-icon>
-                    Factory Video
+                    {{ copy.video }}
                   </span>
                 </div>
 
@@ -212,7 +243,7 @@ watch(popupEnabled, (enabled) => {
                       <span class="home-lead-popup__play-triangle" />
                     </span>
                     <span class="home-lead-popup__play-copy">
-                      <strong>Watch Real Factory Video</strong>
+                      <strong>{{ copy.watch }}</strong>
                     </span>
                   </button>
                 </div>
@@ -236,22 +267,22 @@ watch(popupEnabled, (enabled) => {
         </section>
 
         <Transition name="home-video-modal">
-          <div v-if="videoOpen" class="home-video-modal" role="dialog" aria-modal="true" aria-label="Factory video player">
+          <div v-if="videoOpen" class="home-video-modal" role="dialog" aria-modal="true" :aria-label="copy.videoDialog">
             <div class="home-video-modal__shade" aria-hidden="true" @click="closeVideo" />
             <section class="home-video-modal__panel">
               <div class="home-video-modal__bar">
                 <span>
                   <el-icon><VideoCamera /></el-icon>
-                  Factory Video
+                  {{ copy.video }}
                 </span>
-                <button type="button" aria-label="Close video" @click="closeVideo">
+                <button type="button" :aria-label="copy.closeVideo" @click="closeVideo">
                   <el-icon :size="18"><Close /></el-icon>
                 </button>
               </div>
               <div class="home-video-modal__frame">
                 <iframe
                   :src="videoUrl"
-                  title="YIYUAN production video"
+                  :title="copy.videoTitle"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowfullscreen
                 />

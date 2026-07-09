@@ -1,11 +1,15 @@
 <script setup lang="ts">
 const company = await useSiteSettings()
+const { htmlLang } = useLocale()
 const faviconPath = computed(() => {
   const path = company.faviconPath || '/favicon-96x96.png'
   return path.toLowerCase().endsWith('.png') ? path : '/favicon-96x96.png'
 })
 
 useHead(() => ({
+  htmlAttrs: {
+    lang: htmlLang.value,
+  },
   link: [
     {
       key: 'favicon',

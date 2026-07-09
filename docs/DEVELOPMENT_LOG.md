@@ -9,6 +9,70 @@
 - 如果只是文档或内容改动，也要记录。
 - 如果没有跑测试或构建，需要明确写出来。
 
+## 2026-07-09 - 增加中文 /cn 前台与语言切换
+
+背景：
+
+- 用户需要在现有英文默认站点基础上增加中文 `/cn` 主页面。
+- 产品、分类和博客内容来自数据库，暂不做数据库多语言；只翻译前台主要页面固定文案、导航、按钮、表单和 TDK。
+- 公司中文法定名称 `商丘市宜沅新材料有限公司` 和短名称 `宜沅新材料` 继续固定保留，不随多语言翻译。
+- 原有多语言预留国家需要保留显示，除英文和中文外灰显不可选。
+
+改动：
+
+- 新增轻量语言工具，按路径判断英文默认站点和中文 `/cn`。
+- 新增中文路由 alias：`/cn`、`/cn/about`、`/cn/products`、`/cn/products/category/[slug]`、`/cn/products/[slug]`、`/cn/documents`、`/cn/contact`。
+- 页头、页脚、首页弹窗、浮动联系入口、资料组件、询盘表单和产品卡片接入中英文固定文案。
+- 首页、公司页、产品列表、分类页、产品详情、资料页和联系页增加中文 TDK、`lang="zh-CN"`、canonical 和 hreflang。
+- `hreflang="en"` 和 `x-default` 指向默认英文 URL，不生成 `/en`；`hreflang="zh-CN"` 指向 `/cn` URL。
+- 语言切换器恢复原多语言预留列表；英文和中文可点击，其他语言灰色禁用。
+- 语言切换器改为头部右侧单一原生下拉入口，避免桌面和手机各渲染一套；移动端点击直接切换，不再依赖 Element Plus dropdown command。
+- sitemap 追加中文主页面、中文产品分类页和中文产品详情页；不生成中文博客 URL。
+- 更新项目总览，记录当前中文站点边界。
+
+涉及文件：
+
+- `app/data/i18n.ts`
+- `app/composables/useLocale.ts`
+- `app/composables/useManagedSeo.ts`
+- `app/layouts/default.vue`
+- `app/components/SiteHeader.vue`
+- `app/components/SiteFooter.vue`
+- `app/components/LanguageSwitcher.vue`
+- `app/components/HomeLeadPopup.vue`
+- `app/components/WhatsAppFab.vue`
+- `app/components/ProductCard.vue`
+- `app/components/InquiryForm.vue`
+- `app/components/DocumentDownloads.vue`
+- `app/components/ComplianceDocumentsTable.vue`
+- `app/data/documents.ts`
+- `app/pages/index.vue`
+- `app/pages/about.vue`
+- `app/pages/products/index.vue`
+- `app/pages/products/category/[slug].vue`
+- `app/pages/products/[slug].vue`
+- `app/pages/documents.vue`
+- `app/pages/contact.vue`
+- `server/routes/sitemap.xml.get.ts`
+- `docs/PROJECT_OVERVIEW.md`
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- `pnpm build` 通过；仍有既有 sourcemap、Tinymce CSS、大 chunk、sharp binary 警告，不影响构建完成。
+- 已重启 3000 服务。
+- 本地和公网 `/cn`、`/cn/documents`、`/cn/contact`、`/cn/products/pvc-fresh-wrap` 均返回 `200`。
+- 本地 `/` 和 `/cn` 的 GET、HEAD 均返回 `200`。
+- 本地和公网 `/cn` 源码均只输出 1 个实际语言切换按钮节点。
+- 公网 `/cn/products/pvc-fresh-wrap` 输出 `lang="zh-CN"`、中文 title、`canonical=https://yiyuanpack.com/cn/products/pvc-fresh-wrap`。
+- 公网产品页 hreflang 输出：`x-default` 和 `en` 指向默认英文 URL，`zh-CN` 指向 `/cn` URL。
+- `LanguageSwitcher` 组件保留 English、中文以及原预留语言列表；非英文/中文语言项在菜单展开后以灰色禁用状态显示。
+- 公网 sitemap 包含 `/cn` 和 `/cn/products/pvc-fresh-wrap`，未生成 `/cn/blog`。
+
+提交：
+
+- 本条记录随本次提交保存。
+
 ## 2026-07-09 - 重设计 Documents 页面移动端与 CTA
 
 背景：

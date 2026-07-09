@@ -4,6 +4,7 @@ import { Promotion } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 
 const props = defineProps<{ defaultProduct?: string }>()
+const { text } = useLocale()
 
 const formRef = ref<FormInstance>()
 const submitting = ref(false)
@@ -33,35 +34,35 @@ const countryOptions = [
 
 const messagePlaceholder = computed(() =>
   props.defaultProduct
-    ? `Interested in ${props.defaultProduct}. Briefly tell us what you need.`
-    : 'Briefly tell us what you need.',
+    ? text.value.form.productMessagePlaceholder.replace('{product}', props.defaultProduct)
+    : text.value.form.messagePlaceholder,
 )
 
 const form = reactive({
   name: '',
   email: '',
   country: '',
-  message: props.defaultProduct ? `I am interested in ${props.defaultProduct}.\n` : '',
+  message: props.defaultProduct ? `${text.value.form.productMessage.replace('{product}', props.defaultProduct)}\n` : '',
 })
 
 watch(
   () => props.defaultProduct,
   (v) => {
     if (v && !form.message.trim()) {
-      form.message = `I am interested in ${v}.\n`
+      form.message = `${text.value.form.productMessage.replace('{product}', v)}\n`
     }
   },
 )
 
-const rules: FormRules = {
-  name: [{ required: true, message: 'Please enter your name', trigger: 'blur' }],
+const rules = computed<FormRules>(() => ({
+  name: [{ required: true, message: text.value.form.validationName, trigger: 'blur' }],
   email: [
-    { required: true, message: 'Please enter your email', trigger: 'blur' },
-    { type: 'email', message: 'Please enter a valid email', trigger: 'blur' },
+    { required: true, message: text.value.form.validationEmail, trigger: 'blur' },
+    { type: 'email', message: text.value.form.validationEmailValid, trigger: 'blur' },
   ],
-  country: [{ required: true, message: 'Please choose your country or region', trigger: 'change' }],
-  message: [{ required: true, message: 'Please describe your requirement', trigger: 'blur' }],
-}
+  country: [{ required: true, message: text.value.form.validationCountry, trigger: 'change' }],
+  message: [{ required: true, message: text.value.form.validationMessage, trigger: 'blur' }],
+}))
 
 const submit = async (el?: FormInstance) => {
   if (!el || submitting.value) return
@@ -78,11 +79,11 @@ const submit = async (el?: FormInstance) => {
       method: 'POST',
       body: form,
     })
-    ElMessage.success('Inquiry submitted.')
+    ElMessage.success(text.value.form.success)
     el.resetFields()
-    form.message = props.defaultProduct ? `I am interested in ${props.defaultProduct}.\n` : ''
+    form.message = props.defaultProduct ? `${text.value.form.productMessage.replace('{product}', props.defaultProduct)}\n` : ''
   } catch (error: any) {
-    ElMessage.error(error?.data?.message || error?.statusMessage || 'Submission failed. Please try email or WhatsApp.')
+    ElMessage.error(error?.data?.message || error?.statusMessage || text.value.form.error)
   } finally {
     submitting.value = false
   }
@@ -99,20 +100,20 @@ const submit = async (el?: FormInstance) => {
     @submit.prevent
   >
     <div class="grid gap-x-5 sm:grid-cols-2">
-      <el-form-item label="Full Name" prop="name">
-        <el-input v-model="form.name" size="large" placeholder="Your name" />
+      <el-form-item :label="text.form.fullName" prop="name">
+        <el-input v-model="form.name" size="large" :placeholder="text.form.namePlaceholder" />
       </el-form-item>
-      <el-form-item label="Email" prop="email">
-        <el-input v-model="form.email" size="large" placeholder="you@example.com" />
+      <el-form-item :label="text.form.email" prop="email">
+        <el-input v-model="form.email" size="large" :placeholder="text.form.emailPlaceholder" />
       </el-form-item>
-      <el-form-item label="Country / Region" prop="country" class="sm:col-span-2">
+      <el-form-item :label="text.form.country" prop="country" class="sm:col-span-2">
         <el-select
           v-model="form.country"
           size="large"
           filterable
           allow-create
           default-first-option
-          placeholder="Select or type your country"
+          :placeholder="text.form.countryPlaceholder"
           class="w-full"
         >
           <el-option v-for="country in countryOptions" :key="country" :label="country" :value="country" />
@@ -120,7 +121,7 @@ const submit = async (el?: FormInstance) => {
       </el-form-item>
     </div>
 
-    <el-form-item label="Requirement Details" prop="message">
+    <el-form-item :label="text.form.requirement" prop="message">
       <el-input
         v-model="form.message"
         type="textarea"
@@ -132,7 +133,7 @@ const submit = async (el?: FormInstance) => {
     <div class="pt-1">
       <el-button color="#c1121f" size="large" native-type="button" class="w-full sm:!w-auto" :loading="submitting" @click="submit(formRef)">
         <el-icon><Promotion /></el-icon>
-        <span>Submit Inquiry</span>
+        <span>{{ text.form.submit }}</span>
       </el-button>
     </div>
   </el-form>

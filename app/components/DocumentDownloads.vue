@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Download, View } from '@element-plus/icons-vue'
-import type { BuyerDocument } from '~/data/documents'
+import { getBuyerDocumentCopy, type BuyerDocument } from '~/data/documents'
 
 withDefaults(defineProps<{
   eyebrow?: string
@@ -16,6 +16,9 @@ withDefaults(defineProps<{
   compact: false,
   inverse: false,
 })
+
+const { isCn, localePath } = useLocale()
+const docCopy = (doc: BuyerDocument) => getBuyerDocumentCopy(doc, isCn.value)
 </script>
 
 <template>
@@ -42,19 +45,19 @@ withDefaults(defineProps<{
             class="text-[14.5px] font-extrabold leading-snug"
             :class="inverse ? 'text-white' : 'text-[var(--color-navy)]'"
           >
-            {{ doc.title }}
+            {{ docCopy(doc).title }}
           </h3>
           <div
             class="mt-1 text-[12.5px] font-semibold leading-relaxed"
             :class="inverse ? 'text-white/52' : 'text-[var(--color-slate-muted)]'"
           >
-            {{ doc.description }} · {{ doc.meta }}
+            {{ docCopy(doc).description }} · {{ docCopy(doc).meta }}
           </div>
         </div>
         <div class="mt-3 flex items-center gap-2">
           <el-button
             tag="a"
-            :href="doc.href"
+            :href="localePath(doc.href)"
             target="_blank"
             rel="noopener"
             color="#1b3c63"
@@ -62,7 +65,7 @@ withDefaults(defineProps<{
             class="document-downloads__button !ml-0"
           >
             <el-icon><View /></el-icon>
-            <span>{{ doc.viewLabel }}</span>
+            <span>{{ docCopy(doc).viewLabel }}</span>
           </el-button>
           <el-button
             v-if="doc.downloadLabel"
@@ -74,7 +77,7 @@ withDefaults(defineProps<{
             class="document-downloads__button !ml-0"
           >
             <el-icon><Download /></el-icon>
-            <span>{{ doc.downloadLabel }}</span>
+            <span>{{ docCopy(doc).downloadLabel }}</span>
           </el-button>
         </div>
       </article>

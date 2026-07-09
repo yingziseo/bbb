@@ -2,6 +2,7 @@
 import { ArrowDown, ArrowUp, ChatDotRound, Document, Message } from '@element-plus/icons-vue'
 
 const company = await useSiteSettings()
+const { text, localePath } = useLocale()
 
 const expanded = ref(false)
 const hasUserToggled = ref(false)
@@ -61,6 +62,12 @@ const contactOptions = [
     external: false,
   },
 ]
+
+const localizedContactOptions = computed(() => contactOptions.map((item) => {
+  if (item.key === 'email') return { ...item, label: text.value.actions.email }
+  if (item.key === 'form') return { ...item, label: text.value.fab.inquiryForm, detail: text.value.fab.submitRequirements, href: localePath(item.href) }
+  return item
+}))
 </script>
 
 <template>
@@ -78,8 +85,8 @@ const contactOptions = [
         </el-icon>
       </span>
       <span class="whatsapp-fab__trigger-copy">
-        <span class="whatsapp-fab__trigger-label">Contact Us</span>
-        <span class="whatsapp-fab__trigger-note">Fast Quote</span>
+        <span class="whatsapp-fab__trigger-label">{{ text.fab.contactUs }}</span>
+        <span class="whatsapp-fab__trigger-note">{{ text.fab.fastQuote }}</span>
       </span>
     </button>
 
@@ -94,8 +101,8 @@ const contactOptions = [
         @click="collapseContactOptions"
       >
         <span>
-          <span class="block text-[12px] font-bold uppercase text-white">Contact</span>
-          <span class="mt-1 block text-[14px] font-semibold">WhatsApp, Email, or Inquiry Form</span>
+          <span class="block text-[12px] font-bold uppercase text-white">{{ text.fab.contact }}</span>
+          <span class="mt-1 block text-[14px] font-semibold">{{ text.fab.channels }}</span>
         </span>
         <el-icon :size="18" class="text-white/78">
           <ArrowUp v-if="expanded" />
@@ -104,7 +111,7 @@ const contactOptions = [
       </button>
 
       <div class="bg-white">
-        <template v-for="(item, index) in contactOptions" :key="item.key">
+        <template v-for="(item, index) in localizedContactOptions" :key="item.key">
           <a
             v-if="item.external"
             :href="item.href"

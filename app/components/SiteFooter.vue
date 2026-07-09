@@ -3,6 +3,19 @@ import { ArrowDown, ArrowUp } from '@element-plus/icons-vue'
 import { categories as fallbackCategories, complianceMarqueeItems } from '~/data/site'
 
 const company = await useSiteSettings()
+const { isCn, text, localePath } = useLocale()
+const complianceItems = computed(() => isCn.value ? [
+  'ISO 9001',
+  'ISO 22000',
+  'HACCP',
+  'FDA 21 CFR',
+  'EC 1935/2004',
+  'EU 10/2011',
+  'GMP 管控',
+  '批次追溯',
+  '迁移测试',
+  '食品级材料',
+] : complianceMarqueeItems)
 const { data: catalogData } = await useFetch<{ categories: Array<{ slug: string; name: string }> }>('/api/public/products', {
   key: 'footer-product-categories',
 })
@@ -15,17 +28,22 @@ const activeSocialPlatforms = computed(() => socialPlatforms.value.filter((item)
 const { data: friendLinksData } = await useFetch('/api/public/friend-links')
 const friendLinks = computed(() => friendLinksData.value?.items || [])
 
-const companyLinks = [
-  { label: 'Factory Overview', to: '/about' },
-  { label: 'All Products', to: '/products' },
-  { label: 'Documents', to: '/documents' },
-  { label: 'Blog', to: '/blog' },
-  { label: 'Contact', to: '/contact' },
-]
+const companyLinks = computed(() => [
+  { label: text.value.nav.company, to: '/about' },
+  { label: text.value.labels.allProducts, to: '/products' },
+  { label: text.value.nav.documents, to: '/documents' },
+  { label: text.value.nav.blog, to: '/blog' },
+  { label: text.value.nav.contact, to: '/contact' },
+])
 
 const mobileOpen = ref<string | null>(null)
 
-const footerHighlights = ['Wholesale Orders', 'OEM/ODM Packing', 'Sample Support', 'Export Support']
+const footerHighlights = computed(() => [
+  text.value.footer.wholesaleOrders,
+  text.value.footer.oemPacking,
+  text.value.footer.sampleSupport,
+  text.value.footer.exportSupport,
+])
 
 const toggleSection = (key: string) => {
   mobileOpen.value = mobileOpen.value === key ? null : key
@@ -40,7 +58,7 @@ const englishBrandName = 'YIYUAN NEW MATERIALS'
 <template>
   <footer class="site-footer">
     <div class="footer-compliance">
-      <InfoMarquee :items="complianceMarqueeItems" direction="rtl" tone="dark" />
+      <InfoMarquee :items="complianceItems" direction="rtl" tone="dark" />
     </div>
 
     <div class="site-footer__body">
@@ -69,7 +87,7 @@ const englishBrandName = 'YIYUAN NEW MATERIALS'
             </div>
 
             <div class="site-footer-actions" aria-label="Footer contact actions">
-              <NuxtLink to="/contact" class="site-footer-action site-footer-action--primary">Request Export Quote</NuxtLink>
+              <NuxtLink :to="localePath('/contact')" class="site-footer-action site-footer-action--primary">{{ text.actions.requestExportQuote }}</NuxtLink>
               <a
                 :href="company.whatsappLink"
                 target="_blank"
@@ -84,10 +102,9 @@ const englishBrandName = 'YIYUAN NEW MATERIALS'
 
           <div class="site-footer-grid">
             <section class="site-footer-about" aria-label="Supply focus">
-              <div class="site-footer-section-title">Export Supplier</div>
+              <div class="site-footer-section-title">{{ text.footer.exportSupplier }}</div>
               <p>
-                Cling film, fresh wrap and disposable food containers for wholesale import,
-                private label and OEM/ODM packaging orders.
+                {{ text.footer.supplyFocus }}
               </p>
 
               <div class="site-footer-highlights">
@@ -111,25 +128,25 @@ const englishBrandName = 'YIYUAN NEW MATERIALS'
             </section>
 
             <section class="site-footer-section" aria-label="Product links">
-              <div class="site-footer-section-title">Products</div>
+              <div class="site-footer-section-title">{{ text.footer.productLinks }}</div>
               <ul class="site-footer-link-list">
                 <li v-for="c in categories" :key="c.slug">
-                  <NuxtLink :to="`/products/category/${c.slug}`">{{ c.name }}</NuxtLink>
+                  <NuxtLink :to="localePath(`/products/category/${c.slug}`)">{{ c.name }}</NuxtLink>
                 </li>
               </ul>
             </section>
 
             <section class="site-footer-section" aria-label="Company links">
-              <div class="site-footer-section-title">Company</div>
+              <div class="site-footer-section-title">{{ text.footer.companyLinks }}</div>
               <ul class="site-footer-link-list">
                 <li v-for="item in companyLinks" :key="item.to">
-                  <NuxtLink :to="item.to">{{ item.label }}</NuxtLink>
+                  <NuxtLink :to="localePath(item.to)">{{ item.label }}</NuxtLink>
                 </li>
               </ul>
             </section>
 
             <section class="site-footer-section site-footer-contact" aria-label="Contact information">
-              <div class="site-footer-section-title">Contact</div>
+              <div class="site-footer-section-title">{{ text.footer.contactInfo }}</div>
               <div class="site-footer-contact-list">
                 <a :href="company.whatsappLink" target="_blank" rel="noopener">{{ company.phone }}</a>
                 <a :href="company.contactLink">{{ company.email }}</a>
@@ -139,7 +156,7 @@ const englishBrandName = 'YIYUAN NEW MATERIALS'
           </div>
 
           <div v-if="friendLinks.length" class="site-footer-friend-links">
-            <span>Friend Links</span>
+            <span>{{ text.footer.friendLinks }}</span>
             <div class="site-footer-friend-links__items">
               <a
                 v-for="item in friendLinks"
@@ -174,7 +191,7 @@ const englishBrandName = 'YIYUAN NEW MATERIALS'
             </div>
 
             <div class="site-footer-mobile-actions">
-              <NuxtLink to="/contact" class="site-footer-action site-footer-action--primary">Request Quote</NuxtLink>
+              <NuxtLink :to="localePath('/contact')" class="site-footer-action site-footer-action--primary">{{ text.actions.requestQuote }}</NuxtLink>
               <a
                 :href="company.whatsappLink"
                 target="_blank"
@@ -204,7 +221,7 @@ const englishBrandName = 'YIYUAN NEW MATERIALS'
 
           <div class="site-footer-mobile-sections">
             <button type="button" class="site-footer-mobile-toggle" @click="toggleSection('products')">
-              <span>Products</span>
+              <span>{{ text.footer.productLinks }}</span>
               <el-icon :size="16">
                 <ArrowUp v-if="mobileOpen === 'products'" />
                 <ArrowDown v-else />
@@ -213,13 +230,13 @@ const englishBrandName = 'YIYUAN NEW MATERIALS'
             <div v-if="mobileOpen === 'products'" class="site-footer-mobile-panel">
               <ul class="site-footer-mobile-list">
                 <li v-for="c in categories" :key="c.slug">
-                  <NuxtLink :to="`/products/category/${c.slug}`">{{ c.name }}</NuxtLink>
+                  <NuxtLink :to="localePath(`/products/category/${c.slug}`)">{{ c.name }}</NuxtLink>
                 </li>
               </ul>
             </div>
 
             <button type="button" class="site-footer-mobile-toggle" @click="toggleSection('company')">
-              <span>Company</span>
+              <span>{{ text.footer.companyLinks }}</span>
               <el-icon :size="16">
                 <ArrowUp v-if="mobileOpen === 'company'" />
                 <ArrowDown v-else />
@@ -228,13 +245,13 @@ const englishBrandName = 'YIYUAN NEW MATERIALS'
             <div v-if="mobileOpen === 'company'" class="site-footer-mobile-panel">
               <ul class="site-footer-mobile-list">
                 <li v-for="item in companyLinks" :key="item.to">
-                  <NuxtLink :to="item.to">{{ item.label }}</NuxtLink>
+                  <NuxtLink :to="localePath(item.to)">{{ item.label }}</NuxtLink>
                 </li>
               </ul>
             </div>
 
             <button type="button" class="site-footer-mobile-toggle" @click="toggleSection('contact')">
-              <span>Contact</span>
+              <span>{{ text.footer.contactInfo }}</span>
               <el-icon :size="16">
                 <ArrowUp v-if="mobileOpen === 'contact'" />
                 <ArrowDown v-else />
@@ -250,7 +267,7 @@ const englishBrandName = 'YIYUAN NEW MATERIALS'
 
             <template v-if="friendLinks.length">
               <button type="button" class="site-footer-mobile-toggle" @click="toggleSection('friend-links')">
-                <span>Friend Links</span>
+                <span>{{ text.footer.friendLinks }}</span>
                 <el-icon :size="16">
                   <ArrowUp v-if="mobileOpen === 'friend-links'" />
                   <ArrowDown v-else />
@@ -277,7 +294,7 @@ const englishBrandName = 'YIYUAN NEW MATERIALS'
 
     <div class="site-footer-legal">
       <div class="container-x site-footer-legal__inner">
-        <span>© {{ year }} {{ legalCompanyName }} 版权所有。</span>
+        <span>© {{ year }} {{ legalCompanyName }} {{ text.footer.copyright }}</span>
         <span>{{ company.location }}</span>
       </div>
     </div>
