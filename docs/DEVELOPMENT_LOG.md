@@ -9,6 +9,54 @@
 - 如果只是文档或内容改动，也要记录。
 - 如果没有跑测试或构建，需要明确写出来。
 
+## 2026-07-09 - 新增 Documents 证书与检测报告页
+
+背景：
+
+- 现有 PDF 入口分散在首页、产品页、产品详情页、关于页和联系页。
+- 用户希望新增独立 `Documents / Certificates` 页面，用结构化表格展示报告名称、适用产品、标准/法规、出具方、日期和查看/下载动作。
+- 现有按钮 `View / PDF` 对海外采购商不够明确，需要改为 `View Report / Download PDF` 等成熟外贸站表达。
+
+改动：
+
+- 新增 `/documents` 页面，页面标题为 `Certificates & Test Reports`。
+- 新增 `ComplianceDocumentsTable` 组件，按 `Document / Applies To / Standard / Regulation / Issued By / Date / Action` 展示文件。
+- 扩展 `app/data/documents.ts`，集中维护文档标题、适用产品、标准、出具方、日期、查看按钮和下载按钮。
+- `DocumentDownloads` 按文档类型显示 `View Report`、`View PDF` 和 `Download PDF`，不再显示短按钮 `View / PDF`。
+- 首页质量区按钮改为 `View Report`、`Download PDF`，并增加 `All Documents` 入口。
+- 顶部导航和页脚 Company 链接新增 `Documents`。
+- `server/utils/db.ts` 新增 `page:documents` SEO 种子，保证 `/documents` 进入 sitemap。
+- 更新项目总览和内容资料优化清单，记录独立资料页和结构化文件展示方式。
+
+涉及文件：
+
+- `app/pages/documents.vue`
+- `app/components/ComplianceDocumentsTable.vue`
+- `app/components/DocumentDownloads.vue`
+- `app/components/SiteHeader.vue`
+- `app/components/SiteFooter.vue`
+- `app/data/documents.ts`
+- `app/pages/index.vue`
+- `server/utils/db.ts`
+- `docs/PROJECT_OVERVIEW.md`
+- `docs/CONTENT_IMPROVEMENT_BACKLOG.md`
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- 已备份数据库：`data/backups/yiyuan-before-documents-page-20260709-101914.db`。
+- `pnpm build` 通过；仍有既有依赖 sourcemap、Tinymce CSS、大 chunk、sharp binary 警告，不影响构建完成。
+- 已重启 3000 服务。
+- 本地 `/documents` 返回 `200`。
+- 本地两个 PDF 路径均返回 `200`。
+- 本地和公网 sitemap 均包含 `https://yiyuanpack.com/documents`。
+- 公网 `https://yiyuanpack.com/documents` 返回 `200`。
+- `seo_entries` 已写入 `page:documents`。
+
+提交：
+
+- 本条记录随本次提交保存。
+
 ## 2026-07-09 - 新增博客草稿导入和定时发布模块
 
 背景：

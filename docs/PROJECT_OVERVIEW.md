@@ -73,6 +73,7 @@ docs/
 | `/products/category/[slug]` | `app/pages/products/category/[slug].vue` | 产品分类页，从数据库分类和产品读取 |
 | `/products/[slug]` | `app/pages/products/[slug].vue` | 产品详情页，从公开产品接口按 slug 查找 |
 | `/about` | `app/pages/about.vue` | 公司和工厂信息 |
+| `/documents` | `app/pages/documents.vue` | 证书、测试报告、产品资料和买家文件集中展示页 |
 | `/blog` | `app/pages/blog/index.vue` | 博客列表，从数据库读取已发布文章 |
 | `/blog/page/[page]` | `app/pages/blog/page/[page].vue` | 博客分页列表 |
 | `/blog/[slug]` | `app/pages/blog/[slug].vue` | 博客详情页，从公开文章接口按 slug 查找 |
@@ -104,6 +105,7 @@ docs/
 | `admin/RichTextEditor.client.vue` | TinyMCE 富文本编辑器 |
 | `ArticleToc.client.vue` | 博客详情页桌面端悬浮文章目录 |
 | `DocumentDownloads.vue` | 前台采购资料 PDF 展示，支持在线阅读和下载 |
+| `ComplianceDocumentsTable.vue` | 证书、测试报告和产品资料的结构化表格展示 |
 
 ## 数据模型
 
@@ -139,7 +141,7 @@ docs/
 - 语言切换入口仅保留在手机端，当前作为多语言预留入口。
 - 博客详情页桌面端显示悬浮文章目录，手机端不显示目录。
 - 页脚友情链接由后台维护；桌面端在页脚底部横向展示，手机端与 Products、Company、Contact 一样折叠显示，默认收起。
-- 产品资料 PDF 和检验 / 测试报告存放在 `public/downloads/`，前台通过产品页、产品详情页、关于页、联系页和首页质量区提供在线阅读和下载入口。
+- 产品资料 PDF 和检验 / 测试报告存放在 `public/downloads/`，前台通过 `/documents` 集中展示，并在产品页、产品详情页、关于页、联系页和首页质量区提供在线阅读和下载入口。
 
 ## SEO 与 head
 

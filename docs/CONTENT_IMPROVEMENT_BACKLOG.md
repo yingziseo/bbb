@@ -15,8 +15,8 @@
 
 | 状态 | 资料 | 文件位置 | 建议展示位置 | 说明 |
 | --- | --- | --- | --- | --- |
-| LIVE | 产品介绍 PDF | `/downloads/yiyuan-food-container-cling-film-product-catalog.pdf` | 产品列表页、产品详情页、联系页 | 食品容器和保鲜膜产品资料，可在线阅读和下载 |
-| LIVE | 检验 / 测试报告 PDF | `/downloads/yiyuan-cling-film-test-report-ccf-000071.pdf` | 关于页、产品详情页、联系页、首页质量区 | 扫描版质量文件，前台用 `Inspection / Test Report` 表述 |
+| LIVE | 产品介绍 PDF | `/downloads/yiyuan-food-container-cling-film-product-catalog.pdf` | `/documents`、产品列表页、产品详情页、联系页 | 食品容器和保鲜膜产品资料，可在线阅读和下载 |
+| LIVE | 检验 / 测试报告 PDF | `/downloads/yiyuan-cling-film-test-report-ccf-000071.pdf` | `/documents`、关于页、产品详情页、联系页、首页质量区 | 扫描版质量文件，前台用 `Food Contact Test Report` / `Test Report` 表述 |
 
 ## 产品资料缺口
 
@@ -61,6 +61,7 @@
 
 ## 页面落位建议
 
+- `/documents`：集中展示 `Compliance & Test Documents` 表格，串联报告名称、适用产品、标准/法规、出具方、日期和查看/下载动作。
 - 首页：只放高信任度摘要和轻量入口，避免堆叠过多文件。
 - 产品列表页：放产品目录 PDF，帮助采购商快速了解产品范围。
 - 产品详情页：放产品目录、测试报告、规格和询盘入口，承接采购决策。

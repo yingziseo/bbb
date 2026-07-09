@@ -62,9 +62,10 @@ withDefaults(defineProps<{
             class="document-downloads__button !ml-0"
           >
             <el-icon><View /></el-icon>
-            <span>View</span>
+            <span>{{ doc.viewLabel }}</span>
           </el-button>
           <el-button
+            v-if="doc.downloadLabel"
             tag="a"
             :href="doc.href"
             :download="doc.filename"
@@ -73,7 +74,7 @@ withDefaults(defineProps<{
             class="document-downloads__button !ml-0"
           >
             <el-icon><Download /></el-icon>
-            <span>PDF</span>
+            <span>{{ doc.downloadLabel }}</span>
           </el-button>
         </div>
       </article>
@@ -83,12 +84,12 @@ withDefaults(defineProps<{
 
 <style scoped>
 .document-downloads__button {
-  min-width: 64px;
+  min-width: 120px;
 }
 
 @media (max-width: 390px) {
   .document-downloads__button {
-    min-width: 54px;
+    min-width: 112px;
     padding-inline: 9px;
   }
 }

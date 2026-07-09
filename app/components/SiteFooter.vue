@@ -18,6 +18,7 @@ const friendLinks = computed(() => friendLinksData.value?.items || [])
 const companyLinks = [
   { label: 'Factory Overview', to: '/about' },
   { label: 'All Products', to: '/products' },
+  { label: 'Documents', to: '/documents' },
   { label: 'Blog', to: '/blog' },
   { label: 'Contact', to: '/contact' },
 ]

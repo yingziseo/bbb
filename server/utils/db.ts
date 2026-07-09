@@ -451,6 +451,16 @@ const seedSeo = (database: DatabaseSync) => {
       ogImage: '/images/about-factory.webp',
     },
     {
+      key: 'page:documents',
+      pageType: 'page',
+      name: '资料与检测报告页',
+      path: '/documents',
+      title: 'Certificates & Test Reports | YIYUAN Food Packaging Documents',
+      description: 'View YIYUAN food packaging product catalog, test report, material safety files, migration test documents, and factory profile documents for buyer review.',
+      keywords: 'food packaging certificates, test reports, food contact test report, cling film test report, product catalog PDF, packaging supplier documents',
+      ogImage: '/images/quality-control.webp',
+    },
+    {
       key: 'page:blog',
       pageType: 'page',
       name: '博客列表页',

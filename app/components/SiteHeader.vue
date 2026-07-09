@@ -20,6 +20,7 @@ const nav = [
   { label: 'Home', to: '/' },
   { label: 'Products', to: '/products' },
   { label: 'Company', to: '/about' },
+  { label: 'Documents', to: '/documents' },
   { label: 'Blog', to: '/blog' },
   { label: 'Contact', to: '/contact' },
 ]

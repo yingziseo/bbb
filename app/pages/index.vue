@@ -370,8 +370,11 @@ await useManagedSeo('page:home', {
             </el-button>
             <el-button tag="a" :href="testReport.href" :download="testReport.filename" plain>
               <el-icon><Download /></el-icon>
-              <span>PDF</span>
+              <span>Download PDF</span>
             </el-button>
+            <NuxtLink to="/documents">
+              <el-button plain>All Documents</el-button>
+            </NuxtLink>
           </div>
         </div>
         <div class="overflow-hidden border border-[var(--color-line)]">
