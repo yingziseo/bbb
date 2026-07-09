@@ -8,8 +8,8 @@ defineProps<{
 </script>
 
 <template>
-  <div class="overflow-hidden border border-[var(--color-line)] bg-white">
-    <div class="table-scroll" style="--table-min-width: 960px">
+  <div class="border border-[var(--color-line)] bg-white">
+    <div class="hidden md:block">
       <table class="w-full border-collapse text-left">
         <thead class="bg-[var(--color-panel)]">
           <tr>
@@ -62,6 +62,66 @@ defineProps<{
           </tr>
         </tbody>
       </table>
+    </div>
+
+    <div class="divide-y divide-[var(--color-line)] md:hidden">
+      <article v-for="doc in documents" :key="doc.document" class="p-4">
+        <div class="flex items-start justify-between gap-3">
+          <div class="min-w-0">
+            <h3 class="text-[16px] font-extrabold leading-snug text-[var(--color-navy)]">{{ doc.document }}</h3>
+            <p class="mt-1 text-[12.5px] font-semibold text-[var(--color-slate-muted)]">{{ doc.meta }}</p>
+          </div>
+          <span class="shrink-0 border border-[var(--color-line)] bg-[var(--color-panel)] px-2 py-1 text-[11px] font-bold uppercase text-[var(--color-navy)]">
+            {{ doc.requestOnly ? 'Request' : 'PDF' }}
+          </span>
+        </div>
+
+        <dl class="mt-4 grid gap-3 text-[13px]">
+          <div>
+            <dt class="text-[11px] font-extrabold uppercase tracking-[0.08em] text-[var(--color-slate-muted)]">Applies To</dt>
+            <dd class="mt-1 font-semibold leading-relaxed text-[var(--color-graphite)]">{{ doc.appliesTo }}</dd>
+          </div>
+          <div>
+            <dt class="text-[11px] font-extrabold uppercase tracking-[0.08em] text-[var(--color-slate-muted)]">Standard</dt>
+            <dd class="mt-1 leading-relaxed text-[var(--color-graphite)]">{{ doc.standard }}</dd>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <dt class="text-[11px] font-extrabold uppercase tracking-[0.08em] text-[var(--color-slate-muted)]">Issued By</dt>
+              <dd class="mt-1 leading-relaxed text-[var(--color-graphite)]">{{ doc.issuedBy }}</dd>
+            </div>
+            <div>
+              <dt class="text-[11px] font-extrabold uppercase tracking-[0.08em] text-[var(--color-slate-muted)]">Date</dt>
+              <dd class="mt-1 font-semibold text-[var(--color-graphite)]">{{ doc.date }}</dd>
+            </div>
+          </div>
+        </dl>
+
+        <div class="mt-4 grid gap-2 sm:grid-cols-2">
+          <el-button
+            tag="a"
+            :href="doc.href"
+            :target="doc.requestOnly ? undefined : '_blank'"
+            :rel="doc.requestOnly ? undefined : 'noopener'"
+            color="#1b3c63"
+            class="!ml-0 !w-full"
+          >
+            <el-icon><Message v-if="doc.requestOnly" /><View v-else /></el-icon>
+            <span>{{ doc.viewLabel }}</span>
+          </el-button>
+          <el-button
+            v-if="doc.downloadLabel"
+            tag="a"
+            :href="doc.href"
+            :download="doc.filename"
+            plain
+            class="!ml-0 !w-full"
+          >
+            <el-icon><Download /></el-icon>
+            <span>{{ doc.downloadLabel }}</span>
+          </el-button>
+        </div>
+      </article>
     </div>
   </div>
 </template>

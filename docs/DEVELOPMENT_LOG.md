@@ -9,6 +9,41 @@
 - 如果只是文档或内容改动，也要记录。
 - 如果没有跑测试或构建，需要明确写出来。
 
+## 2026-07-09 - 重设计 Documents 页面移动端与 CTA
+
+背景：
+
+- `/documents` 页面底部请求模块视觉过重，和公共底部 UI 感觉重复。
+- 移动端表格依赖横向滚动，重要信息和操作按钮容易被隐藏。
+- 用户要求页面整体降噪，层级更清楚，电脑端和手机端都要更友好。
+
+改动：
+
+- 重设计 `/documents` 首屏，改为白底克制布局，首屏直接展示核心查看和下载按钮。
+- 新增轻量 Document Center 数据概览和三段式说明条，减少长段文字。
+- `ComplianceDocumentsTable` 保留桌面表格，移动端改为独立文档卡片，直接显示适用产品、标准、出具方、日期和操作按钮。
+- 底部 `Request Full Certificate Package` 区域改为浅色请求模块，去掉旧深色大 CTA 和重复页脚感。
+- 精简说明文案，保留 `View Test Report`、`Download Catalog`、`Request Full Package` 等明确动作。
+
+涉及文件：
+
+- `app/pages/documents.vue`
+- `app/components/ComplianceDocumentsTable.vue`
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- `pnpm build` 通过；仍有既有 sourcemap、Tinymce CSS、大 chunk、sharp binary 警告，不影响构建完成。
+- 已重启 3000 服务。
+- 本地 `http://127.0.0.1:3000/documents` 返回 `200`。
+- 页面输出包含新标题和按钮：`Certificates & Test Reports`、`View Test Report`、`Download Catalog`、`Request Full Package`。
+- 页面输出不再包含旧文案 `Buyer Document Support`。
+- 项目未安装 Playwright，未执行浏览器截图验证。
+
+提交：
+
+- 本条记录随本次提交保存。
+
 ## 2026-07-09 - 新增 Documents 证书与检测报告页
 
 背景：
