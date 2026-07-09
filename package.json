@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "nuxt dev --host 0.0.0.0 --port 3000",
-    "build": "nuxt build",
+    "build": "NODE_OPTIONS=--max-old-space-size=4096 nuxt build",
     "preview": "HOST=0.0.0.0 PORT=3000 node .output/server/index.mjs",
     "start": "HOST=0.0.0.0 PORT=3000 node .output/server/index.mjs",
     "prepare": "nuxt prepare"

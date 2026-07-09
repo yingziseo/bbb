@@ -24,6 +24,7 @@ const form = reactive({
   contentHtml: item.contentHtml,
   status: item.status,
   publishedAt: item.publishedAt,
+  scheduledPublishAt: item.scheduledPublishAt,
   seoTitle: item.seoTitle,
   seoDescription: item.seoDescription,
   seoKeywords: item.seoKeywords,
@@ -111,6 +112,9 @@ const save = async () => {
             </el-form-item>
             <el-form-item label="发布时间">
               <el-date-picker v-model="form.publishedAt" type="datetime" value-format="YYYY-MM-DDTHH:mm:ss.sssZ" class="!w-full" />
+            </el-form-item>
+            <el-form-item label="定时发布">
+              <el-date-picker v-model="form.scheduledPublishAt" type="datetime" value-format="YYYY-MM-DDTHH:mm:ss.sssZ" class="!w-full" />
             </el-form-item>
             <el-form-item label="封面图">
               <div class="flex w-full flex-col gap-3">

@@ -9,6 +9,59 @@
 - 如果只是文档或内容改动，也要记录。
 - 如果没有跑测试或构建，需要明确写出来。
 
+## 2026-07-09 - 新增博客草稿导入和定时发布模块
+
+背景：
+
+- 30 篇保鲜膜和一次性餐盒内容测试文章已在本地工作流完成 HTML 和配图。
+- 需要将文章、图片、TDK 写入项目数据库为草稿，并由项目内置模块按中国时间白天随机时间每天发布 1 篇。
+- 用户确认 `/工作流/` 只作为本地内容生产区，不同步到 GitHub；图片不再添加水印。
+
+改动：
+
+- 新增 90 张博客 WebP 图片到 `public/images/blog/`，每篇 1 张封面图和 2 张正文图。
+- SQLite `posts` 增加 `scheduled_publish_at`、`published_by_scheduler_at` 字段，支持文章排期和自动发布记录。
+- 新增后台“定时发布”页面，可查看未排期草稿、到期数量、今日已发布、待发布队列和最近自动发布记录。
+- 新增后台排期 API：读取概览、保存设置、生成未来 30 天随机排期、手动执行到期发布。
+- 新增 Nitro 服务端定时器，每 5 分钟检查一次到期草稿，默认每天最多发布 1 篇。
+- 文章创建、编辑和列表接入排期字段，列表增加“已排期”筛选和排期时间展示。
+- 将 `pnpm build` 脚本增加 `NODE_OPTIONS=--max-old-space-size=4096`，避免生产构建阶段 Node 默认堆内存不足。
+- 本地 `/工作流/博客文章工作流.md` 已移除水印流程；该目录保持忽略，不纳入提交。
+
+涉及文件：
+
+- `package.json`
+- `app/layouts/admin.vue`
+- `app/pages/like/post-scheduler.vue`
+- `app/pages/like/posts/index.vue`
+- `app/pages/like/posts/new.vue`
+- `app/pages/like/posts/[id].vue`
+- `server/api/admin/post-scheduler/*`
+- `server/api/admin/posts/index.get.ts`
+- `server/api/admin/posts/index.post.ts`
+- `server/api/admin/posts/[id].put.ts`
+- `server/plugins/post-scheduler.ts`
+- `server/utils/db.ts`
+- `server/utils/post-scheduler.ts`
+- `server/utils/serializers.ts`
+- `public/images/blog/*.webp`
+- `data/yiyuan.db` 已更新但不纳入 git
+
+验证：
+
+- 已备份数据库：`data/backups/yiyuan-before-post-scheduler-20260709-090848.db`。
+- 已导入 30 篇草稿，全部带排期、封面图、正文 2 张图、SEO Title、Description、Keywords、Canonical 和 `seo_entries`。
+- 排期范围：第一篇 `2026-07-10` 中国白天，最后一篇 `2026-08-08` 中国白天。
+- `pnpm build` 通过；依赖包输出 sourcemap、大 chunk、Tinymce CSS 和 sharp binary 警告，不影响构建完成。
+- 已重启 3000 服务。
+- 本地检查：首页 `200`，新增 WebP 图片 `200`，后台 `/like/post-scheduler` `200`。
+- 本地公开博客 API 仍返回 9 篇已发布文章，排期草稿未公开；排期草稿详情 API 返回 `404`。
+- 公网检查：`https://yiyuanpack.com/` `200`，新增 WebP 图片 `200`，公开博客 API 仍未暴露排期草稿。
+
+提交：
+
+- 本条记录随本次提交保存。
+
 ## 2026-07-08 - 停止同步本地工作流目录
 
 背景：

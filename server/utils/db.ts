@@ -118,6 +118,8 @@ const execSchema = (database: DatabaseSync) => {
       content_html TEXT NOT NULL,
       status TEXT NOT NULL DEFAULT 'draft',
       published_at TEXT,
+      scheduled_publish_at TEXT,
+      published_by_scheduler_at TEXT,
       seo_title TEXT,
       seo_description TEXT,
       seo_keywords TEXT,
@@ -333,6 +335,12 @@ const migrateInquirySeoCopy = (database: DatabaseSync) => {
       now(),
       'Send food packaging specifications, quantity, and custom requirements for quotation.',
     )
+}
+
+const migratePostSchedulerColumns = (database: DatabaseSync) => {
+  ;['scheduled_publish_at', 'published_by_scheduler_at'].forEach((column) => {
+    addTextColumnIfMissing(database, 'posts', column)
+  })
 }
 
 const insertSeo = (
@@ -748,6 +756,10 @@ const seedSiteSettings = (database: DatabaseSync) => {
     inquiryMailFromName: 'YIYUAN Website',
     inquiryMailFromEmail: 'inquiry@yiyuanpack.com',
     inquiryMailSubjectPrefix: process.env.MAIL_SUBJECT_PREFIX || '[YIYUAN Inquiry]',
+    postSchedulerEnabled: 'true',
+    postSchedulerStartTime: '09:00',
+    postSchedulerEndTime: '17:30',
+    postSchedulerDailyLimit: '1',
   }
 
   const statement = database.prepare(`
@@ -939,6 +951,7 @@ export const getDb = () => {
   migrateInquiriesSchema(db)
   migrateInquiryMailColumns(db)
   migrateInquirySeoCopy(db)
+  migratePostSchedulerColumns(db)
   seedDatabase(db)
 
   return db

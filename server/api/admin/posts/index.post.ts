@@ -13,6 +13,7 @@ export default defineEventHandler(async (event) => {
   const excerpt = asString(body?.excerpt)
   const contentHtml = sanitizePostHtml(asString(body?.contentHtml))
   const status = asString(body?.status, 'draft') === 'published' ? 'published' : 'draft'
+  const scheduledPublishAt = status === 'draft' ? asString(body?.scheduledPublishAt) : ''
 
   if (!title || !slug || !excerpt || !contentHtml) {
     throw createError({ statusCode: 400, statusMessage: '标题、Slug、摘要和正文必填' })
@@ -28,10 +29,10 @@ export default defineEventHandler(async (event) => {
   const result = db
     .prepare(`
       INSERT INTO posts (
-        slug, title, excerpt, cover_image, content_html, status, published_at,
+        slug, title, excerpt, cover_image, content_html, status, published_at, scheduled_publish_at,
         seo_title, seo_description, seo_keywords, canonical, created_at, updated_at
       )
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `)
     .run(
       slug,
@@ -41,6 +42,7 @@ export default defineEventHandler(async (event) => {
       contentHtml,
       status,
       publishedAt,
+      scheduledPublishAt,
       asString(body?.seoTitle),
       asString(body?.seoDescription),
       asString(body?.seoKeywords),

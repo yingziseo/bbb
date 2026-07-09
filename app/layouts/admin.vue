@@ -10,6 +10,7 @@ import {
   Operation,
   Setting as SettingIcon,
   SwitchButton,
+  Timer,
   VideoCamera,
   Close,
   Connection,
@@ -31,6 +32,7 @@ const navSections = [
     items: [
       { label: '产品管理', to: '/like/products', icon: Box },
       { label: '博客文章', to: '/like/posts', icon: Document },
+      { label: '定时发布', to: '/like/post-scheduler', icon: Timer },
       { label: '页面 TDK', to: '/like/seo', icon: Operation },
     ],
   },

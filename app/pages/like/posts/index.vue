@@ -31,6 +31,15 @@ const removePost = async (id: number, title: string) => {
 }
 
 const formatDate = (value: string) => (value ? new Date(value).toLocaleString('zh-CN') : '-')
+const statusLabel = (row: any) => {
+  if (row.status === 'published') return '已发布'
+  return row.scheduledPublishAt ? '已排期' : '草稿'
+}
+
+const statusType = (row: any) => {
+  if (row.status === 'published') return 'success'
+  return row.scheduledPublishAt ? 'warning' : 'info'
+}
 </script>
 
 <template>
@@ -52,6 +61,7 @@ const formatDate = (value: string) => (value ? new Date(value).toLocaleString('z
       <el-input v-model="query.q" placeholder="搜索标题或 slug" class="w-full sm:!w-[280px]" clearable @change="refresh" />
       <el-select v-model="query.status" placeholder="状态" class="w-full sm:!w-[160px]" clearable @change="refresh">
         <el-option label="草稿" value="draft" />
+        <el-option label="已排期" value="scheduled" />
         <el-option label="已发布" value="published" />
       </el-select>
       <el-button :loading="pending" @click="refresh">查询</el-button>
@@ -69,13 +79,16 @@ const formatDate = (value: string) => (value ? new Date(value).toLocaleString('z
         <el-table-column prop="slug" label="Slug" min-width="180" />
         <el-table-column label="状态" width="110">
           <template #default="{ row }">
-            <el-tag :type="row.status === 'published' ? 'success' : 'info'" effect="plain" class="!rounded-none">
-              {{ row.status === 'published' ? '已发布' : '草稿' }}
+            <el-tag :type="statusType(row)" effect="plain" class="!rounded-none">
+              {{ statusLabel(row) }}
             </el-tag>
           </template>
         </el-table-column>
         <el-table-column label="发布时间" min-width="180">
           <template #default="{ row }">{{ formatDate(row.publishedAt) }}</template>
+        </el-table-column>
+        <el-table-column label="排期时间" min-width="180">
+          <template #default="{ row }">{{ formatDate(row.scheduledPublishAt) }}</template>
         </el-table-column>
         <el-table-column label="操作" width="190" fixed="right">
           <template #default="{ row }">

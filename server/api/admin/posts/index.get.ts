@@ -18,7 +18,9 @@ export default defineEventHandler((event) => {
     params.push(`%${search}%`, `%${search}%`)
   }
 
-  if (status && ['draft', 'published'].includes(status)) {
+  if (status === 'scheduled') {
+    where.push("status = 'draft' AND scheduled_publish_at IS NOT NULL AND scheduled_publish_at <> ''")
+  } else if (status && ['draft', 'published'].includes(status)) {
     where.push('status = ?')
     params.push(status)
   }
@@ -28,7 +30,7 @@ export default defineEventHandler((event) => {
       SELECT *
       FROM posts
       ${where.length ? `WHERE ${where.join(' AND ')}` : ''}
-      ORDER BY COALESCE(published_at, created_at) DESC, id DESC
+      ORDER BY COALESCE(scheduled_publish_at, published_at, created_at) DESC, id DESC
     `)
     .all(...params)
 
