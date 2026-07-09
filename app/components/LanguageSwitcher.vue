@@ -23,6 +23,8 @@ type LanguageRow = {
   nativeLabel: string
   flag: string
   enabled: boolean
+  href?: string
+  active?: boolean
 }
 
 const props = withDefaults(defineProps<{ compact?: boolean }>(), {
@@ -56,8 +58,20 @@ const activeLanguage = computed(() => ({
   ...currentLanguage.value,
   flag: currentLanguage.value.code === 'cn' ? flagCn : flagUs,
 }))
-const enabledLanguageRows = computed(() => languageRows.filter((item) => item.enabled))
-const disabledLanguageRows = computed(() => languageRows.filter((item) => !item.enabled))
+
+const resolvedLanguageRows = computed(() => languageRows.map((language) => {
+  const enabledLocale = language.code === 'en' || language.code === 'cn'
+
+  return {
+    ...language,
+    active: language.code === currentLanguage.value.code,
+    href: language.enabled && enabledLocale
+      ? switchLocalePath(language.code as LocaleCode)
+      : undefined,
+  }
+}))
+const enabledLanguageRows = computed(() => resolvedLanguageRows.value.filter((item) => item.enabled))
+const disabledLanguageRows = computed(() => resolvedLanguageRows.value.filter((item) => !item.enabled))
 
 const toggleMenu = () => {
   open.value = !open.value
@@ -65,12 +79,6 @@ const toggleMenu = () => {
 
 const closeMenu = () => {
   open.value = false
-}
-
-const changeLanguage = async (code: string) => {
-  if (code !== 'en' && code !== 'cn') return
-  closeMenu()
-  await navigateTo(switchLocalePath(code as LocaleCode))
 }
 
 const handleOutsidePointer = (event: PointerEvent) => {
@@ -116,20 +124,22 @@ onBeforeUnmount(() => {
         @click.stop
         @pointerdown.stop
       >
-        <button
+        <a
           v-for="language in enabledLanguageRows"
           :key="language.code"
-          type="button"
+          :href="language.href"
           class="language-switcher-item"
+          :class="{ 'language-switcher-item--active': language.active }"
           role="menuitem"
-          @click="changeLanguage(language.code)"
+          :aria-current="language.active ? 'true' : undefined"
+          @click="closeMenu"
         >
           <span class="flex min-w-0 items-center gap-2">
             <img :src="language.flag" alt="" class="h-3.5 w-5 border border-black/10 object-cover" aria-hidden="true" />
             <span class="w-9 text-[11px] font-extrabold text-[var(--color-navy)]">{{ language.shortCode }}</span>
             <span class="truncate text-[12px] font-medium text-[var(--color-graphite)]">{{ language.nativeLabel }}</span>
           </span>
-        </button>
+        </a>
 
         <span
           v-for="language in disabledLanguageRows"
@@ -165,6 +175,7 @@ onBeforeUnmount(() => {
   background: #fff;
   padding: 0 10px;
   color: var(--color-navy);
+  cursor: pointer;
   font-size: 12px;
   font-weight: 700;
   transition:
@@ -175,6 +186,7 @@ onBeforeUnmount(() => {
 .language-switcher-trigger:hover,
 .language-switcher-trigger:focus-visible {
   border-color: var(--color-navy);
+  background: var(--color-panel);
 }
 
 .language-switcher-trigger--compact {
@@ -220,10 +232,12 @@ onBeforeUnmount(() => {
   padding: 0 8px;
   text-align: left;
   line-height: 1;
+  text-decoration: none;
 }
 
 .language-switcher-item:hover,
-.language-switcher-item:focus-visible {
+.language-switcher-item:focus-visible,
+.language-switcher-item--active {
   background: var(--color-panel);
 }
 

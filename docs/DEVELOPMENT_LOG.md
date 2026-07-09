@@ -9,6 +9,38 @@
 - 如果只是文档或内容改动，也要记录。
 - 如果没有跑测试或构建，需要明确写出来。
 
+## 2026-07-09 - 修复语言下拉菜单点击跳转
+
+背景：
+
+- 语言切换入口需要保留当前唯一的下拉组件。
+- 点击语言按钮应展开下拉菜单；点击 `English` 或 `中文` 后跳转到对应 URL。
+- 其它预留语言需要继续显示为灰色不可选。
+
+改动：
+
+- 恢复 `LanguageSwitcher` 下拉菜单结构和预留语言列表。
+- 将可用语言项从 `button + navigateTo` 改为真实 `<a href>` 链接，避免移动端点击事件或 dropdown command 导致不跳转。
+- 保持头部仍只有一个语言切换组件。
+
+涉及文件：
+
+- `app/components/LanguageSwitcher.vue`
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- `pnpm build` 通过；仍有既有 sourcemap、Tinymce CSS、大 chunk、sharp binary 警告，不影响构建完成。
+- 已重启 3000 服务。
+- 本地 `/`、`/cn`、`/products/pvc-fresh-wrap`、`/cn/products/pvc-fresh-wrap` 均返回 `200`。
+- Chromium Headless 实测：英文产品页展开菜单后中文项 `href=/cn/products/pvc-fresh-wrap`，点击后路径变为 `/cn/products/pvc-fresh-wrap`。
+- Chromium Headless 实测：中文产品页展开菜单后 English 项 `href=/products/pvc-fresh-wrap`，点击后路径变为 `/products/pvc-fresh-wrap`。
+- 公网 `/`、`/cn`、`/cn/products/pvc-fresh-wrap` 均返回 `200`。
+
+提交：
+
+- 本条记录随本次提交保存。
+
 ## 2026-07-09 - 增加中文 /cn 前台与语言切换
 
 背景：
