@@ -5,14 +5,31 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 definePageMeta({ layout: 'admin' })
 useHead({ title: '博客文章 | YIYUAN' })
 
+const filters = reactive({
+  q: '',
+  status: '',
+})
+
 const query = reactive({
   q: '',
   status: '',
+  page: 1,
+  pageSize: 20,
 })
 
 const { data, pending, refresh } = await useFetch('/api/admin/posts', {
   query,
 })
+
+const applyFilters = () => {
+  query.q = filters.q
+  query.status = filters.status
+  query.page = 1
+}
+
+const changePageSize = () => {
+  query.page = 1
+}
 
 const removePost = async (id: number, title: string) => {
   try {
@@ -23,6 +40,7 @@ const removePost = async (id: number, title: string) => {
     })
     await $fetch(`/api/admin/posts/${id}`, { method: 'DELETE' })
     ElMessage.success('文章已删除')
+    if ((data.value?.items?.length || 0) === 1 && query.page > 1) query.page -= 1
     await refresh()
   } catch (error: any) {
     if (error === 'cancel') return
@@ -30,7 +48,9 @@ const removePost = async (id: number, title: string) => {
   }
 }
 
-const formatDate = (value: string) => (value ? new Date(value).toLocaleString('zh-CN') : '-')
+const formatDate = (value: string) => (
+  value ? new Date(value).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' }) : '-'
+)
 const statusLabel = (row: any) => {
   if (row.status === 'published') return '已发布'
   return row.scheduledPublishAt ? '已排期' : '草稿'
@@ -58,13 +78,13 @@ const statusType = (row: any) => {
     </div>
 
     <div class="mb-4 flex flex-wrap gap-3 border border-[var(--color-line)] bg-white p-4">
-      <el-input v-model="query.q" placeholder="搜索标题或 slug" class="w-full sm:!w-[280px]" clearable @change="refresh" />
-      <el-select v-model="query.status" placeholder="状态" class="w-full sm:!w-[160px]" clearable @change="refresh">
+      <el-input v-model="filters.q" placeholder="搜索标题或 slug" class="w-full sm:!w-[280px]" clearable @keyup.enter="applyFilters" />
+      <el-select v-model="filters.status" placeholder="状态" class="w-full sm:!w-[160px]" clearable @change="applyFilters">
         <el-option label="草稿" value="draft" />
         <el-option label="已排期" value="scheduled" />
         <el-option label="已发布" value="published" />
       </el-select>
-      <el-button :loading="pending" @click="refresh">查询</el-button>
+      <el-button :loading="pending" @click="applyFilters">查询</el-button>
     </div>
 
     <div class="table-scroll border border-[var(--color-line)] bg-white" style="--table-min-width: 900px">
@@ -105,6 +125,18 @@ const statusType = (row: any) => {
           </template>
         </el-table-column>
       </el-table>
+      <div class="overflow-x-auto border-t border-[var(--color-line)] px-4 py-3">
+        <el-pagination
+          v-model:current-page="query.page"
+          v-model:page-size="query.pageSize"
+          class="min-w-max justify-end"
+          background
+          layout="total, sizes, prev, pager, next"
+          :page-sizes="[10, 20, 50, 100]"
+          :total="data?.pagination?.total || 0"
+          @size-change="changePageSize"
+        />
+      </div>
     </div>
   </div>
 </template>

@@ -9,7 +9,14 @@ const loading = ref(false)
 const planning = ref(false)
 const running = ref(false)
 
-const { data, pending, refresh } = await useFetch('/api/admin/post-scheduler')
+const query = reactive({
+  queuePage: 1,
+  queuePageSize: 20,
+  recentPage: 1,
+  recentPageSize: 10,
+})
+
+const { data, pending, refresh } = await useFetch('/api/admin/post-scheduler', { query })
 
 const form = reactive({
   enabled: true,
@@ -27,7 +34,17 @@ watchEffect(() => {
   form.dailyLimit = settings.dailyLimit
 })
 
-const formatDate = (value: string) => (value ? new Date(value).toLocaleString('zh-CN') : '-')
+const formatDate = (value: string) => (
+  value ? new Date(value).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' }) : '-'
+)
+
+const changeQueuePageSize = () => {
+  query.queuePage = 1
+}
+
+const changeRecentPageSize = () => {
+  query.recentPage = 1
+}
 
 const saveSettings = async () => {
   loading.value = true
@@ -155,7 +172,9 @@ const runDue = async () => {
     <div class="grid gap-6 xl:grid-cols-[1.4fr_1fr]">
       <div class="table-scroll border border-[var(--color-line)] bg-white" style="--table-min-width: 760px">
         <div class="border-b border-[var(--color-line)] p-4">
-          <h2 class="text-[17px] font-bold text-[var(--color-navy)]">待发布队列</h2>
+          <h2 class="text-[17px] font-bold text-[var(--color-navy)]">
+            待发布队列（{{ data?.pagination?.queue?.total || 0 }}）
+          </h2>
         </div>
         <el-table :data="data?.queue || []" stripe>
           <el-table-column prop="title" label="标题" min-width="260" show-overflow-tooltip />
@@ -164,11 +183,25 @@ const runDue = async () => {
             <template #default="{ row }">{{ formatDate(row.scheduledPublishAt) }}</template>
           </el-table-column>
         </el-table>
+        <div class="overflow-x-auto border-t border-[var(--color-line)] px-4 py-3">
+          <el-pagination
+            v-model:current-page="query.queuePage"
+            v-model:page-size="query.queuePageSize"
+            class="min-w-max justify-end"
+            background
+            layout="total, sizes, prev, pager, next"
+            :page-sizes="[10, 20, 50, 100]"
+            :total="data?.pagination?.queue?.total || 0"
+            @size-change="changeQueuePageSize"
+          />
+        </div>
       </div>
 
       <div class="table-scroll border border-[var(--color-line)] bg-white" style="--table-min-width: 560px">
         <div class="border-b border-[var(--color-line)] p-4">
-          <h2 class="text-[17px] font-bold text-[var(--color-navy)]">最近自动发布</h2>
+          <h2 class="text-[17px] font-bold text-[var(--color-navy)]">
+            最近自动发布（{{ data?.pagination?.recent?.total || 0 }}）
+          </h2>
         </div>
         <el-table :data="data?.recent || []" stripe>
           <el-table-column prop="title" label="标题" min-width="260" show-overflow-tooltip />
@@ -176,6 +209,18 @@ const runDue = async () => {
             <template #default="{ row }">{{ formatDate(row.publishedBySchedulerAt) }}</template>
           </el-table-column>
         </el-table>
+        <div class="overflow-x-auto border-t border-[var(--color-line)] px-4 py-3">
+          <el-pagination
+            v-model:current-page="query.recentPage"
+            v-model:page-size="query.recentPageSize"
+            class="min-w-max justify-end"
+            background
+            layout="total, sizes, prev, pager, next"
+            :page-sizes="[10, 20, 50, 100]"
+            :total="data?.pagination?.recent?.total || 0"
+            @size-change="changeRecentPageSize"
+          />
+        </div>
       </div>
     </div>
   </div>

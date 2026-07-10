@@ -9,9 +9,11 @@ export default defineEventHandler((event) => {
   const query = getQuery(event)
   const search = asString(query.q)
   const status = asString(query.status)
+  const requestedPage = Math.max(1, Math.trunc(Number(query.page) || 1))
+  const requestedPageSize = Math.max(10, Math.min(100, Math.trunc(Number(query.pageSize) || 20)))
 
   const where: string[] = []
-  const params: string[] = []
+  const params: Array<string | number> = []
 
   if (search) {
     where.push('(title LIKE ? OR slug LIKE ?)')
@@ -25,14 +27,32 @@ export default defineEventHandler((event) => {
     params.push(status)
   }
 
-  const rows = getDb()
+  const database = getDb()
+  const whereSql = where.length ? `WHERE ${where.join(' AND ')}` : ''
+  const total = (database
+    .prepare(`SELECT COUNT(*) AS count FROM posts ${whereSql}`)
+    .get(...params) as { count: number }).count
+  const totalPages = Math.max(1, Math.ceil(total / requestedPageSize))
+  const page = Math.min(requestedPage, totalPages)
+  const offset = (page - 1) * requestedPageSize
+
+  const rows = database
     .prepare(`
       SELECT *
       FROM posts
-      ${where.length ? `WHERE ${where.join(' AND ')}` : ''}
+      ${whereSql}
       ORDER BY COALESCE(scheduled_publish_at, published_at, created_at) DESC, id DESC
+      LIMIT ? OFFSET ?
     `)
-    .all(...params)
+    .all(...params, requestedPageSize, offset)
 
-  return { items: rows.map(mapPost) }
+  return {
+    items: rows.map(mapPost),
+    pagination: {
+      page,
+      pageSize: requestedPageSize,
+      total,
+      totalPages,
+    },
+  }
 })

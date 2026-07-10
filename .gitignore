@@ -28,5 +28,15 @@ home.png
 home2.png
 product.png
 
-# Local content generation workspace
-/工作流/
+# Workflow: keep rules, plans, mappings, scripts and directory README files in Git.
+# Generated article bodies and raster assets remain local/runtime-only.
+/工作流/**/*.html
+/工作流/**/*.png
+/工作流/**/*.webp
+/工作流/**/*.jpg
+/工作流/**/*.jpeg
+/工作流/**/*.gif
+/工作流/历史批次/**
+!/工作流/历史批次/
+!/工作流/历史批次/*/
+!/工作流/历史批次/*/README.md

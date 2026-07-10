@@ -135,10 +135,44 @@ export const updatePostSchedulerSettings = (input: Record<string, unknown>) => {
   return getPostSchedulerSettings()
 }
 
-export const getPostSchedulerOverview = () => {
+export const getPostSchedulerOverview = (input: {
+  queuePage?: number
+  queuePageSize?: number
+  recentPage?: number
+  recentPageSize?: number
+} = {}) => {
   const db = getDb()
   const settings = getPostSchedulerSettings()
   const todayRange = chinaDayUtcRange()
+  const queuePageSize = Math.max(10, Math.min(100, Math.trunc(Number(input.queuePageSize) || 20)))
+  const recentPageSize = Math.max(10, Math.min(100, Math.trunc(Number(input.recentPageSize) || 10)))
+  const queueTotal = (db
+    .prepare(`
+      SELECT COUNT(*) AS count
+      FROM posts
+      WHERE status = 'draft'
+        AND scheduled_publish_at IS NOT NULL
+        AND scheduled_publish_at <> ''
+    `)
+    .get() as { count: number }).count
+  const recentTotal = (db
+    .prepare(`
+      SELECT COUNT(*) AS count
+      FROM posts
+      WHERE published_by_scheduler_at IS NOT NULL
+        AND published_by_scheduler_at <> ''
+    `)
+    .get() as { count: number }).count
+  const queueTotalPages = Math.max(1, Math.ceil(queueTotal / queuePageSize))
+  const recentTotalPages = Math.max(1, Math.ceil(recentTotal / recentPageSize))
+  const queuePage = Math.min(
+    Math.max(1, Math.trunc(Number(input.queuePage) || 1)),
+    queueTotalPages,
+  )
+  const recentPage = Math.min(
+    Math.max(1, Math.trunc(Number(input.recentPage) || 1)),
+    recentTotalPages,
+  )
   const queueRows = db
     .prepare(`
       SELECT *
@@ -147,9 +181,9 @@ export const getPostSchedulerOverview = () => {
         AND scheduled_publish_at IS NOT NULL
         AND scheduled_publish_at <> ''
       ORDER BY scheduled_publish_at ASC, id ASC
-      LIMIT 60
+      LIMIT ? OFFSET ?
     `)
-    .all()
+    .all(queuePageSize, (queuePage - 1) * queuePageSize)
 
   const recentRows = db
     .prepare(`
@@ -158,9 +192,9 @@ export const getPostSchedulerOverview = () => {
       WHERE published_by_scheduler_at IS NOT NULL
         AND published_by_scheduler_at <> ''
       ORDER BY published_by_scheduler_at DESC, id DESC
-      LIMIT 20
+      LIMIT ? OFFSET ?
     `)
-    .all()
+    .all(recentPageSize, (recentPage - 1) * recentPageSize)
 
   const unscheduled = db
     .prepare(`
@@ -197,8 +231,23 @@ export const getPostSchedulerOverview = () => {
     recent: recentRows.map(mapPostSummary),
     stats: {
       unscheduledDrafts: unscheduled.count,
+      scheduledDrafts: queueTotal,
       dueDrafts: due.count,
       publishedToday: publishedToday.count,
+    },
+    pagination: {
+      queue: {
+        page: queuePage,
+        pageSize: queuePageSize,
+        total: queueTotal,
+        totalPages: queueTotalPages,
+      },
+      recent: {
+        page: recentPage,
+        pageSize: recentPageSize,
+        total: recentTotal,
+        totalPages: recentTotalPages,
+      },
     },
   }
 }
