@@ -9,6 +9,14 @@
 - 用户确认方案或明确说“可以”“开始”“确认”后，再执行代码修改。
 - 小范围明确修复可以直接处理，但仍要先快速查看相关代码，避免盲改。
 
+## 线上服务管理（必须严格遵守）
+
+- 生产服务只能由 systemd 管理，重启、启动、停止一律使用 `systemctl restart yiyuanpack.service`（或对应的 `start`/`stop`）。
+- 绝对禁止在 shell 里手动运行 `node .output/server/index.mjs`、`setsid`、`nohup` 等方式启动服务进程。手动进程不会加载 `.env`，会抢占 `3000` 端口并让 systemd 服务 EADDRINUSE 挂起，直接导致询盘邮件转发失效（skipped：RESEND_API_KEY is not configured）和 `/api/internal/inquiry-mail/retry` 恒 404。
+- 排查线上异常时先核对进程归属：`ss -tlnp | grep :3000` 的 PID 必须等于 `systemctl show yiyuanpack.service -p MainPID` 的值；不一致说明有手动进程抢端口，先杀掉再 `systemctl restart yiyuanpack.service`。
+- 验证邮件链路时用 `tr '\0' '\n' < /proc/<MainPID>/environ | grep -E 'RESEND_API_KEY|INQUIRY_RETRY_TOKEN'` 确认环境变量已注入。
+- 询盘邮件重试由 `yiyuanpack-inquiry-mail-retry.timer` 每 5 分钟自动执行，不需要也不允许用自起进程的方式替代。
+
 ## 开发流程
 
 1. 阅读相关代码和当前 git 状态。
@@ -16,7 +24,7 @@
 3. 与用户核对需求细节，确认边界和预期效果。
 4. 用户确认后再实施。
 5. 修改完成后执行必要验证，例如 `pnpm build`、接口检查、页面 200 检查或数据库结构检查。
-6. 如果改动影响线上运行，构建通过后重启 `3000` 服务并验证公网访问。
+6. 如果改动影响线上运行，构建通过后执行 `systemctl restart yiyuanpack.service` 重启服务并验证公网访问。
 7. 更新 `docs/DEVELOPMENT_LOG.md`，记录背景、改动、涉及文件、验证结果和提交状态。
 8. 完成后默认提交并 `git push`，除非用户明确要求不要推送。
 

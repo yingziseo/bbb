@@ -9,6 +9,38 @@
 - 如果只是文档或内容改动，也要记录。
 - 如果没有跑测试或构建，需要明确写出来。
 
+## 2026-07-21 - 修复询盘邮件转发失效并补发最新询盘，AGENTS.md 新增线上服务管理规则
+
+背景：
+
+- 2026-07-18 有人绕过 systemd，用 `setsid` 手动启动 `node .output/server/index.mjs`（PID 383611），该进程未加载 `.env` 却抢占 `3000` 端口，导致 systemd 正式服务 EADDRINUSE 挂起。
+- 后果一：进程环境缺少 `RESEND_API_KEY`，询盘邮件全部 `skipped`（RESEND_API_KEY is not configured），最新询盘 #11（James Carter，马来西亚，保鲜膜采购需求）失败 4 次未转发。
+- 后果二：服务端缺少 `INQUIRY_RETRY_TOKEN`，`/api/internal/inquiry-mail/retry` 恒返回 404，`yiyuanpack-inquiry-mail-retry.timer` 每 5 分钟失败一次。
+- 代码、数据库邮件配置（`inquiryMailEnabled=true`、`inquiryMailTo=yiyuancoop@gmail.com`）和 2026-07-10 的构建产物均无问题。
+
+改动：
+
+- 未改任何代码。杀掉手动进程释放 `3000` 端口，`systemctl restart yiyuanpack.service` 由 systemd 带 `.env` 正确接管（新 Main PID 4084018）。
+- 通过后台登录 + `POST /api/admin/inquiries/11/resend` 补发询盘 #11，Resend 邮件 ID `47ac9e1c-7fd6-4614-87af-b2c62e20e63a`，状态 `sent`。
+- `AGENTS.md` 新增“线上服务管理（必须严格遵守）”章节：生产服务只能 `systemctl` 管理，禁止手动起 node 进程；给出进程归属核对（`ss -tlnp` 对比 `MainPID`）和环境变量验证方法；开发流程第 6 步同步改为明确的 `systemctl restart yiyuanpack.service`。
+
+涉及文件：
+
+- `AGENTS.md`
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- `ss -tlnp | grep :3000` 确认监听进程为 systemd Main PID 4084018。
+- `/proc/4084018/environ` 确认 `RESEND_API_KEY`、`INQUIRY_RETRY_TOKEN`、`MAIL_TO`、`SQLITE_PATH` 已注入。
+- 首页返回 200；重试接口返回 200 JSON；手动触发 `yiyuanpack-inquiry-mail-retry.service` 退出码 `0/SUCCESS`。
+- 询盘 #11 邮件状态 `sent`，`forwardedAt=2026-07-21T01:07:10.786Z`。
+- 未跑构建和测试：本次无代码改动。
+
+提交状态：
+
+- `AGENTS.md` 和本记录随文档提交；`data/yiyuan.db` 为线上运行时数据，未纳入本次提交。
+
 ## 2026-07-10 - 完成两个月 60 篇博客内容、图片、排期与后台分页
 
 背景：
