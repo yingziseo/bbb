@@ -9,6 +9,45 @@
 - 如果只是文档或内容改动，也要记录。
 - 如果没有跑测试或构建，需要明确写出来。
 
+## 2026-07-21 - 清理 Google 搜索结果中的 v0 图标残留
+
+背景：
+
+- 用户反馈 Google 搜索结果仍显示 v0 的黑底白色图标。
+- 排查发现 `public/icon-dark-32x32.png`、`public/icon-light-32x32.png`、`public/icon.svg` 和页面 head 引用的 `public/apple-icon.png` 都是项目初始 v0 资源；这些路径仍可被搜索引擎直接抓取。
+
+改动：
+
+- 以现有 YIYUAN `public/favicon-96x96.png` 为母版，重新生成 32x32 和 180x180 PNG，覆盖上述旧图标路径。
+- 将 `public/icon.svg` 改为内嵌 YIYUAN PNG，避免约定路径继续返回 v0 标志。
+- 新增带品牌名的 `/yiyuan-favicon-96x96.png` 和 `/yiyuan-apple-icon.png`，绕过边缘缓存中的旧 v0 URL；旧路径保留为已替换的兼容别名。
+- Nuxt 公共 head 和默认布局改用 96x96 品牌 favicon 路径，并为 Apple touch icon 补充 PNG 类型。
+
+涉及文件：
+
+- `public/apple-icon.png`
+- `public/icon-dark-32x32.png`
+- `public/icon-light-32x32.png`
+- `public/icon.svg`
+- `public/yiyuan-favicon-96x96.png`
+- `public/yiyuan-apple-icon.png`
+- `nuxt.config.ts`
+- `app/layouts/default.vue`
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- `pnpm build` 通过；仅有项目既有的依赖 sourcemap、TinyMCE CSS、chunk 大小和 `@nuxt/image` sharp 警告。
+- 使用 `systemctl restart yiyuanpack.service` 重启，服务为 `active/running`，systemd Main PID 与 `127.0.0.1:3000` 监听 PID 一致。
+- Googlebot 请求 `https://yiyuanpack.com/` 返回 200，head 只声明 96x96 `/yiyuan-favicon-96x96.png` 和 180x180 `/yiyuan-apple-icon.png`。
+- Googlebot-Image 请求 `/yiyuan-favicon-96x96.png` 返回 200、`image/png`，公网文件 SHA-256 与本地一致；`robots.txt` 允许首页和图标抓取。
+- 扫描 `public` 和 `.output/public`，未发现旧 v0 PNG 哈希或旧 v0 SVG 路径。
+- 旧图标 URL 的源站内容均已替换；边缘节点已缓存的旧响应最多按原 `max-age=3600` 自然过期，新 head 不再引用这些 URL。
+
+提交状态：
+
+- 已提交并推送到 `main`（以本条记录所在提交为准）。
+
 ## 2026-07-21 - 修复询盘邮件转发失效并补发最新询盘，AGENTS.md 新增线上服务管理规则
 
 背景：

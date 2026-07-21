@@ -16,13 +16,14 @@ useHead(() => ({
       rel: 'icon',
       type: 'image/png',
       sizes: '96x96',
-      href: faviconPath.value,
+      href: faviconPath.value === '/favicon-96x96.png' ? '/yiyuan-favicon-96x96.png' : faviconPath.value,
     },
     {
       key: 'apple-touch-icon',
       rel: 'apple-touch-icon',
+      type: 'image/png',
       sizes: '180x180',
-      href: '/apple-icon.png',
+      href: '/yiyuan-apple-icon.png',
     },
   ],
 }))
