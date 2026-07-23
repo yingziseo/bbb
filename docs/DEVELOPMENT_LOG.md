@@ -9,6 +9,45 @@
 - 如果只是文档或内容改动，也要记录。
 - 如果没有跑测试或构建，需要明确写出来。
 
+## 2026-07-23 - 新增保鲜膜与一次性食品容器英文采购专题页
+
+背景：
+
+- 为保鲜膜和一次性食品容器建立可长期承接英文搜索流量的专题内页，提供供应商筛选、首次联络、RFQ、样品确认、首单执行与进口准备的实用指导。
+- 专题页不进入主导航，仅在英文产品列表页和对应英文产品分类页提供上下文入口；不新增中文专题 URL。
+
+改动：
+
+- 新增 `/guides/source-cling-film-from-china` 与 `/guides/source-disposable-food-containers-from-china` 两个 SSR 专题页，分别按产品差异覆盖卷材规格/纸芯/包装和容器材质/盖体/模具/堆码检查。
+- 新增可复用 `BuyerGuideLinks` 组件：英文产品列表页显示两篇专题，英文保鲜膜和食品容器分类页各显示对应专题；主导航和页脚导航均未增加入口。
+- 新增专题页英文 TDK、canonical、OG 图及 `Article`、`BreadcrumbList`、`FAQPage` 结构化数据；内容标注更新日期、发布主体与法规/进口责任边界，避免将目的国合规要求作未经核实的承诺。
+- 在 `seo_entries` 初始化记录中增加两条 `buyer-guide` 页面记录，因此服务启动后会自动写入既有动态 sitemap；未修改 SQLite 表结构，也未修改或提交运行时 `data/yiyuan.db`。
+
+涉及文件：
+
+- `app/data/buyer-guides.ts`
+- `app/components/BuyerGuideLinks.vue`
+- `app/pages/guides/[slug].vue`
+- `app/pages/products/index.vue`
+- `app/pages/products/category/[slug].vue`
+- `server/utils/db.ts`
+- `server/utils/seo.ts`
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- `pnpm build` 通过；存在项目既有的 dependency sourcemap 和 Rollup `#__PURE__` 注释警告，不影响构建完成。
+- 首次原地构建会清理运行中服务读取的 `.output`；发现该部署风险后，后续 sitemap 修复改为在隔离临时目录完成构建，再用可回退目录切换后执行 `systemctl restart yiyuanpack.service`，避免再次影响线上访问。
+- `yiyuanpack.service` 重启后为 `active/running`，Main PID `3783397` 与 `127.0.0.1:3000` 监听 PID 一致。
+- 两个专题页公网 `GET` 和 `HEAD` 均返回 `200 text/html;charset=utf-8`。
+- `/sitemap.xml` 的 `HEAD` 返回 `200 application/xml; charset=utf-8`，并包含两条专题 URL。
+- 英文产品列表页显示两个专题入口；保鲜膜和一次性食品容器分类页各只显示对应入口。
+- 专题页页面源代码包含 `Article`、`BreadcrumbList` 与 `FAQPage` JSON-LD。
+
+提交状态：
+
+- 待本次提交并推送；`data/yiyuan.db` 的既有未提交修改不纳入提交。
+
 ## 2026-07-21 - 清理 Google 搜索结果中的 v0 图标残留
 
 背景：

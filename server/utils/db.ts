@@ -480,6 +480,28 @@ const seedSeo = (database: DatabaseSync) => {
       keywords: 'contact YIYUAN, food packaging quote, cling film quote, food wrap samples, packaging samples, OEM ODM packaging inquiry, wholesale packaging supplier, export packaging inquiry',
       ogImage: '/images/hero-factory.webp',
     },
+    {
+      key: 'guide:source-cling-film-from-china',
+      pageType: 'buyer-guide',
+      entitySlug: 'source-cling-film-from-china',
+      name: '保鲜膜采购专题页',
+      path: '/guides/source-cling-film-from-china',
+      title: 'How to Source Cling Film from China: Supplier & Import Guide | YIYUAN',
+      description: 'A practical buyer guide to sourcing PE and PVC cling film from China: verify suppliers, write an RFQ, approve samples, control quality, and prepare an import order.',
+      keywords: 'how to source cling film from China, cling film supplier checklist, import cling film, PE cling film supplier, PVC fresh wrap supplier, cling film RFQ',
+      ogImage: '/images/blog/first-cling-film-import-order-checklist-cover.webp',
+    },
+    {
+      key: 'guide:source-disposable-food-containers-from-china',
+      pageType: 'buyer-guide',
+      entitySlug: 'source-disposable-food-containers-from-china',
+      name: '一次性食品容器采购专题页',
+      path: '/guides/source-disposable-food-containers-from-china',
+      title: 'How to Source Disposable Food Containers from China: Buyer & Import Guide | YIYUAN',
+      description: 'A buyer guide to sourcing disposable food containers from China: compare materials and suppliers, prepare an RFQ, test samples, manage molds and packing, and prepare an import order.',
+      keywords: 'how to source disposable food containers from China, food container supplier checklist, import meal boxes, disposable food container RFQ, food packaging supplier China',
+      ogImage: '/images/blog/compare-disposable-food-container-suppliers-china-cover.webp',
+    },
   ]
 
   for (const entry of defaults) insertSeo(database, entry)

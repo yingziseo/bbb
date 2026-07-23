@@ -2,6 +2,7 @@ import type { H3Event } from 'h3'
 import { getDb } from './db'
 import { mapSeo } from './serializers'
 import { getSiteSettings, toAbsoluteSiteUrl } from './site-settings'
+import { getBuyerGuide } from '../../app/data/buyer-guides'
 
 const absoluteUrl = (path = '', event?: H3Event) => {
   return toAbsoluteSiteUrl(path, event)
@@ -82,6 +83,55 @@ export const buildStructuredData = (seo: ReturnType<typeof mapSeo>, event?: H3Ev
       },
       url,
     }
+  }
+
+  if (seo.pageType === 'buyer-guide' && seo.entitySlug) {
+    const guide = getBuyerGuide(seo.entitySlug)
+    if (!guide) return null
+
+    const article = {
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: guide.title,
+      description: seo.description || guide.description,
+      image: absoluteUrl(seo.ogImage || guide.coverImage, event),
+      datePublished: seo.createdAt,
+      dateModified: seo.updatedAt,
+      author: {
+        '@type': 'Organization',
+        name: settings.displayName,
+        url: absoluteUrl('/about', event),
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: settings.displayName,
+        logo: logo ? { '@type': 'ImageObject', url: logo } : undefined,
+      },
+      mainEntityOfPage: url,
+      url,
+    }
+
+    return [
+      article,
+      {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: absoluteUrl('/', event) },
+          { '@type': 'ListItem', position: 2, name: 'Products', item: absoluteUrl('/products', event) },
+          { '@type': 'ListItem', position: 3, name: guide.title, item: url },
+        ],
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: guide.faqs.map((faq) => ({
+          '@type': 'Question',
+          name: faq.question,
+          acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+        })),
+      },
+    ]
   }
 
   if (seo.key === 'page:home' || seo.path === '/') {

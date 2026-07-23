@@ -126,6 +126,8 @@ await useManagedSeo(`category:${slug}`, computed(() => ({
       </div>
     </section>
 
+    <BuyerGuideLinks v-if="!isCn" :category-slug="category.slug" />
+
     <section class="border-t border-[var(--color-line)] bg-[var(--color-panel)]">
       <div class="container-x flex flex-col items-center justify-between gap-6 py-12 md:flex-row">
         <div>

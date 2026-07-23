@@ -115,6 +115,8 @@ const productDocuments = [buyerDocuments.productCatalog]
       </div>
     </section>
 
+    <BuyerGuideLinks v-if="!isCn" />
+
     <!-- CTA -->
     <section class="bg-[var(--color-panel)] border-t border-[var(--color-line)]">
       <div class="container-x py-12 flex flex-col md:flex-row items-center justify-between gap-6">

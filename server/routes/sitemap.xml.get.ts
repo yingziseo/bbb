@@ -59,6 +59,7 @@ export default defineEventHandler((event) => {
       WHERE s.robots NOT LIKE '%noindex%'
         AND (
           s.page_type = 'page'
+          OR s.page_type = 'buyer-guide'
           OR (s.page_type = 'product' AND p.status = 'published')
           OR (s.page_type = 'category' AND c.enabled = 1)
           OR (s.page_type = 'post' AND po.status = 'published')
