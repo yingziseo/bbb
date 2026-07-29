@@ -30,8 +30,7 @@ export default defineNuxtConfig({
         { name: 'theme-color', content: '#0f2a4a' },
       ],
       link: [
-        { key: 'favicon', rel: 'icon', type: 'image/png', sizes: '96x96', href: '/yiyuan-favicon-96x96.png' },
-        { key: 'apple-touch-icon', rel: 'apple-touch-icon', type: 'image/png', sizes: '180x180', href: '/yiyuan-apple-icon.png' },
+        { key: 'favicon', rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       ],
     },
   },

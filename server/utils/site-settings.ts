@@ -51,7 +51,7 @@ const defaultSettings = (): Record<SiteSettingKey, string> => ({
   registeredCapital: company.registeredCapital,
   legalRepresentative: company.legalRepresentative,
   logoPath: '/site-logo.png',
-  faviconPath: '/favicon-96x96.png',
+  faviconPath: '/favicon.ico',
   homePopupEnabled: 'true',
   homePopupCooldownHours: '12',
   homePopupVideoUrl: defaultHomePopupVideoUrl,
@@ -108,6 +108,9 @@ export const normalizeSiteSettings = (input: Partial<Record<SiteSettingKey, stri
   }, {} as Record<SiteSettingKey, string>)
 
   settings.siteUrl = normalizeBaseUrl(settings.siteUrl)
+  settings.faviconPath = settings.faviconPath.toLowerCase().endsWith('.ico')
+    ? settings.faviconPath
+    : '/favicon.ico'
   settings.whatsapp = settings.whatsapp || settings.phone
   settings.whatsappLink = normalizeBaseUrl(settings.whatsappLink) || whatsappHref(settings.whatsapp)
   settings.homePopupEnabled = normalizeBooleanFlag(settings.homePopupEnabled)

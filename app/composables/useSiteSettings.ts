@@ -17,7 +17,7 @@ const createFallbackSettings = (): PublicSiteSettings => ({
   founded: String(fallbackCompany.founded),
   contactLink: fallbackCompany.contactLink,
   logoPath: '/site-logo.png',
-  faviconPath: '/favicon-96x96.png',
+  faviconPath: '/favicon.ico',
   homePopupEnabled: 'true',
   homePopupCooldownHours: '12',
   homePopupVideoUrl: defaultHomePopupVideoUrl,

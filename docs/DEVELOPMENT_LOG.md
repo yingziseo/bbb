@@ -9,6 +9,46 @@
 - 如果只是文档或内容改动，也要记录。
 - 如果没有跑测试或构建，需要明确写出来。
 
+## 2026-07-29 - 彻底移除 v0 favicon 残留并统一使用 ICO
+
+背景：
+
+- Google favicon 缓存仍返回黑底白色 v0 图标，并明确将来源记录为原型期路径 `/apple-icon.png`（缓存时间为 2025-01-09）。
+- 2026-07-21 的处理仅用 YIYUAN 图片覆盖旧文件并新增 PNG 别名，没有删除旧 URL；页面 head 也继续声明 PNG 和 Apple touch icon，而不是项目现有的 `/favicon.ico`。
+
+改动：
+
+- 将 Nuxt 公共 head、默认布局、前端/服务端默认站点设置统一为 `/favicon.ico`，网页 head 只保留一个 `rel="icon"` 声明。
+- 后台网站设置改为 ICO 预览、路径和上传提示；服务端设置规范化只接受 `.ico`，其他 favicon 配置自动回退到 `/favicon.ico`。
+- 增加旧 favicon 配置数据迁移：已有非 ICO 的 `site_settings.faviconPath` 在服务启动时改为 `/favicon.ico`，不修改数据库表结构或 API 响应结构。
+- 删除 `apple-icon.png`、`favicon-96x96.png`、`icon-dark-32x32.png`、`icon-light-32x32.png`、`icon.svg`、`yiyuan-apple-icon.png` 和 `yiyuan-favicon-96x96.png`，只保留 `public/favicon.ico` 作为网页图标。
+
+涉及文件：
+
+- `nuxt.config.ts`
+- `app/layouts/default.vue`
+- `app/composables/useSiteSettings.ts`
+- `app/pages/like/settings.vue`
+- `server/utils/site-settings.ts`
+- `server/utils/db.ts`
+- `public/favicon.ico`（保留且未修改）
+- 上述 7 个已删除的旧/重复图标文件
+- `docs/DEVELOPMENT_LOG.md`
+
+验证：
+
+- 修改前备份 SQLite 到 `data/backups/yiyuan-before-ico-cleanup-20260729.db`，备份与原数据库 SHA-256 一致；数据库文件不纳入 Git 提交。
+- 在隔离临时目录执行 `pnpm build` 通过；仅有项目既有的依赖 sourcemap、TinyMCE CSS、chunk 大小、`node:sqlite` 外部依赖和 `@nuxt/image` sharp 警告。
+- 使用 `systemctl restart yiyuanpack.service` 重启；服务为 `active/running`，systemd Main PID 与 `127.0.0.1:3000` 监听 PID 一致，邮件相关环境变量仍已注入。
+- Googlebot 请求英文和中文首页均返回 200，head 只声明 `<link rel="icon" type="image/x-icon" href="/favicon.ico">`。
+- 公网 `/favicon.ico` 返回 200、`image/vnd.microsoft.icon`，文件为 60x60 ICO 且 SHA-256 与仓库文件一致。
+- 7 个旧图标 URL 在源站和公网均返回 404；`/api/public/settings` 返回 `faviconPath = /favicon.ico`。
+- Google 搜索结果侧仍需等待 Google 重新抓取和处理，官方说明通常需要数天到数周；源站已不再提供或声明 v0 图标路径。
+
+提交状态：
+
+- 已提交并推送到 `main`（以本条记录所在提交为准）。
+
 ## 2026-07-23 - 新增保鲜膜与一次性食品容器英文采购专题页
 
 背景：

@@ -343,6 +343,17 @@ const migratePostSchedulerColumns = (database: DatabaseSync) => {
   })
 }
 
+const migrateLegacyFaviconPath = (database: DatabaseSync) => {
+  database
+    .prepare(`
+      UPDATE site_settings
+      SET value = '/favicon.ico', updated_at = ?
+      WHERE key = 'faviconPath'
+        AND lower(value) NOT LIKE '%.ico'
+    `)
+    .run(now())
+}
+
 const insertSeo = (
   database: DatabaseSync,
   entry: {
@@ -779,7 +790,7 @@ const seedSiteSettings = (database: DatabaseSync) => {
     registeredCapital: company.registeredCapital,
     legalRepresentative: company.legalRepresentative,
     logoPath: '/site-logo.png',
-    faviconPath: '/favicon-96x96.png',
+    faviconPath: '/favicon.ico',
     homePopupEnabled: 'true',
     homePopupCooldownHours: '12',
     homePopupVideoUrl: defaultHomePopupVideoUrl,
@@ -967,6 +978,7 @@ const seedDatabase = (database: DatabaseSync) => {
   seedPostSeo(database)
   seedSocialLinks(database)
   seedSiteSettings(database)
+  migrateLegacyFaviconPath(database)
   migrateDefaultSeoCopy(database)
 }
 
