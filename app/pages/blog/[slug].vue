@@ -22,6 +22,12 @@ await useManagedSeo(`post:${route.params.slug}`, {
 const formatDate = (d: string) =>
   new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
 
+const publishedDateKey = computed(() => String(post.value?.publishedAt || post.value?.createdAt || '').slice(0, 10))
+const updatedDateKey = computed(() => String(post.value?.updatedAt || '').slice(0, 10))
+const showUpdatedDate = computed(() => Boolean(
+  updatedDateKey.value && publishedDateKey.value && updatedDateKey.value !== publishedDateKey.value,
+))
+
 const { data: moreData } = await useFetch('/api/public/posts')
 const more = computed(() => (moreData.value?.items || []).filter((p) => p.slug !== post.value?.slug).slice(0, 2))
 </script>
@@ -42,9 +48,11 @@ const more = computed(() => (moreData.value?.items || []).filter((p) => p.slug !
       <div class="container-x">
         <div class="grid gap-10 lg:grid-cols-[minmax(0,768px)_260px] lg:items-start lg:justify-center">
           <div class="min-w-0">
-            <div class="flex items-center gap-3 text-[13px]">
+            <div class="flex flex-wrap items-center gap-x-3 gap-y-2 text-[13px]">
               <span class="bg-[var(--color-navy)] px-2.5 py-1 font-bold uppercase tracking-wide text-white">Article</span>
-              <span class="text-[var(--color-slate-muted)]">{{ formatDate(post.publishedAt || post.createdAt) }}</span>
+              <span class="text-[var(--color-slate-muted)]">Published {{ formatDate(post.publishedAt || post.createdAt) }}</span>
+              <span v-if="showUpdatedDate" class="text-[var(--color-slate-muted)]">Updated {{ formatDate(post.updatedAt) }}</span>
+              <NuxtLink to="/about" class="font-bold text-[var(--color-navy)] hover:text-[var(--color-accent)]">By YIYUAN NEW MATERIALS</NuxtLink>
             </div>
             <h1 class="mt-4 text-[clamp(26px,3.6vw,38px)] font-extrabold text-[var(--color-navy)] leading-tight text-balance">{{ post.title }}</h1>
 

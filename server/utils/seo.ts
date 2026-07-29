@@ -70,6 +70,7 @@ export const buildStructuredData = (seo: ReturnType<typeof mapSeo>, event?: H3Ev
       author: {
         '@type': 'Organization',
         name: settings.displayName,
+        url: absoluteUrl('/about', event),
       },
       publisher: {
         '@type': 'Organization',
@@ -81,6 +82,7 @@ export const buildStructuredData = (seo: ReturnType<typeof mapSeo>, event?: H3Ev
             }
           : undefined,
       },
+      mainEntityOfPage: url,
       url,
     }
   }
