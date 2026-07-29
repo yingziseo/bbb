@@ -42,8 +42,8 @@
 - 使用 `systemctl restart yiyuanpack.service` 重启；服务为 `active/running`，systemd Main PID 与 `127.0.0.1:3000` 监听 PID 一致，邮件相关环境变量仍已注入。
 - Googlebot 请求英文和中文首页均返回 200，head 只声明 `<link rel="icon" type="image/x-icon" href="/favicon.ico">`。
 - 公网 `/favicon.ico` 返回 200、`image/vnd.microsoft.icon`，文件为 60x60 ICO 且 SHA-256 与仓库文件一致。
-- 7 个旧图标 URL 在源站和公网均返回 404；`/api/public/settings` 返回 `faviconPath = /favicon.ico`。
-- Google 搜索结果侧仍需等待 Google 重新抓取和处理，官方说明通常需要数天到数周；源站已不再提供或声明 v0 图标路径。
+- 7 个旧图标 URL 在源站以及带缓存穿透参数的公网请求中均返回 404；部分 CDN 边缘节点仍命中 7 月已替换成 YIYUAN 图标的兼容响应（`max-age=3600`），缓存到期后会回源变为 404，这些临时响应不是 v0 图标。
+- `/api/public/settings` 返回 `faviconPath = /favicon.ico`。Google favicon 服务当前仍返回 2025 年缓存的 v0 图标并记录来源为 `/apple-icon.png`，响应缓存到 2026-08-05；搜索结果侧仍需等待 Google 重新抓取和处理，官方说明通常需要数天到数周。
 
 提交状态：
 
