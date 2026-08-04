@@ -2746,6 +2746,59 @@
 
 - commit: `当前提交`
 
+## 2026-08-04 - 询盘邮件最终投递状态与云端构建部署
+
+背景：
+
+- 原邮件逻辑在 Resend 接受 API 请求后立即记录为 `sent`，无法区分真正投递、退信和抑制，导致后台可能显示成功但邮箱未收到。
+- 生产服务器资源有限，项目部署改为 GitHub Actions 云端构建，服务器只拉取构建产物并运行。
+
+改动：
+
+- 新询盘发送后先记录为“已提交”，只有 Resend 返回 `delivered` 才记录实际投递成功。
+- 接入带 Svix 签名校验的 Resend Webhook，处理 delivered、delivery_delayed、bounced、suppressed、complained 和 failed 状态。
+- 复用现有 5 分钟邮件定时任务补查最近 30 天未决邮件，避免 Webhook 漏回调；永久退信和抑制状态不自动重试。
+- 扩展询盘邮件状态字段、迁移逻辑、后台筛选、异常告警和详情说明。
+- 增加 GitHub Actions 生产构建工作流，发布带 commit SHA 和 SHA256 校验的 `.output` Release 产物。
+- 增加服务器产物部署脚本，只下载、校验、替换 `.output`、systemd 重启和失败回滚，不安装依赖、不执行构建。
+- 更新 `AGENTS.md`，明确禁止在生产服务器运行 npm/pnpm/Nuxt 构建命令。
+
+涉及文件：
+
+- `AGENTS.md`
+- `.github/workflows/build-production.yml`
+- `scripts/deploy-production-artifact.sh`
+- `.env.example`
+- `server/utils/db.ts`
+- `server/utils/mail.ts`
+- `server/utils/inquiry-mail.ts`
+- `server/utils/serializers.ts`
+- `server/api/webhooks/resend.post.ts`
+- `server/api/internal/inquiry-mail/retry.post.ts`
+- `server/api/admin/inquiries/index.get.ts`
+- `server/api/admin/mail-settings/index.get.ts`
+- `server/api/admin/mail-settings/index.put.ts`
+- `server/api/admin/stats.get.ts`
+- `app/pages/like/index.vue`
+- `app/pages/like/inquiries/index.vue`
+- `app/pages/like/inquiries/[id].vue`
+- `app/pages/like/mail-forwarding.vue`
+- `package.json`
+- `pnpm-lock.yaml`
+- `.claude/plan/resend-delivery-tracking.md`
+
+验证：
+
+- 已备份线上数据库：`data/backups/yiyuan-before-resend-delivery-tracking-20260804-134119.db`。
+- 数据库副本迁移后 `PRAGMA quick_check` 返回 `ok`。
+- 数据库副本调用 Resend 状态查询，正确识别 4 条 `delivered` 和 2 条 `suppressed`。
+- `scripts/deploy-production-artifact.sh` 已通过 `bash -n` 语法检查。
+- GitHub Actions 云端构建与线上产物部署待本次提交推送后验证。
+
+提交：
+
+- commit: `未提交`
+
 ## 记录模板
 
 ```markdown

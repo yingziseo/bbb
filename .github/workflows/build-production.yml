@@ -1,0 +1,70 @@
+name: Build production artifact
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'AGENTS.md'
+      - '.claude/**'
+      - 'docs/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: production-build
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Install pnpm
+        run: npm install --global pnpm@10.34.4
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build Nuxt application
+        run: pnpm build
+
+      - name: Package production artifact
+        run: |
+          printf '%s\n' "$GITHUB_SHA" > .output/BUILD_SHA
+          mkdir -p release
+          tar -czf release/yiyuanpack-output.tar.gz .output
+          cd release
+          sha256sum yiyuanpack-output.tar.gz > yiyuanpack-output.tar.gz.sha256
+
+      - name: Publish production artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view production-build >/dev/null 2>&1; then
+            gh release upload production-build \
+              release/yiyuanpack-output.tar.gz \
+              release/yiyuanpack-output.tar.gz.sha256 \
+              --clobber
+            gh release edit production-build \
+              --title 'Production build artifact' \
+              --notes "Built from commit $GITHUB_SHA"
+          else
+            gh release create production-build \
+              release/yiyuanpack-output.tar.gz \
+              release/yiyuanpack-output.tar.gz.sha256 \
+              --target "$GITHUB_SHA" \
+              --title 'Production build artifact' \
+              --notes "Built from commit $GITHUB_SHA"
+          fi

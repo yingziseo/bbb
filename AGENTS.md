@@ -11,6 +11,8 @@
 
 ## 线上服务管理（必须严格遵守）
 
+- 生产服务器禁止执行 `npm run build`、`pnpm build`、`nuxi build` 或其他前端/服务端编译命令。构建统一由 GitHub Actions 或开发者本地环境完成，服务器只允许下载并校验已构建的 `.output` 产物后运行。
+- 线上部署统一使用 `scripts/deploy-production-artifact.sh [commit-sha]` 拉取 GitHub Release 构建产物。部署脚本只负责校验、替换产物、通过 systemd 重启和健康检查，不得在脚本中增加依赖安装或构建步骤。
 - 生产服务只能由 systemd 管理，重启、启动、停止一律使用 `systemctl restart yiyuanpack.service`（或对应的 `start`/`stop`）。
 - 绝对禁止在 shell 里手动运行 `node .output/server/index.mjs`、`setsid`、`nohup` 等方式启动服务进程。手动进程不会加载 `.env`，会抢占 `3000` 端口并让 systemd 服务 EADDRINUSE 挂起，直接导致询盘邮件转发失效（skipped：RESEND_API_KEY is not configured）和 `/api/internal/inquiry-mail/retry` 恒 404。
 - 排查线上异常时先核对进程归属：`ss -tlnp | grep :3000` 的 PID 必须等于 `systemctl show yiyuanpack.service -p MainPID` 的值；不一致说明有手动进程抢端口，先杀掉再 `systemctl restart yiyuanpack.service`。
@@ -23,8 +25,8 @@
 2. 汇报现状、问题点和计划。
 3. 与用户核对需求细节，确认边界和预期效果。
 4. 用户确认后再实施。
-5. 修改完成后执行必要验证，例如 `pnpm build`、接口检查、页面 200 检查或数据库结构检查。
-6. 如果改动影响线上运行，构建通过后执行 `systemctl restart yiyuanpack.service` 重启服务并验证公网访问。
+5. 修改完成后执行必要验证。构建必须在 GitHub Actions 或开发者本地环境完成；当前环境若为生产服务器，严禁在服务器执行构建。
+6. 如果改动影响线上运行，提交并推送后等待 GitHub Actions 云端构建成功，再运行 `scripts/deploy-production-artifact.sh <commit-sha>` 拉取产物；脚本通过 `systemctl restart yiyuanpack.service` 重启并验证服务。
 7. 更新 `docs/DEVELOPMENT_LOG.md`，记录背景、改动、涉及文件、验证结果和提交状态。
 8. 完成后默认提交并 `git push`，除非用户明确要求不要推送。
 
@@ -47,7 +49,8 @@
 
 ## 验证要求
 
-- 代码改动后尽量执行 `pnpm build`。
+- 代码改动后必须通过 GitHub Actions 或开发者本地构建；生产服务器不得承担编译构建。
+- 云端构建产物必须包含 commit SHA，并在服务器部署前完成 SHA256 和 commit SHA 双重校验。
 - 页面改动后检查公网 URL 是否返回 200。
 - API 或数据库改动后检查接口响应和数据库结构。
 - 如果不能执行某项验证，需要在回复中说明原因。
