@@ -2793,11 +2793,17 @@
 - 数据库副本迁移后 `PRAGMA quick_check` 返回 `ok`。
 - 数据库副本调用 Resend 状态查询，正确识别 4 条 `delivered` 和 2 条 `suppressed`。
 - `scripts/deploy-production-artifact.sh` 已通过 `bash -n` 语法检查。
-- GitHub Actions 云端构建与线上产物部署待本次提交推送后验证。
+- GitHub Actions 工作流 `30883569406` 在云端完成依赖安装、Nuxt 构建、产物打包和 Release 发布，构建提交为 `7cdb234d864f3572e91cdb04706a33e20d57478e`。
+- 服务器使用 `scripts/deploy-production-artifact.sh` 下载并校验 Release 产物后部署，全程未在服务器执行构建；`.output/BUILD_SHA` 与目标提交一致。
+- `yiyuanpack.service` 为 `active`，systemd Main PID 与 3000 端口监听 PID 一致；Resend API、重试令牌和 Webhook 密钥均已注入。
+- 本机和公网首页均返回 200，未签名 Webhook 请求返回 400，现有 5 分钟重试 timer 为 `active`。
+- 线上数据库迁移后 `PRAGMA quick_check` 返回 `ok`；维护接口核验出 4 条 `delivered` 和 2 条 `suppressed`。
+- 提交真实测试询盘 `#16` 后，接口初始返回 `submitted`，约 8 秒后由 Resend 签名 Webhook 自动更新为 `delivered`，无发送或核验错误。
 
 提交：
 
-- commit: `未提交`
+- 功能 commit: `a59b80a`
+- 云构建与部署 commit: `7cdb234`
 
 ## 记录模板
 
