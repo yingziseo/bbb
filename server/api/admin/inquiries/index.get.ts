@@ -12,7 +12,11 @@ export default defineEventHandler((event) => {
   const where: string[] = []
   if (status === 'unread') where.push('read_at IS NULL')
   if (status === 'handled') where.push('handled_at IS NOT NULL')
-  if (status === 'failed') where.push("mail_status IN ('failed', 'retrying')")
+  if (status === 'mail_pending') where.push("mail_status IN ('pending', 'submitted')")
+  if (status === 'mail_delivered') where.push("mail_status = 'delivered'")
+  if (status === 'mail_exception' || status === 'failed') {
+    where.push("mail_status IN ('failed', 'retrying', 'delayed', 'bounced', 'suppressed', 'complained', 'skipped')")
+  }
 
   const rows = getDb()
     .prepare(`

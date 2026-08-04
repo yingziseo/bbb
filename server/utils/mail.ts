@@ -11,12 +11,16 @@ type InquiryForMail = {
 }
 
 export type MailResult = {
-  status: 'sent' | 'failed' | 'skipped'
+  status: 'submitted' | 'failed' | 'skipped'
   error?: string
   provider: string
   to: string
   messageId?: string
 }
+
+export type MailStatusCheck =
+  | { ok: true; lastEvent: string }
+  | { ok: false; error: string }
 
 const row = (label: string, value?: string | null) => {
   if (!value) return ''
@@ -79,13 +83,42 @@ export const sendInquiryMail = async (inquiry: InquiryForMail): Promise<MailResu
     }
 
     const payload = await response.json().catch(() => null) as { id?: string } | null
-    return { status: 'sent', provider, to, messageId: payload?.id || '' }
+    if (!payload?.id) {
+      return { status: 'failed', error: 'Resend accepted the request but returned no email ID', provider, to }
+    }
+
+    return { status: 'submitted', provider, to, messageId: payload.id }
   } catch (error) {
     return {
       status: 'failed',
       error: error instanceof Error ? error.message : 'Unknown mail error',
       provider,
       to,
+    }
+  }
+}
+
+export const checkInquiryMailStatus = async (messageId: string): Promise<MailStatusCheck> => {
+  const apiKey = process.env.RESEND_API_KEY
+  if (!apiKey) return { ok: false, error: 'RESEND_API_KEY is not configured' }
+
+  try {
+    const response = await fetch(`https://api.resend.com/emails/${encodeURIComponent(messageId)}`, {
+      headers: { Authorization: `Bearer ${apiKey}` },
+    })
+
+    if (!response.ok) {
+      const text = await response.text()
+      return { ok: false, error: text || `HTTP ${response.status}` }
+    }
+
+    const payload = await response.json().catch(() => null) as { last_event?: string } | null
+    if (!payload?.last_event) return { ok: false, error: 'Resend returned no delivery event' }
+    return { ok: true, lastEvent: payload.last_event }
+  } catch (error) {
+    return {
+      ok: false,
+      error: error instanceof Error ? error.message : 'Unknown Resend status check error',
     }
   }
 }

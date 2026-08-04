@@ -14,7 +14,7 @@ const cards = computed(() => [
   { label: '未读询盘', value: data.value?.unreadInquiries || 0 },
   { label: 'SEO 条目', value: data.value?.seoEntries || 0 },
   { label: '友情链接', value: data.value?.friendLinks || 0 },
-  { label: '邮件失败', value: data.value?.failedMails || 0 },
+  { label: '邮件异常', value: data.value?.mailExceptions || 0 },
 ])
 </script>
 

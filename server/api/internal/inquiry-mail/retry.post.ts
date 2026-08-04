@@ -1,5 +1,5 @@
 import { createError, getHeader } from 'h3'
-import { retryDueInquiryMails } from '../../../utils/inquiry-mail'
+import { runInquiryMailMaintenance } from '../../../utils/inquiry-mail'
 
 export default defineEventHandler(async (event) => {
   const token = process.env.INQUIRY_RETRY_TOKEN
@@ -9,5 +9,5 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 404, statusMessage: 'Not found' })
   }
 
-  return retryDueInquiryMails(10)
+  return runInquiryMailMaintenance()
 })

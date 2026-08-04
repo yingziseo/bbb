@@ -13,6 +13,7 @@ type MailSettings = {
   defaultContactEmail: string
   provider: string
   apiKeyConfigured: boolean
+  webhookConfigured: boolean
 }
 
 const createEmptyForm = (): MailSettings => ({
@@ -24,6 +25,7 @@ const createEmptyForm = (): MailSettings => ({
   defaultContactEmail: '',
   provider: 'resend',
   apiKeyConfigured: false,
+  webhookConfigured: false,
 })
 
 const { data, pending, refresh } = await useFetch<{ settings: MailSettings }>('/api/admin/mail-settings')
@@ -80,8 +82,8 @@ const sendTest = async () => {
     const result = await $fetch<{ result: { status: string; error?: string } }>('/api/admin/mail-settings/test', {
       method: 'POST',
     })
-    if (result.result.status === 'sent') {
-      ElMessage.success('设置已保存，测试邮件已发送')
+    if (result.result.status === 'submitted') {
+      ElMessage.success('设置已保存，测试邮件已提交给 Resend')
     } else {
       ElMessage.warning(result.result.error || `设置已保存，测试结果：${result.result.status}`)
     }
@@ -148,6 +150,7 @@ const sendTest = async () => {
           <div class="space-y-3 text-[14px] text-[var(--color-graphite)]">
             <div>自动转发：{{ form.enabled ? '已开启' : '已关闭' }}</div>
             <div>API Key：{{ form.apiKeyConfigured ? '已配置' : '未配置' }}</div>
+            <div>投递回调：{{ form.webhookConfigured ? '已配置' : '未配置' }}</div>
             <div>收件邮箱：{{ form.to || '-' }}</div>
             <div>发件邮箱：{{ form.fromEmail || '-' }}</div>
           </div>
@@ -157,7 +160,7 @@ const sendTest = async () => {
         <section class="border border-[var(--color-line)] bg-white p-5">
           <h2 class="mb-4 text-[17px] font-bold text-[var(--color-navy)]">说明</h2>
           <p class="text-[14px] leading-relaxed text-[var(--color-slate-muted)]">
-            客户询盘仍然完整保存在“客户询盘”里。这里仅控制是否把新询盘自动转发到指定邮箱；发送失败会由服务器定时任务自动重试。
+            客户询盘仍然完整保存在“客户询盘”里。新邮件先显示“已提交”，只有 Resend 确认送达收件服务器后才显示“已投递”；异常状态会在询盘后台提示，临时发送失败由服务器自动重试。
           </p>
         </section>
       </aside>

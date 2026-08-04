@@ -15,6 +15,7 @@ export default defineEventHandler((event) => {
       defaultContactEmail: settings.email,
       provider: 'resend',
       apiKeyConfigured: Boolean(process.env.RESEND_API_KEY),
+      webhookConfigured: Boolean(process.env.RESEND_WEBHOOK_SECRET),
     },
   }
 })

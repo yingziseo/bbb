@@ -142,6 +142,10 @@ const execSchema = (database: DatabaseSync) => {
       mail_attempts INTEGER NOT NULL DEFAULT 0,
       last_mail_attempt_at TEXT,
       next_mail_attempt_at TEXT,
+      mail_last_event TEXT,
+      mail_last_event_at TEXT,
+      mail_last_checked_at TEXT,
+      mail_check_error TEXT,
       forwarded_at TEXT,
       read_at TEXT,
       handled_at TEXT,
@@ -275,6 +279,10 @@ const migrateInquiriesSchema = (database: DatabaseSync) => {
       mail_attempts INTEGER NOT NULL DEFAULT 0,
       last_mail_attempt_at TEXT,
       next_mail_attempt_at TEXT,
+      mail_last_event TEXT,
+      mail_last_event_at TEXT,
+      mail_last_checked_at TEXT,
+      mail_check_error TEXT,
       forwarded_at TEXT,
       read_at TEXT,
       handled_at TEXT,
@@ -320,6 +328,31 @@ const migrateInquiryMailColumns = (database: DatabaseSync) => {
   addColumn('mail_attempts', 'INTEGER NOT NULL DEFAULT 0')
   addColumn('last_mail_attempt_at', 'TEXT')
   addColumn('next_mail_attempt_at', 'TEXT')
+  addColumn('mail_last_event', 'TEXT')
+  addColumn('mail_last_event_at', 'TEXT')
+  addColumn('mail_last_checked_at', 'TEXT')
+  addColumn('mail_check_error', 'TEXT')
+}
+
+const migrateInquiryMailDeliveryTracking = (database: DatabaseSync) => {
+  database.exec(`
+    CREATE INDEX IF NOT EXISTS idx_inquiries_mail_status
+      ON inquiries(mail_status, next_mail_attempt_at);
+    CREATE INDEX IF NOT EXISTS idx_inquiries_mail_message_id
+      ON inquiries(mail_message_id);
+  `)
+
+  database
+    .prepare(`
+      UPDATE inquiries
+      SET mail_status = 'submitted',
+          mail_last_event = COALESCE(NULLIF(mail_last_event, ''), 'sent'),
+          mail_last_event_at = COALESCE(mail_last_event_at, last_mail_attempt_at),
+          forwarded_at = NULL,
+          updated_at = ?
+      WHERE mail_status = 'sent'
+    `)
+    .run(now())
 }
 
 const migrateInquirySeoCopy = (database: DatabaseSync) => {
@@ -994,6 +1027,7 @@ export const getDb = () => {
   migrateStaticImagePathsToWebp(db)
   migrateInquiriesSchema(db)
   migrateInquiryMailColumns(db)
+  migrateInquiryMailDeliveryTracking(db)
   migrateInquirySeoCopy(db)
   migratePostSchedulerColumns(db)
   seedDatabase(db)

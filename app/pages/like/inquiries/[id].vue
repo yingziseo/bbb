@@ -15,13 +15,38 @@ useHead({ title: `询盘 #${id} | YIYUAN` })
 
 const item = computed(() => data.value?.item)
 const formatDate = (value?: string) => (value ? new Date(value).toLocaleString('zh-CN') : '-')
+const activeMailStatuses = ['pending', 'submitted', 'retrying', 'delayed']
+const exceptionMailStatuses = ['failed', 'retrying', 'delayed', 'bounced', 'suppressed', 'complained', 'skipped']
 
 const mailStatusLabel = (status?: string) => {
-  if (status === 'sent') return '成功'
+  if (status === 'submitted') return '已提交给 Resend'
+  if (status === 'delivered') return '已投递到收件服务器'
+  if (status === 'delayed') return '投递延迟'
   if (status === 'retrying') return '重试中'
   if (status === 'failed') return '失败'
+  if (status === 'bounced') return '已退信'
+  if (status === 'suppressed') return '已被 Resend 抑制'
+  if (status === 'complained') return '收件人垃圾投诉'
   if (status === 'skipped') return '未启用'
   return '等待'
+}
+
+const mailStatusType = (status?: string) => {
+  if (status === 'delivered') return 'success'
+  if (['failed', 'bounced', 'suppressed', 'complained'].includes(status || '')) return 'danger'
+  if (['retrying', 'delayed', 'skipped'].includes(status || '')) return 'warning'
+  return 'info'
+}
+
+const mailStatusHelp = (status?: string) => {
+  if (status === 'suppressed') return '收件地址位于 Resend 抑制名单。请先在 Resend 后台解除并确认地址有效，再点击重新发送。'
+  if (status === 'bounced') return '收件服务器永久拒绝了邮件。请先确认邮箱地址和退信原因，再决定是否重发。'
+  if (status === 'complained') return '收件人曾将邮件标记为垃圾邮件，不建议直接重复发送。'
+  if (status === 'delayed') return '收件服务器暂时延迟接收，Resend 会继续尝试；系统也会定时同步最终状态。'
+  if (status === 'retrying') return '邮件尚未被 Resend 接受，服务器会按退避计划自动重试。'
+  if (status === 'failed') return '邮件发送或投递失败，请查看下方错误信息。'
+  if (status === 'skipped') return '自动转发未启用或服务密钥缺失。'
+  return ''
 }
 
 const updateFlag = async (field: 'read' | 'handled', value: boolean) => {
@@ -40,7 +65,7 @@ const updateFlag = async (field: 'read' | 'handled', value: boolean) => {
 const resend = async () => {
   try {
     await $fetch(`/api/admin/inquiries/${id}/resend`, { method: 'POST' })
-    ElMessage.success('已重新尝试发送邮件')
+    ElMessage.success('邮件已重新提交，正在等待最终投递结果')
     await refresh()
   } catch (error: any) {
     ElMessage.error(error?.data?.message || error?.statusMessage || '重发失败')
@@ -97,18 +122,41 @@ const resend = async () => {
 
         <div class="border border-[var(--color-line)] bg-white p-5">
           <h2 class="mb-4 text-[17px] font-bold text-[var(--color-navy)]">邮件转发</h2>
+          <el-alert
+            v-if="exceptionMailStatuses.includes(item.mailStatus)"
+            class="mb-4 !rounded-none"
+            :type="mailStatusType(item.mailStatus) === 'danger' ? 'error' : 'warning'"
+            :closable="false"
+            show-icon
+            :title="mailStatusLabel(item.mailStatus)"
+            :description="mailStatusHelp(item.mailStatus)"
+          />
           <div class="space-y-3 text-[14px] text-[var(--color-graphite)]">
-            <div>状态：{{ mailStatusLabel(item.mailStatus) }}</div>
+            <div class="flex items-center gap-2">
+              <span>状态：</span>
+              <el-tag :type="mailStatusType(item.mailStatus)" effect="plain" class="!rounded-none">{{ mailStatusLabel(item.mailStatus) }}</el-tag>
+            </div>
             <div>收件邮箱：{{ item.mailTo || '-' }}</div>
             <div>服务商：{{ item.mailProvider || '-' }}</div>
             <div>尝试次数：{{ item.mailAttempts || 0 }} 次</div>
             <div>最后尝试：{{ formatDate(item.lastMailAttemptAt) }}</div>
             <div>下次重试：{{ formatDate(item.nextMailAttemptAt) }}</div>
-            <div>成功时间：{{ formatDate(item.forwardedAt) }}</div>
+            <div>实际投递时间：{{ formatDate(item.forwardedAt) }}</div>
+            <div>服务商事件：{{ item.mailLastEvent || '-' }}</div>
+            <div>状态更新时间：{{ formatDate(item.mailLastEventAt) }}</div>
+            <div>最后核验：{{ formatDate(item.mailLastCheckedAt) }}</div>
             <div v-if="item.mailMessageId" class="break-all">邮件 ID：{{ item.mailMessageId }}</div>
             <div v-if="item.mailError" class="break-all text-[var(--color-accent)]">错误：{{ item.mailError }}</div>
+            <div v-if="item.mailCheckError" class="break-all text-[var(--color-accent)]">核验错误：{{ item.mailCheckError }}</div>
           </div>
-          <el-button class="mt-5 w-full" color="#c1121f" @click="resend">重新发送邮件</el-button>
+          <el-button
+            class="mt-5 w-full"
+            color="#c1121f"
+            :disabled="activeMailStatuses.includes(item.mailStatus)"
+            @click="resend"
+          >
+            {{ activeMailStatuses.includes(item.mailStatus) ? '等待投递结果' : '重新发送邮件' }}
+          </el-button>
         </div>
       </aside>
     </div>
