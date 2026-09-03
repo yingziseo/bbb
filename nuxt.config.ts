@@ -4,6 +4,11 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-01-01',
   devtools: { enabled: false },
   modules: ['@element-plus/nuxt', '@nuxt/image'],
+  image: {
+    // Public assets are already optimized WebP/PNG files. Keep their original
+    // URLs so production does not depend on the native Sharp/IPX runtime.
+    provider: 'none',
+  },
   css: ['~/assets/css/main.css'],
   routeRules: {
     '/like': { ssr: false },
