@@ -1,6 +1,6 @@
 # 推送检查清单
 
-最后更新：2026-06-30
+最后更新：2026-09-03
 
 每次准备提交或推送前，按下面顺序检查。
 
@@ -27,13 +27,21 @@ git diff
 - 项目状态变化已同步到 `docs/PROJECT_STATE.md`。
 - 新发现的问题或需求已加入 `docs/TASKS.md`。
 
-## 3. 本地验证
+## 3. 构建验证
 
-至少执行：
+开发者本地环境至少执行：
 
 ```bash
 pnpm build
 ```
+
+生产服务器绝对禁止执行 `pnpm build`、`npm run build`、`nuxi build` 或其他编译命令。影响线上产物的改动必须推送后由 GitHub Actions 构建，成功后使用：
+
+```bash
+scripts/deploy-production-artifact.sh <commit-sha>
+```
+
+部署脚本必须完成产物 SHA256、commit SHA、systemd 重启和健康检查，不得手动运行 Node 服务。
 
 如果后续增加了脚本，也执行：
 
@@ -77,3 +85,14 @@ chore: update Nuxt configuration
 - 推送分支
 - 构建或部署结果
 - 发现的问题和后续处理
+
+## 6. 构建产物与磁盘清理
+
+确认：
+
+- GitHub Actions 继续复用固定 `production-build` Release，并通过 `gh release upload --clobber` 覆盖 `yiyuanpack-output.tar.gz` 与校验文件；不得为每个 commit 新建长期保留的 Release 或 Actions artifact。
+- 云端 runner 为一次性环境，不把 `release/`、依赖目录或中间构建目录复制回生产服务器。
+- `scripts/deploy-production-artifact.sh` 成功或失败退出时均通过 `trap` 清理 `/tmp/yiyuan-artifact-deploy.*` 和项目内 `.artifact-stage.*`。
+- 部署成功后删除回退目录 `.output.previous`，线上只保留当前 `.output`；当前正在运行的 `.output` 绝对不能删除。
+- 部署完成后执行 `df -h /root /tmp`，并核对 `.output` 大小以及是否存在 `.output.previous`、`release/`、`.artifact-stage.*`、`/tmp/yiyuan-artifact-deploy.*` 残留。
+- 只处理上述精确命名且已核实的残留目录，不使用宽泛路径、未解析变量或危险递归删除命令。

@@ -13,6 +13,7 @@
 
 - 生产服务器禁止执行 `npm run build`、`pnpm build`、`nuxi build` 或其他前端/服务端编译命令。构建统一由 GitHub Actions 或开发者本地环境完成，服务器只允许下载并校验已构建的 `.output` 产物后运行。
 - 线上部署统一使用 `scripts/deploy-production-artifact.sh [commit-sha]` 拉取 GitHub Release 构建产物。部署脚本只负责校验、替换产物、通过 systemd 重启和健康检查，不得在脚本中增加依赖安装或构建步骤。
+- 云端构建只维护固定的 `production-build` Release，并用 `--clobber` 覆盖同名产物，不得按 commit 无限新增 Release 或 Actions artifact。部署成功后必须确认临时下载目录、`.artifact-stage.*` 和 `.output.previous` 已清理，只保留当前 `.output`；同时检查 `df -h` 和相关目录大小。严禁清理当前正在运行的 `.output`，残留目录只能按部署脚本规定的精确命名范围处理。
 - 生产服务只能由 systemd 管理，重启、启动、停止一律使用 `systemctl restart yiyuanpack.service`（或对应的 `start`/`stop`）。
 - 绝对禁止在 shell 里手动运行 `node .output/server/index.mjs`、`setsid`、`nohup` 等方式启动服务进程。手动进程不会加载 `.env`，会抢占 `3000` 端口并让 systemd 服务 EADDRINUSE 挂起，直接导致询盘邮件转发失效（skipped：RESEND_API_KEY is not configured）和 `/api/internal/inquiry-mail/retry` 恒 404。
 - 排查线上异常时先核对进程归属：`ss -tlnp | grep :3000` 的 PID 必须等于 `systemctl show yiyuanpack.service -p MainPID` 的值；不一致说明有手动进程抢端口，先杀掉再 `systemctl restart yiyuanpack.service`。

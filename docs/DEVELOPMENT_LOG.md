@@ -21,17 +21,23 @@
 
 - 在 `nuxt.config.ts` 将 Nuxt Image 默认 provider 改为官方 `none` 直通模式。
 - 继续保留 `NuxtImg` 的懒加载、尺寸属性和统一组件接口，但直接使用已经预压缩的 WebP/PNG 原始 URL，不再依赖线上 Sharp/IPX 动态转换。
-- 在 `docs/TASKS.md` 登记本次 P0，云端构建、部署和公网验证完成前保持 `DOING`。
+- 在 `docs/TASKS.md` 登记并完成本次 P0。
 - 未修改数据库、API、后台和现有图片文件。
 
 验证：
 
 - 修改前复现：博客封面原图公网返回 200，`/_ipx/` 封面请求返回 500，并取得明确的 Sharp 原生模块缺失错误。
-- 当前服务器属于生产环境，按项目规则未在服务器执行构建；将提交推送后由 GitHub Actions 构建，再通过生产产物部署脚本部署并核对页面 HTML、图片 URL、HTTP 状态和服务进程归属。
+- 当前服务器属于生产环境，按项目规则未在服务器执行构建；GitHub Actions `33728521100` 在 1 分 4 秒内完成依赖安装、Nuxt 构建、SHA 写入、产物打包和 Release 上传。
+- 使用 `scripts/deploy-production-artifact.sh bd1028d4072c3533da6b74005f2a56d0bde49990` 完成 SHA256 与 commit SHA 双重校验、产物切换、systemd 重启和健康检查。
+- 部署后本机与公网 `/blog`、文章详情均返回 200，HTML 中 `/_ipx/` 引用为 0；博客列表输出 9 张直接封面 URL，抽查文章详情输出主封面和 2 张相关文章封面 URL。
+- 逐一 HEAD 检查数据库内 57 篇已发布文章的封面，57/57 均返回 `200 image/webp`；Chromium 实际渲染截图确认首屏和文章卡片封面正常显示。
+- `yiyuanpack.service` 为 `active`，systemd Main PID `365266` 与 `127.0.0.1:3000` 监听 PID 一致；`.output/BUILD_SHA` 与部署提交完全一致。
+- 补充生产产物清理规则：固定 Release 覆盖同名产物，部署退出时清理下载/暂存目录，成功后删除 `.output.previous`，只保留当前 `.output`，并在部署后核对磁盘用量和精确残留目录。
+- 本次部署后根分区使用率为 63%，可用 21G；当前 `.output` 为 33M，`.output.previous`、项目 `release/`、`.artifact-stage.*` 和 `/tmp/yiyuan-artifact-deploy.*` 均无残留。GitHub Release 仅保留当前 22.8M 构建包和 91B SHA256 文件。
 
 提交状态：
 
-- 待提交、推送、云端构建和生产部署。
+- 修复提交 `bd1028d` 已推送到 `main` 并部署；本条最终验证记录待提交和推送。
 
 ## 2026-08-07 - 重排保鲜膜草稿为每天 1 篇
 
