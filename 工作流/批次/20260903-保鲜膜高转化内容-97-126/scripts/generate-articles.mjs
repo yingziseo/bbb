@@ -174,7 +174,7 @@ const bodies = new Map([
 </tbody></table></div>
 
 <h2>Set a named reorder buffer</h2>
-<p>Add demand during supplier, transport, receiving and release time. Keep event uplift and safety stock as separate lines so they can be reviewed. Exclude quarantined stock from availability. The <a href="/blog/cling-film-trial-order-scorecard-reorder-decision">trial-order scorecard</a> decides whether to reorder the product; this worksheet calculates when and how much. Confirm rolls-per-carton for the exact <a href="/products/commercial-cling-film-roll">commercial roll configuration</a> before converting rolls into cartons.</p>`],
+<p>Add demand during supplier, transport, receiving and release time. Keep event uplift and safety stock as separate lines so they can be reviewed. Exclude quarantined stock from availability. Use the <a href="/blog/food-service-cling-film-roll-guide">food-service roll guide</a> to confirm the chosen format, then calculate when and how much to reorder here. Confirm rolls-per-carton for the exact <a href="/products/commercial-cling-film-roll">commercial roll configuration</a> before converting rolls into cartons.</p>`],
 
   [107, `<p>Cling film is pulled over or around food or a vessel and held by cling, overlap or folds. Lidding film is designed to seal to a compatible tray rim in a tray-sealing process. Equipment and closure method decide the RFQ.</p>
 
