@@ -16,12 +16,12 @@
     "secondPassOptimization": "complete",
     "coverGeneration": "complete",
     "webpConversion": "complete",
-    "productionAssetDeploy": "pending",
-    "databaseBackup": "pending",
-    "databaseImport": "pending",
-    "scheduleVerification": "pending",
-    "publicVerification": "pending",
-    "gitPush": "pending"
+    "productionAssetDeploy": "complete",
+    "databaseBackup": "complete",
+    "databaseImport": "complete",
+    "scheduleVerification": "complete",
+    "publicVerification": "complete",
+    "gitPush": "complete"
   },
   "counts": {
     "plannedArticles": 30,
@@ -30,10 +30,10 @@
     "optimizedArticles": 30,
     "generatedCovers": 30,
     "publicWebp": 30,
-    "databaseDrafts": 0,
-    "databaseSeoEntries": 0
+    "databaseDrafts": 30,
+    "databaseSeoEntries": 30
   },
-  "lastUpdated": "2026-09-03T16:45:00+08:00",
+  "lastUpdated": "2026-09-03T16:56:00+08:00",
   "scope": "content_pipeline_only",
   "contentAudit": {
     "errors": 0,
@@ -50,5 +50,20 @@
     "candidateTopicsReplaced": 4,
     "finalErrors": 0,
     "finalWarnings": 0
+  },
+  "deployment": {
+    "commit": "a5d8f8e77de1cb89dea9f72d059417730e380bdd",
+    "githubActionsRun": 33735660261,
+    "publicCoversChecked": 30,
+    "publicCoverErrors": 0
+  },
+  "databaseReplacement": {
+    "oldDraftsDeleted": 2,
+    "oldSeoEntriesDeleted": 2,
+    "newDraftsInserted": 30,
+    "newSeoEntriesInserted": 30,
+    "publishedPostsPreserved": 57,
+    "backupSha256": "a53a2efa8e608e586c116f236f713611275d2ffd162aa8a6aa1820be2ec9c515",
+    "integrityCheck": "ok"
   }
 }
