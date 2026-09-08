@@ -1,10 +1,11 @@
 import { createError, readBody } from 'h3'
 import { requireAdmin } from '../../../utils/auth'
-import { asString } from '../../../utils/content'
+import { asString, sanitizePostHtml } from '../../../utils/content'
 import {
   asInteger,
   generatedSlug,
   normalizeApplications,
+  normalizeGallery,
   normalizeCustom,
   normalizeSizeOptions,
   normalizeSpecRows,
@@ -46,9 +47,9 @@ export default defineEventHandler(async (event) => {
       INSERT INTO products (
         category_id, slug, name, short_desc, image, material, moq, custom, packaging,
         seo_title, seo_description, seo_keywords, canonical,
-        specs_json, size_options_json, applications_json, sort_order, status, created_at, updated_at
+        specs_json, size_options_json, applications_json, sort_order, status, created_at, updated_at, gallery_json, content_html
       )
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `)
     .run(
       categoryId,
@@ -71,6 +72,8 @@ export default defineEventHandler(async (event) => {
       normalizeStatus(body?.status),
       timestamp,
       timestamp,
+      JSON.stringify(normalizeGallery(body?.gallery)),
+      sanitizePostHtml(asString(body?.contentHtml)),
     )
 
   const row = db.prepare(`${productListSelect} WHERE p.id = ?`).get(result.lastInsertRowid)

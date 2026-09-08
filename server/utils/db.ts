@@ -229,6 +229,7 @@ const addTextColumnIfMissing = (database: DatabaseSync, table: string, column: s
 }
 
 const migrateProductCatalog = (database: DatabaseSync) => {
+  ;['gallery_json', 'content_html'].forEach((column) => addTextColumnIfMissing(database, 'products', column))
   ;['seo_title', 'seo_description', 'seo_keywords', 'canonical'].forEach((column) => {
     addTextColumnIfMissing(database, 'products', column)
     addTextColumnIfMissing(database, 'product_categories', column)

@@ -140,6 +140,8 @@ export const mapProduct = (row: any) => ({
   name: row.name,
   shortDesc: row.short_desc || '',
   image: row.image || '',
+  gallery: parseJsonArray(row.gallery_json),
+  contentHtml: row.content_html || '',
   material: row.material || '',
   moq: row.moq || '',
   custom: toBool(row.custom),

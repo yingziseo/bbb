@@ -50,3 +50,11 @@ export const normalizeApplications = (value: unknown) => {
   if (!Array.isArray(value)) return []
   return value.map((item) => asString(item)).filter(Boolean)
 }
+
+export const normalizeGallery = (value: unknown) => {
+  if (!Array.isArray(value)) return []
+  return value.map((item) => ({
+    src: asString(item?.src),
+    alt: asString(item?.alt),
+  })).filter((item) => /^\/(?!\/)|^https?:\/\//i.test(item.src)).slice(0, 20)
+}

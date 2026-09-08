@@ -14,6 +14,12 @@ definePageMeta({
 
 const { data } = await useFetch<{ item: Product }>(`/api/public/products/${route.params.slug}`)
 const product = computed(() => data.value?.item)
+const selectedImage = ref('')
+const productImages = computed(() => [
+  { src: product.value?.image || '', alt: product.value?.name || '' },
+  ...(product.value?.gallery || []),
+].filter((photo) => photo.src))
+const activeImage = computed(() => productImages.value.find((photo) => photo.src === selectedImage.value) || productImages.value[0])
 
 if (!product.value) {
   throw createError({ statusCode: 404, statusMessage: 'Product not found', fatal: true })
@@ -89,7 +95,16 @@ const productDocuments = buyerDocumentList
         <!-- Image -->
         <div class="min-w-0">
           <div class="overflow-hidden border border-[var(--color-line)] bg-[var(--color-panel)]">
-            <img :src="product.image" :alt="product.name" class="w-full aspect-square object-cover" />
+            <img :src="activeImage?.src" :alt="activeImage?.alt || product.name" class="w-full aspect-square object-contain" fetchpriority="high" />
+          </div>
+          <div v-if="productImages.length > 1" class="mt-3 grid grid-cols-4 gap-3 sm:grid-cols-5">
+            <button v-for="(photo, index) in productImages" :key="`${photo.src}-${index}`" type="button"
+              class="overflow-hidden border-2 bg-white transition-colors hover:border-[var(--color-accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+              :class="activeImage?.src === photo.src ? 'border-[var(--color-accent)]' : 'border-[var(--color-line)]'"
+              :aria-label="`${isCn ? '查看图片' : 'View image'} ${index + 1}: ${photo.alt || product.name}`"
+              :aria-pressed="activeImage?.src === photo.src" @click="selectedImage = photo.src">
+              <img :src="photo.src" :alt="photo.alt" class="aspect-square w-full object-contain" loading="lazy" />
+            </button>
           </div>
         </div>
 
@@ -220,6 +235,13 @@ const productDocuments = buyerDocumentList
       </div>
     </section>
 
+    <section v-if="product.contentHtml" class="section bg-white border-b border-[var(--color-line)]">
+      <div class="container-x">
+        <h2 class="mb-6 text-[22px] font-extrabold text-[var(--color-navy)]">{{ isCn ? '产品详情' : 'Product Details' }}</h2>
+        <div class="product-detail-content max-w-4xl text-[16px] leading-relaxed text-[var(--color-graphite)]" v-html="product.contentHtml" />
+      </div>
+    </section>
+
     <!-- Related -->
     <section v-if="related.length" class="section bg-white">
       <div class="container-x">
@@ -231,3 +253,13 @@ const productDocuments = buyerDocumentList
     </section>
   </div>
 </template>
+
+<style scoped>
+.product-detail-content :deep(h2), .product-detail-content :deep(h3) { margin: 1.5rem 0 .75rem; font-size: 1.25rem; font-weight: 700; color: var(--color-navy); }
+.product-detail-content :deep(p) { margin: .75rem 0; }
+.product-detail-content :deep(ul) { list-style: disc; padding-left: 1.5rem; }
+.product-detail-content :deep(img) { max-width: 100%; height: auto; margin: 1.5rem auto .5rem; }
+.product-detail-content :deep(figure) { margin: 1.5rem 0; }
+.product-detail-content :deep(figcaption) { font-size: .875rem; color: var(--color-slate-muted); }
+.product-detail-content { overflow-wrap: anywhere; }
+</style>

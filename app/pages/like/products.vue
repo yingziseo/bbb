@@ -25,6 +25,8 @@ type ProductForm = {
   slug: string
   name: string
   shortDesc: string
+  gallery: Array<{ src: string; alt: string }>
+  contentHtml: string
   image: string
   material: string
   moq: string
@@ -89,6 +91,8 @@ const emptyProduct = (): ProductForm => ({
   slug: '',
   name: '',
   shortDesc: '',
+  gallery: [],
+  contentHtml: '',
   image: '',
   material: '食品级牛皮纸 + PE 涂层',
   moq: '10,000 件',
@@ -122,6 +126,7 @@ const resetCategoryForm = (item?: any) => {
 const resetProductForm = (item?: any) => {
   Object.assign(productForm, emptyProduct(), {
     ...item,
+    gallery: (item?.gallery || []).map((photo: any) => ({ src: photo.src, alt: photo.alt || '' })),
     categoryId: item?.categoryId || item?.category_id || emptyProduct().categoryId,
     specs: item?.specs?.length ? item.specs.map((row: any) => ({ label: row.label || '', value: row.value || '' })) : emptyProduct().specs,
     sizeOptions: item?.sizeOptions?.length
@@ -227,7 +232,7 @@ const removeProduct = async (item: any) => {
   }
 }
 
-const uploadImage = async (option: any, target: 'category' | 'product') => {
+const uploadImage = async (option: any, target: 'category' | 'product' | 'gallery') => {
   uploadLoading.value = target
   try {
     const body = new FormData()
@@ -235,6 +240,7 @@ const uploadImage = async (option: any, target: 'category' | 'product') => {
     const result = await $fetch<{ path: string }>('/api/admin/uploads', { method: 'POST', body })
     if (target === 'category') categoryForm.image = result.path
     if (target === 'product') productForm.image = result.path
+    if (target === 'gallery') productForm.gallery.push({ src: result.path, alt: productForm.name })
     ElMessage.success('图片已上传')
   } catch (error: any) {
     ElMessage.error(error?.data?.message || error?.statusMessage || '上传失败')
@@ -460,6 +466,11 @@ const refreshAll = async () => {
             </div>
 
             <section class="mt-5 border border-[var(--color-line)] p-4">
+              <h3 class="mb-3 text-[15px] font-bold text-[var(--color-navy)]">产品图文详情</h3>
+              <AdminRichTextEditor v-model="productForm.contentHtml" />
+            </section>
+
+            <section class="mt-5 border border-[var(--color-line)] p-4">
               <div class="mb-3 flex items-center justify-between">
                 <h3 class="text-[15px] font-bold text-[var(--color-navy)]">规格参数</h3>
                 <el-button size="small" plain @click="addSpec">新增规格</el-button>
@@ -512,6 +523,19 @@ const refreshAll = async () => {
                   <el-button :loading="uploadLoading === 'product'">上传图片</el-button>
                 </el-upload>
               </div>
+            </div>
+            <div class="border border-[var(--color-line)] p-4">
+              <h3 class="mb-3 text-[15px] font-bold text-[var(--color-navy)]">产品配图（按顺序展示）</h3>
+              <div v-for="(photo, index) in productForm.gallery" :key="index" class="mb-4 space-y-2">
+                <img :src="photo.src" :alt="photo.alt" class="h-32 w-full object-contain" />
+                <el-form-item :label="`配图 ${index + 1} 地址`"><el-input v-model="photo.src" /></el-form-item>
+                <el-form-item :label="`配图 ${index + 1} 说明`"><el-input v-model="photo.alt" /></el-form-item>
+                <el-button size="small" :disabled="index === 0" @click="productForm.gallery.splice(index - 1, 0, productForm.gallery.splice(index, 1)[0]!)">上移</el-button>
+                <el-button size="small" type="danger" plain @click="productForm.gallery.splice(index, 1)">删除</el-button>
+              </div>
+              <el-upload :show-file-list="false" :http-request="(option: any) => uploadImage(option, 'gallery')" accept="image/*">
+                <el-button :loading="uploadLoading === 'gallery'">上传配图</el-button>
+              </el-upload>
             </div>
             <div class="border border-[var(--color-line)] bg-[var(--color-panel)] p-4 text-[13px] leading-relaxed text-[var(--color-slate-muted)]">
               <div class="font-semibold text-[var(--color-navy)]">录入提示</div>

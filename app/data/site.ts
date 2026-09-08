@@ -48,6 +48,8 @@ export const complianceMarqueeItems = [
 ]
 
 export interface Product {
+  gallery?: { src: string; alt: string }[]
+  contentHtml?: string
   id?: number
   categoryId?: number
   categorySlug?: string

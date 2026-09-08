@@ -1,10 +1,11 @@
 import { createError, getRouterParam, readBody } from 'h3'
 import { requireAdmin } from '../../../utils/auth'
-import { asString } from '../../../utils/content'
+import { asString, sanitizePostHtml } from '../../../utils/content'
 import {
   asInteger,
   generatedSlug,
   normalizeApplications,
+  normalizeGallery,
   normalizeCustom,
   normalizeSizeOptions,
   normalizeSpecRows,
@@ -49,7 +50,7 @@ export default defineEventHandler(async (event) => {
     SET category_id = ?, slug = ?, name = ?, short_desc = ?, image = ?, material = ?,
         moq = ?, custom = ?, packaging = ?, seo_title = ?, seo_description = ?,
         seo_keywords = ?, canonical = ?, specs_json = ?, size_options_json = ?,
-        applications_json = ?, sort_order = ?, status = ?, updated_at = ?
+        applications_json = ?, sort_order = ?, status = ?, updated_at = ?, gallery_json = ?, content_html = ?
     WHERE id = ?
   `).run(
     categoryId,
@@ -71,6 +72,8 @@ export default defineEventHandler(async (event) => {
     asInteger(body?.sortOrder),
     normalizeStatus(body?.status),
     touchNow(),
+    body?.gallery === undefined ? (current.gallery_json || '[]') : JSON.stringify(normalizeGallery(body.gallery)),
+    body?.contentHtml === undefined ? (current.content_html || '') : sanitizePostHtml(asString(body.contentHtml)),
     id,
   )
 
