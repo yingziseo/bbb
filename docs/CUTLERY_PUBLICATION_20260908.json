@@ -1,0 +1,114 @@
+{
+  "category": {
+    "id": 233,
+    "slug": "disposable-supplies",
+    "name": "Disposable Supplies",
+    "description": "Disposable cutlery for takeaway meals, catering and food service. Explore knives, forks, spoons and sporks in white and black.",
+    "image": "/uploads/disposable-cutlery-20260908/white-cutlery.jpg",
+    "seoTitle": "Disposable Supplies | Knives, Forks & Spoons | YIYUAN",
+    "seoDescription": "Browse disposable cutlery for takeaway and catering: knives, forks, spoons and sporks. Contact YIYUAN to confirm specifications and packing.",
+    "seoKeywords": "disposable supplies, disposable cutlery, knives forks spoons, takeaway utensils",
+    "canonical": "",
+    "sortOrder": 3,
+    "enabled": true,
+    "createdAt": "2026-09-08T08:40:59.882Z",
+    "updatedAt": "2026-09-08T08:40:59.882Z"
+  },
+  "product": {
+    "id": 18,
+    "categoryId": 233,
+    "categorySlug": "disposable-supplies",
+    "category": "Disposable Supplies",
+    "slug": "disposable-cutlery-knives-forks-spoons",
+    "name": "Disposable Cutlery — Knives, Forks & Spoons",
+    "shortDesc": "Disposable knives, forks, spoons and sporks for takeaway meals and catering. White and black styles are shown; select the utensil combination and confirm packing for your order.",
+    "image": "/uploads/disposable-cutlery-20260908/white-cutlery.jpg",
+    "gallery": [
+      {
+        "src": "/uploads/disposable-cutlery-20260908/black-cutlery.jpg",
+        "alt": "Black disposable knives, forks and spoons"
+      },
+      {
+        "src": "/uploads/disposable-cutlery-20260908/white-sporks.jpg",
+        "alt": "White disposable sporks"
+      },
+      {
+        "src": "/uploads/disposable-cutlery-20260908/white-spoons.jpg",
+        "alt": "White disposable spoons"
+      },
+      {
+        "src": "/uploads/disposable-cutlery-20260908/black-fork-spoon.jpg",
+        "alt": "Black disposable fork and spoon"
+      }
+    ],
+    "contentHtml": "<h2>Disposable cutlery for food service</h2><p>Choose knives, forks, spoons or combination sporks to match your meal service. The available product photographs show white and black utensil styles.</p><h3>Utensil styles</h3><figure><img src=\"/uploads/disposable-cutlery-20260908/black-cutlery.jpg\" alt=\"Black disposable knives, forks and spoons\" loading=\"lazy\" /><figcaption>Black disposable knives, forks and spoons</figcaption></figure><figure><img src=\"/uploads/disposable-cutlery-20260908/white-sporks.jpg\" alt=\"White disposable sporks\" loading=\"lazy\" /><figcaption>White disposable sporks</figcaption></figure><h3>Ordering information</h3><p>Send the required utensil type, color, quantity and packing preference. Material grade, dimensions, unit weight and carton quantities will be confirmed for the selected style.</p>",
+    "material": "Confirm material grade with quotation",
+    "moq": "Confirm with quotation",
+    "custom": false,
+    "packaging": "Packing format and quantity to be confirmed",
+    "seoTitle": "Disposable Cutlery | Knives, Forks & Spoons | YIYUAN",
+    "seoDescription": "Disposable knives, forks, spoons and sporks in white and black for takeaway and catering. Confirm style, material, dimensions and packing with YIYUAN.",
+    "seoKeywords": "disposable cutlery, disposable knives, disposable forks, disposable spoons, sporks",
+    "canonical": "",
+    "specs": [
+      {
+        "label": "Product types",
+        "value": "Knife / fork / spoon / spork"
+      },
+      {
+        "label": "Colors shown",
+        "value": "White / black"
+      },
+      {
+        "label": "Dimensions and weight",
+        "value": "Confirm for the selected style"
+      },
+      {
+        "label": "Material grade",
+        "value": "Confirm with quotation"
+      },
+      {
+        "label": "Packing",
+        "value": "Confirm quantity and packing format"
+      }
+    ],
+    "sizeOptions": [],
+    "applications": [
+      "Takeaway meals",
+      "Catering",
+      "Food service"
+    ],
+    "sortOrder": 1,
+    "status": "published",
+    "createdAt": "2026-09-08T08:40:59.896Z",
+    "updatedAt": "2026-09-08T08:40:59.896Z"
+  },
+  "assets": [
+    {
+      "source": "pic(8).jpg",
+      "path": "/uploads/disposable-cutlery-20260908/white-cutlery.jpg",
+      "alt": "White disposable knives, forks, spoons and sporks"
+    },
+    {
+      "source": "pic(4).jpg",
+      "path": "/uploads/disposable-cutlery-20260908/black-cutlery.jpg",
+      "alt": "Black disposable knives, forks and spoons"
+    },
+    {
+      "source": "pic(6).jpg",
+      "path": "/uploads/disposable-cutlery-20260908/white-sporks.jpg",
+      "alt": "White disposable sporks"
+    },
+    {
+      "source": "pic(7).jpg",
+      "path": "/uploads/disposable-cutlery-20260908/white-spoons.jpg",
+      "alt": "White disposable spoons"
+    },
+    {
+      "source": "pic(9).jpg",
+      "path": "/uploads/disposable-cutlery-20260908/black-fork-spoon.jpg",
+      "alt": "Black disposable fork and spoon"
+    }
+  ],
+  "backup": "/root/bbb/data/backups/before-cutlery-20260908-164059.db"
+}
