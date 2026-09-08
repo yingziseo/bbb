@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Check, Close, Promotion } from '@element-plus/icons-vue'
-import { buyerDocumentList } from '~/data/documents'
+import { buyerDocumentList, buyerDocuments } from '~/data/documents'
 import type { Product } from '~/data/site'
 
 const company = await useSiteSettings()
@@ -75,7 +75,9 @@ const related = computed(() =>
     .filter((p) => p.categorySlug === product.value?.categorySlug && p.slug !== product.value?.slug)
     .slice(0, 3),
 )
-const productDocuments = buyerDocumentList
+const productDocuments = computed(() => product.value?.categorySlug === 'pvc-cling-film'
+  ? [buyerDocuments.productCatalog]
+  : buyerDocumentList)
 </script>
 
 <template>
