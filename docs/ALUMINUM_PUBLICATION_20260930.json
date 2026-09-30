@@ -1,0 +1,152 @@
+{
+  "status": "products-published-final-pdf-deployment-pending",
+  "categoryUrl": "https://yiyuanpack.com/products/category/aluminum-foil-packaging",
+  "categoryId": 234,
+  "publishedProducts": 121,
+  "sourceContainerAndLidProducts": 117,
+  "rollSheetSeries": 4,
+  "rollSheetOptions": 38,
+  "finalGold0909HeightMm": 36,
+  "publicVerificationInitial": {
+    "status": "passed",
+    "checkedAt": "2026-09-30T02:50:09.653468+00:00",
+    "publicProducts": 121,
+    "publicCategories": 5,
+    "rollSheetOptions": 38,
+    "assetHttp200": 243,
+    "englishProductHttp200": 121,
+    "otherPageHttp200": 10,
+    "pdfSha256": "b5a4e0afb6135126f41d6509da590009fc93988373592b5b6a331189eb6de7ba",
+    "sitemapNewUrls": 244,
+    "sqliteIntegrity": "ok",
+    "foreignKeyErrors": 0,
+    "serviceMainPid": 345253,
+    "port3000PidMatches": true,
+    "deploymentLeftovers": [],
+    "deployedCommit": "31eaf10ae80ddc197adece81d4b1880c53248d86"
+  },
+  "browserVerificationInitial": {
+    "status": "passed",
+    "checkedAt": "2026-09-30T02:50:14.189841+00:00",
+    "pageErrors": [],
+    "results": [
+      {
+        "width": 1440,
+        "page": "/products/category/aluminum-foil-packaging",
+        "cards": 121,
+        "navigationVisible": true,
+        "horizontalOverflow": false
+      },
+      {
+        "width": 1440,
+        "page": "/products/aluminum-foil-gold-0909-180",
+        "http": 200,
+        "galleryImages": 2,
+        "gallerySwitch": true,
+        "specificationImageLoaded": true,
+        "correctCatalogue": true,
+        "horizontalOverflow": false
+      },
+      {
+        "width": 1440,
+        "page": "/products/aluminum-foil-silver-350-deep",
+        "http": 200,
+        "galleryImages": 2,
+        "gallerySwitch": true,
+        "specificationImageLoaded": true,
+        "correctCatalogue": true,
+        "horizontalOverflow": false
+      },
+      {
+        "width": 1440,
+        "page": "/products/aluminum-foil-hookah-sheets",
+        "http": 200,
+        "galleryImages": 2,
+        "gallerySwitch": true,
+        "specificationImageLoaded": true,
+        "correctCatalogue": true,
+        "horizontalOverflow": false
+      },
+      {
+        "width": 390,
+        "page": "/products/category/aluminum-foil-packaging",
+        "cards": 121,
+        "navigationVisible": true,
+        "horizontalOverflow": false
+      },
+      {
+        "width": 390,
+        "page": "/products/aluminum-foil-gold-0909-180",
+        "http": 200,
+        "galleryImages": 2,
+        "gallerySwitch": true,
+        "specificationImageLoaded": true,
+        "correctCatalogue": true,
+        "horizontalOverflow": false
+      },
+      {
+        "width": 390,
+        "page": "/products/aluminum-foil-silver-350-deep",
+        "http": 200,
+        "galleryImages": 2,
+        "gallerySwitch": true,
+        "specificationImageLoaded": true,
+        "correctCatalogue": true,
+        "horizontalOverflow": false
+      },
+      {
+        "width": 390,
+        "page": "/products/aluminum-foil-hookah-sheets",
+        "http": 200,
+        "galleryImages": 2,
+        "gallerySwitch": true,
+        "specificationImageLoaded": true,
+        "correctCatalogue": true,
+        "horizontalOverflow": false
+      }
+    ],
+    "screenshots": "images/verification/"
+  },
+  "browserCorrectionVerification": {
+    "status": "passed",
+    "checkedAt": "2026-09-30T02:58:27.186511+00:00",
+    "pageErrors": [],
+    "results": [
+      {
+        "width": 1440,
+        "page": "/products/category/aluminum-foil-packaging",
+        "cards": 121,
+        "navigationVisible": true,
+        "horizontalOverflow": false
+      },
+      {
+        "width": 1440,
+        "page": "/products/aluminum-foil-gold-0909-180",
+        "http": 200,
+        "galleryImages": 2,
+        "gallerySwitch": true,
+        "specificationImageLoaded": true,
+        "correctCatalogue": true,
+        "horizontalOverflow": false
+      },
+      {
+        "width": 390,
+        "page": "/products/category/aluminum-foil-packaging",
+        "cards": 121,
+        "navigationVisible": true,
+        "horizontalOverflow": false
+      },
+      {
+        "width": 390,
+        "page": "/products/aluminum-foil-gold-0909-180",
+        "http": 200,
+        "galleryImages": 2,
+        "gallerySwitch": true,
+        "specificationImageLoaded": true,
+        "correctCatalogue": true,
+        "horizontalOverflow": false
+      }
+    ],
+    "screenshots": "images/verification/"
+  }
+}

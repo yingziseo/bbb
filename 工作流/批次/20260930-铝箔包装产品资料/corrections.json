@@ -1,16 +1,16 @@
 {
   "authorization": "2026-09-30 user approved corrections and publication",
   "sourcePdfSha256": "ad75596421985dd553441276994c59aaa679d25360e6c41d698b524d1c3e0da5",
-  "revisedPdfSha256": "b5a4e0afb6135126f41d6509da590009fc93988373592b5b6a331189eb6de7ba",
+  "revisedPdfSha256": "2f2f0b8db67bf933286a50975c1514aa08a533aa8c5ab7f890301bb28d5cd380",
   "corrections": [
     {
       "sourceId": "p07-06",
       "model": "0909-180",
-      "field": "heightMm",
-      "before": 36.0,
-      "after": 38,
-      "reason": "以产品图片高度标尺38 mm统一修正规格文字36 mm。",
-      "basis": "dimension-drawing"
+      "field": "dimensionDrawingHeightMm",
+      "before": 38,
+      "after": 36,
+      "reason": "放大原图核对，标尺与文字均为36 mm；修正首次提取的38 mm误读。",
+      "basis": "magnified-drawing-review"
     },
     {
       "sourceId": "p18-08",

@@ -39,11 +39,10 @@ def patch(page, rect, text, fontsize, fill, origin=None):
                                     color=(0, 0, 0), align=fitz.TEXT_ALIGN_CENTER)
         assert result >= 0, (text, rect)
 
-# Preserve the ruler's 38 mm and make the inconsistent printed specification agree.
+# Magnified review confirms both the original drawing and printed height are 36 mm.
 r = next(r for r in products if r['model'] == '0909-180')
-change(r, 'heightMm', 38, '以产品图片高度标尺38 mm统一修正规格文字36 mm。', 'dimension-drawing')
-patch(pdf[6], (429.0, 492.8, 470.0, 501.4), '90\u00d790\u00d738', 7.3,
-      (251/255, 248/255, 241/255), (429.3, 499.3))
+change(r, 'dimensionDrawingHeightMm', 36, '放大原图核对，标尺与文字均为36 mm；修正首次提取的38 mm误读。', 'magnified-drawing-review')
+r['heightMm'] = 36
 
 # Restore the missing decimal; this is an authorized reference estimate, not a factory measurement.
 r = next(r for r in products if r['model'] == '350深')
