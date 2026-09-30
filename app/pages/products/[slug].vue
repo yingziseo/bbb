@@ -75,9 +75,11 @@ const related = computed(() =>
     .filter((p) => p.categorySlug === product.value?.categorySlug && p.slug !== product.value?.slug)
     .slice(0, 3),
 )
-const productDocuments = computed(() => product.value?.categorySlug === 'pvc-cling-film'
-  ? [buyerDocuments.productCatalog]
-  : buyerDocumentList)
+const productDocuments = computed(() => {
+  if (product.value?.categorySlug === 'aluminum-foil-packaging') return [buyerDocuments.aluminumCatalog]
+  if (product.value?.categorySlug === 'pvc-cling-film') return [buyerDocuments.productCatalog]
+  return buyerDocumentList
+})
 </script>
 
 <template>

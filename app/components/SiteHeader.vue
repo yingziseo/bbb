@@ -48,7 +48,7 @@ const stickyAnchorRef = ref<HTMLElement | null>(null)
 const stickyMainRef = ref<HTMLElement | null>(null)
 const route = useRoute()
 
-const productCategories = computed(() => (headerCatalog.value?.categories || []).slice(0, 4))
+const productCategories = computed(() => headerCatalog.value?.categories || [])
 const normalizeRoutePath = (value: string) => {
   const path = value.split('?')[0]?.split('#')[0] || '/'
   return path === '/' ? path : path.replace(/\/+$/, '')

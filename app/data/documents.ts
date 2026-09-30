@@ -76,6 +76,32 @@ export const buyerDocuments = {
       downloadLabel: '下载 PDF',
     },
   },
+  aluminumCatalog: {
+    title: 'Aluminum Foil Packaging Catalog',
+    document: 'Aluminum Foil Product Specification PDF',
+    description: 'Foil rolls, containers, trays, pots, plates and lids with dimension drawings and packing specifications',
+    href: '/downloads/ihwan-aluminum-foil-packaging-catalog.pdf',
+    filename: 'ihwan-aluminum-foil-packaging-catalog.pdf',
+    meta: '21 pages',
+    appliesTo: 'Aluminum Foil Packaging',
+    standard: 'Product specifications and packing',
+    issuedBy: 'Henan Ihwan Aluminum Industry Technology Co., Ltd.',
+    date: 'Specifications revised 2026-09-30',
+    viewLabel: 'View PDF',
+    downloadLabel: 'Download PDF',
+    cn: {
+      title: '铝箔包装产品目录',
+      document: '铝箔产品规格 PDF',
+      description: '铝箔卷、容器、托盘、锅、圆盘和配盖，包含尺寸标注与包装规格',
+      meta: '21 页',
+      appliesTo: '铝箔包装',
+      standard: '产品规格与装箱资料',
+      issuedBy: '河南伊赫万铝业科技有限公司',
+      date: '规格修订：2026-09-30',
+      viewLabel: '查看目录',
+      downloadLabel: '下载目录',
+    },
+  },
 } satisfies Record<string, BuyerDocument>
 
 export const requestDocumentRows: BuyerDocument[] = [

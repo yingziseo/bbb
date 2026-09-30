@@ -58,7 +58,7 @@ type ProductCategory = {
 const { data: catalogData } = await useFetch<{ categories: ProductCategory[]; items: Product[] }>('/api/public/products')
 const categories = computed(() => catalogData.value?.categories || [])
 const products = computed(() => catalogData.value?.items || [])
-const productDocuments = [buyerDocuments.productCatalog]
+const productDocuments = [buyerDocuments.productCatalog, buyerDocuments.aluminumCatalog]
 </script>
 
 <template>

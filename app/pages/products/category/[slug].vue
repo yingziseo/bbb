@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Promotion } from '@element-plus/icons-vue'
+import { buyerDocuments } from '~/data/documents'
 import type { Product } from '~/data/site'
 
 const company = await useSiteSettings()
@@ -114,6 +115,14 @@ await useManagedSeo(`category:${slug}`, computed(() => ({
           >
             {{ item.name }}
           </NuxtLink>
+        </div>
+
+        <div v-if="category.slug === 'aluminum-foil-packaging'" class="mt-8">
+          <DocumentDownloads
+            :title="isCn ? '铝箔产品资料' : 'Aluminum Foil Product Catalog'"
+            :documents="[buyerDocuments.aluminumCatalog]"
+            compact
+          />
         </div>
 
         <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

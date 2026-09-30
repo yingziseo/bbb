@@ -1,0 +1,197 @@
+{
+  "authorization": "2026-09-30 user approved corrections and publication",
+  "sourcePdfSha256": "ad75596421985dd553441276994c59aaa679d25360e6c41d698b524d1c3e0da5",
+  "revisedPdfSha256": "b5a4e0afb6135126f41d6509da590009fc93988373592b5b6a331189eb6de7ba",
+  "corrections": [
+    {
+      "sourceId": "p07-06",
+      "model": "0909-180",
+      "field": "heightMm",
+      "before": 36.0,
+      "after": 38,
+      "reason": "以产品图片高度标尺38 mm统一修正规格文字36 mm。",
+      "basis": "dimension-drawing"
+    },
+    {
+      "sourceId": "p18-08",
+      "model": "350深",
+      "field": "bottomDimensionsMm",
+      "before": null,
+      "after": [
+        306,
+        80.5
+      ],
+      "reason": "底宽805 mm超过上口135 mm，按漏小数点修订为80.5 mm。",
+      "basis": "inferred-decimal-restoration"
+    },
+    {
+      "sourceId": "p06-hookah-roll",
+      "variant": 1,
+      "field": "cartonDimensions",
+      "before": "310×300×190 cm",
+      "after": "310 × 300 × 190 mm",
+      "basis": "carton-volume-cross-check",
+      "computedCubeM3": 0.01767,
+      "catalogueCubeM3": 0.0177
+    },
+    {
+      "sourceId": "p06-hookah-roll",
+      "variant": 2,
+      "field": "cartonDimensions",
+      "before": "310×300×190 cm",
+      "after": "310 × 300 × 190 mm",
+      "basis": "carton-volume-cross-check",
+      "computedCubeM3": 0.01767,
+      "catalogueCubeM3": 0.0177
+    },
+    {
+      "sourceId": "p06-hookah-roll",
+      "variant": 3,
+      "field": "cartonDimensions",
+      "before": "320×300×190 cm",
+      "after": "320 × 300 × 190 mm",
+      "basis": "carton-volume-cross-check",
+      "computedCubeM3": 0.01824,
+      "catalogueCubeM3": 0.0183
+    },
+    {
+      "sourceId": "p06-hookah-roll",
+      "variant": 4,
+      "field": "cartonDimensions",
+      "before": "320×300×190 cm",
+      "after": "320 × 300 × 190 mm",
+      "basis": "carton-volume-cross-check",
+      "computedCubeM3": 0.01824,
+      "catalogueCubeM3": 0.0183
+    },
+    {
+      "sourceId": "p06-hookah-roll",
+      "variant": 5,
+      "field": "cartonDimensions",
+      "before": "330×300×190 cm",
+      "after": "330 × 300 × 190 mm",
+      "basis": "carton-volume-cross-check",
+      "computedCubeM3": 0.01881,
+      "catalogueCubeM3": 0.0188
+    },
+    {
+      "sourceId": "p06-hookah-roll",
+      "variant": 6,
+      "field": "cartonDimensions",
+      "before": "330×300×190 cm",
+      "after": "330 × 300 × 190 mm",
+      "basis": "carton-volume-cross-check",
+      "computedCubeM3": 0.01881,
+      "catalogueCubeM3": 0.0188
+    },
+    {
+      "sourceId": "p06-hookah-roll",
+      "variant": 7,
+      "field": "cartonDimensions",
+      "before": "340×300×190 cm",
+      "after": "340 × 300 × 190 mm",
+      "basis": "carton-volume-cross-check",
+      "computedCubeM3": 0.01938,
+      "catalogueCubeM3": 0.0194
+    },
+    {
+      "sourceId": "p06-hookah-roll",
+      "variant": 8,
+      "field": "cartonDimensions",
+      "before": "340×300×190 cm",
+      "after": "340 × 300 × 190 mm",
+      "basis": "carton-volume-cross-check",
+      "computedCubeM3": 0.01938,
+      "catalogueCubeM3": 0.0194
+    },
+    {
+      "sourceId": "p06-hookah-sheets",
+      "variant": 1,
+      "field": "cartonDimensions",
+      "before": "440×270×320 cm",
+      "after": "440 × 270 × 320 mm",
+      "basis": "carton-volume-cross-check",
+      "computedCubeM3": 0.038016,
+      "catalogueCubeM3": 0.038
+    },
+    {
+      "sourceId": "p06-hookah-sheets",
+      "variant": 2,
+      "field": "cartonDimensions",
+      "before": "440×270×320 cm",
+      "after": "440 × 270 × 320 mm",
+      "basis": "carton-volume-cross-check",
+      "computedCubeM3": 0.038016,
+      "catalogueCubeM3": 0.038
+    },
+    {
+      "sourceId": "p06-hookah-sheets",
+      "variant": 3,
+      "field": "cartonDimensions",
+      "before": "450×280×330 cm",
+      "after": "450 × 280 × 330 mm",
+      "basis": "carton-volume-cross-check",
+      "computedCubeM3": 0.04158,
+      "catalogueCubeM3": 0.0416
+    },
+    {
+      "sourceId": "p06-hookah-sheets",
+      "variant": 4,
+      "field": "cartonDimensions",
+      "before": "450×280×330 cm",
+      "after": "450 × 280 × 330 mm",
+      "basis": "carton-volume-cross-check",
+      "computedCubeM3": 0.04158,
+      "catalogueCubeM3": 0.0416
+    },
+    {
+      "sourceId": "p06-hookah-sheets",
+      "variant": 5,
+      "field": "cartonDimensions",
+      "before": "460×290×340 cm",
+      "after": "460 × 290 × 340 mm",
+      "basis": "carton-volume-cross-check",
+      "computedCubeM3": 0.045356,
+      "catalogueCubeM3": 0.0453
+    },
+    {
+      "sourceId": "p06-hookah-sheets",
+      "variant": 6,
+      "field": "cartonDimensions",
+      "before": "460×290×340 cm",
+      "after": "460 × 290 × 340 mm",
+      "basis": "carton-volume-cross-check",
+      "computedCubeM3": 0.045356,
+      "catalogueCubeM3": 0.0453
+    },
+    {
+      "sourceId": "p06-hookah-sheets",
+      "variant": 7,
+      "field": "cartonDimensions",
+      "before": "470×300×350 cm",
+      "after": "470 × 300 × 350 mm",
+      "basis": "carton-volume-cross-check",
+      "computedCubeM3": 0.04935,
+      "catalogueCubeM3": 0.0494
+    },
+    {
+      "sourceId": "p06-hookah-sheets",
+      "variant": 8,
+      "field": "cartonDimensions",
+      "before": "470×300×350 cm",
+      "after": "470 × 300 × 350 mm",
+      "basis": "carton-volume-cross-check",
+      "computedCubeM3": 0.04935,
+      "catalogueCubeM3": 0.0494
+    }
+  ],
+  "similarModels": "Both source series retained; different capacities and dimensions are separate products.",
+  "packingInterpretation": "Hookah sheets: 50 sheets/pack, 200 packs/carton; round-sheet dimensions treated as envelope diameter.",
+  "unchangedUnknowns": [
+    "MOQ",
+    "Container foil thickness/alloy",
+    "Missing carton dimensions",
+    "Unspecified lid heights"
+  ],
+  "photographs": "Original product photographs and all dimension arrows retained; numeric annotations corrected through PDF overlays."
+}

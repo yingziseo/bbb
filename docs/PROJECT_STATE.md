@@ -1,6 +1,6 @@
 # 当前项目状态
 
-快照日期：2026-07-02
+快照日期：2026-09-30（本次补充铝箔包装，历史功能摘要保留）
 
 ## 快照摘要
 
@@ -18,6 +18,7 @@
 - 产品分类和产品管理：SQLite 存储，后台支持分类和产品 CRUD，前台列表、分类页、详情页读取公开接口。
 - 产品列表页：展示数据库产品。
 - 产品分类页：正式路径 `/products/category/[slug]`。
+- 铝箔包装资料已按用户同意完成修订，121 款产品草稿和 243 张素材已入库校验；待云端部署后启用分类 `aluminum-foil-packaging`。全站导航支持第五个及后续分类。
 - 产品详情页：展示图片、材质、MOQ、定制能力、规格表、尺寸选项、应用场景、相关产品和询盘入口。
 - 公司页：展示注册信息、工厂图片、联系方式和询盘 CTA。
 - 博客列表、分页和博客详情：读取 SQLite 已发布文章。
@@ -40,7 +41,7 @@
 - 产品图：`product-meal-box.webp`、`product-bento.webp`、`product-cling-film.webp`、`product-fresh-wrap.webp`、`product-deli.webp`、`product-clamshell.webp`、`product-custom-box.webp`、`product-cup.webp`。
 - 分类图：`cat-containers.webp`、`cat-film.webp`、`cat-food.webp`、`cat-custom.webp`。
 - 博客图：早期 `blog-*.webp` 和 `public/images/blog/*.webp` 下 6 篇保鲜膜 TOB 文章图片。
-- 公开下载资料：`public/downloads/yiyuan-food-container-cling-film-product-catalog.pdf`、`public/downloads/yiyuan-cling-film-test-report-ccf-000071.pdf`。
+- 公开下载资料：`public/downloads/yiyuan-food-container-cling-film-product-catalog.pdf`、`public/downloads/yiyuan-cling-film-test-report-ccf-000071.pdf`、`public/downloads/ihwan-aluminum-foil-packaging-catalog.pdf`。
 
 根目录还有 `hero.png`、`home.png`、`home2.png`、`product.png`、`to-b.zip` 等文件，当前 `.gitignore` 已忽略这些大文件或临时文件。
 

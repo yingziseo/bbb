@@ -22,7 +22,7 @@ const page = computed(() => isCn.value ? {
   center: '资料中心',
   centerNote: '完整资料包会在确认产品和市场后通过邮件发送。',
   stats: [
-    { value: '2', label: '公开 PDF' },
+    { value: '3', label: '公开 PDF' },
     { value: '4', label: '文件类型' },
     { value: '24h', label: '邮件跟进' },
   ],
@@ -64,7 +64,7 @@ const page = computed(() => isCn.value ? {
   center: 'Document Center',
   centerNote: 'Full certificate packages are handled by email after product and market confirmation.',
   stats: [
-    { value: '2', label: 'Public PDFs' },
+    { value: '3', label: 'Public PDFs' },
     { value: '4', label: 'Document Types' },
     { value: '24h', label: 'Email Follow-up' },
   ],
@@ -111,6 +111,7 @@ const complianceDocuments = [
 
 const productDocuments = [
   buyerDocuments.productCatalog,
+  buyerDocuments.aluminumCatalog,
   requestDocumentRows[1],
 ]
 

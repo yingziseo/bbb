@@ -1,0 +1,65 @@
+{
+  "status": "staged-and-verified",
+  "date": "2026-09-30",
+  "sourceSha256": "ad75596421985dd553441276994c59aaa679d25360e6c41d698b524d1c3e0da5",
+  "checks": {
+    "pageCounts": {
+      "4": 1,
+      "5": 1,
+      "6": 2,
+      "7": 9,
+      "8": 7,
+      "9": 11,
+      "10": 9,
+      "11": 9,
+      "12": 8,
+      "13": 8,
+      "14": 8,
+      "15": 8,
+      "16": 8,
+      "17": 8,
+      "18": 8,
+      "19": 8,
+      "20": 8
+    },
+    "productCount": 121,
+    "uniqueSlugs": 121,
+    "rollSheetSpecificationRows": 38,
+    "mainImages": 121,
+    "specificationImages": 121,
+    "categoryImages": 1,
+    "verifiedImageHashes": 243,
+    "existingProductSlugCollisions": 0,
+    "categorySlugCollision": false,
+    "sourceEmbeddedImagesPreserved": 220,
+    "aiImages": 0,
+    "databaseDrafts": 121,
+    "categoryId": 234,
+    "categoryDisabledUntilDeployment": true,
+    "sqliteIntegrity": "ok",
+    "foreignKeyErrors": 0,
+    "revisedPdfPages": 21,
+    "copiedPublicAssetHashes": 243,
+    "correctionEntries": 18,
+    "correctedPdfChangedPages": [
+      6,
+      7,
+      18
+    ],
+    "unmodifiedPdfPages": 18
+  },
+  "visualReview": "All 21 PDF pages inspected, all 121 proposed main images inspected in 8 contact sheets; selected suspect fields compared to 3x PDF crops.",
+  "notExecuted": [
+    "Cloud build",
+    "Artifact deployment",
+    "Public product publication",
+    "Post-publication browser checks",
+    "Git push"
+  ],
+  "limitations": [
+    "Image hash/readability checks do not validate manufacturer specifications.",
+    "Source photo resolution is limited (roughly 180–590 px for individual product images); display sizing does not recover new detail.",
+    "The decimal and packing interpretations are user-authorized reference corrections, not factory measurements; original values remain in catalog-original.json and corrections.json."
+  ],
+  "authorization": "User approved corrections and publication on 2026-09-30"
+}

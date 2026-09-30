@@ -1,0 +1,615 @@
+{
+  "products": [
+    {
+      "id": 19,
+      "slug": "aluminum-foil-household",
+      "status": "draft"
+    },
+    {
+      "id": 20,
+      "slug": "aluminum-foil-foodservice",
+      "status": "draft"
+    },
+    {
+      "id": 21,
+      "slug": "aluminum-foil-hookah-roll",
+      "status": "draft"
+    },
+    {
+      "id": 22,
+      "slug": "aluminum-foil-hookah-sheets",
+      "status": "draft"
+    },
+    {
+      "id": 23,
+      "slug": "aluminum-foil-gold-0806-60",
+      "status": "draft"
+    },
+    {
+      "id": 24,
+      "slug": "aluminum-foil-gold-89-100-heart",
+      "status": "draft"
+    },
+    {
+      "id": 25,
+      "slug": "aluminum-foil-gold-0909-110",
+      "status": "draft"
+    },
+    {
+      "id": 26,
+      "slug": "aluminum-foil-gold-84-110",
+      "status": "draft"
+    },
+    {
+      "id": 27,
+      "slug": "aluminum-foil-gold-84-125",
+      "status": "draft"
+    },
+    {
+      "id": 28,
+      "slug": "aluminum-foil-gold-0909-180",
+      "status": "draft"
+    },
+    {
+      "id": 29,
+      "slug": "aluminum-foil-gold-166-200",
+      "status": "draft"
+    },
+    {
+      "id": 30,
+      "slug": "aluminum-foil-gold-112-230",
+      "status": "draft"
+    },
+    {
+      "id": 31,
+      "slug": "aluminum-foil-gold-112-300",
+      "status": "draft"
+    },
+    {
+      "id": 32,
+      "slug": "aluminum-foil-gold-120-300",
+      "status": "draft"
+    },
+    {
+      "id": 33,
+      "slug": "aluminum-foil-gold-128-450",
+      "status": "draft"
+    },
+    {
+      "id": 34,
+      "slug": "aluminum-foil-gold-138-680",
+      "status": "draft"
+    },
+    {
+      "id": 35,
+      "slug": "aluminum-foil-gold-140-520",
+      "status": "draft"
+    },
+    {
+      "id": 36,
+      "slug": "aluminum-foil-gold-140-620",
+      "status": "draft"
+    },
+    {
+      "id": 37,
+      "slug": "aluminum-foil-gold-195-1200",
+      "status": "draft"
+    },
+    {
+      "id": 38,
+      "slug": "aluminum-foil-gold-230-1050",
+      "status": "draft"
+    },
+    {
+      "id": 39,
+      "slug": "aluminum-foil-gold-160-600",
+      "status": "draft"
+    },
+    {
+      "id": 40,
+      "slug": "aluminum-foil-gold-160-825",
+      "status": "draft"
+    },
+    {
+      "id": 41,
+      "slug": "aluminum-foil-gold-160-960",
+      "status": "draft"
+    },
+    {
+      "id": 42,
+      "slug": "aluminum-foil-gold-180-920",
+      "status": "draft"
+    },
+    {
+      "id": 43,
+      "slug": "aluminum-foil-gold-180-1130",
+      "status": "draft"
+    },
+    {
+      "id": 44,
+      "slug": "aluminum-foil-gold-180-1370",
+      "status": "draft"
+    },
+    {
+      "id": 45,
+      "slug": "aluminum-foil-gold-180-1700",
+      "status": "draft"
+    },
+    {
+      "id": 46,
+      "slug": "aluminum-foil-gold-250-2000",
+      "status": "draft"
+    },
+    {
+      "id": 47,
+      "slug": "aluminum-foil-gold-250-2500",
+      "status": "draft"
+    },
+    {
+      "id": 48,
+      "slug": "aluminum-foil-gold-250-3000",
+      "status": "draft"
+    },
+    {
+      "id": 49,
+      "slug": "aluminum-foil-gold-250-3500",
+      "status": "draft"
+    },
+    {
+      "id": 50,
+      "slug": "aluminum-foil-gold-197-1430",
+      "status": "draft"
+    },
+    {
+      "id": 51,
+      "slug": "aluminum-foil-gold-270-2200",
+      "status": "draft"
+    },
+    {
+      "id": 52,
+      "slug": "aluminum-foil-gold-270-3100",
+      "status": "draft"
+    },
+    {
+      "id": 53,
+      "slug": "aluminum-foil-gold-270-3500",
+      "status": "draft"
+    },
+    {
+      "id": 54,
+      "slug": "aluminum-foil-gold-270-4000",
+      "status": "draft"
+    },
+    {
+      "id": 55,
+      "slug": "aluminum-foil-gold-280-4000",
+      "status": "draft"
+    },
+    {
+      "id": 56,
+      "slug": "aluminum-foil-gold-280-5000",
+      "status": "draft"
+    },
+    {
+      "id": 57,
+      "slug": "aluminum-foil-gold-280-6000",
+      "status": "draft"
+    },
+    {
+      "id": 58,
+      "slug": "aluminum-foil-gold-320-8600",
+      "status": "draft"
+    },
+    {
+      "id": 59,
+      "slug": "aluminum-foil-gold-161-320",
+      "status": "draft"
+    },
+    {
+      "id": 60,
+      "slug": "aluminum-foil-gold-161-510",
+      "status": "draft"
+    },
+    {
+      "id": 61,
+      "slug": "aluminum-foil-gold-161-680",
+      "status": "draft"
+    },
+    {
+      "id": 62,
+      "slug": "aluminum-foil-gold-184-580",
+      "status": "draft"
+    },
+    {
+      "id": 63,
+      "slug": "aluminum-foil-gold-184-665",
+      "status": "draft"
+    },
+    {
+      "id": 64,
+      "slug": "aluminum-foil-gold-184-750",
+      "status": "draft"
+    },
+    {
+      "id": 65,
+      "slug": "aluminum-foil-gold-184-930",
+      "status": "draft"
+    },
+    {
+      "id": 66,
+      "slug": "aluminum-foil-gold-220-1050",
+      "status": "draft"
+    },
+    {
+      "id": 67,
+      "slug": "aluminum-foil-gold-221-1025",
+      "status": "draft"
+    },
+    {
+      "id": 68,
+      "slug": "aluminum-foil-gold-221-1400",
+      "status": "draft"
+    },
+    {
+      "id": 69,
+      "slug": "aluminum-foil-gold-221-1800",
+      "status": "draft"
+    },
+    {
+      "id": 70,
+      "slug": "aluminum-foil-gold-278-2200",
+      "status": "draft"
+    },
+    {
+      "id": 71,
+      "slug": "aluminum-foil-gold-278-3300",
+      "status": "draft"
+    },
+    {
+      "id": 72,
+      "slug": "aluminum-foil-gold-330-2500",
+      "status": "draft"
+    },
+    {
+      "id": 73,
+      "slug": "aluminum-foil-gold-330-3500",
+      "status": "draft"
+    },
+    {
+      "id": 74,
+      "slug": "aluminum-foil-gold-370-3800",
+      "status": "draft"
+    },
+    {
+      "id": 75,
+      "slug": "aluminum-foil-gold-370-4670",
+      "status": "draft"
+    },
+    {
+      "id": 76,
+      "slug": "aluminum-foil-silver-l-l-130",
+      "status": "draft"
+    },
+    {
+      "id": 77,
+      "slug": "aluminum-foil-silver-l-l-150",
+      "status": "draft"
+    },
+    {
+      "id": 78,
+      "slug": "aluminum-foil-silver-l-l-165",
+      "status": "draft"
+    },
+    {
+      "id": 79,
+      "slug": "aluminum-foil-silver-l-l-175",
+      "status": "draft"
+    },
+    {
+      "id": 80,
+      "slug": "aluminum-foil-silver-l-l-185",
+      "status": "draft"
+    },
+    {
+      "id": 81,
+      "slug": "aluminum-foil-silver-l-l-195-deep",
+      "status": "draft"
+    },
+    {
+      "id": 82,
+      "slug": "aluminum-foil-silver-l-l-2011",
+      "status": "draft"
+    },
+    {
+      "id": 83,
+      "slug": "aluminum-foil-silver-l-l-205-square",
+      "status": "draft"
+    },
+    {
+      "id": 84,
+      "slug": "aluminum-foil-silver-l-l-211",
+      "status": "draft"
+    },
+    {
+      "id": 85,
+      "slug": "aluminum-foil-silver-l-l-220",
+      "status": "draft"
+    },
+    {
+      "id": 86,
+      "slug": "aluminum-foil-silver-l-l-2514",
+      "status": "draft"
+    },
+    {
+      "id": 87,
+      "slug": "aluminum-foil-silver-l-l-2619",
+      "status": "draft"
+    },
+    {
+      "id": 88,
+      "slug": "aluminum-foil-silver-l-l-315",
+      "status": "draft"
+    },
+    {
+      "id": 89,
+      "slug": "aluminum-foil-silver-l-l-320",
+      "status": "draft"
+    },
+    {
+      "id": 90,
+      "slug": "aluminum-foil-silver-l-l-350",
+      "status": "draft"
+    },
+    {
+      "id": 91,
+      "slug": "aluminum-foil-silver-l-l-370",
+      "status": "draft"
+    },
+    {
+      "id": 92,
+      "slug": "aluminum-foil-silver-l-l-430",
+      "status": "draft"
+    },
+    {
+      "id": 93,
+      "slug": "aluminum-foil-silver-l-l-470",
+      "status": "draft"
+    },
+    {
+      "id": 94,
+      "slug": "aluminum-foil-silver-l-l-525",
+      "status": "draft"
+    },
+    {
+      "id": 95,
+      "slug": "aluminum-foil-silver-l-l-212-pot",
+      "status": "draft"
+    },
+    {
+      "id": 96,
+      "slug": "aluminum-foil-silver-l-l-252-pot",
+      "status": "draft"
+    },
+    {
+      "id": 97,
+      "slug": "aluminum-foil-silver-l-l-292-pot",
+      "status": "draft"
+    },
+    {
+      "id": 98,
+      "slug": "aluminum-foil-silver-l-l-338-pot",
+      "status": "draft"
+    },
+    {
+      "id": 99,
+      "slug": "aluminum-foil-silver-l-l-390-pot",
+      "status": "draft"
+    },
+    {
+      "id": 100,
+      "slug": "aluminum-foil-silver-l-l-345",
+      "status": "draft"
+    },
+    {
+      "id": 101,
+      "slug": "aluminum-foil-silver-l-l-428",
+      "status": "draft"
+    },
+    {
+      "id": 102,
+      "slug": "aluminum-foil-silver-l-l-549",
+      "status": "draft"
+    },
+    {
+      "id": 103,
+      "slug": "aluminum-foil-silver-l-l-7-inch-plate",
+      "status": "draft"
+    },
+    {
+      "id": 104,
+      "slug": "aluminum-foil-silver-l-l-8-inch-plate",
+      "status": "draft"
+    },
+    {
+      "id": 105,
+      "slug": "aluminum-foil-silver-l-l-9-inch-plate",
+      "status": "draft"
+    },
+    {
+      "id": 106,
+      "slug": "aluminum-foil-silver-l-two-compartment",
+      "status": "draft"
+    },
+    {
+      "id": 107,
+      "slug": "aluminum-foil-silver-l-y-three-compartment",
+      "status": "draft"
+    },
+    {
+      "id": 108,
+      "slug": "aluminum-foil-silver-130-1310",
+      "status": "draft"
+    },
+    {
+      "id": 109,
+      "slug": "aluminum-foil-silver-150-1512",
+      "status": "draft"
+    },
+    {
+      "id": 110,
+      "slug": "aluminum-foil-silver-165-1613",
+      "status": "draft"
+    },
+    {
+      "id": 111,
+      "slug": "aluminum-foil-silver-175-1711",
+      "status": "draft"
+    },
+    {
+      "id": 112,
+      "slug": "aluminum-foil-silver-185-1813",
+      "status": "draft"
+    },
+    {
+      "id": 113,
+      "slug": "aluminum-foil-silver-195-shallow-1914",
+      "status": "draft"
+    },
+    {
+      "id": 114,
+      "slug": "aluminum-foil-silver-195-deep",
+      "status": "draft"
+    },
+    {
+      "id": 115,
+      "slug": "aluminum-foil-silver-205-2011",
+      "status": "draft"
+    },
+    {
+      "id": 116,
+      "slug": "aluminum-foil-silver-2114",
+      "status": "draft"
+    },
+    {
+      "id": 117,
+      "slug": "aluminum-foil-silver-220",
+      "status": "draft"
+    },
+    {
+      "id": 118,
+      "slug": "aluminum-foil-silver-2317",
+      "status": "draft"
+    },
+    {
+      "id": 119,
+      "slug": "aluminum-foil-silver-2619",
+      "status": "draft"
+    },
+    {
+      "id": 120,
+      "slug": "aluminum-foil-silver-315",
+      "status": "draft"
+    },
+    {
+      "id": 121,
+      "slug": "aluminum-foil-silver-320",
+      "status": "draft"
+    },
+    {
+      "id": 122,
+      "slug": "aluminum-foil-silver-350",
+      "status": "draft"
+    },
+    {
+      "id": 123,
+      "slug": "aluminum-foil-silver-350-deep",
+      "status": "draft"
+    },
+    {
+      "id": 124,
+      "slug": "aluminum-foil-silver-370",
+      "status": "draft"
+    },
+    {
+      "id": 125,
+      "slug": "aluminum-foil-silver-525",
+      "status": "draft"
+    },
+    {
+      "id": 126,
+      "slug": "aluminum-foil-silver-y74",
+      "status": "draft"
+    },
+    {
+      "id": 127,
+      "slug": "aluminum-foil-silver-y82",
+      "status": "draft"
+    },
+    {
+      "id": 128,
+      "slug": "aluminum-foil-silver-98-heart",
+      "status": "draft"
+    },
+    {
+      "id": 129,
+      "slug": "aluminum-foil-silver-y110",
+      "status": "draft"
+    },
+    {
+      "id": 130,
+      "slug": "aluminum-foil-silver-y120",
+      "status": "draft"
+    },
+    {
+      "id": 131,
+      "slug": "aluminum-foil-silver-y140",
+      "status": "draft"
+    },
+    {
+      "id": 132,
+      "slug": "aluminum-foil-silver-clam-bowl",
+      "status": "draft"
+    },
+    {
+      "id": 133,
+      "slug": "aluminum-foil-silver-claypot-bowl",
+      "status": "draft"
+    },
+    {
+      "id": 134,
+      "slug": "aluminum-foil-silver-round-bowl-lid",
+      "status": "draft"
+    },
+    {
+      "id": 135,
+      "slug": "aluminum-foil-silver-7-inch-plate",
+      "status": "draft"
+    },
+    {
+      "id": 136,
+      "slug": "aluminum-foil-silver-8-inch-plate",
+      "status": "draft"
+    },
+    {
+      "id": 137,
+      "slug": "aluminum-foil-silver-9-inch-plate",
+      "status": "draft"
+    },
+    {
+      "id": 138,
+      "slug": "aluminum-foil-silver-320-lid",
+      "status": "draft"
+    },
+    {
+      "id": 139,
+      "slug": "aluminum-foil-silver-370-lid",
+      "status": "draft"
+    }
+  ],
+  "backup": "/root/bbb/data/backups/before-aluminum-foil-products-20260930-023522.db",
+  "startedAt": "2026-09-30T02:35:22.269841+00:00",
+  "status": "staged",
+  "categoryId": 234,
+  "categorySlug": "aluminum-foil-packaging",
+  "assetsCopied": 243
+}
