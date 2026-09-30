@@ -1,0 +1,743 @@
+{
+  "products": [
+    {
+      "id": 19,
+      "slug": "aluminum-foil-household",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-bare-foil-rolls-a8b41baef0.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-household-spec-en-5dd8cc2b95.webp"
+    },
+    {
+      "id": 20,
+      "slug": "aluminum-foil-foodservice",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-bare-foil-rolls-a8b41baef0.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-foodservice-spec-en-c60382c0ce.webp"
+    },
+    {
+      "id": 21,
+      "slug": "aluminum-foil-hookah-roll",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-hookah-roll-e550be847a.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-hookah-roll-spec-en-8accfbb9b4.webp"
+    },
+    {
+      "id": 22,
+      "slug": "aluminum-foil-hookah-sheets",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-hookah-sheets-6d3f59a4b5.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-hookah-sheets-spec-en-b65052621f.webp"
+    },
+    {
+      "id": 23,
+      "slug": "aluminum-foil-gold-0806-60",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-oval-cup-001942460a.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-0806-60-spec-en-9f72968903.webp"
+    },
+    {
+      "id": 24,
+      "slug": "aluminum-foil-gold-89-100-heart",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-heart-9cd8fc6994.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-89-100-heart-spec-en-6870c57a21.webp"
+    },
+    {
+      "id": 25,
+      "slug": "aluminum-foil-gold-0909-110",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-square-shallow-0a7f78759b.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-0909-110-spec-en-6816d0630d.webp"
+    },
+    {
+      "id": 26,
+      "slug": "aluminum-foil-gold-84-110",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-round-cup-596b584483.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-84-110-spec-en-3f32d93478.webp"
+    },
+    {
+      "id": 27,
+      "slug": "aluminum-foil-gold-84-125",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-round-cup-596b584483.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-84-125-spec-en-e9570f50dd.webp"
+    },
+    {
+      "id": 28,
+      "slug": "aluminum-foil-gold-0909-180",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-square-deep-7ddf8006b7.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-0909-180-spec-en-45f6ec3936.webp"
+    },
+    {
+      "id": 29,
+      "slug": "aluminum-foil-gold-166-200",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-rectangular-narrow-4f22c3c96e.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-166-200-spec-en-e2d1f40192.webp"
+    },
+    {
+      "id": 30,
+      "slug": "aluminum-foil-gold-112-230",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-square-shallow-0a7f78759b.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-112-230-spec-en-8942f69684.webp"
+    },
+    {
+      "id": 31,
+      "slug": "aluminum-foil-gold-112-300",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-square-deep-7ddf8006b7.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-112-300-spec-en-57c734a57d.webp"
+    },
+    {
+      "id": 32,
+      "slug": "aluminum-foil-gold-120-300",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-round-hemispherical-b04143dd53.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-120-300-spec-en-f8d908d757.webp"
+    },
+    {
+      "id": 33,
+      "slug": "aluminum-foil-gold-128-450",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-round-smooth-9f6915fcb8.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-128-450-spec-en-22844bb44d.webp"
+    },
+    {
+      "id": 34,
+      "slug": "aluminum-foil-gold-138-680",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-round-fluted-deep-a34bf3581f.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-138-680-spec-en-f806df060a.webp"
+    },
+    {
+      "id": 35,
+      "slug": "aluminum-foil-gold-140-520",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-round-fluted-shallow-3092bec91d.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-140-520-spec-en-5a6d7ad717.webp"
+    },
+    {
+      "id": 36,
+      "slug": "aluminum-foil-gold-140-620",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-round-fluted-medium-fd04313f68.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-140-620-spec-en-276fa589cb.webp"
+    },
+    {
+      "id": 37,
+      "slug": "aluminum-foil-gold-195-1200",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-round-smooth-9f6915fcb8.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-195-1200-spec-en-b7612cc53b.webp"
+    },
+    {
+      "id": 38,
+      "slug": "aluminum-foil-gold-230-1050",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-round-fluted-shallow-3092bec91d.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-230-1050-spec-en-63929d57a1.webp"
+    },
+    {
+      "id": 39,
+      "slug": "aluminum-foil-gold-160-600",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-round-flared-6a880bed51.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-160-600-spec-en-bdbaf997ba.webp"
+    },
+    {
+      "id": 40,
+      "slug": "aluminum-foil-gold-160-825",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-round-fluted-shallow-3092bec91d.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-160-825-spec-en-3be6018432.webp"
+    },
+    {
+      "id": 41,
+      "slug": "aluminum-foil-gold-160-960",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-round-fluted-deep-a34bf3581f.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-160-960-spec-en-15e2497ef9.webp"
+    },
+    {
+      "id": 42,
+      "slug": "aluminum-foil-gold-180-920",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-round-fluted-shallow-3092bec91d.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-180-920-spec-en-b6da774347.webp"
+    },
+    {
+      "id": 43,
+      "slug": "aluminum-foil-gold-180-1130",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-round-fluted-shallow-3092bec91d.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-180-1130-spec-en-ea2e5aa789.webp"
+    },
+    {
+      "id": 44,
+      "slug": "aluminum-foil-gold-180-1370",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-round-fluted-deep-a34bf3581f.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-180-1370-spec-en-42f0281385.webp"
+    },
+    {
+      "id": 45,
+      "slug": "aluminum-foil-gold-180-1700",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-round-fluted-deep-a34bf3581f.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-180-1700-spec-en-83f68e9906.webp"
+    },
+    {
+      "id": 46,
+      "slug": "aluminum-foil-gold-250-2000",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-round-fluted-shallow-3092bec91d.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-250-2000-spec-en-10d8659f3c.webp"
+    },
+    {
+      "id": 47,
+      "slug": "aluminum-foil-gold-250-2500",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-round-fluted-shallow-3092bec91d.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-250-2500-spec-en-be66499850.webp"
+    },
+    {
+      "id": 48,
+      "slug": "aluminum-foil-gold-250-3000",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-round-fluted-shallow-3092bec91d.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-250-3000-spec-en-c50ab76ce9.webp"
+    },
+    {
+      "id": 49,
+      "slug": "aluminum-foil-gold-250-3500",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-round-fluted-medium-fd04313f68.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-250-3500-spec-en-bbce654ebe.webp"
+    },
+    {
+      "id": 50,
+      "slug": "aluminum-foil-gold-197-1430",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-ear-tab-6dd8cc2138.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-197-1430-spec-en-d8a84dcf2a.webp"
+    },
+    {
+      "id": 51,
+      "slug": "aluminum-foil-gold-270-2200",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-round-flared-6a880bed51.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-270-2200-spec-en-7ec5b0badf.webp"
+    },
+    {
+      "id": 52,
+      "slug": "aluminum-foil-gold-270-3100",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-round-flared-6a880bed51.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-270-3100-spec-en-ab99aa40d6.webp"
+    },
+    {
+      "id": 53,
+      "slug": "aluminum-foil-gold-270-3500",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-round-flared-6a880bed51.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-270-3500-spec-en-a909393b66.webp"
+    },
+    {
+      "id": 54,
+      "slug": "aluminum-foil-gold-270-4000",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-round-flared-6a880bed51.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-270-4000-spec-en-126d7c7f61.webp"
+    },
+    {
+      "id": 55,
+      "slug": "aluminum-foil-gold-280-4000",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-round-fluted-shallow-3092bec91d.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-280-4000-spec-en-6740641def.webp"
+    },
+    {
+      "id": 56,
+      "slug": "aluminum-foil-gold-280-5000",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-round-fluted-medium-fd04313f68.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-280-5000-spec-en-75f32e7c75.webp"
+    },
+    {
+      "id": 57,
+      "slug": "aluminum-foil-gold-280-6000",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-round-fluted-deep-a34bf3581f.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-280-6000-spec-en-adde9e18bf.webp"
+    },
+    {
+      "id": 58,
+      "slug": "aluminum-foil-gold-320-8600",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-round-fluted-deep-a34bf3581f.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-320-8600-spec-en-b841741b8c.webp"
+    },
+    {
+      "id": 59,
+      "slug": "aluminum-foil-gold-161-320",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-rectangular-shallow-3d4cfd47f5.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-161-320-spec-en-1374c23b7f.webp"
+    },
+    {
+      "id": 60,
+      "slug": "aluminum-foil-gold-161-510",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-rectangular-shallow-3d4cfd47f5.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-161-510-spec-en-846af661cb.webp"
+    },
+    {
+      "id": 61,
+      "slug": "aluminum-foil-gold-161-680",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-rectangular-deep-46a1c1519d.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-161-680-spec-en-99f6b31a28.webp"
+    },
+    {
+      "id": 62,
+      "slug": "aluminum-foil-gold-184-580",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-rectangular-shallow-3d4cfd47f5.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-184-580-spec-en-6a8c33bb52.webp"
+    },
+    {
+      "id": 63,
+      "slug": "aluminum-foil-gold-184-665",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-rectangular-shallow-3d4cfd47f5.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-184-665-spec-en-a962d298d5.webp"
+    },
+    {
+      "id": 64,
+      "slug": "aluminum-foil-gold-184-750",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-rectangular-shallow-3d4cfd47f5.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-184-750-spec-en-ba8605d606.webp"
+    },
+    {
+      "id": 65,
+      "slug": "aluminum-foil-gold-184-930",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-rectangular-deep-46a1c1519d.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-184-930-spec-en-0463b9518d.webp"
+    },
+    {
+      "id": 66,
+      "slug": "aluminum-foil-gold-220-1050",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-rectangular-shallow-3d4cfd47f5.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-220-1050-spec-en-ac8ea8b90b.webp"
+    },
+    {
+      "id": 67,
+      "slug": "aluminum-foil-gold-221-1025",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-rectangular-shallow-3d4cfd47f5.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-221-1025-spec-en-c86951408d.webp"
+    },
+    {
+      "id": 68,
+      "slug": "aluminum-foil-gold-221-1400",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-rectangular-shallow-3d4cfd47f5.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-221-1400-spec-en-9eeb87d222.webp"
+    },
+    {
+      "id": 69,
+      "slug": "aluminum-foil-gold-221-1800",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-rectangular-deep-46a1c1519d.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-221-1800-spec-en-faa8052dce.webp"
+    },
+    {
+      "id": 70,
+      "slug": "aluminum-foil-gold-278-2200",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-rectangular-shallow-3d4cfd47f5.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-278-2200-spec-en-73bd11699d.webp"
+    },
+    {
+      "id": 71,
+      "slug": "aluminum-foil-gold-278-3300",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-rectangular-deep-46a1c1519d.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-278-3300-spec-en-a62b7a6476.webp"
+    },
+    {
+      "id": 72,
+      "slug": "aluminum-foil-gold-330-2500",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-rectangular-shallow-3d4cfd47f5.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-330-2500-spec-en-673e535d3e.webp"
+    },
+    {
+      "id": 73,
+      "slug": "aluminum-foil-gold-330-3500",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-rectangular-shallow-3d4cfd47f5.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-330-3500-spec-en-fc2246a99f.webp"
+    },
+    {
+      "id": 74,
+      "slug": "aluminum-foil-gold-370-3800",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-rectangular-shallow-3d4cfd47f5.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-370-3800-spec-en-173d222f82.webp"
+    },
+    {
+      "id": 75,
+      "slug": "aluminum-foil-gold-370-4670",
+      "image": "/uploads/aluminum-foil-en-20260930/gold-rectangular-shallow-3d4cfd47f5.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-gold-370-4670-spec-en-f8d4bd97ce.webp"
+    },
+    {
+      "id": 76,
+      "slug": "aluminum-foil-silver-l-l-130",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-standard-deep-68a6859d19.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-l-l-130-spec-en-8e13bcb68b.webp"
+    },
+    {
+      "id": 77,
+      "slug": "aluminum-foil-silver-l-l-150",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-standard-deep-68a6859d19.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-l-l-150-spec-en-6ef88ca8df.webp"
+    },
+    {
+      "id": 78,
+      "slug": "aluminum-foil-silver-l-l-165",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-standard-deep-68a6859d19.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-l-l-165-spec-en-fbc4ef8817.webp"
+    },
+    {
+      "id": 79,
+      "slug": "aluminum-foil-silver-l-l-175",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-standard-deep-68a6859d19.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-l-l-175-spec-en-2fe0ebb708.webp"
+    },
+    {
+      "id": 80,
+      "slug": "aluminum-foil-silver-l-l-185",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-standard-deep-68a6859d19.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-l-l-185-spec-en-f8d847061f.webp"
+    },
+    {
+      "id": 81,
+      "slug": "aluminum-foil-silver-l-l-195-deep",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-standard-deep-68a6859d19.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-l-l-195-deep-spec-en-5b6c9945f5.webp"
+    },
+    {
+      "id": 82,
+      "slug": "aluminum-foil-silver-l-l-2011",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-elongated-deep-e936a27eb7.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-l-l-2011-spec-en-a75a3fb078.webp"
+    },
+    {
+      "id": 83,
+      "slug": "aluminum-foil-silver-l-l-205-square",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-square-2dc23714b0.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-l-l-205-square-spec-en-6bddae1a8f.webp"
+    },
+    {
+      "id": 84,
+      "slug": "aluminum-foil-silver-l-l-211",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-standard-deep-68a6859d19.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-l-l-211-spec-en-b3aa5e76f1.webp"
+    },
+    {
+      "id": 85,
+      "slug": "aluminum-foil-silver-l-l-220",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-standard-deep-68a6859d19.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-l-l-220-spec-en-9b510df871.webp"
+    },
+    {
+      "id": 86,
+      "slug": "aluminum-foil-silver-l-l-2514",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-elongated-shallow-ad32977f7f.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-l-l-2514-spec-en-e1a6bb546b.webp"
+    },
+    {
+      "id": 87,
+      "slug": "aluminum-foil-silver-l-l-2619",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-standard-deep-68a6859d19.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-l-l-2619-spec-en-3b0a185244.webp"
+    },
+    {
+      "id": 88,
+      "slug": "aluminum-foil-silver-l-l-315",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-standard-shallow-60b4b1e0b5.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-l-l-315-spec-en-c0fa3fd7ba.webp"
+    },
+    {
+      "id": 89,
+      "slug": "aluminum-foil-silver-l-l-320",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-standard-shallow-60b4b1e0b5.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-l-l-320-spec-en-fda3612c62.webp"
+    },
+    {
+      "id": 90,
+      "slug": "aluminum-foil-silver-l-l-350",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-narrow-shallow-72fe14e4a6.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-l-l-350-spec-en-66bad3c485.webp"
+    },
+    {
+      "id": 91,
+      "slug": "aluminum-foil-silver-l-l-370",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-standard-shallow-60b4b1e0b5.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-l-l-370-spec-en-eee14abb75.webp"
+    },
+    {
+      "id": 92,
+      "slug": "aluminum-foil-silver-l-l-430",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-standard-shallow-60b4b1e0b5.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-l-l-430-spec-en-5c53a43592.webp"
+    },
+    {
+      "id": 93,
+      "slug": "aluminum-foil-silver-l-l-470",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-oval-bowl-3d60e11b93.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-l-l-470-spec-en-d69bcc7c16.webp"
+    },
+    {
+      "id": 94,
+      "slug": "aluminum-foil-silver-l-l-525",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-standard-shallow-60b4b1e0b5.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-l-l-525-spec-en-a436fbc237.webp"
+    },
+    {
+      "id": 95,
+      "slug": "aluminum-foil-silver-l-l-212-pot",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-pot-open-4c0c7329bd.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-l-l-212-pot-spec-en-6592bddffa.webp"
+    },
+    {
+      "id": 96,
+      "slug": "aluminum-foil-silver-l-l-252-pot",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-pot-open-4c0c7329bd.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-l-l-252-pot-spec-en-6fc99bad2d.webp"
+    },
+    {
+      "id": 97,
+      "slug": "aluminum-foil-silver-l-l-292-pot",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-pot-open-4c0c7329bd.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-l-l-292-pot-spec-en-e7ddc10ed3.webp"
+    },
+    {
+      "id": 98,
+      "slug": "aluminum-foil-silver-l-l-338-pot",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-pot-closed-0181840e9e.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-l-l-338-pot-spec-en-5f269ca8fc.webp"
+    },
+    {
+      "id": 99,
+      "slug": "aluminum-foil-silver-l-l-390-pot",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-pot-wide-6426183115.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-l-l-390-pot-spec-en-15b862be6b.webp"
+    },
+    {
+      "id": 100,
+      "slug": "aluminum-foil-silver-l-l-345",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-oval-plate-1c53c45f34.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-l-l-345-spec-en-c1d8f51d50.webp"
+    },
+    {
+      "id": 101,
+      "slug": "aluminum-foil-silver-l-l-428",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-oval-plate-1c53c45f34.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-l-l-428-spec-en-0374d4d3af.webp"
+    },
+    {
+      "id": 102,
+      "slug": "aluminum-foil-silver-l-l-549",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-oval-plate-1c53c45f34.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-l-l-549-spec-en-b59cc67f0b.webp"
+    },
+    {
+      "id": 103,
+      "slug": "aluminum-foil-silver-l-l-7-inch-plate",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-round-plate-4f9cd92351.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-l-l-7-inch-plate-spec-en-44656ce64a.webp"
+    },
+    {
+      "id": 104,
+      "slug": "aluminum-foil-silver-l-l-8-inch-plate",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-round-plate-4f9cd92351.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-l-l-8-inch-plate-spec-en-948a6c3a13.webp"
+    },
+    {
+      "id": 105,
+      "slug": "aluminum-foil-silver-l-l-9-inch-plate",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-round-plate-4f9cd92351.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-l-l-9-inch-plate-spec-en-0d03da77a4.webp"
+    },
+    {
+      "id": 106,
+      "slug": "aluminum-foil-silver-l-two-compartment",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-two-compartment-8a5c85e6f3.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-l-two-compartment-spec-en-2b8c50e987.webp"
+    },
+    {
+      "id": 107,
+      "slug": "aluminum-foil-silver-l-y-three-compartment",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-three-compartment-45c06572d3.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-l-y-three-compartment-spec-en-7216b7a34e.webp"
+    },
+    {
+      "id": 108,
+      "slug": "aluminum-foil-silver-130-1310",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-standard-deep-68a6859d19.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-130-1310-spec-en-87e549b0f7.webp"
+    },
+    {
+      "id": 109,
+      "slug": "aluminum-foil-silver-150-1512",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-standard-deep-68a6859d19.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-150-1512-spec-en-f31f8d082e.webp"
+    },
+    {
+      "id": 110,
+      "slug": "aluminum-foil-silver-165-1613",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-standard-deep-68a6859d19.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-165-1613-spec-en-8b6557ee7b.webp"
+    },
+    {
+      "id": 111,
+      "slug": "aluminum-foil-silver-175-1711",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-standard-deep-68a6859d19.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-175-1711-spec-en-e3b5547b23.webp"
+    },
+    {
+      "id": 112,
+      "slug": "aluminum-foil-silver-185-1813",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-standard-deep-68a6859d19.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-185-1813-spec-en-5cbc04a067.webp"
+    },
+    {
+      "id": 113,
+      "slug": "aluminum-foil-silver-195-shallow-1914",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-standard-shallow-60b4b1e0b5.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-195-shallow-1914-spec-en-7437278d0c.webp"
+    },
+    {
+      "id": 114,
+      "slug": "aluminum-foil-silver-195-deep",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-standard-deep-68a6859d19.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-195-deep-spec-en-1387f62e09.webp"
+    },
+    {
+      "id": 115,
+      "slug": "aluminum-foil-silver-205-2011",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-elongated-deep-e936a27eb7.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-205-2011-spec-en-3f09c8ab21.webp"
+    },
+    {
+      "id": 116,
+      "slug": "aluminum-foil-silver-2114",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-standard-deep-68a6859d19.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-2114-spec-en-da931b1374.webp"
+    },
+    {
+      "id": 117,
+      "slug": "aluminum-foil-silver-220",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-standard-deep-68a6859d19.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-220-spec-en-0d9d7ef95c.webp"
+    },
+    {
+      "id": 118,
+      "slug": "aluminum-foil-silver-2317",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-standard-shallow-60b4b1e0b5.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-2317-spec-en-1e36a8a460.webp"
+    },
+    {
+      "id": 119,
+      "slug": "aluminum-foil-silver-2619",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-standard-deep-68a6859d19.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-2619-spec-en-a4e415764c.webp"
+    },
+    {
+      "id": 120,
+      "slug": "aluminum-foil-silver-315",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-standard-shallow-60b4b1e0b5.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-315-spec-en-626d4b7653.webp"
+    },
+    {
+      "id": 121,
+      "slug": "aluminum-foil-silver-320",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-standard-shallow-60b4b1e0b5.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-320-spec-en-4f6b6b8bcb.webp"
+    },
+    {
+      "id": 122,
+      "slug": "aluminum-foil-silver-350",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-narrow-shallow-72fe14e4a6.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-350-spec-en-fee78d21d3.webp"
+    },
+    {
+      "id": 123,
+      "slug": "aluminum-foil-silver-350-deep",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-narrow-deep-2bc2c5d36c.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-350-deep-spec-en-9975fd9a2f.webp"
+    },
+    {
+      "id": 124,
+      "slug": "aluminum-foil-silver-370",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-standard-shallow-60b4b1e0b5.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-370-spec-en-e0e5931c84.webp"
+    },
+    {
+      "id": 125,
+      "slug": "aluminum-foil-silver-525",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-standard-shallow-60b4b1e0b5.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-525-spec-en-6d0a4063fd.webp"
+    },
+    {
+      "id": 126,
+      "slug": "aluminum-foil-silver-y74",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-round-fluted-shallow-42f69f58b5.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-y74-spec-en-052418d4d5.webp"
+    },
+    {
+      "id": 127,
+      "slug": "aluminum-foil-silver-y82",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-round-fluted-deep-444534529a.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-y82-spec-en-eba5a57d1a.webp"
+    },
+    {
+      "id": 128,
+      "slug": "aluminum-foil-silver-98-heart",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-heart-e848c9be25.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-98-heart-spec-en-a99bc19c01.webp"
+    },
+    {
+      "id": 129,
+      "slug": "aluminum-foil-silver-y110",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-round-fluted-medium-cec5dc81c5.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-y110-spec-en-e8ce43990c.webp"
+    },
+    {
+      "id": 130,
+      "slug": "aluminum-foil-silver-y120",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-round-fluted-medium-cec5dc81c5.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-y120-spec-en-efa88b1fba.webp"
+    },
+    {
+      "id": 131,
+      "slug": "aluminum-foil-silver-y140",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-round-fluted-deep-444534529a.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-y140-spec-en-791258d9d6.webp"
+    },
+    {
+      "id": 132,
+      "slug": "aluminum-foil-silver-clam-bowl",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-round-fluted-deep-444534529a.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-clam-bowl-spec-en-17973a6934.webp"
+    },
+    {
+      "id": 133,
+      "slug": "aluminum-foil-silver-claypot-bowl",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-round-fluted-medium-cec5dc81c5.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-claypot-bowl-spec-en-682e9c1a31.webp"
+    },
+    {
+      "id": 134,
+      "slug": "aluminum-foil-silver-round-bowl-lid",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-round-lid-68b3b66db2.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-round-bowl-lid-spec-en-0d93577770.webp"
+    },
+    {
+      "id": 135,
+      "slug": "aluminum-foil-silver-7-inch-plate",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-round-plate-4f9cd92351.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-7-inch-plate-spec-en-a51c337581.webp"
+    },
+    {
+      "id": 136,
+      "slug": "aluminum-foil-silver-8-inch-plate",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-round-plate-4f9cd92351.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-8-inch-plate-spec-en-00fc62f7ee.webp"
+    },
+    {
+      "id": 137,
+      "slug": "aluminum-foil-silver-9-inch-plate",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-round-plate-4f9cd92351.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-9-inch-plate-spec-en-8a89b309b0.webp"
+    },
+    {
+      "id": 138,
+      "slug": "aluminum-foil-silver-320-lid",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-lid-99a64fc3b3.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-320-lid-spec-en-c02fc2baba.webp"
+    },
+    {
+      "id": 139,
+      "slug": "aluminum-foil-silver-370-lid",
+      "image": "/uploads/aluminum-foil-en-20260930/silver-rectangular-lid-99a64fc3b3.webp",
+      "specificationImage": "/uploads/aluminum-foil-en-20260930/aluminum-foil-silver-370-lid-spec-en-bdad507715.webp"
+    }
+  ],
+  "backup": "/root/bbb/data/backups/before-aluminum-english-images-20260930-035323.db",
+  "startedAt": "2026-09-30T03:53:23.209148+00:00",
+  "status": "published-images-verified",
+  "assetsCopied": 161,
+  "publishedAt": "2026-09-30T03:53:29.942400+00:00",
+  "categoryId": 234,
+  "categoryImage": "/uploads/aluminum-foil-en-20260930/category-aluminum-foil-en-0a61b02770.webp",
+  "mainImages": 39,
+  "specificationImages": 121,
+  "untouchedProducts": 15,
+  "nonImageProductFieldsPreserved": true,
+  "sqliteIntegrity": "ok",
+  "publicCategoryUrl": "https://yiyuanpack.com/products/category/aluminum-foil-packaging"
+}

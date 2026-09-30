@@ -17,7 +17,7 @@
 | --- | --- | --- | --- | --- |
 | LIVE | 产品介绍 PDF | `/downloads/yiyuan-food-container-cling-film-product-catalog.pdf` | `/documents`、产品列表页、产品详情页、联系页 | 食品容器和保鲜膜产品资料，可在线阅读和下载 |
 | LIVE | 检验 / 测试报告 PDF | `/downloads/yiyuan-cling-film-test-report-ccf-000071.pdf` | `/documents`、关于页、产品详情页、联系页、首页质量区 | 扫描版质量文件，前台用 `Food Contact Test Report` / `Test Report` 表述 |
-| LIVE | 铝箔包装修订图册及逐款资料 | `/downloads/ihwan-aluminum-foil-packaging-catalog.pdf`；`工作流/批次/20260930-铝箔包装产品资料/` | 铝箔分类、详情、产品列表及资料中心 | 121 款产品已发布，38 行卷/片规格、243 张保留标尺的素材；明显错误已修订，完整原图和修订依据留存 |
+| LIVE | 铝箔包装修订图册及逐款资料 | `/downloads/ihwan-aluminum-foil-packaging-catalog.pdf`；`工作流/批次/20260930-铝箔包装产品资料/` | 铝箔分类、详情、产品列表及资料中心 | 121 款产品已发布，38 行卷/片规格完整；外观分为 39 组共用 AI 修复主图、121 张独立英文规格图及 1 张分类图，极简白底、英文标尺；记录见 `工作流/批次/20260930-铝箔包装英文高清素材/`，PDF 按用户要求仅作来源，本次不再修复 |
 
 ## 产品资料缺口
 

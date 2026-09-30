@@ -1,5 +1,5 @@
 {
-  "status": "products-published-final-pdf-deployment-pending",
+  "status": "published-english-product-images-verified",
   "categoryUrl": "https://yiyuanpack.com/products/category/aluminum-foil-packaging",
   "categoryId": 234,
   "publishedProducts": 121,
@@ -148,5 +148,139 @@
       }
     ],
     "screenshots": "images/verification/"
-  }
+  },
+  "pdfScope": "User explicitly instructed that PDF is source material only. No further PDF repair or PDF-only deployment in the English artwork task.",
+  "englishImagePublication": {
+    "backup": "/root/bbb/data/backups/before-aluminum-english-images-20260930-035323.db",
+    "startedAt": "2026-09-30T03:53:23.209148+00:00",
+    "status": "published-images-verified",
+    "assetsCopied": 161,
+    "publishedAt": "2026-09-30T03:53:29.942400+00:00",
+    "categoryId": 234,
+    "categoryImage": "/uploads/aluminum-foil-en-20260930/category-aluminum-foil-en-0a61b02770.webp",
+    "mainImages": 39,
+    "specificationImages": 121,
+    "untouchedProducts": 15,
+    "nonImageProductFieldsPreserved": true,
+    "sqliteIntegrity": "ok",
+    "publicCategoryUrl": "https://yiyuanpack.com/products/category/aluminum-foil-packaging"
+  },
+  "englishImagePublicVerification": {
+    "status": "passed",
+    "checkedAt": "2026-09-30T03:56:42.932525+00:00",
+    "products": 121,
+    "sharedMainImages": 39,
+    "specificationImages": 121,
+    "categoryImages": 1,
+    "nonImageFieldsPreserved": true,
+    "englishArtworkTextChecked": true,
+    "oldProductImageReferencesRemaining": 0,
+    "assetHttp200": 161,
+    "pageHttp200": 122
+  },
+  "englishImageBrowserVerification": {
+    "status": "passed",
+    "checkedAt": "2026-09-30T03:56:30.606005+00:00",
+    "pageErrors": [],
+    "results": [
+      {
+        "width": 1440,
+        "page": "/products/category/aluminum-foil-packaging",
+        "cards": 121,
+        "http": 200,
+        "navigationVisible": true,
+        "horizontalOverflow": false
+      },
+      {
+        "width": 1440,
+        "page": "/products/aluminum-foil-gold-0909-180",
+        "http": 200,
+        "mainImageLoaded": true,
+        "gallerySwitch": true,
+        "englishSpecLoaded": true,
+        "fullSizeImageLink": true,
+        "horizontalOverflow": false
+      },
+      {
+        "width": 1440,
+        "page": "/products/aluminum-foil-silver-l-two-compartment",
+        "http": 200,
+        "mainImageLoaded": true,
+        "gallerySwitch": true,
+        "englishSpecLoaded": true,
+        "fullSizeImageLink": true,
+        "horizontalOverflow": false
+      },
+      {
+        "width": 1440,
+        "page": "/products/aluminum-foil-hookah-sheets",
+        "http": 200,
+        "mainImageLoaded": true,
+        "gallerySwitch": true,
+        "englishSpecLoaded": true,
+        "fullSizeImageLink": true,
+        "horizontalOverflow": false
+      },
+      {
+        "width": 1440,
+        "page": "/products/aluminum-foil-silver-round-bowl-lid",
+        "http": 200,
+        "mainImageLoaded": true,
+        "gallerySwitch": true,
+        "englishSpecLoaded": true,
+        "fullSizeImageLink": true,
+        "horizontalOverflow": false
+      },
+      {
+        "width": 390,
+        "page": "/products/category/aluminum-foil-packaging",
+        "cards": 121,
+        "http": 200,
+        "navigationVisible": true,
+        "horizontalOverflow": false
+      },
+      {
+        "width": 390,
+        "page": "/products/aluminum-foil-gold-0909-180",
+        "http": 200,
+        "mainImageLoaded": true,
+        "gallerySwitch": true,
+        "englishSpecLoaded": true,
+        "fullSizeImageLink": true,
+        "horizontalOverflow": false
+      },
+      {
+        "width": 390,
+        "page": "/products/aluminum-foil-silver-l-two-compartment",
+        "http": 200,
+        "mainImageLoaded": true,
+        "gallerySwitch": true,
+        "englishSpecLoaded": true,
+        "fullSizeImageLink": true,
+        "horizontalOverflow": false
+      },
+      {
+        "width": 390,
+        "page": "/products/aluminum-foil-hookah-sheets",
+        "http": 200,
+        "mainImageLoaded": true,
+        "gallerySwitch": true,
+        "englishSpecLoaded": true,
+        "fullSizeImageLink": true,
+        "horizontalOverflow": false
+      },
+      {
+        "width": 390,
+        "page": "/products/aluminum-foil-silver-round-bowl-lid",
+        "http": 200,
+        "mainImageLoaded": true,
+        "gallerySwitch": true,
+        "englishSpecLoaded": true,
+        "fullSizeImageLink": true,
+        "horizontalOverflow": false
+      }
+    ],
+    "screenshots": "images/verification/"
+  },
+  "englishImageBatch": "工作流/批次/20260930-铝箔包装英文高清素材/"
 }

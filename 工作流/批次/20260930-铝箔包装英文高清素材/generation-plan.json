@@ -1,0 +1,1517 @@
+{
+  "date": "2026-09-30",
+  "status": "all-english-assets-prepared",
+  "authorization": "User approved shared restored main photograph for products with the same appearance but different sizes; distinctly different construction gets a separate restoration.",
+  "strategy": "AI restore one representative per visual family; crop batch sheets; reuse the image in per-model English specification graphics.",
+  "productCount": 121,
+  "uniqueVisualFamilies": 39,
+  "avoidedDuplicateRestorations": 82,
+  "pdfScope": "Source of images and data only; no PDF editing or restoration in this batch.",
+  "groups": [
+    {
+      "visualKey": "silver-bare-foil-rolls",
+      "representativeSlug": "aluminum-foil-household",
+      "representativeName": "Household Aluminum Foil Rolls",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-household.webp",
+      "finish": "Silver",
+      "shape": "household",
+      "products": [
+        {
+          "slug": "aluminum-foil-household",
+          "model": "household",
+          "dimensions": null,
+          "capacityMl": null
+        },
+        {
+          "slug": "aluminum-foil-foodservice",
+          "model": "foodservice",
+          "dimensions": null,
+          "capacityMl": null
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/silver-bare-foil-rolls-a8b41baef0.webp",
+      "mainAsset": "images/main/silver-bare-foil-rolls.webp"
+    },
+    {
+      "visualKey": "silver-hookah-roll",
+      "representativeSlug": "aluminum-foil-hookah-roll",
+      "representativeName": "Hookah Aluminum Foil Rolls",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-hookah-roll.webp",
+      "finish": "Silver",
+      "shape": "hookah-roll",
+      "products": [
+        {
+          "slug": "aluminum-foil-hookah-roll",
+          "model": "hookah-roll",
+          "dimensions": null,
+          "capacityMl": null
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/silver-hookah-roll-e550be847a.webp",
+      "mainAsset": "images/main/silver-hookah-roll.webp"
+    },
+    {
+      "visualKey": "silver-hookah-sheets",
+      "representativeSlug": "aluminum-foil-hookah-sheets",
+      "representativeName": "Hookah Aluminum Foil Sheets",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-hookah-sheets.webp",
+      "finish": "Silver",
+      "shape": "hookah-sheets",
+      "products": [
+        {
+          "slug": "aluminum-foil-hookah-sheets",
+          "model": "hookah-sheets",
+          "dimensions": null,
+          "capacityMl": null
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/silver-hookah-sheets-6d3f59a4b5.webp",
+      "mainAsset": "images/main/silver-hookah-sheets.webp"
+    },
+    {
+      "visualKey": "gold-oval-cup",
+      "representativeSlug": "aluminum-foil-gold-0806-60",
+      "representativeName": "Gold Aluminum Foil Mini Oval Cup 0806-60 (60 ml)",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-gold-0806-60.webp",
+      "finish": "Gold",
+      "shape": "oval-cup",
+      "products": [
+        {
+          "slug": "aluminum-foil-gold-0806-60",
+          "model": "0806-60",
+          "dimensions": "79 × 58 × 26 mm",
+          "capacityMl": 60
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/gold-oval-cup-001942460a.webp",
+      "mainAsset": "images/main/gold-oval-cup.webp"
+    },
+    {
+      "visualKey": "gold-heart",
+      "representativeSlug": "aluminum-foil-gold-89-100-heart",
+      "representativeName": "Gold Aluminum Foil Heart Container 89-100 (100 ml)",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-gold-89-100-heart.webp",
+      "finish": "Gold",
+      "shape": "heart",
+      "products": [
+        {
+          "slug": "aluminum-foil-gold-89-100-heart",
+          "model": "89-100心形",
+          "dimensions": "90 × 83 × 29 mm",
+          "capacityMl": 100
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/gold-heart-9cd8fc6994.webp",
+      "mainAsset": "images/main/gold-heart.webp"
+    },
+    {
+      "visualKey": "gold-square-shallow",
+      "representativeSlug": "aluminum-foil-gold-0909-110",
+      "representativeName": "Gold Aluminum Foil Square Container 0909-110 (110 ml)",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-gold-0909-110.webp",
+      "finish": "Gold",
+      "shape": "square",
+      "products": [
+        {
+          "slug": "aluminum-foil-gold-0909-110",
+          "model": "0909-110",
+          "dimensions": "90 × 90 × 22 mm",
+          "capacityMl": 110
+        },
+        {
+          "slug": "aluminum-foil-gold-112-230",
+          "model": "112-230",
+          "dimensions": "112 × 112 × 30 mm",
+          "capacityMl": 230
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/gold-square-shallow-0a7f78759b.webp",
+      "mainAsset": "images/main/gold-square-shallow.webp"
+    },
+    {
+      "visualKey": "gold-round-cup",
+      "representativeSlug": "aluminum-foil-gold-84-110",
+      "representativeName": "Gold Aluminum Foil Round Cup 84-110 (110 ml)",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-gold-84-110.webp",
+      "finish": "Gold",
+      "shape": "round-cup",
+      "products": [
+        {
+          "slug": "aluminum-foil-gold-84-110",
+          "model": "84-110",
+          "dimensions": "φ84 × 29 mm",
+          "capacityMl": 110
+        },
+        {
+          "slug": "aluminum-foil-gold-84-125",
+          "model": "84-125",
+          "dimensions": "φ84 × 36 mm",
+          "capacityMl": 125
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/gold-round-cup-596b584483.webp",
+      "mainAsset": "images/main/gold-round-cup.webp"
+    },
+    {
+      "visualKey": "gold-square-deep",
+      "representativeSlug": "aluminum-foil-gold-0909-180",
+      "representativeName": "Gold Aluminum Foil Square Container 0909-180 (180 ml)",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-gold-0909-180.webp",
+      "finish": "Gold",
+      "shape": "square",
+      "products": [
+        {
+          "slug": "aluminum-foil-gold-0909-180",
+          "model": "0909-180",
+          "dimensions": "90 × 90 × 36 mm",
+          "capacityMl": 180
+        },
+        {
+          "slug": "aluminum-foil-gold-112-300",
+          "model": "112-300",
+          "dimensions": "112 × 112 × 40 mm",
+          "capacityMl": 300
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/gold-square-deep-7ddf8006b7.webp",
+      "mainAsset": "images/main/gold-square-deep.webp"
+    },
+    {
+      "visualKey": "gold-rectangular-narrow",
+      "representativeSlug": "aluminum-foil-gold-166-200",
+      "representativeName": "Gold Aluminum Foil Rectangular Container 166-200 (200 ml)",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-gold-166-200.webp",
+      "finish": "Gold",
+      "shape": "rectangular",
+      "products": [
+        {
+          "slug": "aluminum-foil-gold-166-200",
+          "model": "166-200",
+          "dimensions": "166 × 64 × 29 mm",
+          "capacityMl": 200
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/gold-rectangular-narrow-4f22c3c96e.webp",
+      "mainAsset": "images/main/gold-rectangular-narrow.webp"
+    },
+    {
+      "visualKey": "gold-round-hemispherical",
+      "representativeSlug": "aluminum-foil-gold-120-300",
+      "representativeName": "Gold Aluminum Foil Round Container 120-300 (300 ml)",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-gold-120-300.webp",
+      "finish": "Gold",
+      "shape": "round",
+      "products": [
+        {
+          "slug": "aluminum-foil-gold-120-300",
+          "model": "120-300",
+          "dimensions": "φ118 × 53 mm",
+          "capacityMl": 300
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/gold-round-hemispherical-b04143dd53.webp",
+      "mainAsset": "images/main/gold-round-hemispherical.webp"
+    },
+    {
+      "visualKey": "gold-round-smooth",
+      "representativeSlug": "aluminum-foil-gold-128-450",
+      "representativeName": "Gold Aluminum Foil Round Container 128-450 (450 ml)",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-gold-128-450.webp",
+      "finish": "Gold",
+      "shape": "round",
+      "products": [
+        {
+          "slug": "aluminum-foil-gold-128-450",
+          "model": "128-450",
+          "dimensions": "φ128 × 50 mm",
+          "capacityMl": 450
+        },
+        {
+          "slug": "aluminum-foil-gold-195-1200",
+          "model": "195-1200",
+          "dimensions": "φ195 × 53 mm",
+          "capacityMl": 1200
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/gold-round-smooth-9f6915fcb8.webp",
+      "mainAsset": "images/main/gold-round-smooth.webp"
+    },
+    {
+      "visualKey": "gold-round-fluted-deep",
+      "representativeSlug": "aluminum-foil-gold-180-1370",
+      "representativeName": "Gold Aluminum Foil Round Container 180-1370 (1370 ml)",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-gold-180-1370.webp",
+      "finish": "Gold",
+      "shape": "round",
+      "products": [
+        {
+          "slug": "aluminum-foil-gold-138-680",
+          "model": "138-680",
+          "dimensions": "φ138 × 69 mm",
+          "capacityMl": 680
+        },
+        {
+          "slug": "aluminum-foil-gold-160-960",
+          "model": "160-960",
+          "dimensions": "φ160 × 70 mm",
+          "capacityMl": 960
+        },
+        {
+          "slug": "aluminum-foil-gold-180-1370",
+          "model": "180-1370",
+          "dimensions": "φ180 × 80 mm",
+          "capacityMl": 1370
+        },
+        {
+          "slug": "aluminum-foil-gold-180-1700",
+          "model": "180-1700",
+          "dimensions": "φ180 × 97 mm",
+          "capacityMl": 1700
+        },
+        {
+          "slug": "aluminum-foil-gold-280-6000",
+          "model": "280-6000",
+          "dimensions": "φ280 × 133 mm",
+          "capacityMl": 6000
+        },
+        {
+          "slug": "aluminum-foil-gold-320-8600",
+          "model": "320-8600",
+          "dimensions": "φ320 × 139 mm",
+          "capacityMl": 8600
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/gold-round-fluted-deep-a34bf3581f.webp",
+      "mainAsset": "images/main/gold-round-fluted-deep.webp"
+    },
+    {
+      "visualKey": "gold-round-fluted-shallow",
+      "representativeSlug": "aluminum-foil-gold-250-2500",
+      "representativeName": "Gold Aluminum Foil Round Container 250-2500 (2500 ml)",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-gold-250-2500.webp",
+      "finish": "Gold",
+      "shape": "round",
+      "products": [
+        {
+          "slug": "aluminum-foil-gold-140-520",
+          "model": "140-520",
+          "dimensions": "φ140 × 46 mm",
+          "capacityMl": 520
+        },
+        {
+          "slug": "aluminum-foil-gold-230-1050",
+          "model": "230-1050",
+          "dimensions": "φ230 × 40 mm",
+          "capacityMl": 1050
+        },
+        {
+          "slug": "aluminum-foil-gold-160-825",
+          "model": "160-825",
+          "dimensions": "φ160 × 54 mm",
+          "capacityMl": 825
+        },
+        {
+          "slug": "aluminum-foil-gold-180-920",
+          "model": "180-920",
+          "dimensions": "φ180 × 47 mm",
+          "capacityMl": 920
+        },
+        {
+          "slug": "aluminum-foil-gold-180-1130",
+          "model": "180-1130",
+          "dimensions": "φ180 × 60 mm",
+          "capacityMl": 1130
+        },
+        {
+          "slug": "aluminum-foil-gold-250-2000",
+          "model": "250-2000",
+          "dimensions": "φ250 × 52 mm",
+          "capacityMl": 2000
+        },
+        {
+          "slug": "aluminum-foil-gold-250-2500",
+          "model": "250-2500",
+          "dimensions": "φ250 × 62 mm",
+          "capacityMl": 2500
+        },
+        {
+          "slug": "aluminum-foil-gold-250-3000",
+          "model": "250-3000",
+          "dimensions": "φ250 × 80 mm",
+          "capacityMl": 3000
+        },
+        {
+          "slug": "aluminum-foil-gold-280-4000",
+          "model": "280-4000",
+          "dimensions": "φ280 × 87 mm",
+          "capacityMl": 4000
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/gold-round-fluted-shallow-3092bec91d.webp",
+      "mainAsset": "images/main/gold-round-fluted-shallow.webp"
+    },
+    {
+      "visualKey": "gold-round-fluted-medium",
+      "representativeSlug": "aluminum-foil-gold-140-620",
+      "representativeName": "Gold Aluminum Foil Round Container 140-620 (620 ml)",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-gold-140-620.webp",
+      "finish": "Gold",
+      "shape": "round",
+      "products": [
+        {
+          "slug": "aluminum-foil-gold-140-620",
+          "model": "140-620",
+          "dimensions": "φ140 × 55 mm",
+          "capacityMl": 620
+        },
+        {
+          "slug": "aluminum-foil-gold-250-3500",
+          "model": "250-3500",
+          "dimensions": "φ250 × 93 mm",
+          "capacityMl": 3500
+        },
+        {
+          "slug": "aluminum-foil-gold-280-5000",
+          "model": "280-5000",
+          "dimensions": "φ280 × 110 mm",
+          "capacityMl": 5000
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/gold-round-fluted-medium-fd04313f68.webp",
+      "mainAsset": "images/main/gold-round-fluted-medium.webp"
+    },
+    {
+      "visualKey": "gold-round-flared",
+      "representativeSlug": "aluminum-foil-gold-270-3100",
+      "representativeName": "Gold Aluminum Foil Round Container 270-3100 (3100 ml)",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-gold-270-3100.webp",
+      "finish": "Gold",
+      "shape": "round",
+      "products": [
+        {
+          "slug": "aluminum-foil-gold-160-600",
+          "model": "160-600",
+          "dimensions": "φ160 × 45 mm",
+          "capacityMl": 600
+        },
+        {
+          "slug": "aluminum-foil-gold-270-2200",
+          "model": "270-2200",
+          "dimensions": "φ290 × 55 mm",
+          "capacityMl": 2200
+        },
+        {
+          "slug": "aluminum-foil-gold-270-3100",
+          "model": "270-3100",
+          "dimensions": "φ290 × 75 mm",
+          "capacityMl": 3100
+        },
+        {
+          "slug": "aluminum-foil-gold-270-3500",
+          "model": "270-3500",
+          "dimensions": "φ290 × 85 mm",
+          "capacityMl": 3500
+        },
+        {
+          "slug": "aluminum-foil-gold-270-4000",
+          "model": "270-4000",
+          "dimensions": "φ290 × 95 mm",
+          "capacityMl": 4000
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/gold-round-flared-6a880bed51.webp",
+      "mainAsset": "images/main/gold-round-flared.webp"
+    },
+    {
+      "visualKey": "gold-ear-tab",
+      "representativeSlug": "aluminum-foil-gold-197-1430",
+      "representativeName": "Gold Aluminum Foil Round Container with Ear Tabs 197-1430 (1430 ml)",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-gold-197-1430.webp",
+      "finish": "Gold",
+      "shape": "ear-tab",
+      "products": [
+        {
+          "slug": "aluminum-foil-gold-197-1430",
+          "model": "197-1430",
+          "dimensions": "210 × 197 × 63 mm",
+          "capacityMl": 1430
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/gold-ear-tab-6dd8cc2138.webp",
+      "mainAsset": "images/main/gold-ear-tab.webp"
+    },
+    {
+      "visualKey": "gold-rectangular-shallow",
+      "representativeSlug": "aluminum-foil-gold-184-750",
+      "representativeName": "Gold Aluminum Foil Rectangular Container 184-750 (750 ml)",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-gold-184-750.webp",
+      "finish": "Gold",
+      "shape": "rectangular",
+      "products": [
+        {
+          "slug": "aluminum-foil-gold-161-320",
+          "model": "161-320",
+          "dimensions": "161 × 110 × 30 mm",
+          "capacityMl": 320
+        },
+        {
+          "slug": "aluminum-foil-gold-161-510",
+          "model": "161-510",
+          "dimensions": "161 × 110 × 38 mm",
+          "capacityMl": 510
+        },
+        {
+          "slug": "aluminum-foil-gold-184-580",
+          "model": "184-580",
+          "dimensions": "184 × 128 × 35 mm",
+          "capacityMl": 580
+        },
+        {
+          "slug": "aluminum-foil-gold-184-665",
+          "model": "184-665",
+          "dimensions": "184 × 128 × 40 mm",
+          "capacityMl": 665
+        },
+        {
+          "slug": "aluminum-foil-gold-184-750",
+          "model": "184-750",
+          "dimensions": "184 × 128 × 45 mm",
+          "capacityMl": 750
+        },
+        {
+          "slug": "aluminum-foil-gold-220-1050",
+          "model": "220-1050",
+          "dimensions": "220 × 150 × 45 mm",
+          "capacityMl": 1050
+        },
+        {
+          "slug": "aluminum-foil-gold-221-1025",
+          "model": "221-1025",
+          "dimensions": "221 × 168 × 40 mm",
+          "capacityMl": 1025
+        },
+        {
+          "slug": "aluminum-foil-gold-221-1400",
+          "model": "221-1400",
+          "dimensions": "221 × 168 × 56 mm",
+          "capacityMl": 1400
+        },
+        {
+          "slug": "aluminum-foil-gold-278-2200",
+          "model": "278-2200",
+          "dimensions": "278 × 197 × 55 mm",
+          "capacityMl": 2200
+        },
+        {
+          "slug": "aluminum-foil-gold-330-2500",
+          "model": "330-2500",
+          "dimensions": "330 × 230 × 45 mm",
+          "capacityMl": 2500
+        },
+        {
+          "slug": "aluminum-foil-gold-330-3500",
+          "model": "330-3500",
+          "dimensions": "330 × 230 × 60 mm",
+          "capacityMl": 3500
+        },
+        {
+          "slug": "aluminum-foil-gold-370-3800",
+          "model": "370-3800",
+          "dimensions": "370 × 268 × 45 mm",
+          "capacityMl": 3800
+        },
+        {
+          "slug": "aluminum-foil-gold-370-4670",
+          "model": "370-4670",
+          "dimensions": "370 × 270 × 60 mm",
+          "capacityMl": 4670
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/gold-rectangular-shallow-3d4cfd47f5.webp",
+      "mainAsset": "images/main/gold-rectangular-shallow.webp"
+    },
+    {
+      "visualKey": "gold-rectangular-deep",
+      "representativeSlug": "aluminum-foil-gold-221-1800",
+      "representativeName": "Gold Aluminum Foil Rectangular Container 221-1800 (1800 ml)",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-gold-221-1800.webp",
+      "finish": "Gold",
+      "shape": "rectangular",
+      "products": [
+        {
+          "slug": "aluminum-foil-gold-161-680",
+          "model": "161-680",
+          "dimensions": "161 × 110 × 55 mm",
+          "capacityMl": 680
+        },
+        {
+          "slug": "aluminum-foil-gold-184-930",
+          "model": "184-930",
+          "dimensions": "184 × 128 × 55 mm",
+          "capacityMl": 930
+        },
+        {
+          "slug": "aluminum-foil-gold-221-1800",
+          "model": "221-1800",
+          "dimensions": "221 × 168 × 75 mm",
+          "capacityMl": 1800
+        },
+        {
+          "slug": "aluminum-foil-gold-278-3300",
+          "model": "278-3300",
+          "dimensions": "278 × 197 × 87 mm",
+          "capacityMl": 3300
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/gold-rectangular-deep-46a1c1519d.webp",
+      "mainAsset": "images/main/gold-rectangular-deep.webp"
+    },
+    {
+      "visualKey": "silver-rectangular-standard-deep",
+      "representativeSlug": "aluminum-foil-silver-185-1813",
+      "representativeName": "Silver Aluminum Foil Rectangular Container 185 (1813) (750 ml)",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-silver-185-1813.webp",
+      "finish": "Silver",
+      "shape": "rectangular",
+      "products": [
+        {
+          "slug": "aluminum-foil-silver-l-l-130",
+          "model": "L-130",
+          "dimensions": "130 × 99 × 42 mm",
+          "capacityMl": 260
+        },
+        {
+          "slug": "aluminum-foil-silver-l-l-150",
+          "model": "L-150",
+          "dimensions": "144 × 119 × 49 mm",
+          "capacityMl": 450
+        },
+        {
+          "slug": "aluminum-foil-silver-l-l-165",
+          "model": "L-165",
+          "dimensions": "165 × 135 × 48 mm",
+          "capacityMl": 550
+        },
+        {
+          "slug": "aluminum-foil-silver-l-l-175",
+          "model": "L-175",
+          "dimensions": "175 × 113 × 38 mm",
+          "capacityMl": 410
+        },
+        {
+          "slug": "aluminum-foil-silver-l-l-185",
+          "model": "L-185",
+          "dimensions": "185 × 135 × 50 mm",
+          "capacityMl": 700
+        },
+        {
+          "slug": "aluminum-foil-silver-l-l-195-deep",
+          "model": "L-195深",
+          "dimensions": "194 × 145 × 53 mm",
+          "capacityMl": 850
+        },
+        {
+          "slug": "aluminum-foil-silver-l-l-211",
+          "model": "L-211",
+          "dimensions": "210 × 140 × 48 mm",
+          "capacityMl": 850
+        },
+        {
+          "slug": "aluminum-foil-silver-l-l-220",
+          "model": "L-220",
+          "dimensions": "220 × 160 × 51 mm",
+          "capacityMl": 1100
+        },
+        {
+          "slug": "aluminum-foil-silver-l-l-2619",
+          "model": "L-2619",
+          "dimensions": "260 × 190 × 65 mm",
+          "capacityMl": 1900
+        },
+        {
+          "slug": "aluminum-foil-silver-130-1310",
+          "model": "130（1310）",
+          "dimensions": "131 × 101 × 37 mm",
+          "capacityMl": 225
+        },
+        {
+          "slug": "aluminum-foil-silver-150-1512",
+          "model": "150（1512）",
+          "dimensions": "150 × 125 × 48 mm",
+          "capacityMl": 400
+        },
+        {
+          "slug": "aluminum-foil-silver-165-1613",
+          "model": "165（1613）",
+          "dimensions": "165 × 130 × 45 mm",
+          "capacityMl": 600
+        },
+        {
+          "slug": "aluminum-foil-silver-175-1711",
+          "model": "175（1711）",
+          "dimensions": "175 × 110 × 40 mm",
+          "capacityMl": 450
+        },
+        {
+          "slug": "aluminum-foil-silver-185-1813",
+          "model": "185（1813）",
+          "dimensions": "185 × 130 × 50 mm",
+          "capacityMl": 750
+        },
+        {
+          "slug": "aluminum-foil-silver-195-deep",
+          "model": "195深",
+          "dimensions": "190 × 140 × 55 mm",
+          "capacityMl": 850
+        },
+        {
+          "slug": "aluminum-foil-silver-2114",
+          "model": "2114",
+          "dimensions": "210 × 140 × 43 mm",
+          "capacityMl": 800
+        },
+        {
+          "slug": "aluminum-foil-silver-220",
+          "model": "220",
+          "dimensions": "215 × 160 × 55 mm",
+          "capacityMl": 1000
+        },
+        {
+          "slug": "aluminum-foil-silver-2619",
+          "model": "2619",
+          "dimensions": "260 × 190 × 65 mm",
+          "capacityMl": 1900
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/silver-rectangular-standard-deep-68a6859d19.webp",
+      "mainAsset": "images/main/silver-rectangular-standard-deep.webp"
+    },
+    {
+      "visualKey": "silver-rectangular-elongated-deep",
+      "representativeSlug": "aluminum-foil-silver-205-2011",
+      "representativeName": "Silver Aluminum Foil Rectangular Container 205 (2011) (650 ml)",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-silver-205-2011.webp",
+      "finish": "Silver",
+      "shape": "rectangular",
+      "products": [
+        {
+          "slug": "aluminum-foil-silver-l-l-2011",
+          "model": "L-2011",
+          "dimensions": "204 × 111 × 55 mm",
+          "capacityMl": 650
+        },
+        {
+          "slug": "aluminum-foil-silver-205-2011",
+          "model": "205（2011）",
+          "dimensions": "205 × 110 × 57 mm",
+          "capacityMl": 650
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/silver-rectangular-elongated-deep-e936a27eb7.webp",
+      "mainAsset": "images/main/silver-rectangular-elongated-deep.webp"
+    },
+    {
+      "visualKey": "silver-square",
+      "representativeSlug": "aluminum-foil-silver-l-l-205-square",
+      "representativeName": "Silver Aluminum Foil Square Container L-205 Square (1100 ml)",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-silver-l-l-205-square.webp",
+      "finish": "Silver",
+      "shape": "square",
+      "products": [
+        {
+          "slug": "aluminum-foil-silver-l-l-205-square",
+          "model": "L-205方",
+          "dimensions": "205 × 205 × 42 mm",
+          "capacityMl": 1100
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/silver-square-2dc23714b0.webp",
+      "mainAsset": "images/main/silver-square.webp"
+    },
+    {
+      "visualKey": "silver-rectangular-elongated-shallow",
+      "representativeSlug": "aluminum-foil-silver-l-l-2514",
+      "representativeName": "Silver Aluminum Foil Rectangular Container L-2514 (1100 ml)",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-silver-l-l-2514.webp",
+      "finish": "Silver",
+      "shape": "rectangular",
+      "products": [
+        {
+          "slug": "aluminum-foil-silver-l-l-2514",
+          "model": "L-2514",
+          "dimensions": "250 × 145 × 47 mm",
+          "capacityMl": 1100
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/silver-rectangular-elongated-shallow-ad32977f7f.webp",
+      "mainAsset": "images/main/silver-rectangular-elongated-shallow.webp"
+    },
+    {
+      "visualKey": "silver-rectangular-standard-shallow",
+      "representativeSlug": "aluminum-foil-silver-315",
+      "representativeName": "Silver Aluminum Foil Rectangular Container 315 (2100 ml)",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-silver-315.webp",
+      "finish": "Silver",
+      "shape": "rectangular",
+      "products": [
+        {
+          "slug": "aluminum-foil-silver-l-l-315",
+          "model": "L-315",
+          "dimensions": "315 × 216 × 50 mm",
+          "capacityMl": 2000
+        },
+        {
+          "slug": "aluminum-foil-silver-l-l-320",
+          "model": "L-320",
+          "dimensions": "320 × 264 × 60 mm",
+          "capacityMl": 3500
+        },
+        {
+          "slug": "aluminum-foil-silver-l-l-370",
+          "model": "L-370",
+          "dimensions": "370 × 270 × 70 mm",
+          "capacityMl": 4800
+        },
+        {
+          "slug": "aluminum-foil-silver-l-l-430",
+          "model": "L-430",
+          "dimensions": "428 × 308 × 68 mm",
+          "capacityMl": 5830
+        },
+        {
+          "slug": "aluminum-foil-silver-l-l-525",
+          "model": "L-525",
+          "dimensions": "525 × 327 × 68 mm",
+          "capacityMl": 9700
+        },
+        {
+          "slug": "aluminum-foil-silver-195-shallow-1914",
+          "model": "195浅（1914）",
+          "dimensions": "195 × 140 × 40 mm",
+          "capacityMl": 600
+        },
+        {
+          "slug": "aluminum-foil-silver-2317",
+          "model": "2317",
+          "dimensions": "230 × 170 × 45 mm",
+          "capacityMl": 1000
+        },
+        {
+          "slug": "aluminum-foil-silver-315",
+          "model": "315",
+          "dimensions": "315 × 215 × 50 mm",
+          "capacityMl": 2100
+        },
+        {
+          "slug": "aluminum-foil-silver-320",
+          "model": "320",
+          "dimensions": "320 × 265 × 60 mm",
+          "capacityMl": 3200
+        },
+        {
+          "slug": "aluminum-foil-silver-370",
+          "model": "370",
+          "dimensions": "370 × 270 × 70 mm",
+          "capacityMl": 4700
+        },
+        {
+          "slug": "aluminum-foil-silver-525",
+          "model": "525",
+          "dimensions": "528 × 325 × 82 mm",
+          "capacityMl": 10500
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/silver-rectangular-standard-shallow-60b4b1e0b5.webp",
+      "mainAsset": "images/main/silver-rectangular-standard-shallow.webp"
+    },
+    {
+      "visualKey": "silver-rectangular-narrow-shallow",
+      "representativeSlug": "aluminum-foil-silver-l-l-350",
+      "representativeName": "Silver Aluminum Foil Rectangular Container L-350 (1350 ml)",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-silver-l-l-350.webp",
+      "finish": "Silver",
+      "shape": "rectangular",
+      "products": [
+        {
+          "slug": "aluminum-foil-silver-l-l-350",
+          "model": "L-350",
+          "dimensions": "350 × 133 × 52 mm",
+          "capacityMl": 1350
+        },
+        {
+          "slug": "aluminum-foil-silver-350",
+          "model": "350",
+          "dimensions": "353 × 133 × 52 mm",
+          "capacityMl": 1200
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/silver-rectangular-narrow-shallow-72fe14e4a6.webp",
+      "mainAsset": "images/main/silver-rectangular-narrow-shallow.webp"
+    },
+    {
+      "visualKey": "silver-oval-bowl",
+      "representativeSlug": "aluminum-foil-silver-l-l-470",
+      "representativeName": "Silver Aluminum Foil Oval Tray L-470 (6800 ml)",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-silver-l-l-470.webp",
+      "finish": "Silver",
+      "shape": "oval",
+      "products": [
+        {
+          "slug": "aluminum-foil-silver-l-l-470",
+          "model": "L-470",
+          "dimensions": "466 × 348 × 80 mm",
+          "capacityMl": 6800
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/silver-oval-bowl-3d60e11b93.webp",
+      "mainAsset": "images/main/silver-oval-bowl.webp"
+    },
+    {
+      "visualKey": "silver-pot-open",
+      "representativeSlug": "aluminum-foil-silver-l-l-212-pot",
+      "representativeName": "Silver Aluminum Foil Pot with Lid L-212 (1100 ml)",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-silver-l-l-212-pot.webp",
+      "finish": "Silver",
+      "shape": "pot",
+      "products": [
+        {
+          "slug": "aluminum-foil-silver-l-l-212-pot",
+          "model": "L-212锅",
+          "dimensions": "φ212 × 65 mm",
+          "capacityMl": 1100
+        },
+        {
+          "slug": "aluminum-foil-silver-l-l-252-pot",
+          "model": "L-252锅",
+          "dimensions": "φ256 × 93 mm",
+          "capacityMl": 2300
+        },
+        {
+          "slug": "aluminum-foil-silver-l-l-292-pot",
+          "model": "L-292锅",
+          "dimensions": "φ294 × 112 mm",
+          "capacityMl": 3800
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/silver-pot-open-4c0c7329bd.webp",
+      "mainAsset": "images/main/silver-pot-open.webp"
+    },
+    {
+      "visualKey": "silver-pot-closed",
+      "representativeSlug": "aluminum-foil-silver-l-l-338-pot",
+      "representativeName": "Silver Aluminum Foil Pot with Lid L-338 (5100 ml)",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-silver-l-l-338-pot.webp",
+      "finish": "Silver",
+      "shape": "pot",
+      "products": [
+        {
+          "slug": "aluminum-foil-silver-l-l-338-pot",
+          "model": "L-338锅",
+          "dimensions": "φ338 × 120 mm",
+          "capacityMl": 5100
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/silver-pot-closed-0181840e9e.webp",
+      "mainAsset": "images/main/silver-pot-closed.webp"
+    },
+    {
+      "visualKey": "silver-pot-wide",
+      "representativeSlug": "aluminum-foil-silver-l-l-390-pot",
+      "representativeName": "Silver Aluminum Foil Pot with Lid L-390 (9000 ml)",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-silver-l-l-390-pot.webp",
+      "finish": "Silver",
+      "shape": "pot",
+      "products": [
+        {
+          "slug": "aluminum-foil-silver-l-l-390-pot",
+          "model": "L-390锅",
+          "dimensions": "φ390 × 114 mm",
+          "capacityMl": 9000
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/silver-pot-wide-6426183115.webp",
+      "mainAsset": "images/main/silver-pot-wide.webp"
+    },
+    {
+      "visualKey": "silver-oval-plate",
+      "representativeSlug": "aluminum-foil-silver-l-l-428",
+      "representativeName": "Silver Aluminum Foil Oval Tray L-428 (1460 ml)",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-silver-l-l-428.webp",
+      "finish": "Silver",
+      "shape": "oval",
+      "products": [
+        {
+          "slug": "aluminum-foil-silver-l-l-345",
+          "model": "L-345",
+          "dimensions": "345 × 245 × 21 mm",
+          "capacityMl": 820
+        },
+        {
+          "slug": "aluminum-foil-silver-l-l-428",
+          "model": "L-428",
+          "dimensions": "428 × 288 × 24 mm",
+          "capacityMl": 1460
+        },
+        {
+          "slug": "aluminum-foil-silver-l-l-549",
+          "model": "L-549",
+          "dimensions": "549 × 365 × 27 mm",
+          "capacityMl": 2840
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/silver-oval-plate-1c53c45f34.webp",
+      "mainAsset": "images/main/silver-oval-plate.webp"
+    },
+    {
+      "visualKey": "silver-round-plate",
+      "representativeSlug": "aluminum-foil-silver-8-inch-plate",
+      "representativeName": "Silver Aluminum Foil Round Plate 8 Inch (880 ml)",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-silver-8-inch-plate.webp",
+      "finish": "Silver",
+      "shape": "round-plate",
+      "products": [
+        {
+          "slug": "aluminum-foil-silver-l-l-7-inch-plate",
+          "model": "L-7寸盘",
+          "dimensions": "φ183 × 43 mm",
+          "capacityMl": 650
+        },
+        {
+          "slug": "aluminum-foil-silver-l-l-8-inch-plate",
+          "model": "L-8寸盘",
+          "dimensions": "φ215 × 41 mm",
+          "capacityMl": 850
+        },
+        {
+          "slug": "aluminum-foil-silver-l-l-9-inch-plate",
+          "model": "L-9寸盘",
+          "dimensions": "φ232 × 50 mm",
+          "capacityMl": 1500
+        },
+        {
+          "slug": "aluminum-foil-silver-7-inch-plate",
+          "model": "7寸盘",
+          "dimensions": "φ185 × 40 mm",
+          "capacityMl": 630
+        },
+        {
+          "slug": "aluminum-foil-silver-8-inch-plate",
+          "model": "8寸盘",
+          "dimensions": "φ215 × 41 mm",
+          "capacityMl": 880
+        },
+        {
+          "slug": "aluminum-foil-silver-9-inch-plate",
+          "model": "9寸盘",
+          "dimensions": "φ234 × 46 mm",
+          "capacityMl": 1350
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/silver-round-plate-4f9cd92351.webp",
+      "mainAsset": "images/main/silver-round-plate.webp"
+    },
+    {
+      "visualKey": "silver-two-compartment",
+      "representativeSlug": "aluminum-foil-silver-l-two-compartment",
+      "representativeName": "Silver Aluminum Foil Two Compartment Container (900 ml)",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-silver-l-two-compartment.webp",
+      "finish": "Silver",
+      "shape": "two-compartment",
+      "products": [
+        {
+          "slug": "aluminum-foil-silver-l-two-compartment",
+          "model": "两格",
+          "dimensions": "227 × 177 × 36 mm",
+          "capacityMl": 900
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/silver-two-compartment-8a5c85e6f3.webp",
+      "mainAsset": "images/main/silver-two-compartment.webp"
+    },
+    {
+      "visualKey": "silver-three-compartment",
+      "representativeSlug": "aluminum-foil-silver-l-y-three-compartment",
+      "representativeName": "Silver Aluminum Foil Three Compartment Container Y (650 ml)",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-silver-l-y-three-compartment.webp",
+      "finish": "Silver",
+      "shape": "three-compartment",
+      "products": [
+        {
+          "slug": "aluminum-foil-silver-l-y-three-compartment",
+          "model": "Y三格",
+          "dimensions": "227 × 177 × 36 mm",
+          "capacityMl": 650
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/silver-three-compartment-45c06572d3.webp",
+      "mainAsset": "images/main/silver-three-compartment.webp"
+    },
+    {
+      "visualKey": "silver-rectangular-narrow-deep",
+      "representativeSlug": "aluminum-foil-silver-350-deep",
+      "representativeName": "Silver Aluminum Foil Rectangular Container 350 Deep (1800 ml)",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-silver-350-deep.webp",
+      "finish": "Silver",
+      "shape": "rectangular",
+      "products": [
+        {
+          "slug": "aluminum-foil-silver-350-deep",
+          "model": "350深",
+          "dimensions": "353 × 135 × 73 mm",
+          "capacityMl": 1800
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/silver-rectangular-narrow-deep-2bc2c5d36c.webp",
+      "mainAsset": "images/main/silver-rectangular-narrow-deep.webp"
+    },
+    {
+      "visualKey": "silver-round-fluted-shallow",
+      "representativeSlug": "aluminum-foil-silver-y74",
+      "representativeName": "Silver Aluminum Foil Round Cup Y74 (35 ml)",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-silver-y74.webp",
+      "finish": "Silver",
+      "shape": "round-cup",
+      "products": [
+        {
+          "slug": "aluminum-foil-silver-y74",
+          "model": "Y74",
+          "dimensions": "φ74 × 19 mm",
+          "capacityMl": 35
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/silver-round-fluted-shallow-42f69f58b5.webp",
+      "mainAsset": "images/main/silver-round-fluted-shallow.webp"
+    },
+    {
+      "visualKey": "silver-round-fluted-deep",
+      "representativeSlug": "aluminum-foil-silver-clam-bowl",
+      "representativeName": "Silver Aluminum Foil Clam Bowl (1000 ml)",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-silver-clam-bowl.webp",
+      "finish": "Silver",
+      "shape": "round-bowl",
+      "products": [
+        {
+          "slug": "aluminum-foil-silver-y82",
+          "model": "Y82",
+          "dimensions": "φ82 × 39 mm",
+          "capacityMl": 110
+        },
+        {
+          "slug": "aluminum-foil-silver-y140",
+          "model": "Y140",
+          "dimensions": "φ140 × 57 mm",
+          "capacityMl": 450
+        },
+        {
+          "slug": "aluminum-foil-silver-clam-bowl",
+          "model": "花甲碗",
+          "dimensions": "φ185 × 85 mm",
+          "capacityMl": 1000
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/silver-round-fluted-deep-444534529a.webp",
+      "mainAsset": "images/main/silver-round-fluted-deep.webp"
+    },
+    {
+      "visualKey": "silver-heart",
+      "representativeSlug": "aluminum-foil-silver-98-heart",
+      "representativeName": "Silver Aluminum Foil Heart Container 98 (260 ml)",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-silver-98-heart.webp",
+      "finish": "Silver",
+      "shape": "heart",
+      "products": [
+        {
+          "slug": "aluminum-foil-silver-98-heart",
+          "model": "98心形",
+          "dimensions": "110 × 35 mm",
+          "capacityMl": 260
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/silver-heart-e848c9be25.webp",
+      "mainAsset": "images/main/silver-heart.webp"
+    },
+    {
+      "visualKey": "silver-round-fluted-medium",
+      "representativeSlug": "aluminum-foil-silver-y120",
+      "representativeName": "Silver Aluminum Foil Round Cup Y120 (300 ml)",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-silver-y120.webp",
+      "finish": "Silver",
+      "shape": "round-cup",
+      "products": [
+        {
+          "slug": "aluminum-foil-silver-y110",
+          "model": "Y110",
+          "dimensions": "φ110 × 35 mm",
+          "capacityMl": 260
+        },
+        {
+          "slug": "aluminum-foil-silver-y120",
+          "model": "Y120",
+          "dimensions": "φ120 × 45 mm",
+          "capacityMl": 300
+        },
+        {
+          "slug": "aluminum-foil-silver-claypot-bowl",
+          "model": "煲仔碗",
+          "dimensions": "φ183 × 65 mm",
+          "capacityMl": 750
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/silver-round-fluted-medium-cec5dc81c5.webp",
+      "mainAsset": "images/main/silver-round-fluted-medium.webp"
+    },
+    {
+      "visualKey": "silver-round-lid",
+      "representativeSlug": "aluminum-foil-silver-round-bowl-lid",
+      "representativeName": "Silver Aluminum Foil Round Bowl Lid (183 mm)",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-silver-round-bowl-lid.webp",
+      "finish": "Silver",
+      "shape": "round-lid",
+      "products": [
+        {
+          "slug": "aluminum-foil-silver-round-bowl-lid",
+          "model": "煲仔盖·花甲盖",
+          "dimensions": "φ183 mm",
+          "capacityMl": null
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/silver-round-lid-68b3b66db2.webp",
+      "mainAsset": "images/main/silver-round-lid.webp"
+    },
+    {
+      "visualKey": "silver-rectangular-lid",
+      "representativeSlug": "aluminum-foil-silver-320-lid",
+      "representativeName": "Silver Aluminum Foil Rectangular Lid 320",
+      "sourceMain": "/root/bbb/工作流/批次/20260930-铝箔包装产品资料/images/main/aluminum-foil-silver-320-lid.webp",
+      "finish": "Silver",
+      "shape": "rectangular-lid",
+      "products": [
+        {
+          "slug": "aluminum-foil-silver-320-lid",
+          "model": "320盖",
+          "dimensions": "320 × 265 mm",
+          "capacityMl": null
+        },
+        {
+          "slug": "aluminum-foil-silver-370-lid",
+          "model": "370盖",
+          "dimensions": "370 × 270 mm",
+          "capacityMl": null
+        }
+      ],
+      "basis": "Same visible construction and broad proportions; sizes and packing annotated separately. Distinct colors, shapes, profiles, lids, handles and compartments separated.",
+      "status": "restored-cropped",
+      "mainPublicPath": "/uploads/aluminum-foil-en-20260930/silver-rectangular-lid-99a64fc3b3.webp",
+      "mainAsset": "images/main/silver-rectangular-lid.webp"
+    }
+  ],
+  "batches": [
+    {
+      "batch": 1,
+      "grid": [
+        2,
+        2
+      ],
+      "reference": "/root/bbb/工作流/批次/20260930-铝箔包装英文高清素材/references/visual-01.png",
+      "visualKeys": [
+        "silver-bare-foil-rolls",
+        "silver-hookah-roll",
+        "silver-hookah-sheets",
+        "gold-oval-cup"
+      ],
+      "status": "generated-reviewed",
+      "generatedGrid": "generated-grids/visual-01.png",
+      "pixels": [
+        1254,
+        1254
+      ],
+      "sha256": "1463a654f005b52b6c6b2ac17316b73ba2602520a6aa2d69eccdb6609a8be925"
+    },
+    {
+      "batch": 2,
+      "grid": [
+        2,
+        2
+      ],
+      "reference": "/root/bbb/工作流/批次/20260930-铝箔包装英文高清素材/references/visual-02.png",
+      "visualKeys": [
+        "gold-heart",
+        "gold-square-shallow",
+        "gold-round-cup",
+        "gold-square-deep"
+      ],
+      "status": "generated-reviewed",
+      "generatedGrid": "generated-grids/visual-02.png",
+      "pixels": [
+        1254,
+        1254
+      ],
+      "sha256": "f3452c1282ef3c6e252bb617d8a4fa74a2ce6bcd2b053494660e7a9925fcc378"
+    },
+    {
+      "batch": 3,
+      "grid": [
+        2,
+        2
+      ],
+      "reference": "/root/bbb/工作流/批次/20260930-铝箔包装英文高清素材/references/visual-03.png",
+      "visualKeys": [
+        "gold-rectangular-narrow",
+        "gold-round-hemispherical",
+        "gold-round-smooth",
+        "gold-round-fluted-deep"
+      ],
+      "status": "generated-reviewed",
+      "generatedGrid": "generated-grids/visual-03.png",
+      "pixels": [
+        1254,
+        1254
+      ],
+      "sha256": "a3a48501125e8a0abacfca6cfc2d94a3ae2390c998bf40067fa1e32c62ded8a9"
+    },
+    {
+      "batch": 4,
+      "grid": [
+        2,
+        2
+      ],
+      "reference": "/root/bbb/工作流/批次/20260930-铝箔包装英文高清素材/references/visual-04.png",
+      "visualKeys": [
+        "gold-round-fluted-shallow",
+        "gold-round-fluted-medium",
+        "gold-round-flared",
+        "gold-ear-tab"
+      ],
+      "status": "generated-reviewed",
+      "generatedGrid": "generated-grids/visual-04.png",
+      "pixels": [
+        1254,
+        1254
+      ],
+      "sha256": "a3fc042cfaba439dbc880279d5288b09403ea771cd82d06e762b75e1531517fd"
+    },
+    {
+      "batch": 5,
+      "grid": [
+        2,
+        2
+      ],
+      "reference": "/root/bbb/工作流/批次/20260930-铝箔包装英文高清素材/references/visual-05.png",
+      "visualKeys": [
+        "gold-rectangular-shallow",
+        "gold-rectangular-deep",
+        "silver-rectangular-standard-deep",
+        "silver-rectangular-elongated-deep"
+      ],
+      "status": "generated-reviewed",
+      "generatedGrid": "generated-grids/visual-05.png",
+      "pixels": [
+        1254,
+        1254
+      ],
+      "sha256": "8a76b4c26ae692bffa6c839197f95bf710e0010af6260f77f42659e3c8f9ed89"
+    },
+    {
+      "batch": 6,
+      "grid": [
+        2,
+        2
+      ],
+      "reference": "/root/bbb/工作流/批次/20260930-铝箔包装英文高清素材/references/visual-06.png",
+      "visualKeys": [
+        "silver-square",
+        "silver-rectangular-elongated-shallow",
+        "silver-rectangular-standard-shallow",
+        "silver-rectangular-narrow-shallow"
+      ],
+      "status": "generated-reviewed",
+      "generatedGrid": "generated-grids/visual-06.png",
+      "pixels": [
+        1254,
+        1254
+      ],
+      "sha256": "2160f1079f5f4006da09cb711cba98f36de663616b508c70c8df2ecf35fcdc9a"
+    },
+    {
+      "batch": 7,
+      "grid": [
+        2,
+        2
+      ],
+      "reference": "/root/bbb/工作流/批次/20260930-铝箔包装英文高清素材/references/visual-07.png",
+      "visualKeys": [
+        "silver-oval-bowl",
+        "silver-pot-open",
+        "silver-pot-closed",
+        "silver-pot-wide"
+      ],
+      "status": "generated-reviewed",
+      "generatedGrid": "generated-grids/visual-07.png",
+      "pixels": [
+        1254,
+        1254
+      ],
+      "sha256": "19ef20a9d6a634959a0abe5e93dc0fcfbde1ab24fa418ebb18bc6d8ab2c29de0"
+    },
+    {
+      "batch": 8,
+      "grid": [
+        2,
+        2
+      ],
+      "reference": "/root/bbb/工作流/批次/20260930-铝箔包装英文高清素材/references/visual-08.png",
+      "visualKeys": [
+        "silver-oval-plate",
+        "silver-round-plate",
+        "silver-two-compartment",
+        "silver-three-compartment"
+      ],
+      "status": "generated-reviewed",
+      "generatedGrid": "generated-grids/visual-08.png",
+      "pixels": [
+        1254,
+        1254
+      ],
+      "sha256": "0a876b1647f477d8f99ebf4ba417ace7de903f80f25cb92f920ef317728f4d79"
+    },
+    {
+      "batch": 9,
+      "grid": [
+        2,
+        2
+      ],
+      "reference": "/root/bbb/工作流/批次/20260930-铝箔包装英文高清素材/references/visual-09.png",
+      "visualKeys": [
+        "silver-rectangular-narrow-deep",
+        "silver-round-fluted-shallow",
+        "silver-round-fluted-deep",
+        "silver-heart"
+      ],
+      "status": "generated-reviewed",
+      "generatedGrid": "generated-grids/visual-09.png",
+      "pixels": [
+        1254,
+        1254
+      ],
+      "sha256": "27d68fbd240c7e10c94589ff512f527c59c746c8e5ac48e3f200ef16e4260fe8"
+    },
+    {
+      "batch": 10,
+      "grid": [
+        2,
+        2
+      ],
+      "reference": "/root/bbb/工作流/批次/20260930-铝箔包装英文高清素材/references/visual-10.png",
+      "visualKeys": [
+        "silver-round-fluted-medium",
+        "silver-round-lid",
+        "silver-rectangular-lid"
+      ],
+      "status": "generated-reviewed",
+      "generatedGrid": "generated-grids/visual-10.png",
+      "pixels": [
+        1254,
+        1254
+      ],
+      "sha256": "3af6871b235bda1f99ddf6dc8b34bfa3974e1c038a3528f298473b402f51e197"
+    }
+  ],
+  "mainImages": 39,
+  "specificationImages": 121,
+  "categoryImages": 1,
+  "totalWebsiteAssets": 161,
+  "finalMainPixels": [
+    1280,
+    960
+  ],
+  "containerSpecificationPixels": [
+    1600,
+    1200
+  ],
+  "categoryPublicPath": "/uploads/aluminum-foil-en-20260930/category-aluminum-foil-en-0a61b02770.webp",
+  "nativeGenerationGridPixels": [
+    1254,
+    1254
+  ],
+  "nativeGenerationCellPixels": [
+    627,
+    627
+  ],
+  "resolutionNote": "AI restores material detail from the low-resolution source. Layout dimensions are separate from the native generated photograph resolution; no claim of native 4K product photographs."
+}
