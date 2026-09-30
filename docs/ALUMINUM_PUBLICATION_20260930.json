@@ -282,5 +282,13 @@
     ],
     "screenshots": "images/verification/"
   },
-  "englishImageBatch": "工作流/批次/20260930-铝箔包装英文高清素材/"
+  "englishImageBatch": "工作流/批次/20260930-铝箔包装英文高清素材/",
+  "englishImageGitCommit": "23d451346a84d120f178dd25bb3f89fd387b165e",
+  "englishImageCloudBuild": {
+    "runId": 36667044006,
+    "status": "success",
+    "url": "https://github.com/yingziseo/bbb/actions/runs/36667044006",
+    "applicationDeploymentRequired": false,
+    "reason": "Only existing image data and content were updated via admin API; no runtime application code/schema changes."
+  }
 }
